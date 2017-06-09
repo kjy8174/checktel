@@ -220,7 +220,7 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
 	        	  if (places[placeIdx].Mode=="City") {
 	  				$('#list')
 	  						.append(
-	  								'<div class="image imgteaser" id="img'+placeIdx+'"><img src="./no_image.png"; style="max-width: 280px;">'
+	  								'<div class="image imgteaser" id="img'+placeIdx+'"><img src="src/main/webapp/img/no_image.png"; style="max-width: 280px;">'
 	  										+ '<div class="text">' + '<span class="desc"><span style="font-size: 15px;  top:0px; left:0px;">'
 	  										+ places[placeIdx].CountryName_ko+'</span><strong>'
 	  										+ places[placeIdx].CityName_ko
@@ -228,7 +228,7 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
 	  			} else {
 	  				$('#list')
 	  						.append(
-	  								'<div class="image imgteaser" id="img'+placeIdx+'"><img src="./no_image.png"; style="max-width: 280px;">'
+	  								'<div class="image imgteaser" id="img'+placeIdx+'"><img src="src/main/webapp/img/no_image.png"; style="max-width: 280px;">'
 			  								+ '<div class="text"><span class="desc"><strong>'
 											+ places[placeIdx].Title + placeIdx + '</strong><span style="float:right; font-size: 15px;">Rank '+places[placeIdx].Rank+'</span></span>'
 											+ '</div></div><br>');
@@ -254,7 +254,7 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
     	  if(places[i].Furl == null && places[i].CategoryIdx >9&&places[placeIdx].Mode!="City") {
     		marker = bm.marker([places[i].Lat, places[i].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+places[i].Title+'</div></div>'})}).bindPopup(places[i].Title).addTo(markerGroup);				
    		  } else if(places[i].Furl == null&&places[placeIdx].Mode!="City") {
-   			marker = bm.marker([places[i].Lat, places[i].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="./img/icon_category_'+places[i].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+places[i].Title+'</div></div>'})}).bindPopup(places[i].Title).addTo(markerGroup);				
+   			marker = bm.marker([places[i].Lat, places[i].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="src/main/webapp/img/icon_category_'+places[i].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+places[i].Title+'</div></div>'})}).bindPopup(places[i].Title).addTo(markerGroup);				
    		  } 
    		  else if (places[i].Furl == null&&places[placeIdx].Mode=="City"){
         	  marker = bm.marker([places[i].Lat, places[i].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><div style="background-color: white; width: auto;">'+places[i].CityName_ko+'</div></div>'})}).bindPopup(places[i].CityName_ko).addTo(markerGroup);
@@ -330,20 +330,20 @@ function showInfo(placeIdx) { //상세 정보 출력
 		$('#smallLat').text(places[placeIdx].Lat);
 		$('#smallLnt').text(places[placeIdx].Lng);
 		if(places[placeIdx].Furl == null && places[placeIdx].CategoryIdx >9) {
-			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
+			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }else if(places[placeIdx].Furl == null) {
  			$('#smallImg')
  			.append(
- 					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
+ 					'<img src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
  			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img style="width: 50px; height: 50px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  			} 
  		  else{
  			$('#smallImg')
  			.append(
  					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
  			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
@@ -406,14 +406,14 @@ function showInfoImg(placeIdx) { //상세 정보 출력
    			.append(
    					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
    			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img style="width: 50px; height: 50px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    			} 
    		  else{
    			$('#smallImg')
    			.append(
    					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
    			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
@@ -437,7 +437,7 @@ function addDay(){ //일정 늘리기
 		  defaultDate: +7
 		});
 	$("#plan").append('<div id="allPlan'+(++a)+'" style="border:solid #22becc 2px; background-color:white;">'+
-	'DAY'+(a)+'<img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><br>'+
+	'DAY'+(a)+'<img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
 	'</div>'+
 	'<div id="smallImg">'+
@@ -497,7 +497,7 @@ $( function() { //달력
 		<button class="button button1" onclick="addDay();">+일정 추가</button><br>
 		<input type="button" class="button button1" id="datepicker" value="출발일 수정">
 		<div id="allPlan" style="border:solid #22becc 2px; background-color: white;">
-			DAY1<img class="delete" src="./img/icon_delete_n.png" style="float:right"><br>
+			DAY1<img class="delete" src="${pageContext.request.contextPath}/img/icon_delete_n.png" style="float:right"><br>
 			<div id="cal">
 			</div>
 			<div id="smallImg">
