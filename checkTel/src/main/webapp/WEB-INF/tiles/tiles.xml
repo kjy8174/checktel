@@ -3,20 +3,28 @@
 2.1//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
-	<definition name="mainTemplate" template="/WEB-INF/views/template/layout.jsp">
+	<definition name="subTemplate" template="/WEB-INF/views/template/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
 		<!-- <put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" /> -->
 	</definition>
-
-	<definition name="home" extends="mainTemplate">
+	
+	<definition name="mainTemplate" template="/WEB-INF/views/template/layoutMain.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+		<!-- <put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" /> -->
+	</definition>
+	<definition name="home" extends="subTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
 	</definition>
-
-	<definition name="*/*" extends="mainTemplate">
+	
+	<definition name="main/*" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp" />
+	</definition>
+	
+	<definition name="*/*" extends="subTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
 
-	<definition name="*/*/*" extends="mainTemplate">
+	<definition name="*/*/*" extends="subTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 

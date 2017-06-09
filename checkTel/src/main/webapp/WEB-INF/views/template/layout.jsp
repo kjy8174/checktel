@@ -193,11 +193,11 @@
 	<!--END: SITE LOADER-->
 
 	<!-- include_directive.jsp -->
-	<div class="wrapper" style="position: fixed;">
+	<div class="wrapper">
 		<header id="header" class="header-mini">
 			<tiles:insertAttribute name="header" />
 		</header>
-		<section class="fullscreen no-padding">
+		<section>
 			<tiles:insertAttribute name="content" />
 		</section>
 		<footer>

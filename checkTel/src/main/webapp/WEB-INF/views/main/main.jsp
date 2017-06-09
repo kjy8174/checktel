@@ -513,24 +513,6 @@ $( function() { //달력
 	<div id="detailPlan"
 		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 160px; background-color: #f1f2f6;'">
 		<h2>DAY1</h2></div>
-
-	<div id="dialog-form" title="Create new user">
-  <p class="validateTips">All form fields are required.</p>
- 
-  <form>
-    <fieldset>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name"  class="text ui-widget-content ui-corner-all">
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email"  class="text ui-widget-content ui-corner-all">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password"  class="text ui-widget-content ui-corner-all">
- 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    </fieldset>
-  </form>
-</div>
 	
 </body>
 </html>
