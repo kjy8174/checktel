@@ -18,7 +18,7 @@ public class DetailController {
 	//등록폼
 	@RequestMapping(value={"/main/main.do"})
 	public String userInsert(){
-		return "/member/loginView";
+		return "/main/main";
 	}
 	
 	//등록
