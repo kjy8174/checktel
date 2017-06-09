@@ -9,7 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<link rel="shortcut icon" href="${pageContext.request.contextPath }/images/favicon.png">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/images/favicon.png">
 <!-- Bootstrap Core CSS -->
 <link
 	href="${pageContext.request.contextPath }/vendor/bootstrap/css/bootstrap.min.css"
@@ -192,15 +193,15 @@
 	<!--END: SITE LOADER-->
 
 	<!-- include_directive.jsp -->
-	<div class="wrapper">
+	<div class="wrapper" style="position: fixed;">
 		<header id="header" class="header-mini">
 			<tiles:insertAttribute name="header" />
 		</header>
-		<section>
+		<section class="fullscreen no-padding">
 			<tiles:insertAttribute name="content" />
 		</section>
 		<footer>
-		<%-- 	<tiles:insertAttribute name="footer" /> --%>
+			<%-- 	<tiles:insertAttribute name="footer" /> --%>
 		</footer>
 	</div>
 

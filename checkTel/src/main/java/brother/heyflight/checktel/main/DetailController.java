@@ -17,13 +17,13 @@ public class DetailController {
 	
 	//등록폼
 	@RequestMapping(value={"/main/main.do"})
-	public String detailInsert(){
+	public String userInsert(){
 		return "/main/main";
 	}
 	
 	//등록
 	@RequestMapping(value="/main/main.do",method= RequestMethod.POST)
-	public String detailInsert(DetailVO detailVO, HttpServletRequest request){
+	public String userInsert(DetailVO detailVO, HttpServletRequest request){
 		System.out.println("등록 : "+detailVO);
 		detailService.insertDetail(detailVO);
 		return "redirect:/user/getUser.do";

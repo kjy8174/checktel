@@ -96,15 +96,9 @@
 </style>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
   <script src='https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM='></script>
-  <script src='https://code.jquery.com/jquery-1.12.4.min.js' integrity='sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=' crossorigin='anonymous'></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script type='text/javascript'>
   $( function() { //검색 자동완성
 	    /* var availableTags = [
@@ -336,20 +330,20 @@ function showInfo(placeIdx) { //상세 정보 출력
 		$('#smallLat').text(places[placeIdx].Lat);
 		$('#smallLnt').text(places[placeIdx].Lng);
 		if(places[placeIdx].Furl == null && places[placeIdx].CategoryIdx >9) {
-			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="./img/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
+			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }else if(places[placeIdx].Furl == null) {
  			$('#smallImg')
  			.append(
  					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
  			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="./img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  			} 
  		  else{
  			$('#smallImg')
  			.append(
  					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
  			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="./img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
@@ -405,21 +399,21 @@ function showInfoImg(placeIdx) { //상세 정보 출력
 		$('#smallLat').text(places[placeIdx].Lat);
 		$('#smallLnt').text(places[placeIdx].Lng);
 		  if(places[placeIdx].Furl == null && places[placeIdx].CategoryIdx >9) {
-			  $('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="./img/icon_delete_n.png" style="float:right">'+
+			  $('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
 	 					'<div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    		  } else if(places[placeIdx].Furl == null) {
    			$('#smallImg')
    			.append(
    					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
    			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="./img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img style="width: 50px; height: 50px;" src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    			} 
    		  else{
    			$('#smallImg')
    			.append(
    					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
    			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="./img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
@@ -443,7 +437,7 @@ function addDay(){ //일정 늘리기
 		  defaultDate: +7
 		});
 	$("#plan").append('<div id="allPlan'+(++a)+'" style="border:solid #22becc 2px; background-color:white;">'+
-	'DAY'+(a)+'<img class="delete" src="./img/icon_delete_n.png" style="float:right"><br>'+
+	'DAY'+(a)+'<img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
 	'</div>'+
 	'<div id="smallImg">'+
@@ -481,137 +475,9 @@ $( function() { //달력
 	  });
   } );
   
-  
-  
-  
-$( function() {
-    var dialog, form,
- 
-      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-      name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
-      tips = $( ".validateTips" );
- 
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
- 
-    function checkLength( o, n, min, max ) {
-      if ( o.val().length > max || o.val().length < min ) {
-        o.addClass( "ui-state-error" );
-        updateTips( "Length of " + n + " must be between " +
-          min + " and " + max + "." );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    function checkRegexp( o, regexp, n ) {
-      if ( !( regexp.test( o.val() ) ) ) {
-        o.addClass( "ui-state-error" );
-        updateTips( n );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    function addUser() {
-      var valid = true;
-      allFields.removeClass( "ui-state-error" );
- 
-      valid = valid && checkLength( name, "username", 3, 16 );
-      valid = valid && checkLength( email, "email", 6, 80 );
-      valid = valid && checkLength( password, "password", 5, 16 );
- 
-      valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
-      valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
-      valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
- 
-      if ( valid ) {
-        dialog.dialog( "close" );
-      }
-      return valid;
-    }
- 
-    dialog = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 400,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create an account": addUser,
-        Cancel: function() {
-          dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
-      }
-    });
- 
-    form = dialog.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addUser();
-    });
- 
-    $( "#create-user" ).on( "click", function() {
-      dialog.dialog( "open" );
-    });
-  } );
   </script>
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-<input type=button value="길찾기" onclick="openWin();">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="./travel.jsp">일정만들기</a></li>
-        <li><a href="#">스마트플랜</a></li>
-        <li><a href="#">트래블로그</a></li>
-        <li><a href="./agoda.jsp">호텔</a></li>
-        <li><a href="./skyscanner.jsp">항공권</a></li>
-        <li><a href="#">이용방법</a></li>
-      </ul>
-	<form class="navbar-form navbar-right">
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Search" id="serch">
-			<div class="input-group-btn">
-				<button class="btn btn-default" type="submit">
-					<i class="glyphicon glyphicon-search"></i>
-				</button>
-			</div>
-		</div>
-	</form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="create-user"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-	</div>
-  </div>
-</nav>
-
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
 <div id="tabs" style="position: fixed; width: 300px; top: 75px; right: 0px;">
