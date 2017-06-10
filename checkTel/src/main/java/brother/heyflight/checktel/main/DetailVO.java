@@ -1,44 +1,44 @@
 package brother.heyflight.checktel.main;
 
 public class DetailVO {
-	private String spotNo;
-	private String cityNo;
-	private String dayVisit;
-	private String planNo;
-	private String dayNo;
-	public String getSpotNo() {
+	private int spotNo;
+	private int cityNo;
+	private int dayVisit;
+	private int planNo;
+	private int dayNo;
+	public int getSpotNo() {
 		return spotNo;
 	}
-	public void setSpotNo(String spotNo) {
+	public void setSpotNo(int spotNo) {
 		this.spotNo = spotNo;
 	}
-	public String getCityNo() {
+	public int getCityNo() {
 		return cityNo;
 	}
-	public void setCityNo(String cityNo) {
+	public void setCityNo(int cityNo) {
 		this.cityNo = cityNo;
 	}
-	public String getDayVisit() {
+	public int getDayVisit() {
 		return dayVisit;
 	}
-	public void setDayVisit(String dayVisit) {
+	public void setDayVisit(int dayVisit) {
 		this.dayVisit = dayVisit;
 	}
-	public String getPlanNo() {
+	public int getPlanNo() {
 		return planNo;
 	}
-	public void setPlanNo(String planNo) {
+	public void setPlanNo(int planNo) {
 		this.planNo = planNo;
 	}
-	public String getDayNo() {
+	public int getDayNo() {
 		return dayNo;
 	}
-	public void setDayNo(String dayNo) {
+	public void setDayNo(int dayNo) {
 		this.dayNo = dayNo;
 	}
 	@Override
 	public String toString() {
-		return "PlanVO [spotNo=" + spotNo + ", cityNo=" + cityNo
+		return "DetailVO [spotNo=" + spotNo + ", cityNo=" + cityNo
 				+ ", dayVisit=" + dayVisit + ", planNo=" + planNo + ", dayNo="
 				+ dayNo + "]";
 	}

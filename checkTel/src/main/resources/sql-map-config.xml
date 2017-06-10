@@ -8,7 +8,7 @@
     	    
     <!-- Alias 설정 -->
     <typeAliases>
-        <typeAlias alias="plan" type="brother.heyflight.checktel.main.DetailVO"/>
+        <typeAlias alias="detail" type="brother.heyflight.checktel.main.DetailVO"/>
     </typeAliases>
 
 	<!-- DataSource 설정 -->
