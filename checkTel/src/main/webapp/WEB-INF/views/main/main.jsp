@@ -132,7 +132,7 @@
   var availableTags = [];
 var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
-  var div = 1;
+  var div = 2;
   var curPlace;
   var a = 1;
   var dayClick=1;
@@ -181,6 +181,8 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
               places = JSON.parse(this.responseText).data;
               if ($.isArray(places)) {
                   // 마커 생성
+                  city_array.push(places)
+                  console.log(city_array)
                   createMarkers(places);
                   imgClick(places);
               }
@@ -245,7 +247,6 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   }
   
   function createMarkers(places) { //마커 생성
-	  console.log(places)
       markerGroup.clearLayers();
       for (var i = 0; i < places.length; i++) {
     	  let placeIdx = i;
@@ -286,7 +287,6 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
 }  
  
 function showInfo(placeIdx) { //상세 정보 출력
-	console.log(placeIdx);
 	 //$("#list").empty();
 	 $('#info').show();
 	$('#info').empty();
@@ -317,7 +317,6 @@ function showInfo(placeIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
-		console.log(placeIdx);
 		  flightPlanCoordinates.push({lat: places[placeIdx].Lat, lng: places[placeIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -347,7 +346,6 @@ function showInfo(placeIdx) { //상세 정보 출력
  		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
-		console.log(places[placeIdx].Idx);
 		$("#"+places[placeIdx].Idx).click(function() {
 			showInfoImg(placeIdx);
 		});
@@ -355,7 +353,6 @@ function showInfo(placeIdx) { //상세 정보 출력
 }
 
 function showInfoImg(placeIdx) { //상세 정보 출력
-	console.log(placeIdx);
 	$('#info').show();
 	$('#info').empty();
 	//해당 위치로 이동
@@ -386,7 +383,6 @@ function showInfoImg(placeIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan").click(function() {
-		console.log(placeIdx);
 		flightPlanCoordinates.push({lat: places[placeIdx].Lat, lng: places[placeIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -417,7 +413,6 @@ function showInfoImg(placeIdx) { //상세 정보 출력
    		  }
 		$('#detailPlan')
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
-		console.log(places[placeIdx].Idx);
 		$("#"+places[placeIdx].Idx).click(function() {
 			showInfoImg(placeIdx);
 		});
@@ -436,24 +431,21 @@ function addDay(){ //일정 늘리기
 	$( ".selector" ).datepicker({
 		  defaultDate: +7
 		});
-	$("#plan").append('<div id="allPlan'+(++a)+'" style="border:solid #22becc 2px; background-color:white;">'+
+	$("#plan").append('<div id="allPlan'+(++a)+'"style="border:solid #22becc 2px; background-color:white; onclick="dayClick('+a+')"">'+
 	'DAY'+(a)+'<img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
 	'</div>'+
 	'<div id="smallImg">'+
 	'</div></div>');
 
-    $("#allPlan"+a).click(function() {
+    /* $("#allPlan"+a).click(function() {
     	div= a;
-    });
+    }); */
 }
 
-$( function() { //탭 바
-    $("#allPlan"+div).click(function() {
-    	$("#allPlan"+div).append("1");
-    });
-    
-  } );
+function dayClick(div) {
+	$("#allPlan"+div).append(div);
+}
 
 
 $( function() { //탭 바

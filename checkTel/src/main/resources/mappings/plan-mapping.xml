@@ -5,29 +5,33 @@
 <mapper namespace="PlanDAO"> <!--namespace로 구분  -->
 
 	<resultMap id="planResult" type="plan"> <!--type에는 클래스 명  -->
-		<id property="spotNo" column="SPOT_NO" /> <!--필드명(BoardVO 필드), 컬럼명  -->
-		<id property="cityNo" column="CITY_NO" />
-		<id property="dayVisit" column="DAY_VISIT" />
-		<id property="planNo" column="PLAN_NO" />
-		<id property="dayNo" column="DAY_NO" />
+		<id property="planNo" column="PLAN_NO"/> <!--필드명(planVO 필드), 컬럼명  -->
+		<id property="planPeriod" column="PLAN_PERIOD" />
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="planStart" column="PLAN_START" />
+		<result property="planEnd" column="PLAN_END" />
+		<result property="planMemo" column="PLAN_MEMO" />
 	</resultMap>
    
    <insert id="insertPlan" parameterType="plan">
-      <selectKey keyProperty="seq" resultType="int" order="BEFORE">
+      <!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE">
       SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD
-      </selectKey>
+      </selectKey> -->
       <!-- CDATA 태그인식을 막는 명령어 -->
-        INSERT INTO DETAIL(
-                      SPOT_NO
-                    , CITY_NO
-                    , WRITER
-                    , CONTENT)
+        INSERT INTO PLAN(
+                      PLAN_NO
+                    , PLAN_PERIOD
+                    , PLAN_START
+                    , PLAN_END
+                    , PLAN_MEMO
+                    , MEMBER_NO)
         VALUES(
-             #{spotNo}
-           , #{cityNo} 
-           , #{dayVisit}
-           , #{planNo}
-           , #{dayNo})
+             #{planNo}
+           , #{planPeriod} 
+           , #{planStart}
+           , #{planEnd}
+           , #{planMemo}
+           , #{memberNo})
    </insert>
 
 </mapper>
