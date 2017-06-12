@@ -131,7 +131,8 @@
   });
   var availableTags = [];
 var flightPlanCoordinates = []; //경로 만들 때 위도 경도
-  
+  var city_array = new Array();
+  var div = 1;
   var curPlace;
   var a = 1;
   var dayClick=1;
@@ -443,15 +444,20 @@ function addDay(){ //일정 늘리기
 	'</div></div>');
 
     $("#allPlan"+a).click(function() {
-    	$("#allPlan"+a).append(a);
+    	div= a;
     });
 }
+
 $( function() { //탭 바
-    $( "#tabs" ).tabs();
-    $("#allPlan").click(function() {
-    	$("#allPlan").append("1");
+    $("#allPlan"+div).click(function() {
+    	$("#allPlan"+div).append("1");
     });
     
+  } );
+
+
+$( function() { //탭 바
+    $( "#tabs" ).tabs();
   } );
 $( function() { //달력
     $( "#datepicker" ).datepicker({
@@ -495,6 +501,7 @@ $( function() { //달력
 <div id="plan">
 		<button class="button button1" onclick="addDay();">+일정 추가</button><br>
 		<input type="button" class="button button1" id="datepicker" value="출발일 수정">
+		<!-- 전체 일정  -->
 		<div id="allPlan" style="border:solid #22becc 2px; background-color: white;">
 			DAY1<img class="delete" src="${pageContext.request.contextPath}/img/icon_delete_n.png" style="float:right"><br>
 			<div id="cal">
@@ -506,9 +513,17 @@ $( function() { //달력
 			</div>
 		</div>
 	</div>
-	<button class="button button1">일정 전체 삭제</button>
-	<button class="button button1">일정 저장</button>
+	<button class="button button1"><a href="../main/mainUpd.do">전체 삭제</a></button>
+	<form action="../blog/myBlogShow.do">
+		<input type="text" name="spotNo" id="spotNo">
+		<input type="text" name="cityNo" id="cityNo">
+		<input type="text" name="dayVisit" id="dayVisit">
+		<!-- <input type="text" name="planNo" id="planNo"> -->
+		<input type="text" name="dayNo" id="dayNo">
+		<button class="button button1">일정 저장</button>
+	</form>
 </div>
+	<!-- 일정 상세보기  -->
 	<div id="detailPlan"
 		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 160px; background-color: #f1f2f6;'">
 		<h2>DAY1</h2></div>

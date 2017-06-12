@@ -8,7 +8,7 @@
     	    
     <!-- Alias 설정 -->
     <typeAliases>
-        <typeAlias alias="detail" type="brother.heyflight.checktel.main.DetailVO"/>
+        <typeAlias alias="main" type="brother.heyflight.checktel.main.MainVO"/>
     </typeAliases>
 
 	<!-- DataSource 설정 -->
@@ -26,7 +26,7 @@
   
     <!-- Sql Mapper 설정 -->
     <mappers>
-        <mapper resource="mappings/detail-mapping.xml"/>
+        <mapper resource="mappings/main-mapping.xml"/>
     </mappers>   
     
 </configuration>

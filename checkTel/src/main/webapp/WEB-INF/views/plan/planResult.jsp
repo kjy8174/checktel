@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+selCity : ${selCity } <br>
+selDay : ${selDay } <br>
+selCategory1 : ${selCategory1 } <br>
+selCategory2 : ${selCategory2 } <br>
+selCategory3 : ${selCategory3} <br>
+selCategory4 : ${selCategory4 } <br>
+selCategory5 : ${selCategory5 } <br>
+selCategory6 : ${selCategory6 } <br>
+selCategory7 : ${selCategory7 } <br>
 </body>
 </html>

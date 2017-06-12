@@ -129,9 +129,11 @@ $(function() {
 	      value: 1,
 		create : function() {
 			handle.text($(this).slider("value")+"day");
+			$("#selDay").val("1")
 		},
 		slide : function(event, ui) {
 			handle.text(ui.value+"day");
+			$("#selDay").val(ui.value)
 		}
 	});
 });
@@ -152,6 +154,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount1").val(ui.value);
+			$("#selCategory1").val(ui.value);
 		}
 	});
 	$("#amount1").val($("#slider-vertical1").slider("value"));
@@ -165,6 +168,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount2").val(ui.value);
+			$("#selCategory2").val(ui.value);
 		}
 	});
 	$("#amount2").val($("#slider-vertical2").slider("value"));
@@ -178,6 +182,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount3").val(ui.value);
+			$("#selCategory3").val(ui.value);
 		}
 	});
 	$("#amount3").val($("#slider-vertical3").slider("value"));
@@ -191,6 +196,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount4").val(ui.value);
+			$("#selCategory4").val(ui.value);
 		}
 	});
 	$("#amount4").val($("#slider-vertical4").slider("value"));
@@ -204,6 +210,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount5").val(ui.value);
+			$("#selCategory5").val(ui.value);
 		}
 	});
 	$("#amount5").val($("#slider-vertical5").slider("value"));
@@ -217,7 +224,7 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount6").val(ui.value);
-			alert($("#amount6").val())
+			$("#selCategory6").val(ui.value);
 		}
 	});
 	$("#amount6").val($("#slider-vertical6").slider("value"));
@@ -231,25 +238,29 @@ $(function() {
 		value : 6,
 		slide : function(event, ui) {
 			$("#amount7").val(ui.value);
+			$("#selCategory7").val(ui.value);
 		}
 	});
 	$("#amount7").val($("#slider-vertical7").slider("value"));
 });
-$(function() {
-	 $("#planResult").on('click', function(e) { // 리스트 클릭시 상세 정보 표시
-			alert($("#amount3").val())
-			 console.log($("#city option").val())
-			 if($("#city option").val()==null&&$("#city option").val()=="sel"){
-				 alert("도시를 선택해주세요");
-				 return;}
-	 		alert($("#city option:selected").val())
-	 		//alert($("#city option:selected").val())
+/* $(function() {
+	 $("#planResult").on('click', function() {
+		 if($("#selCity").val()==null&&$("#selCity").val().equals("sel")){
+			 alert("값을 설정하세요");
+			 
+		 }
 		});
+}); */
+
+$(function() {
+	$("#city").change(function(){
+		$("#selCity").val($("#city option:selected").val());
+	});
 });
+
 $(function() {
 	 $(".imgteaser").on('click', function(e) { // 리스트 클릭시 상세 정보 표시
-			alert($(".desc").text())
-			alert("ttttt");
+			
 		});
 });
 
@@ -272,105 +283,105 @@ $(function() {
 				</div>
 				<ul class="grid grid-5-columns">
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city1">
 						<img src="img/loading.jpg" alt="">
 						<span class="desc"> <strong>서울</strong> 대한민국
 						</span>
 						</div>
 						</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city2">
 						<img src="img/loading (1).jpg" alt="">
 						<span class="desc"> <strong>제주</strong> 대한민국
 						</span>
 						</div>
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city3">
 						<img src="img/loading (2).jpg" alt="">
 						<span class="desc"> <strong>도쿄</strong> 일본
 						</span>
 						</div>
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city4">
 						<img src="img/loading (3).jpg" alt="">
 						<span class="desc"> <strong>런던</strong> 영국
 						</span>
 						</div>
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city5">
 						<img src="img/loading (4).jpg" alt="">
 						<span class="desc"> <strong>상하이</strong> 중국
 						</span>
 						</div>
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city6">
 						<img src="img/loading (5).jpg" alt="">	
 						<span class="desc"> <strong>파리</strong> 프랑스
 						</span>
 						</div>			
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city7">
 						<img src="img/loading (6).jpg" alt="">
 						<span class="desc"> <strong>방콕</strong> 태국
 						</span>
 						</div>
 					</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city8">
 						<img src="img/loading (7).jpg" alt="">	
 						<span class="desc"> <strong>로스 앤젤레스</strong> 미국
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city9">
 						<img src="img/loading (8).jpg" alt="">
 						<span class="desc"> <strong>홍콩</strong> 홍콩
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city10">
 						<img src="img/loading (9).jpg" alt="">
 						<span class="desc"> <strong>로마</strong> 이탈리아
 						</span>
 						</div>
 						</li>
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city11">
 						<img src="img/loading (10).jpg" alt="">	
 						<span class="desc"> <strong>바르셀로나</strong> 스페인
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city12">
 						<img src="img/loading (11).jpg" alt="">	
 						<span class="desc"> <strong>오사카</strong> 일본
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city13">
 						<img src="img/loading (12).jpg" alt="">	
 						<span class="desc"> <strong>싱가포르</strong> 싱가포르
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city14">
 						<img src="img/loading (13).jpg" alt="">				
 						<span class="desc"> <strong>뉴욕</strong> 미국
 						</span>
 						</div>
 						</li>	
 					<li>
-						<div class="imgteaser">
+						<div class="imgteaser" id="city15">
 						<img src="img/loading (14).jpg" alt="">		
 						<span class="desc"> <strong>베이징</strong> 중국
 						</span>
@@ -383,77 +394,77 @@ $(function() {
 	</a><DIV style='display:none'>
 					<ul class="grid grid-5-columns">
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city16">
 								<img src="img/loading (15).jpg" alt=""> <span class="desc">
 									<strong>푸켓</strong> 태국
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city17">
 								<img src="img/loading (16).jpg" alt=""> <span class="desc">
 									<strong>라스 베이거스</strong> 미국
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city18">
 								<img src="img/loading (17).jpg" alt=""> <span class="desc">
 									<strong>세부</strong> 필리핀
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city19">
 								<img src="img/loading (18).jpg" alt=""> <span class="desc">
 									<strong>교토</strong> 일본
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city20">
 								<img src="img/loading (19).jpg" alt=""> <span class="desc">
 									<strong>마카오</strong> 홍콩
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city21">
 								<img src="img/loading (20).jpg" alt=""> <span class="desc">
 									<strong>타이베이</strong> 대만
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city22">
 								<img src="img/loading (21).jpg" alt=""> <span class="desc">
 									<strong>시드니</strong> 오스트레일리아
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city23">
 								<img src="img/loading (22).jpg" alt=""> <span class="desc">
 									<strong>쿠알라 룸푸르</strong> 말레이시아
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city24">
 								<img src="img/loading (23).jpg" alt=""> <span class="desc">
 									<strong>마닐라</strong> 필리핀
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city25">
 								<img src="img/loading (24).jpg" alt=""> <span class="desc">
 									<strong>하노이</strong> 베트남
 								</span>
 							</div>
 						</li>
 						<li>
-							<div class="imgteaser">
+							<div class="imgteaser" id="city26">
 								<img src="img/loading (25).jpg" alt=""> <span class="desc">
 									<strong>부산</strong> 대한민국
 								</span>
@@ -594,16 +605,16 @@ $(function() {
 		
 	</div>
 	<!-- END: WRAPPER -->
-	<form>
-	<input type="hidden" id="selCity">
-	<input type="hidden" id="selDay">
-	<input type="hidden" id="selCategory1">
-	<input type="hidden" id="selCategory2">
-	<input type="hidden" id="selCategory3">
-	<input type="hidden" id="selCategory4">
-	<input type="hidden" id="selCategory5">
-	<input type="hidden" id="selCategory6">
-	<input type="hidden" id="selCategory7">
+	<form action="../plan/planResult.do" method="get">
+	<input type="text" id="selCity" name="selCity" required>
+	<input type="text" id="selDay" name="selDay" required>
+	<input type="text" id="selCategory1" name="selCategory1" value="6" required>
+	<input type="hidden" id="selCategory2" name="selCategory2" value="6" required>
+	<input type="hidden" id="selCategory3" name="selCategory3" value="6" required>
+	<input type="hidden" id="selCategory4" name="selCategory4" value="6" value="6" required>
+	<input type="hidden" id="selCategory5" name="selCategory5" value="6" required>
+	<input type="hidden" id="selCategory6" name="selCategory6" value="6" required>
+	<input type="hidden" id="selCategory7" name="selCategory7" value="6" required>
 	<button class="button button1" id="planResult">나만의 추천일정 만들기</button>
 	</form>
 

@@ -1,6 +1,6 @@
 package brother.heyflight.checktel.main;
 
-public class DetailVO {
+public class MainVO {
 	private int spotNo;
 	private int cityNo;
 	private int dayVisit;
@@ -38,7 +38,7 @@ public class DetailVO {
 	}
 	@Override
 	public String toString() {
-		return "DetailVO [spotNo=" + spotNo + ", cityNo=" + cityNo
+		return "MainVO [spotNo=" + spotNo + ", cityNo=" + cityNo
 				+ ", dayVisit=" + dayVisit + ", planNo=" + planNo + ", dayNo="
 				+ dayNo + "]";
 	}

@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+${main.spotNo}
+${main.cityNo }
+
 
 </body>
 </html>

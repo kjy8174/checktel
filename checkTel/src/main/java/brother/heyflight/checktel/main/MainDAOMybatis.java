@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class DetailDAOMybatis {
+public class MainDAOMybatis {
 	
 	@Autowired
 	private SqlSessionTemplate mybatis;
@@ -19,8 +19,8 @@ public class DetailDAOMybatis {
 		mybatis = SqlSessionFactoryBean.getSqlSessionInsance();
 	}*/
 	
-	public void insertDetail(DetailVO vo) {
-        System.out.println("===> Mybatis로 insertDetail() 기능 처리");
-        mybatis.insert("DetailDAO.insertDetail", vo); //board-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
+	public void insertMain(MainVO vo) {
+        System.out.println("===> Mybatis로 insertMain() 기능 처리");
+        mybatis.insert("MainDAO.insertMain", vo); //board-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
     }
 }

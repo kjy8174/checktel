@@ -6,16 +6,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("detailService")
-public class DetailServiceImpl implements DetailService{
+@Service("mainService")
+public class MainServiceImpl implements MainService{
 
 	//DAO
 	@Autowired
-	private DetailDAOMybatis detailDAO;
+	private MainDAOMybatis mainDAO;
 	
 	@Override
-	public void insertDetail(DetailVO vo) {
-		detailDAO.insertDetail(vo);
+	public void insertMain(MainVO vo) {
+		mainDAO.insertMain(vo);
 		// TODO Auto-generated method stub
 		
 	}

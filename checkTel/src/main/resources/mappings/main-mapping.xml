@@ -2,31 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="DetailDAO"> <!--namespace로 구분  -->
+<mapper namespace="MainDAO"> <!--namespace로 구분  -->
 
-	<resultMap id="detailResult" type="detail"> <!--type에는 클래스 명  -->
+	<resultMap id="mainResult" type="main"> <!--type에는 클래스 명  -->
 		<id property="spotNo" column="SPOT_NO" /> <!--필드명(BoardVO 필드), 컬럼명  -->
 		<id property="cityNo" column="CITY_NO" />
 		<id property="dayVisit" column="DAY_VISIT" />
-		<id property="planNo" column="PLAN_NO" />
+		<!-- <id property="planNo" column="PLAN_NO" /> -->
 		<id property="dayNo" column="DAY_NO" />
 	</resultMap>
    
-   <insert id="insertDetail" parameterType="detail">
-      <selectKey keyProperty="seq" resultType="int" order="BEFORE">
-      SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD
-      </selectKey>
+   <insert id="insertMain" parameterType="main">
+      <!-- <selectKey keyProperty="spotNo" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(SPOT_NO), 0) + 1 FROM DETAIL
+      </selectKey> -->
       <!-- CDATA 태그인식을 막는 명령어 -->
         INSERT INTO DETAIL(
                       SPOT_NO
                     , CITY_NO
-                    , WRITER
-                    , CONTENT)
+                    , DAY_VISIT
+                    <!-- , PLAN_NO -->
+                    , DAY_NO)
         VALUES(
              #{spotNo}
            , #{cityNo} 
            , #{dayVisit}
-           , #{planNo}
+          <!--  , #{planNo} -->
            , #{dayNo})
    </insert>
 
