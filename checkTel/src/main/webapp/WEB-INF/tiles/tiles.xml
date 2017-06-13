@@ -3,29 +3,42 @@
 2.1//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
+
+<!-- 나머지화면 타일즈 -->
 	<definition name="subTemplate" template="/WEB-INF/views/template/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
 	</definition>
-	
+
 	<definition name="home" extends="subTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
 	</definition>
-
-	<definition name="*/*" extends="subTemplate">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+	
+	<definition name="admin/*" extends="subTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp" />
 	</definition>
-
+	
+	<definition name="blog/*" extends="subTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/blog/{1}.jsp" />
+	</definition>
+	
+	<definition name="plan/*" extends="subTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/plan/{1}.jsp" />
+	</definition>
+	
+	<definition name="etc/*" extends="subTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/etc/{1}.jsp" />
+	</definition>
+	
 	<definition name="*/*/*" extends="subTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
-
+	
+<!-- 메인화면 타일즈  -->
 	<definition name="mainTemplate" template="/WEB-INF/views/template/layoutMain.jsp">
-		<put-attribute name="mainHeader" value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
 	</definition>
-	<definition name="main/main" extends="mainTemplate">
-		<put-attribute name="mainContent" value="/WEB-INF/views/{1}/{2}.jsp" />
-	</definition>
-	<definition name="*/*/*" extends="mainTemplate">
-		<put-attribute name="mainContent" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+
+	<definition name="main/*" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp" />
 	</definition>
 </tiles-definitions>

@@ -258,12 +258,24 @@ $(function() {
 	});
 });
 
-$(function() {
-	 $(".imgteaser").on('click', function(e) { // 리스트 클릭시 상세 정보 표시
-			
+/* $(function() {
+	
+		$("#city"+i).on('click', function(e) { // 리스트 클릭시 상세 정보 표시
+				console.log($("#city"+i+" strong"));
 		});
+		console.log(i)
+	}
 });
-
+ */
+ //이미지 클릭 시 드롭박스 값 선택
+ $( function() {
+	    $(".imgteaser").click(function() {
+	    	 div = $(".imgteaser").index(this);
+	    	 $("#city").val($("#city"+(div+1)+" .desc strong").text()).attr("selected","selected")
+	    	 $("#selCity").val($("#city"+(div+1)+" .desc strong").text());
+	    });
+	});
+ 
 </script>
 </head>
 
@@ -481,7 +493,7 @@ $(function() {
 				<option value='상하이'>상하이</option>
 				<option value='파리'>파리</option>
 				<option value='방콕'>방콕</option>
-				<option value='로스앤젤레스'>로스 앤젤레스</option>
+				<option value='로스 앤젤레스'>로스 앤젤레스</option>
 				<option value='홍콩'>홍콩</option>
 				<option value='로마'>로마</option>
 				<option value='바르셀로나'>바르셀로나</option>
@@ -490,13 +502,13 @@ $(function() {
 				<option value='뉴욕'>뉴욕</option>
 				<option value='베이징'>베이징</option>
 				<option value='푸켓'>푸켓</option>
-				<option value='라스베이거스'>라스 베이거스</option>
+				<option value='라스 베이거스'>라스 베이거스</option>
 				<option value='세부'>세부</option>
 				<option value='교토'>교토</option>
 				<option value='마카오'>마카오</option>
 				<option value='타이베이'>타이베이</option>
 				<option value='시드니'>시드니</option>
-				<option value='쿠알라룸푸르'>쿠알라 룸푸르</option>
+				<option value='쿠알라 룸푸르'>쿠알라 룸푸르</option>
 				<option value='마닐라'>마닐라</option>
 				<option value='하노이'>하노이</option>
 				<option value='부산'>부산</option>

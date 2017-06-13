@@ -16,9 +16,9 @@ public class MainController {
 	MainService mainService;
 	
 	//메인
-	@RequestMapping(value={"/main/main.do"})
+	@RequestMapping("main/main.do")
 	public String main2(){
-		return "/main/main";
+		return "main/main";
 	}
 	
 	//메인 ( 모달 X)

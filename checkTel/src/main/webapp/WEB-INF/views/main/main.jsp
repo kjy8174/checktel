@@ -7,7 +7,6 @@
 .shadow{
     width: 170px;
     height: 90px;
-    padding: 15px;
     background-color: white;
     box-shadow: 5px 5px 5px grey;
 }
@@ -132,7 +131,7 @@
   var availableTags = [];
 var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
-  var div = 2;
+  var div =0;
   var curPlace;
   var a = 1;
   var dayClick=1;
@@ -181,8 +180,6 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
               places = JSON.parse(this.responseText).data;
               if ($.isArray(places)) {
                   // 마커 생성
-                  city_array.push(places)
-                  console.log(city_array)
                   createMarkers(places);
                   imgClick(places);
               }
@@ -192,8 +189,7 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
       xmlhttp.send();
   }
   
-  function imgClick(places){
-	  
+  function imgClick(places){	  
 	  $("#list").empty();
 	  for (var i = 0; i < places.length; i++) {
 		  let placeIdx = i;
@@ -251,6 +247,9 @@ var flightPlanCoordinates = []; //경로 만들 때 위도 경도
       for (var i = 0; i < places.length; i++) {
     	  let placeIdx = i;
     	  let marker;
+    	  mIdx = places[i].Idx;
+    	  city_array[mIdx]=places[i];
+    	  console.log(city_array[11867]);
     	  
     	  if(places[i].Furl == null && places[i].CategoryIdx >9&&places[placeIdx].Mode!="City") {
     		marker = bm.marker([places[i].Lat, places[i].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+places[i].Title+'</div></div>'})}).bindPopup(places[i].Title).addTo(markerGroup);				
@@ -317,6 +316,7 @@ function showInfo(placeIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
+		console.log(a)
 		  flightPlanCoordinates.push({lat: places[placeIdx].Lat, lng: places[placeIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -329,22 +329,22 @@ function showInfo(placeIdx) { //상세 정보 출력
 		$('#smallLat').text(places[placeIdx].Lat);
 		$('#smallLnt').text(places[placeIdx].Lng);
 		if(places[placeIdx].Furl == null && places[placeIdx].CategoryIdx >9) {
-			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
+			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right">'+ '<div id="'+places[placeIdx].Idx+'">'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }else if(places[placeIdx].Furl == null) {
- 			$('#smallImg')
+ 			$('#smallImg'+(div+1))
  			.append(
- 					'<img src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
- 			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+ 			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
+ 					'<img style="width: 45px; height: 45px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  			} 
  		  else{
- 			$('#smallImg')
+ 			$('#smallImg'+(div+1))
  			.append(
- 					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
- 			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
- 					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+ 					'<img src=' + places[placeIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+ 			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
+ 					'<img style="width: 45px; height: 45px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
  		  }
-		$('#detailPlan')
+		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
 		$("#"+places[placeIdx].Idx).click(function() {
 			showInfoImg(placeIdx);
@@ -375,14 +375,15 @@ function showInfoImg(placeIdx) { //상세 정보 출력
 		$('#info').append('<p><big><b>랭킹</b></big><br>' + places[placeIdx].Rank + '</p><hr>');
 	}
 	$('#info').append(
-	'<input type="button" id ="addPlan" class="button button1" value="일정에 넣기">');
+	'<input type="button" id ="addPlan'+a+'" class="button button1" value="일정에 넣기">');
 	$('#info').append(
 		'<input type="button" id ="close" class="button button1" value="닫기">');
 	$("#close").click(function() {
 		$('#info').empty();
 		$('#info').hide();
 	});
-	$("#addPlan").click(function() {
+	$("#addPlan"+a).click(function() {
+		console.log(a)
 		flightPlanCoordinates.push({lat: places[placeIdx].Lat, lng: places[placeIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -395,23 +396,23 @@ function showInfoImg(placeIdx) { //상세 정보 출력
 		$('#smallLat').text(places[placeIdx].Lat);
 		$('#smallLnt').text(places[placeIdx].Lng);
 		  if(places[placeIdx].Furl == null && places[placeIdx].CategoryIdx >9) {
-			  $('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
+			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
 	 					'<div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    		  } else if(places[placeIdx].Furl == null) {
-   			$('#smallImg')
+   			$('#smallImg'+(div+1))
    			.append(
-   					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 50px; max-height: 50px; margin-right:10px;">');		
-   			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img src="./img/icon_category_'+places[placeIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+   			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
+   					'<img style="width: 45px; height: 45px;" src="src/main/webapp/img/icon_category_'+places[placeIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    			} 
    		  else{
-   			$('#smallImg')
+   			$('#smallImg'+(div+1))
    			.append(
-   					'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px; margin-right:10px;">');
-   			$('#detailPlan').append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
-   					'<img style="width: 50px; height: 50px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
+   					'<img src=' + places[placeIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+   			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+places[placeIdx].Idx+'">'+
+   					'<img style="width: 45px; height: 45px;" src="'+ places[placeIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ places[placeIdx].Title+placeIdx +'</div></div>');
    		  }
-		$('#detailPlan')
+		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+placeIdx+');">');
 		$("#"+places[placeIdx].Idx).click(function() {
 			showInfoImg(placeIdx);
@@ -428,23 +429,29 @@ function openWin(placeIdx) { //길찾기
 					"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 }
 function addDay(){ //일정 늘리기
-	$( ".selector" ).datepicker({
-		  defaultDate: +7
-		});
-	$("#plan").append('<div id="allPlan'+(++a)+'"style="border:solid #22becc 2px; background-color:white; onclick="dayClick('+a+')"">'+
-	'DAY'+(a)+'<img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><br>'+
+	$("#plan").append('<div id="allPlan'+(++a)+'" class="allPlan" style="border:solid #22becc 2px; background-color:white;">'+
+	'<b>DAY'+(a)+'</b><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
-	'</div>'+
-	'<div id="smallImg">'+
+	'"></div>'+
+	'<div id="smallImg'+(a)+'">'+
 	'</div></div>');
-
-    /* $("#allPlan"+a).click(function() {
-    	div= a;
-    }); */
-}
-
-function dayClick(div) {
-	$("#allPlan"+div).append(div);
+	console.log(a);
+	console.log(div)
+	
+	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
+		
+	$( function() {
+	    $(".allPlan").click(function() {
+	    	 div = $(".allPlan").index(this);
+	    	 cut=div+1;
+	    	 if(cut<a){
+	    		 for(i=cut;i<=a;i++){
+		    		 $("#detailPlan"+i).hide();
+		    	 }
+	    	 }		    
+	    	 $("#detailPlan"+(div+1)).show();
+	    });
+	});
 }
 
 
@@ -489,16 +496,16 @@ $( function() { //달력
 		<div id='info' style='padding-left:10px; position: fixed; overflow:scroll; width: 300px; height:600px; height: 86%; top: 120px; right: 0px; background-color: white;'>
 	</div>
 </div>
-<div style="position: fixed; width: 160px; overflow:scroll; height: 90%; top: 78px; left: 0px; background-color:#616265;">
+<div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 78px; left: 0px; background-color:#616265;">
 <div id="plan">
 		<button class="button button1" onclick="addDay();">+일정 추가</button><br>
 		<input type="button" class="button button1" id="datepicker" value="출발일 수정">
 		<!-- 전체 일정  -->
-		<div id="allPlan" style="border:solid #22becc 2px; background-color: white;">
-			DAY1<img class="delete" src="${pageContext.request.contextPath}/img/icon_delete_n.png" style="float:right"><br>
+		<div id="allPlan" class="allPlan" style="border:solid #22becc 2px; background-color: white;">
+			<b>DAY1</b><img class="delete" src="${pageContext.request.contextPath}/img/icon_delete_n.png" style="float:right"><br>
 			<div id="cal">
 			</div>
-			<div id="smallImg">
+			<div id="smallImg1">
 				<input type="hidden" id="smallIdx">
 				<input type="hidden" id="smallLat">
 				<input type="hidden" id="smallLng">
@@ -516,9 +523,11 @@ $( function() { //달력
 	</form>
 </div>
 	<!-- 일정 상세보기  -->
-	<div id="detailPlan"
-		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 160px; background-color: #f1f2f6;'">
-		<h2>DAY1</h2></div>
+<div id = "detail">
+	<div id="detailPlan1"
+		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 170px; background-color: #f1f2f6;'">
+		<h2><b>DAY1</b></h2></div>
+</div>
 	
 </body>
 </html>
