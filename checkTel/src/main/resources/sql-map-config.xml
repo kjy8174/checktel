@@ -10,6 +10,8 @@
     <typeAliases>
         <typeAlias alias="main" type="brother.heyflight.checktel.main.MainVO"/>
         <typeAlias alias="plan" type="brother.heyflight.checktel.plan.PlanVO"/>
+        <typeAlias alias="blog" type="brother.heyflight.checktel.blog.BlogVO"/>
+        
     </typeAliases>
 
 	<!-- DataSource 설정 -->
