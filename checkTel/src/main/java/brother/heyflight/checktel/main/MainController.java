@@ -28,10 +28,10 @@ public class MainController {
 	}
 
 	//일정 만든 후 
-	@RequestMapping(value={"/blog/myBlogShow.do"})
+	@RequestMapping(value={"blog/myBlogShow.do"})
 	public String mainBlog(@ModelAttribute("main") MainVO mainVO, HttpServletRequest request){
 		System.out.println("등록 : "+mainVO);
 		mainService.insertMain(mainVO);
-		return "/blog/myBlogShow";
+		return "blog/myBlogShow";
 	}
 }
