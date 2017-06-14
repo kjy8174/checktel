@@ -43,7 +43,7 @@ label {
 	<!-- PAGE TITLE -->
 	
 	<!-- END: PAGE TITLE -->
-	<!--트래블로그: HEADER -->
+	<!--트래블로그: HEADER -->  
 	<div id="travelLogBox" align="center">
 		<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
