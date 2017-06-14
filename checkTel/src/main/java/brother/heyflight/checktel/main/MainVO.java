@@ -6,6 +6,14 @@ public class MainVO {
 	private int dayVisit;
 	private int planNo;
 	private int dayNo;
+	private String json;
+	
+	public String getJson() {
+		return json;
+	}
+	public void setJson(String json) {
+		this.json = json;
+	}
 	public int getSpotNo() {
 		return spotNo;
 	}

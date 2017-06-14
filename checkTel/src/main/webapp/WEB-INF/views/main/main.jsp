@@ -26,7 +26,7 @@
 	position: absolute;
 	padding: 10px;
 	margin: 0;
-	width: 260px;
+	width: 280px;
 	border-top: 1px solid #999;
 }
 .imgteaser .desc strong {
@@ -76,7 +76,7 @@
     position:absolute;
     top:0px; /* in conjunction with left property, decides the text position */
     left:0px;
-    width:260px; /* optional, though better have one */
+    width:280px; /* optional, though better have one */
     color: black;
     font-size: 24px;
     font-weight: bold;
@@ -101,8 +101,72 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src='https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM='></script>
+	
+	<!-- 메인 모달 이미지 슬라이드 -->	
+    <link href="../css/thumbnail-slider.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ninja-slider.css" rel="stylesheet" type="text/css" />
+    <script src="../js/thumbnail-slider.js" type="text/javascript"></script>
+    <script src="../js/ninja-slider.js" type="text/javascript"></script>
 
   <script type='text/javascript'>
+  /* 메인 모달 이미지 슬라이드 */
+  $( function() {
+      $( "#dialog1" ).dialog({
+        autoOpen: true,
+        modal : true,
+        width: '1200',
+        height: '800',      
+        show: {
+          effect: "blind",
+          duration: 1000
+        },
+        hide: {
+          effect: "explode",
+          duration: 1000
+        }
+      });
+   
+      $( "#opener" ).on( "click", function() {
+        $( "#dialog1" ).dialog( "open" );
+      });
+      
+      $(".mimgm>").click(function(){
+  		   var index = $(".mimgm>").index(this);		   
+  		   $( "#dialog1" ).dialog( "close" );
+  		   if(map.getZoom()<14){
+  				map.setZoom(14);			   
+  		   }
+  		   
+  		   var loc = [{"lat": 37.566535, "lng": 126.977969},	// 0
+  		              {"lat": 40.713432, "lng": -74.005564},	// 1
+  		              {"lat": 35.681303, "lng": 139.76658}, 	// 2
+  		              {"lat": 36.170441, "lng": -115.139873},	// 3
+  		              {"lat": 51.507351, "lng": -0.127758},		// 4
+  		              {"lat": 41.902783, "lng": 12.496366}, 	// 5
+  		              {"lat": 34.052234, "lng": -118.243685},	// 6
+  		              {"lat": 14.600156, "lng": 120.974641},	// 7
+  		              {"lat": 22.205407, "lng": 113.548651},	// 8
+  		              {"lat": 41.385064, "lng": 2.173403},		// 9
+  		              {"lat": 13.753875, "lng": 100.501628},	// 10
+  		              {"lat": 39.904211, "lng": 116.407395},	// 11
+  		              {"lat": 35.10070869705243, "lng": 129.03132963154349},	// 12
+  		              {"lat": 31.230416, "lng": 121.473701},	// 13
+  		              {"lat": 35.011636, "lng": 135.768029},	// 14
+  		              {"lat": 10.315722, "lng": 123.885393},	// 15
+  		              {"lat": -33.870948, "lng": 151.211798},	// 16
+  		              {"lat": 1.291838, "lng": 103.850939},		// 17
+  		              {"lat": 34.693738, "lng": 135.502165},	// 18
+  		              {"lat": 33.499621, "lng": 126.531188},	// 19
+  		              {"lat": 3.138101, "lng": 101.686996},		// 20
+  		              {"lat": 25.032969, "lng": 121.565418},	// 21
+  		              {"lat": 48.856614, "lng": 2.352222},		// 22
+  		              {"lat": 7.880448, "lng": 98.39225},		// 23 
+  		              {"lat": 21.027764, "lng": 105.83416},		// 24
+  		              {"lat": 22.282265, "lng": 114.161528},];	// 25
+  			map.setView(loc[index]);
+  		});	
+    });
+  
   $( function() { //검색 자동완성
 	    /* var availableTags = [
 	      "ActionScript",
@@ -133,9 +197,11 @@
 	      source: availableTags
 	    });
   });
+  var dayNo=1;
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
+  var planSub = new Array();
   var curPlace;
   var mIdx;
   var div =0;
@@ -227,7 +293,7 @@
 	        	  if (city_array[mIdx].Mode=="City") {
 	  				$('#list')
 	  						.append(
-	  								'<div class="image imgteaser" id="img'+mIdx+'"><img src="src/main/webapp/img/no_image.png"; style="max-width: 280px;">'
+	  								'<div class="image imgteaser" id="img'+mIdx+'"><img src="../img/no_image.png"; style="max-width: 280px;">'
 	  										+ '<div class="text">' + '<span class="desc"><span style="font-size: 15px;  top:0px; left:0px;">'
 	  										+ city_array[mIdx].CountryName_ko+'</span><strong>'
 	  										+ city_array[mIdx].CityName_ko
@@ -235,7 +301,7 @@
 	  			} else {
 	  				$('#list')
 	  						.append(
-	  								'<div class="image imgteaser" id="img'+mIdx+'"><img src="src/main/webapp/img/no_image.png"; style="max-width: 280px;">'
+	  								'<div class="image imgteaser" id="img'+mIdx+'"><img src="../img/no_image.png"; style="max-width: 280px;">'
 			  								+ '<div class="text"><span class="desc"><strong>'
 											+ city_array[mIdx].Title + '</strong><span style="float:right; font-size: 15px;">Rank '+city_array[mIdx].Rank+'</span></span>'
 											+ '</div></div><br>');
@@ -275,11 +341,11 @@
     		mIdx = places[i].CityIdx;   
     	}
     	  city_array[mIdx]=places[i];
-    	  
+    	  console.log(city_array[mIdx])
     	  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9&&city_array[mIdx].Mode!="City") {
     		marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } else if(city_array[mIdx].Furl == null&&city_array[mIdx].Mode!="City") {
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="src/main/webapp/img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } 
    		  else if (city_array[mIdx].Furl == null&&city_array[mIdx].Mode=="City"){
         	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div></div>'})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
@@ -316,7 +382,6 @@ function showInfo(mIdx) { //상세 정보 출력
 		map.setView(loc);
 	}
 	
-	console.log(loc);
 	 $('#info').show();
 	$('#info').empty();
 	if (city_array[mIdx].Mode!="City"){
@@ -339,6 +404,33 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
+		var plan = {"day":(div+1),"dayNo":(dayNo++),"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"furl":city_array[mIdx].Furl,"categoryId":city_array[mIdx].CategoryIdx,"cityName":city_array[mIdx].Title}; //json으로 배열 만듬
+		/* var plan = new Object();
+		plan.day = div+1;
+		plan.dayNo = dayNo++;
+		plan.lat = city_array[mIdx].Lat;
+		plan.lng = city_array[mIdx].Lng;
+		plan.furl = city_array[mIdx].Furl;
+		plan.categoryId = city_array[mIdx].CategoryIdx;
+		plan.cityName = city_array[mIdx].Title;
+		planSub.push(plan);
+		var jsonData = JSON.stringify(planSub) ;        
+        alert(planSub) ; */
+        planSub.push(plan);
+		console.log(planSub)
+		var jsonData = JSON.stringify(planSub); //json string로 변환?
+		$('#json').val(jsonData);
+		
+		$.ajax({
+            url:'../blog/myBlogList.do',
+            method: "post",
+            dataType:"json",
+            data : planSub,
+            success:function(){
+            	console.log("ajax전송")
+            }
+        })		
+		
 		console.log(a)
 		  flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
@@ -352,20 +444,20 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'">'+ city_array[mIdx].Title+'</div></div>');
+			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'">'+ city_array[mIdx].Title+'</div></div>');
  		  }else if(city_array[mIdx].Furl == null) {
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src="src/main/webapp/img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+ 					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="src/main/webapp/img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
  			$('#smallImg'+(div+1))
  			.append(
  					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -407,6 +499,9 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
+		var plan = {day:(div+1),dayNo:(dayNo++),lat:city_array[mIdx].Lat,lng:city_array[mIdx].Lng,furl:city_array[mIdx].Furl,categoryId:city_array[mIdx].CategoryIdx,cityName:city_array[mIdx].Title}; //json으로 배열 만듬
+		planSub.push(plan);
+		console.log(planSub)
 		console.log(a)
 		flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
@@ -425,16 +520,16 @@ function showInfoImg(mIdx) { //상세 정보 출력
    		  } else if(city_array[mIdx].Furl == null) {
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src="./img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+   					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="src/main/webapp/img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
    			$('#smallImg'+(div+1))
    			.append(
    					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
    		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -454,7 +549,7 @@ function openWin(mIdx) { //길찾기
 }
 function addDay(){ //일정 늘리기
 	$("#plan").append('<div id="allPlan'+(++a)+'" class="allPlan" style="border:solid #22becc 2px; background-color:white;">'+
-	'<b>DAY'+(a)+'</b><img class="delete" src="src/main/webapp/img/icon_delete_n.png" style="float:right"><br>'+
+	'<b>DAY'+(a)+'</b><img class="delete" src="../img/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
 	'"></div>'+
 	'<div id="smallImg'+(a)+'">'+
@@ -462,7 +557,7 @@ function addDay(){ //일정 늘리기
 	console.log(a);
 	console.log(div)
 	
-	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
+	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
 		
 	$( function() {
 	    $(".allPlan").click(function() {
@@ -477,6 +572,15 @@ function addDay(){ //일정 늘리기
 	    });
 	});
 }
+
+$( function() { //x버튼 클릭 시 삭제
+	$( ".delete" ).click(function() {
+    	$(".delete").parents("div .allPlan").remove();
+    });
+    $( ".delete" ).click(function() {
+    	$(".delete").parents("div .shadow").remove();
+    });
+  });
 
 
 $( function() { //탭 바
@@ -508,20 +612,170 @@ $( function() { //달력
 <body>
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
-<div id="tabs" style="position: fixed; width: 300px; top: 75px; right: 0px;">
+<div id="tabs" style="position: fixed; width: 302px; top: 60px; right: 0px;">
   <ul>
     <li><a href="#list">장소</a></li>
     <li><a href="#info">상세보기</a></li>
   </ul>
 		<div id='list'
-			style='padding-left:10px; position: fixed; overflow: scroll; width: 300px; height: 600px; height: 86%; top: 120px; right: 0px; background-color: white;'>
+			style='padding:0px; position:fixed; overflow: scroll; width: 300px; height: 600px; height: 86%; top: 107px; right: 0px; background-color: white;'>
 			
 		</div>
-		<div id='info' style='padding-left:10px; position: fixed; overflow:scroll; width: 300px; height:600px; height: 86%; top: 120px; right: 0px; background-color: white;'>
+		<div id='info' style='position: fixed; overflow:scroll; width: 300px; height:600px; height: 86%; top: 106px; right: 0px; background-color: white;'>
 	</div>
 </div>
-<div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 78px; left: 0px; background-color:#616265;">
+<div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 60px; left: 0px; background-color:#616265;">
 <div id="plan">
+ <!-- 메인 모달 이미지 슬라이드 -->
+    <div id="dialog1">
+    <div id='ninja-slider'>
+        <div>
+            <div class="slider-inner">
+                <ul class="mimgm">
+                    <li><a class="ns-img" href="../images/test/1.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/2.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/3.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/4.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/5.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/6.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/7.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/8.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/9.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/10.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/11.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/12.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/13.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/14.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/15.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/16.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/17.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/18.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/19.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/20.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/21.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/22.jpg"></a></li>            
+                    <li><a class="ns-img" href="../images/test/23.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/24.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/25.jpg"></a></li>
+                    <li><a class="ns-img" href="../images/test/26.jpg"></a></li>
+                </ul>
+                <div class="fs-icon" title="Expand/Close"></div>
+            </div>
+            <div id="thumbnail-slider">
+                <div class="inner">
+                    <ul>
+                        <li>
+                            <a class="thumb" href="../images/test/1.jpg"></a>
+                            <span>0</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/2.jpg"></a>
+                            <span>1</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/3.jpg"></a>
+                            <span>2</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/4.jpg"></a>
+                            <span>3</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/5.jpg"></a>
+                            <span>4</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/6.jpg"></a>
+                            <span>5</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/7.jpg"></a>
+                            <span>6</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/8.jpg"></a>
+                            <span>7</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/9.jpg"></a>
+                            <span>8</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/10.jpg"></a>
+                            <span>9</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/11.jpg"></a>
+                            <span>10</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/12.jpg"></a>
+                            <span>11</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/13.jpg"></a>
+                            <span>12</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/14.jpg"></a>
+                            <span>13</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/15.jpg"></a>
+                            <span>14</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/16.jpg"></a>
+                            <span>15</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/17.jpg"></a>
+                            <span>16</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/18.jpg"></a>
+                            <span>17</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/19.jpg"></a>
+                            <span>18</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/20.jpg"></a>
+                            <span>19</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/21.jpg"></a>
+                            <span>20</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/22.jpg"></a>
+                            <span>21</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/23.jpg"></a>
+                            <span>22</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/24.jpg"></a>
+                            <span>23</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/25.jpg"></a>
+                            <span>24</span>
+                        </li>
+                        <li>
+                            <a class="thumb" href="../images/test/26.jpg"></a>
+                            <span>25</span>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--end-->
+
 		<button class="button2 button1" onclick="addDay();">+일정 추가</button><br>
 		<input type="button" class="button2 button1" id="datepicker" value="출발일 수정">
 		<!-- 전체 일정  -->
@@ -543,13 +797,14 @@ $( function() { //달력
 		<input type="text" name="dayVisit" id="dayVisit" placeholder="방문순서">
 		<!-- <input type="text" name="planNo" id="planNo"> -->
 		<input type="text" name="dayNo" id="dayNo" placeholder="날짜번호">
+		<input type="text" name="json" id="json" placeholder="json">
 		<button class="button2 button1">일정 저장</button>
 	</form>
 </div>
 	<!-- 일정 상세보기  -->
 <div id = "detail">
 	<div id="detailPlan1"
-		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 78px; left: 170px; background-color: #f1f2f6;'">
+		style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;'">
 		<h2><b>DAY1</b></h2>
 	</div>
 </div>

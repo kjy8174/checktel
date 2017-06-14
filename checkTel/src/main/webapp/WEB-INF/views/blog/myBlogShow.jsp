@@ -9,7 +9,6 @@
 <body>
 ${main.spotNo}
 ${main.cityNo }
-
-
+${main.json}
 </body>
 </html>
