@@ -27,7 +27,7 @@ public class BlogController {
 	BlogService blogService;
 	  
 	//마이페이지 조회  
-	@RequestMapping("/blog/myBlogList.do")
+	@RequestMapping("/blog/myBlogList.do")  
 	public String myBlogList(){
 		return "blog/myBlogList";
 	}
