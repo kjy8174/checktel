@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
@@ -11,6 +11,11 @@
 <!--VENDOR SCRIPT-->
 <script src="vendor/jquery/jquery-1.11.2.min.js"></script>
 <script src="vendor/plugins-compressed.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 모달 -->
@@ -63,6 +68,29 @@ div#users-contain table td, div#users-contain table th {
 .validateTips {
 	border: 1px solid transparent;
 	padding: 0.3em;
+}
+
+div.polaroid {
+	width: 300px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	text-align: center;
+	float: left;
+	margin-left: 100px;
+	margin-bottom: 30px;
+}
+
+fieldset {
+	border: 0;
+}
+
+label {
+	display: block;
+	margin: 30px 0 0 0;
+}
+
+.overflow {
+	height: 200px;
 }
 </style>
 
@@ -270,326 +298,341 @@ div#users-contain table td, div#users-contain table th {
 	}
 </script>
 <!--   모달 end -->
- 
+<!-- 셀렉트 메뉴 -->
+<script>
+	$(function() {
+
+		$("#number").selectmenu().selectmenu("menuWidget").addClass("overflow");
+	});
+</script>
+
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body class="boxed-simple">
 
-		<!--트래블로그: HEADER -->
-		<br>
-		<table>
-			<tr>
-				<td><a href="blogList.html">
+	<!--트래블로그: HEADER -->
+	<br>
+	<section id="page-title"
+		class="page-title-parallax page-title-center text-dark"
+		style="background-image:url(../images/Desert.jpg);">
+	<div class="container">
+		<div class="page-title col-md-8">
+			<table >
+				<tr>
+					<td><a
+						href="${pageContext.request.contextPath}/blog/getBlogList.do">
+							<div>
+								<span
+									style="font-size: 50px; font-weight: bold; color: #d9dadf;"><</span>
+							</div>
+					</a></td>
+					<td>
 						<div>
-							<span style="font-size: 50px; font-weight: bold; color: #d9dadf;"><</span>
+							<img src="../img/userface.png">
 						</div>
-				</a></td>
-				<td>
-					<div>
-						<img src="../img/userface.png">
-					</div>
-				</td>
-				<td>
-					<div>
-						<span style="font-size: 25px; font-weight: bold;">호진</span> 님의
-						트래블로그 <br> <br> <input type="button" id="create-use"
-							value="프로필 수정">
-					</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<div class="w3-bar w3-black" style="width: 16%">
-			<button class="w3-bar-item w3-button tablink w3-red"
-				onclick="openCity(event,'London')">전체</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="openCity(event,'Paris')">일정</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="openCity(event,'Tokyo')">장소</button>
+					</td>
+					<td>
+						<div>
+							<span style="font-size: 25px; font-weight: bold;">호진</span> 님의
+							트래블로그 <br> <br> <input type="button" id="create-use"
+								value="프로필 수정">
+						</div>
+					</td>
+				</tr>
+			</table>
+
+
 		</div>
-		<!--트래블로그:end HEADER -->
+	</div>
+	</section>
 
-		<!-- CONTENT -->
-		<section class="content" style="margin-top: 1px;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-					<div id="London" class="w3-container w3-border city">
-						<div class="post-item">
-							<div class="post-image">
-								<a href="#"> <img alt="" src="../img/Desert.jpg">
-								</a>
-							</div>
-							<div class="post-content-details">
-								<div class="post-title">
-									<h3>
-										<a href="#">이호진님의 4박5일 여행</a>
-									</h3>
-								</div>
-								<div class="post-info">
-									<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-								</div>
-							</div>
+	<div class="demo" style="margin-left: 450px;">
+		<form action="#">
 
-							<div class="post-meta">
-								<div class="post-date">
-									<span class="post-date-day">16</span> <span
-										class="post-date-month">January</span> <span
-										class="post-date-year">2015</span>
-								</div>
+			<label for="number">도시별 검색</label> <select name="number" id="number">
+				<option>제주</option>
+				<option selected="selected">서울</option>
+				<option>도쿄</option>
+				<option>런던</option>
+				<option>상하이</option>
+				<option>파리</option>
+				<option>방콕</option>
+				<option>로스 엔젤레스</option>
+				<option>홍콩</option>
+				<option>로마</option>
+				<option>하노이</option>
+				<option>부산</option>
+				<option>바르셀로나</option>
+				<option>오사카</option>
+				<option>싱가포르</option>
+				<option>뉴욕</option>
+				<option>베이징</option>
+				<option>푸켓</option>
+				<option>라스베이거스</option>
+				<option>세부</option>
+				<option>교토</option>
+				<option>마카오</option>
+				<option>타이베이</option>
+				<option>시드니</option>
+				<option>쿠알라 룸푸르</option>
+			</select>
 
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-comments-o"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-share-alt"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-							</div>
-						</div>
+		</form>
+	</div>
+	<!--트래블로그:end HEADER -->
+
+	<!-- CONTENT -->
+	<section class="content">
+
+	<div class="polaroid">
+		<div class="container">
+			<!-- Blog post-->
+			<div class="post-content post-4-columns">
+				<!-- Blog image post-->
+
+				<div class="post-item">
+					<div class="post-image">
+						<a href="#"> <img alt="" src="../img/Desert.jpg">
+						</a>
 					</div>
-					<!-- Blog image post-->
-					<div id="Paris" class="w3-container w3-border city"
-						style="display: none">
-						<div class="post-item">
-							<div class="post-image">
-								<a href="#"> <img alt="" src="img/blog/thumb/2.jpg">
-								</a>
-							</div>
-							<div class="post-content-details">
-								<div class="post-title">
-									<h3>
-										<a href="#">Image post example</a>
-									</h3>
-								</div>
-								<div class="post-info">
-									<span class="post-autor">Post by: <a href="#">Alea
-											Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-								</div>
-								<div class="post-description">
-									<p>Curabitur pulvinar euismod ante, ac sagittis ante
-										posuere ac. Vivamus luctus commodo dolor porta feugiat. Fusce
-										at velit id ligula pharetra laoreet.</p>
-
-									<div class="post-info">
-										<a class="read-more" href="blog-post.html">read more <i
-											class="fa fa-long-arrow-right"></i></a>
-									</div>
-								</div>
-							</div>
-
-							<div class="post-meta">
-								<div class="post-date">
-									<span class="post-date-day">16</span> <span
-										class="post-date-month">January</span> <span
-										class="post-date-year">2015</span>
-								</div>
-
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-comments-o"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-share-alt"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-							</div>
+					<div class="post-content-details">
+						<div class="post-title">
+							<h3>
+								<a href="#">이호진님의 4박5일 여행</a>
+							</h3>
 						</div>
-					</div>
-					<!-- Blog image post-->
-					<div id="Tokyo" class="w3-container w3-border city"
-						style="display: none">
-						<div class="post-item">
-							<div class="post-image">
-								<a href="#"> <img alt="" src="images/blog/thumb/3.jpg">
-								</a>
-							</div>
-							<div class="post-content-details">
-								<div class="post-title">
-									<h3>
-										<a href="#">Image post example</a>
-									</h3>
-								</div>
-								<div class="post-info">
-									<span class="post-autor">Post by: <a href="#">Alea
-											Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-								</div>
-								<div class="post-description">
-									<p>Curabitur pulvinar euismod ante, ac sagittis ante
-										posuere ac. Vivamus luctus commodo dolor porta feugiat. Fusce
-										at velit id ligula pharetra laoreet.</p>
-
-									<div class="post-info">
-										<a class="read-more" href="blog-post.html">read more <i
-											class="fa fa-long-arrow-right"></i></a>
-									</div>
-								</div>
-							</div>
-
-							<div class="post-meta">
-								<div class="post-date">
-									<span class="post-date-day">16</span> <span
-										class="post-date-month">January</span> <span
-										class="post-date-year">2015</span>
-								</div>
-
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-comments-o"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-share-alt"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-							</div>
+						<div class="post-info">
+							<span class="post-autor">작성자: <a href="#">똑호진</a></span>
 						</div>
 					</div>
 
+					<div class="post-meta">
+						<div class="post-date">
+							<span class="post-date-day">16</span> <span
+								class="post-date-month">January</span> <span
+								class="post-date-year">2015</span>
+						</div>
+
+						<div class="post-comments">
+							<a href="#"> <i class="fa fa-comments-o"></i> <span
+								class="post-comments-number">324</span>
+							</a>
+						</div>
+						<div class="post-comments">
+							<a href="#"> <i class="fa fa-share-alt"></i> <span
+								class="post-comments-number">324</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="polaroid" style="float: left;">
+		<div class="container">
+			<!-- Blog post-->
+			<div class="post-content post-4-columns">
+				<!-- Blog image post-->
+
+				<div class="post-item">
+					<div class="post-image">
+						<a href="#"> <img alt="" src="../img/Desert.jpg">
+						</a>
+					</div>
+					<div class="post-content-details">
+						<div class="post-title">
+							<h3>
+								<a href="#">이호진님의 4박5일 여행</a>
+							</h3>
+						</div>
+						<div class="post-info">
+							<span class="post-autor">작성자: <a href="#">똑호진</a></span>
+						</div>
+					</div>
+
+					<div class="post-meta">
+						<div class="post-date">
+							<span class="post-date-day">16</span> <span
+								class="post-date-month">January</span> <span
+								class="post-date-year">2015</span>
+						</div>
+
+						<div class="post-comments">
+							<a href="#"> <i class="fa fa-comments-o"></i> <span
+								class="post-comments-number">324</span>
+							</a>
+						</div>
+						<div class="post-comments">
+							<a href="#"> <i class="fa fa-share-alt"></i> <span
+								class="post-comments-number">324</span>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<!-- 모달 -->
-			<div id="dialog-form" title="My page">
-				<br> <br>
-				<div class="w3-bar w3-black">
-					<button class="w3-bar-item w3-button tablink w3-red"
-						onclick="openCity(event,'Londo')">프로필</button>
-					<button class="w3-bar-item w3-button tablink"
-						onclick="openCity(event,'Pari')">계정 설정</button>
+		</div>
+	</div>
 
-				</div>
+	<!-- 모달 -->
+	<div id="dialog-form" title="My page">
+		<br> <br>
+		<div class="w3-bar w3-black">
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openCity(event,'Londo')">프로필</button>
+			<button class="w3-bar-item w3-button tablink"
+				onclick="openCity(event,'Pari')">계정 설정</button>
 
-				<div id="Londo" class="w3-container w3-border city">
-					<div class="row">
-						<table>
-							<tr>
-								<td>
-									<form id="form1" runat="server">
-										<input type='file' id="imgInp" /> <img id="blah"
-											src="../img/Koala.jpg" style="width: 150px; height: 150px;" />
-									</form>
-								</td>
-								<td>
-									<div>이름</div>
-									<div>닉네임</div>
-								</td>
-							</tr>
-						</table>
-						<div class="col-md-5" data-animation="flipInY"
-							data-animation-delay="0">
-							<div class="center" style="width: 500px;">
-								<br> <br> 나의 선호도 <br>
-								<div>
-									<img src="../img/icon_category_1_b.png"
-										style="margin-right: 12px" /> <img
-										src="../img/icon_category_2_b.png" style="margin-right: 12px" />
-									<img src="../img/icon_category_3_b.png"
-										style="margin-right: 11px" /> <img
-										src="../img/icon_category_4_b.png" style="margin-right: 10px" />
-									<img src="../img/icon_category_5_b.png"
-										style="margin-right: 10px" /> <img
-										src="../img/icon_category_6_b.png" style="margin-right: 10px" />
-									<img src="../img/icon_category_7_b.png" />
-								</div>
-								<br>
-								<div style="float: left; width: 550px;">
-									<div id="slider-vertical1"
-										style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
-									<div id="slider-vertical2"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-									<div id="slider-vertical3"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-									<div id="slider-vertical4"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-									<div id="slider-vertical5"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-									<div id="slider-vertical6"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-									<div id="slider-vertical7"
-										style="height: 200px; float: left; margin-right: 50px"></div>
-								</div>
-								<div style="clear: both;">
-									<label for="amount1">기타:</label> <input type="text"
-										id="amount1" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount2">쇼핑:</label> <input type="text"
-										id="amount2" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount3">문화:</label> <input type="text"
-										id="amount3" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount4">역사:</label> <input type="text"
-										id="amount4" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount5">자연:</label> <input type="text"
-										id="amount5" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount6">이벤트:</label> <input type="text"
-										id="amount6" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-									<label for="amount7">음식점:</label> <input type="text"
-										id="amount7" readonly
-										style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								</div>
-							</div>
+		</div>
+
+		<div id="Londo" class="w3-container w3-border city">
+			<div class="row">
+				<table>
+					<tr>
+						<td>
+							<form id="form1" runat="server">
+								<input type='file' id="imgInp" /> <img id="blah"
+									src="../img/Koala.jpg" style="width: 150px; height: 150px;" />
+							</form>
+						</td>
+						<td>
+							<div>이름</div>
+							<div>닉네임</div>
+						</td>
+					</tr>
+				</table>
+				<div class="col-md-5" data-animation="flipInY"
+					data-animation-delay="0">
+					<div class="center" style="width: 500px;">
+						<br> <br> 나의 선호도 <br>
+						<div>
+							<img src="../img/icon_category_1_b.png"
+								style="margin-right: 12px" /> <img
+								src="../img/icon_category_2_b.png" style="margin-right: 12px" />
+							<img src="../img/icon_category_3_b.png"
+								style="margin-right: 11px" /> <img
+								src="../img/icon_category_4_b.png" style="margin-right: 10px" />
+							<img src="../img/icon_category_5_b.png"
+								style="margin-right: 10px" /> <img
+								src="../img/icon_category_6_b.png" style="margin-right: 10px" />
+							<img src="../img/icon_category_7_b.png" />
+						</div>
+						<br>
+						<div style="float: left; width: 550px;">
+							<div id="slider-vertical1"
+								style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
+							<div id="slider-vertical2"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical3"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical4"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical5"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical6"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical7"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+						</div>
+						<div style="clear: both;">
+							<label for="amount1">기타:</label> <input type="text" id="amount1"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount3">문화:</label> <input type="text" id="amount3"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount4">역사:</label> <input type="text" id="amount4"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount5">자연:</label> <input type="text" id="amount5"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount6">이벤트:</label> <input type="text" id="amount6"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount7">음식점:</label> <input type="text" id="amount7"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
 						</div>
 					</div>
 				</div>
-				 
-				<div id="Pari" class="w3-container w3-border city"
-					style="display: none">
-					<h2>Paris</h2>
-					<p>Paris is the capital of France.</p>  
-				</div>
-
 			</div>
+		</div>
 
-			<!-- 모달 end -->
-			<script>
-				function openCity(evt, cityName) {
-					var i, x, tablinks;
-					x = document.getElementsByClassName("city");
-					for (i = 0; i < x.length; i++) {
-						x[i].style.display = "none";
-					}
-					tablinks = document.getElementsByClassName("tablink");
-					for (i = 0; i < x.length; i++) {
-						tablinks[i].className = tablinks[i].className.replace(
-								" w3-red", "");
-					}
-					document.getElementById(cityName).style.display = "block";
-					evt.currentTarget.className += " w3-red";
-				}
-			</script>
+		<div id="Pari" class="w3-container w3-border city"
+			style="display: none">
+			<br>
+			<table style="border-collapse: separate;">
+				<tbody>
+					<tr height="50">
+						<td width="110">이메일</td>
+						<td>호진@naver.com</td>
+					</tr>
+					<tr height="50">
+						<td width="110">닉네임</td>
+						<td><input type="text" name="member_nick" value="호진" /></td>
+					</tr>
+					<tr height="50">
+						<td width="110">비밀번호변경</td>
+					</tr>
+					<tr height="50">
+						<td width="110">기존비밀번호</td>
+						<td><input type="text" name="member_pw" value="" /></td>
+					</tr>
+					<tr height="50">
+						<td width="110">새비밀번호</td>
+						<td><input type="text" name="new_pk" value="" /></td>
+					</tr>
+					<tr height="50">
+						<td width="150">새비밀번호 재입력</td>
+						<td><input type="text" name="new_pkcon" value="" /></td>
+					</tr>
 
-			<!-- pagination nav -->
-			<div class="text-center">
-				<div class="pagination-wrap">
-					<ul class="pagination">
-						<li><a aria-label="Previous" href="#"> <span
-								aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li class="active"><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a aria-label="Next" href="#"> <span
-								aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-						</a></li>
-					</ul>
-				</div>
-			</div>
+	<script>
+		function openCity(evt, cityName) {
+			var i, x, tablinks;
+			x = document.getElementsByClassName("city");
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablink");
+			for (i = 0; i < x.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(
+						" w3-red", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " w3-red";
+		}
+	</script> <!-- 모달 end -->
+	<div class="text-center">
+		<div class="pagination-wrap">
+			<ul class="pagination">
+				<li><a aria-label="Previous" href="#"> <span
+						aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+
+				</a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active"><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a aria-label="Next" href="#"> <span aria-hidden="true"><i
+							class="fa fa-angle-right"></i></span>
+				</a></li>
+			</ul>
+		</div>
+	</div>
 	</div>
 	<!-- END: Blog post-->
 	</div>

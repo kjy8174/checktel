@@ -62,7 +62,7 @@ public class BlogController {
 		public String  blogUpdateForm(@ModelAttribute("blog") BlogVO vo, Model model) {
 			System.out.println(vo);
 //			model.addAttribute("board", boardService.getBoard(vo));
-			return "blog/blogUpdate";
+			return "blog/myBlogList";
 		}	
 		
 		//수정      boardUpdate
@@ -77,7 +77,7 @@ public class BlogController {
 		@RequestMapping("/blogDelete.do")
 		public String blogDelete(BlogVO vo, Model model) {
 			blogService.updateBlog(vo);
-			return "getBlogList.do";
+			return "blog/myBlogList.do";
 		}
 	
 		//단건조회
