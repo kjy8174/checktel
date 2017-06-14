@@ -140,7 +140,7 @@ $(function() {
 $(function() {
 	$("#datepicker").datepicker({
 		showOn : "button",
-		buttonImage : "./img/icon_calendar_w.png",
+		buttonImage : "../img/icon_calendar_w.png",
 		buttonImageOnly : true,
 		buttonText : "Select date"
 	});
@@ -296,105 +296,105 @@ $(function() {
 				<ul class="grid grid-5-columns">
 					<li>
 						<div class="imgteaser" id="city1">
-						<img src="img/loading.jpg" alt="">
+						<img src="../img/loading.jpg" alt="">
 						<span class="desc"> <strong>서울</strong> 대한민국
 						</span>
 						</div>
 						</li>
 					<li>
 						<div class="imgteaser" id="city2">
-						<img src="img/loading (1).jpg" alt="">
+						<img src="../img/loading (1).jpg" alt="">
 						<span class="desc"> <strong>제주</strong> 대한민국
 						</span>
 						</div>
 					</li>
 					<li>
 						<div class="imgteaser" id="city3">
-						<img src="img/loading (2).jpg" alt="">
+						<img src="../img/loading (2).jpg" alt="">
 						<span class="desc"> <strong>도쿄</strong> 일본
 						</span>
 						</div>
 					</li>
 					<li>
 						<div class="imgteaser" id="city4">
-						<img src="img/loading (3).jpg" alt="">
+						<img src="../img/loading (3).jpg" alt="">
 						<span class="desc"> <strong>런던</strong> 영국
 						</span>
 						</div>
 					</li>
 					<li>
 						<div class="imgteaser" id="city5">
-						<img src="img/loading (4).jpg" alt="">
+						<img src="../img/loading (4).jpg" alt="">
 						<span class="desc"> <strong>상하이</strong> 중국
 						</span>
 						</div>
 					</li>
 					<li>
 						<div class="imgteaser" id="city6">
-						<img src="img/loading (5).jpg" alt="">	
+						<img src="../img/loading (5).jpg" alt="">	
 						<span class="desc"> <strong>파리</strong> 프랑스
 						</span>
 						</div>			
 					</li>
 					<li>
 						<div class="imgteaser" id="city7">
-						<img src="img/loading (6).jpg" alt="">
+						<img src="../img/loading (6).jpg" alt="">
 						<span class="desc"> <strong>방콕</strong> 태국
 						</span>
 						</div>
 					</li>
 					<li>
 						<div class="imgteaser" id="city8">
-						<img src="img/loading (7).jpg" alt="">	
+						<img src="../img/loading (7).jpg" alt="">	
 						<span class="desc"> <strong>로스 앤젤레스</strong> 미국
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city9">
-						<img src="img/loading (8).jpg" alt="">
+						<img src="../img/loading (8).jpg" alt="">
 						<span class="desc"> <strong>홍콩</strong> 홍콩
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city10">
-						<img src="img/loading (9).jpg" alt="">
+						<img src="../img/loading (9).jpg" alt="">
 						<span class="desc"> <strong>로마</strong> 이탈리아
 						</span>
 						</div>
 						</li>
 					<li>
 						<div class="imgteaser" id="city11">
-						<img src="img/loading (10).jpg" alt="">	
+						<img src="../img/loading (10).jpg" alt="">	
 						<span class="desc"> <strong>바르셀로나</strong> 스페인
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city12">
-						<img src="img/loading (11).jpg" alt="">	
+						<img src="../img/loading (11).jpg" alt="">	
 						<span class="desc"> <strong>오사카</strong> 일본
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city13">
-						<img src="img/loading (12).jpg" alt="">	
+						<img src="../img/loading (12).jpg" alt="">	
 						<span class="desc"> <strong>싱가포르</strong> 싱가포르
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city14">
-						<img src="img/loading (13).jpg" alt="">				
+						<img src="../img/loading (13).jpg" alt="">				
 						<span class="desc"> <strong>뉴욕</strong> 미국
 						</span>
 						</div>
 						</li>	
 					<li>
 						<div class="imgteaser" id="city15">
-						<img src="img/loading (14).jpg" alt="">		
+						<img src="../img/loading (14).jpg" alt="">		
 						<span class="desc"> <strong>베이징</strong> 중국
 						</span>
 						</div>			
@@ -407,77 +407,77 @@ $(function() {
 					<ul class="grid grid-5-columns">
 						<li>
 							<div class="imgteaser" id="city16">
-								<img src="img/loading (15).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (15).jpg" alt=""> <span class="desc">
 									<strong>푸켓</strong> 태국
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city17">
-								<img src="img/loading (16).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (16).jpg" alt=""> <span class="desc">
 									<strong>라스 베이거스</strong> 미국
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city18">
-								<img src="img/loading (17).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (17).jpg" alt=""> <span class="desc">
 									<strong>세부</strong> 필리핀
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city19">
-								<img src="img/loading (18).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (18).jpg" alt=""> <span class="desc">
 									<strong>교토</strong> 일본
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city20">
-								<img src="img/loading (19).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (19).jpg" alt=""> <span class="desc">
 									<strong>마카오</strong> 홍콩
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city21">
-								<img src="img/loading (20).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (20).jpg" alt=""> <span class="desc">
 									<strong>타이베이</strong> 대만
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city22">
-								<img src="img/loading (21).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (21).jpg" alt=""> <span class="desc">
 									<strong>시드니</strong> 오스트레일리아
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city23">
-								<img src="img/loading (22).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (22).jpg" alt=""> <span class="desc">
 									<strong>쿠알라 룸푸르</strong> 말레이시아
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city24">
-								<img src="img/loading (23).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (23).jpg" alt=""> <span class="desc">
 									<strong>마닐라</strong> 필리핀
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city25">
-								<img src="img/loading (24).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (24).jpg" alt=""> <span class="desc">
 									<strong>하노이</strong> 베트남
 								</span>
 							</div>
 						</li>
 						<li>
 							<div class="imgteaser" id="city26">
-								<img src="img/loading (25).jpg" alt=""> <span class="desc">
+								<img src="../img/loading (25).jpg" alt=""> <span class="desc">
 									<strong>부산</strong> 대한민국
 								</span>
 							</div>
@@ -564,13 +564,13 @@ $(function() {
 			<div class="center">
 			여행 성향 <br>
 			<div>
-			<img src="./img/icon_category_1_b.png" style="margin-right: 12px"/>
-			<img src="./img/icon_category_2_b.png" style="margin-right: 12px"/>
-			<img src="./img/icon_category_3_b.png" style="margin-right: 11px"/>
-			<img src="./img/icon_category_4_b.png" style="margin-right: 10px"/>
-			<img src="./img/icon_category_5_b.png" style="margin-right: 10px"/>
-			<img src="./img/icon_category_6_b.png" style="margin-right: 10px"/>
-			<img src="./img/icon_category_7_b.png"/>
+			<img src="../img/icon_category_1_b.png" style="margin-right: 12px"/>
+			<img src="../img/icon_category_2_b.png" style="margin-right: 12px"/>
+			<img src="../img/icon_category_3_b.png" style="margin-right: 11px"/>
+			<img src="../img/icon_category_4_b.png" style="margin-right: 10px"/>
+			<img src="../img/icon_category_5_b.png" style="margin-right: 10px"/>
+			<img src="../img/icon_category_6_b.png" style="margin-right: 10px"/>
+			<img src="../img/icon_category_7_b.png"/>
 			</div>
 			<br>
 			<div style="float: left;">
