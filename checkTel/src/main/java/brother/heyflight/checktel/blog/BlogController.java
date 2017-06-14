@@ -24,7 +24,7 @@ public class BlogController {
 
 	
 	@Autowired
-	BlogService blogService;
+	BlogService blogService;  
 	  
 	//마이페이지 조회  
 	@RequestMapping("/blog/myBlogList.do")  
