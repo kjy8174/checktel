@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller 
 public class MainController {
@@ -35,12 +32,18 @@ public class MainController {
 		return "/main/mainUpd";
 	}
 
-	//일정 등록 
-	@RequestMapping(value={"blog/myBlogShow.do"})
-	public String mainBlog(@ModelAttribute("main") @RequestBody MainVO mainVO, HttpServletRequest request){
+	//일정 저장
+	@RequestMapping(value={"blog/save.do"}, method=RequestMethod.POST)
+	public String mainBlogSave(@RequestBody List<MainVO> mainVO){
 		System.out.println("등록 : "+mainVO);
 		mainService.insertMain(mainVO);
-		return "blog/myBlogShow.do";
+		return "blog/myBlogShow";
 	}
+	
+	/*//일정 저장후 개인페이지로 이동
+	@RequestMapping(value={"blog/myBlogShow.do"})
+	public String mainBlog(){
+		return "blog/myBlogShow";
+	}	*/
 	
 }

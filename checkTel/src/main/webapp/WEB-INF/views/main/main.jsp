@@ -201,7 +201,7 @@
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
-  var planSub = new Array();
+  var planSub = [];//new Array();
   var curPlace;
   var mIdx;
   var div =0;
@@ -404,7 +404,9 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
-		var plan = {"day":(div+1),"dayNo":(dayNo++),"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"furl":city_array[mIdx].Furl,"categoryId":city_array[mIdx].CategoryIdx,"cityName":city_array[mIdx].Title}; //json으로 배열 만듬
+		var a=1;
+		var plan = {"spotNo":(a++),"day":(div+1),"dayNo":(dayNo++),"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"furl":city_array[mIdx].Furl,"categoryId":city_array[mIdx].CategoryIdx,"cityName":city_array[mIdx].Title}; //json으로 배열 만듬
+		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
 		/* var plan = new Object();
 		plan.day = div+1;
 		plan.dayNo = dayNo++;
@@ -417,19 +419,11 @@ function showInfo(mIdx) { //상세 정보 출력
 		var jsonData = JSON.stringify(planSub) ;        
         alert(planSub) ; */
         planSub.push(plan);
-		console.log(planSub)
-		var jsonData = JSON.stringify(planSub); //json string로 변환?
-		$('#json').val(jsonData);
+/* 		var jsonData = JSON.stringify(planSub); //json string로 변환?
+		console.log(jsonData) */
+		//$('#json1').val(jsonData);
 		
-		$.ajax({
-            url:'../blog/myBlogList.do',
-            method: "post",
-            dataType:"json",
-            data : planSub,
-            success:function(){
-            	console.log("ajax전송")
-            }
-        })		
+				
 		
 		console.log(a)
 		  flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
@@ -499,7 +493,7 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
-		var plan = {day:(div+1),dayNo:(dayNo++),lat:city_array[mIdx].Lat,lng:city_array[mIdx].Lng,furl:city_array[mIdx].Furl,categoryId:city_array[mIdx].CategoryIdx,cityName:city_array[mIdx].Title}; //json으로 배열 만듬
+		var plan = {spotNo:1,day:(div+1),dayNo:(dayNo++),lat:city_array[mIdx].Lat,lng:city_array[mIdx].Lng,furl:city_array[mIdx].Furl,categoryId:city_array[mIdx].CategoryIdx,cityName:city_array[mIdx].Title}; //json으로 배열 만듬
 		planSub.push(plan);
 		console.log(planSub)
 		console.log(a)
@@ -606,8 +600,27 @@ $( function() { //달력
 		}
 	  });
   } );
-  
-  </script>
+
+$(function() {
+	$("#planSave").click(function() {
+		var jsonData = JSON.stringify(planSub);
+		console.log(jsonData)
+		alert("전송")
+		$.ajax({
+			url : '../blog/save.do',
+			method : "post",
+			dataType : "json",
+			data : jsonData,
+			contentType: "application/json",
+			success : function() {
+				console.log("ajax전송");
+			},
+			error:function(request,status,error){
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+		});
+	});
+});
+</script>
 </head>
 <body>
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
@@ -787,19 +800,9 @@ $( function() { //달력
 			</div>
 		</div>
 	</div>
-	<button class="button2 button1"><a href="../main/mainUpd.do">전체 삭제</a></button>
-	<form action="../blog/myBlogShow.do">
-		<input type="text" name="spotNo" id="spotNo" placeholder="장소번호">
-		<input type="text" name="cityNo" id="cityNo" placeholder="도시번호">
-		<input type="text" name="smallIdx" id="smallIdx" placeholder="idx">
-		<input type="text" name="smallLat" id="smallLat" placeholder="위도">
-		<input type="text" name="smallLng" id="smallLng" placeholder="경도">
-		<input type="text" name="dayVisit" id="dayVisit" placeholder="방문순서">
-		<!-- <input type="text" name="planNo" id="planNo"> -->
-		<input type="text" name="dayNo" id="dayNo" placeholder="날짜번호">
-		<input type="text" name="json" id="json" placeholder="json">
-		<button class="button2 button1">일정 저장</button>
-	</form>
+	<a href="../main/mainUpd.do"><button class="button2 button1">전체 삭제</button></a>
+	<button class="button2 button1" id="planSave">일정 저장</button>
+
 </div>
 	<!-- 일정 상세보기  -->
 <div id = "detail">

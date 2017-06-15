@@ -6,10 +6,14 @@
 
 	<resultMap id="mainResult" type="main"> <!--type에는 클래스 명  -->
 		<id property="spotNo" column="SPOT_NO" /> <!--필드명(BoardVO 필드), 컬럼명  -->
-		<id property="cityNo" column="CITY_NO" />
-		<id property="dayVisit" column="DAY_VISIT" />
-		<!-- <id property="planNo" column="PLAN_NO" /> -->
+		<id property="day" column="DAY" />
 		<id property="dayNo" column="DAY_NO" />
+		<!-- <id property="planNo" column="PLAN_NO" /> -->
+		<id property="categoryId" column="CATEGORY_ID" />
+		<result property="furl" column="FURL" />
+		<result property="lat" column="LAT" />
+		<result property="lng" column="LNG" />
+		<result property="cityName" column="CITY_NAME" />
 	</resultMap>
    
    <insert id="insertMain" parameterType="main">
@@ -19,16 +23,23 @@
       <!-- CDATA 태그인식을 막는 명령어 -->
         INSERT INTO DETAIL(
                       SPOT_NO
-                    , CITY_NO
-                    , DAY_VISIT
+                    , DAY
+                    , DAY_NO
                     <!-- , PLAN_NO -->
-                    , DAY_NO)
+                    , CATEGORY_ID
+                    , LAT
+                    , LNG
+                    , FURL
+                    , CITY_NAME)
         VALUES(
              #{spotNo}
-           , #{cityNo} 
-           , #{dayVisit}
+           , #{day} 
+           , #{dayNo}
           <!--  , #{planNo} -->
-           , #{dayNo})
+           , #{categoryId}
+           , #{lat}
+           , #{lng}
+           , #{furl}
+           , #{cityName})
    </insert>
-
 </mapper>

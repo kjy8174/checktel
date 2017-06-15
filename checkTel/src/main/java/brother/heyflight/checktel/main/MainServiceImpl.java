@@ -1,7 +1,6 @@
 package brother.heyflight.checktel.main;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +11,10 @@ public class MainServiceImpl implements MainService{
 	//DAO
 	@Autowired
 	private MainDAOMybatis mainDAO;
-	
-	@Override
-	public void insertMain(MainVO vo) {
-		mainDAO.insertMain(vo);
-		// TODO Auto-generated method stub
-		
+
+	public void insertMain(List<MainVO> mainList) {
+		for(int i = 0;i<mainList.size();i++){
+			mainDAO.insertMain(mainList.get(i)); //for 문 돌리자
+		}
 	}
 }
