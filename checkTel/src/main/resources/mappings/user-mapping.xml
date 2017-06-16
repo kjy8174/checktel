@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberDAO"> <!--namespace로 구분 -->
+
+	<resultMap id="userResult" type="member">
+		<id property="memberNo" column="MEMBER_NO" />
+		<id property="memberBirth" column="MEMBER_BIRTH" />
+		<id property="memberSex" column="MEMBER_SEX" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="memberCategory" column="MEMBER_CATEGORY" />
+	</resultMap>
+
+	<select id="getMemberById" resultMap="userResult">
+		<![CDATA[
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+		]]>
+	</select>
+
+	<select id="getMemberByMemberName" resultMap="userResult">
+		<![CDATA[
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{memberName}
+		]]>
+	</select>
+
+	<insert id="insertMember" parameterType="member">
+		<selectKey keyProperty="memberNo" resultType="string" order="BEFORE">
+			SELECT NVL(MAX(MEMBER_NO), 0) + 1 FROM MEMBER
+		</selectKey>
+		INSERT INTO MEMBER(
+							 MEMBER_NO
+							,MEMBER_NAME
+							,MEMBER_PW
+							,MEMBER_EMAIL
+							,MEMBER_NICK
+							,MEMBER_BIRTH
+							,MEMBER_SEX )
+		VALUES (			 #{memberNo}
+							,#{memberName}
+							,#{memberPw}
+							,#{memberEmail}
+							,#{memberNick}
+							,#{memberBirth}
+							,#{memberSex})
+	</insert>
+
+</mapper>
