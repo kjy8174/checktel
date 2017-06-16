@@ -6,10 +6,11 @@
 
 	<resultMap id="reviewResult" type="review"> <!--type에는 클래스 명  -->
 		<id property="reviewNo" column="REVIEW_NO" /> <!-- 필드명(BoardVO 필드), 컬럼명 -->
+		<id property="planNo" column="PLAN_NO" />
+		<id property="memberNo" column="MEMBER_NO" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
 		<result property="reviewDate" column="REVIEW_DATE" />
-		<!-- <id property="planNO" column="PLAN_NO" />
-		<result property="memberNO" column="MEMBER_NO" /> --> 
+		
 				
 	</resultMap>
    
@@ -18,17 +19,18 @@
       	SELECT NVL(MAX(REVIEW_NO), 0) + 1 FROM REVIEW
       </selectKey>
       <!-- CDATA 태그인식을 막는 명령어 -->
-        INSERT INTO REVIEW( REVIEW_NO, REVIEW_CONTENT, REVIEW_DATE
-                    <!-- , PLAN_NO , MEMBER_NO -->
+        INSERT INTO REVIEW( REVIEW_NO, PLAN_NO , MEMBER_NO, REVIEW_CONTENT, REVIEW_DATE )
         VALUES(
-        	reviewNo, 
-        	#{reviewContent},        	 
+        	#{reviewNo},        	        	
+        	#{planNo}, 
+        	#{memberNo}, 
+        	#{reviewContent}, 
         	SYSDATE
-          <!--  , #{planNo} , #{MEMBER_NO} -->           
+        	)
    </insert>
        
    <select id="getReviewList" parameterType="review" resultMap="reviewResult">
-   		SELECT REVIEW_NO, REVIEW_CONTENT, REVIEW_DATE
+   		SELECT REVIEW_NO, PLAN_NO , MEMBER_NO, REVIEW_CONTENT, REVIEW_DATE
    		FROM REVIEW
    </select>
 
