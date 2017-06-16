@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--HEADER-->
 <div id="header-wrap">
@@ -59,7 +60,12 @@
 				</ul>
 				</nav>
 				<!-- login button -->
-				<a data-toggle="modal" data-target="#loginModal" href="member/loginView.do" class="right btn btn-default" id="login" style="margin: -61px 60px 0px 0px;">Login</a>
+				<c:if test="${empty USER}">
+					<a href='<c:url value="/login" />' class="right btn btn-default" id="login" style="margin: -61px 60px 0px 0px;"><i class="fa fa-user"></i></a>
+				</c:if>
+				<c:if test="${!empty USER}">
+					<a href='<c:url value="/logout" />' class="right btn btn-default" id="logout" style="margin: -61px 60px 0px 0px;">${user.memberName }<i class="fa fa-user-times"></i></a>
+				</c:if>
 			</div>
 		</div>
 		<!--END: 상단 메뉴 바-->

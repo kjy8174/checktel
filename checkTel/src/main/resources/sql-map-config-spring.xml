@@ -7,6 +7,6 @@
         <typeAlias alias="main" type="brother.heyflight.checktel.main.MainVO"/>
         <typeAlias alias="plan" type="brother.heyflight.checktel.plan.PlanVO"/>
         <typeAlias alias="blog" type="brother.heyflight.checktel.blog.BlogVO"/>
-        
+        <typeAlias alias="member" type="brother.heyflight.checktel.member.Member"/>
     </typeAliases>
 </configuration>

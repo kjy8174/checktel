@@ -34,6 +34,21 @@
 	</beans:bean>
 	<context:component-scan base-package="brother.heyflight.checktel" />
 
-
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<beans:bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<beans:constructor-arg
+			value="822488862469-u98jodt50il1dktdig38tc03f3rmmm75.apps.googleusercontent.com" />
+		<beans:constructor-arg value="g0Eo20-I4UyD8oZ_blRGWsK_" />
+	</beans:bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<beans:bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<beans:property name="scope"
+			value="https://www.googleapis.com/auth/plus.login" />
+		<beans:property name="redirectUri"
+			value="http://localhost/checktel/oauth2callback" />
+	</beans:bean>
 
 </beans:beans>

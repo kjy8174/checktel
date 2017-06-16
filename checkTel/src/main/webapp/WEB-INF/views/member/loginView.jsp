@@ -1,41 +1,102 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<body>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true"><span aria-hidden="true">&times;</span></button>
-	<h4 class="smaller lighter blue no-margin modal-title">·Î±×ÀÎ</h4>
-</div>
-<div class="modal-body">
-	<form class="form">
-		<div class="form-group">
-			<label class="sr-only">Username or Email</label> <input type="text"
-				class="form-control" placeholder="Username or Email">
-		</div>
-		<div class="form-group m-b-5">
-			<label class="sr-only">Password</label> <input type="password"
-				class="form-control" placeholder="Password">
-		</div>
-		<div class="form-group form-inline text-left ">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>NaverLoginTest</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/login.css">
 
-			<div class="checkbox">
-				<label> <input type="checkbox"><small>
-						Remember me</small></label>
+</head>
+<body>
+	<div class="container">
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">ë¡œê·¸ì¸</div>
+				</div>
+
+				<div style="padding-top: 30px" class="panel-body">
+
+					<div style="display: none" id="login-alert"
+						class="alert alert-danger col-sm-12"></div>
+
+					<form id="loginform" class="form-horizontal" role="form"
+						name="loginForm" method="POST" action="<c:url value="/login/submit.do"/>">
+
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
+								type="text" class="form-control" name="username" value=""
+								placeholder="username or email">
+						</div>
+
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-lock"></i></span> <input id="login-password"
+								type="password" class="form-control" name="password"
+								placeholder="password">
+						</div>
+						<c:if test="${null ne errorMessage}">
+						<div>
+							<p class="text-danger">${errorMessage}</p>
+						</div>
+						</c:if>
+
+						<div class="input-group">
+							<div class="checkbox">
+								<label> <input id="login-remember" type="checkbox"
+									name="remember" value="1" />ë¡œê·¸ì¸ ìƒíƒœìœ ì§€
+								</label>
+							</div>
+						</div>
+
+
+						<div style="margin-top: 10px" class="form-group">
+							<!-- Button -->
+
+							<div class="col-sm-12 controls">
+								<a id="btn-login" href="#" onclick="javascript:do_login()" class="btn btn-primary">Login </a> 
+								<a href="${url}"><img src="<c:url value="/images/naverid_login_button.png" />" height=34 /></a>
+								<a href="${google_url}"><img src="<c:url value="/images/btn_google_signin_dark_normal_web.png" />" height=34 /></a>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<div class="col-md-12 control">
+								<div
+									style="border-top: 1px solid #888; padding-top: 15px; font-size: 85%">
+									<p class="text-primary">
+										ì•„ì§ íšŒì›ì´ ì•„ë‹ˆì‹œë¼ë©´? <a href="<c:url value="/join.do" />">
+											íšŒì›ê°€ì… </a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</form>
+
+
+
+				</div>
 			</div>
 		</div>
-		<div class="text-left form-group">
-			<button type="button" class="btn btn-primary" style="width: 100%;">Login</button>
-		</div>
-		<a href="#" class="left"><small>ºñ¹Ğ¹øÈ£¸¦ ÀØ¾î¹ö¸®¼Ì³ª¿ä?</small></a>
-	</form>
-</div>
-
-<div class="modal-footer">
-	<p class="text-left">
-		¾ÆÁ÷ È¸¿øÀÌ ¾Æ´Ï½Å°¡¿ä? <a data-toggle="modal" data-target="#regModal" href="member/loginRegForm.do">È¸¿ø °¡ÀÔ</a>
-	</p>
-</div>
+	</div>
+	
+	<script src="${pageContext.request.contextPath }/vendor/jquery/jquery-1.11.2.min.js"/></script>
+	<script src="${pageContext.request.contextPath }/vendor/bootstrap/js/bootstrap.min.js"/></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/login.js" /></script>
+	
+	<script type="text/javascript">
+		function do_login(){
+			document.loginForm.submit();
+		}
+	</script>
 </body>
 </html>
