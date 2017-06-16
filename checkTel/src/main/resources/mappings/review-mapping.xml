@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewDAO"> <!--namespace로 구분  -->
+
+	<resultMap id="reviewResult" type="review"> <!--type에는 클래스 명  -->
+		<id property="reviewNo" column="REVIEW_NO" /> <!-- 필드명(BoardVO 필드), 컬럼명 -->
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewDate" column="REVIEW_DATE" />
+		<!-- <id property="planNO" column="PLAN_NO" />
+		<result property="memberNO" column="MEMBER_NO" /> --> 
+				
+	</resultMap>
+   
+   <insert id="insertReview" parameterType="review">   
+      <selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
+      	SELECT NVL(MAX(REVIEW_NO), 0) + 1 FROM REVIEW
+      </selectKey>
+      <!-- CDATA 태그인식을 막는 명령어 -->
+        INSERT INTO REVIEW( REVIEW_NO, REVIEW_CONTENT, REVIEW_DATE
+                    <!-- , PLAN_NO , MEMBER_NO -->
+        VALUES(
+        	reviewNo, 
+        	#{reviewContent},        	 
+        	SYSDATE
+          <!--  , #{planNo} , #{MEMBER_NO} -->           
+   </insert>
+       
+   <select id="getReviewList" parameterType="review" resultMap="reviewResult">
+   		SELECT REVIEW_NO, REVIEW_CONTENT, REVIEW_DATE
+   		FROM REVIEW
+   </select>
+
+</mapper>
