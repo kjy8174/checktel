@@ -43,7 +43,7 @@ public class MemberController {
 	private OAuth2Parameters googleOAuth2Parameters;
 
 	// 메인페이지
-	@RequestMapping("/main.do")
+/*	@RequestMapping("/main.do")
 	public ModelAndView main(HttpSession session) {
 		SnsMember snsMember = memberService.getSnsMemberSession(session);
 		Member member = memberService.getMemberSession(session);
@@ -58,7 +58,7 @@ public class MemberController {
 		} else {
 			return new ModelAndView("main/main");
 		}
-	}
+	}*/
 
 	/* google login callback */
 	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET,
@@ -118,7 +118,7 @@ public class MemberController {
 
 		/* 만약 일치하는 사용자가 있다면 현재 세션에 사용자 로그인 정보를 저장 */
 		session.setAttribute("USER", snsMember);
-		return new ModelAndView("redirect:/account");
+		return new ModelAndView("redirect:/main/main.do");
 	}
 
 	@RequestMapping("/join.do")
@@ -174,7 +174,7 @@ public class MemberController {
 					.createNewMemberBySnsMember(naverUser, username);
 			memberService.initSession(session);
 			memberService.setSnsMemberSession(session, newUser);
-			return new ModelAndView("redirect:/account");
+			return new ModelAndView("redirect:/main/main.do");
 
 		} else {
 			captchaKey = captchaService.getCaptchaKey();
@@ -204,7 +204,7 @@ public class MemberController {
 			Member newMember = memberService.createNewMemberByMember(member);
 			memberService.initSession(session);
 			memberService.setMemberSession(session, newMember);
-			return new ModelAndView("redirect:/account");
+			return new ModelAndView("redirect:/main/main.do");
 
 		} else {
 			captchaKey = captchaService.getCaptchaKey();
@@ -231,7 +231,7 @@ public class MemberController {
 		Member member = memberService.getMemberByMemberName(userName);
 		if (member != null && member.isValidPassword(password)) {
 			session.setAttribute("USER", member);
-			return new ModelAndView("redirect:/account");
+			return new ModelAndView("redirect:/main/main.do");
 		} else {
 			String naverAuthorizeUrl = naverLoginService
 					.getAuthorizationUrl(session);
@@ -242,7 +242,7 @@ public class MemberController {
 		}
 	}
 
-	@RequestMapping("/account")
+/*	@RequestMapping("/account")
 	public ModelAndView account(HttpSession session) {
 		SnsMember snsMember = memberService.getSnsMemberSession(session);
 		Member member = memberService.getMemberSession(session);
@@ -258,12 +258,12 @@ public class MemberController {
 			// REDIRECT TO LOGIN
 			return new ModelAndView("redirect:/login");
 		}
-	}
+	}*/
 
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		memberService.initSession(session);
-		return new ModelAndView("redirect:/main.do");
+		return new ModelAndView("redirect:/main/main.do");
 	}
 
 }

@@ -630,32 +630,32 @@ $(function() {
         <div>
             <div class="slider-inner">
                 <ul class="mimgm">
-                    <li><a class="ns-img" href="../images/test/1.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/2.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/3.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/4.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/5.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/6.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/7.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/8.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/9.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/10.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/11.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/12.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/13.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/14.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/15.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/16.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/17.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/18.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/19.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/20.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/21.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/22.jpg"></a></li>            
-                    <li><a class="ns-img" href="../images/test/23.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/24.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/25.jpg"></a></li>
-                    <li><a class="ns-img" href="../images/test/26.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/1.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/2.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/3.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/4.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/5.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/6.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/7.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/8.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/9.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/10.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/11.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/12.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/13.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/14.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/15.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/16.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/17.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/18.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/19.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/20.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/21.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/22.jpg"></a></li>            
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/23.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/24.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/25.jpg"></a></li>
+                    <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/26.jpg"></a></li>
                 </ul>
                 <div class="fs-icon" title="Expand/Close"></div>
             </div>
@@ -663,107 +663,107 @@ $(function() {
                 <div class="inner">
                     <ul>
                         <li>
-                            <a class="thumb" href="../images/test/1.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/1.jpg"></a>
                             <span>0</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/2.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/2.jpg"></a>
                             <span>1</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/3.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/3.jpg"></a>
                             <span>2</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/4.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/4.jpg"></a>
                             <span>3</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/5.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/5.jpg"></a>
                             <span>4</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/6.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/6.jpg"></a>
                             <span>5</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/7.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/7.jpg"></a>
                             <span>6</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/8.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/8.jpg"></a>
                             <span>7</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/9.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/9.jpg"></a>
                             <span>8</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/10.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/10.jpg"></a>
                             <span>9</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/11.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/11.jpg"></a>
                             <span>10</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/12.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/12.jpg"></a>
                             <span>11</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/13.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/13.jpg"></a>
                             <span>12</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/14.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/14.jpg"></a>
                             <span>13</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/15.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/15.jpg"></a>
                             <span>14</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/16.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/16.jpg"></a>
                             <span>15</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/17.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/17.jpg"></a>
                             <span>16</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/18.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/18.jpg"></a>
                             <span>17</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/19.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/19.jpg"></a>
                             <span>18</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/20.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/20.jpg"></a>
                             <span>19</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/21.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/21.jpg"></a>
                             <span>20</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/22.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/22.jpg"></a>
                             <span>21</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/23.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/23.jpg"></a>
                             <span>22</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/24.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/24.jpg"></a>
                             <span>23</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/25.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/25.jpg"></a>
                             <span>24</span>
                         </li>
                         <li>
-                            <a class="thumb" href="../images/test/26.jpg"></a>
+                            <a class="thumb" href="${pageContext.request.contextPath}/images/test/26.jpg"></a>
                             <span>25</span>
                         </li>                        
                     </ul>
