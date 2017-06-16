@@ -23,4 +23,8 @@ public class PlanDAOMybatis {
         System.out.println("===> Mybatis로 insertPlan() 기능 처리");
         mybatis.insert("PlanDAO.insertPlan", vo); //plan-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
     }
+/*	public void selectPlan(PlanVO vo) {
+        System.out.println("===> Mybatis로 selectPlan() 기능 처리");
+        mybatis.insert("PlanDAO.selectPlan", vo); //plan-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
+    }*/
 }

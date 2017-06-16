@@ -9,11 +9,11 @@ public class PlanServiceImpl implements PlanService{
 
 	//DAO
 	@Autowired
-	private PlanDAOMybatis planlDAO;
+	private PlanDAOMybatis planDAO;
 	
 	@Override
 	public void insertPlan(PlanVO vo) {
-		planlDAO.insertPlan(vo);
+		planDAO.insertPlan(vo);
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,30 +8,33 @@
 		<id property="planNo" column="PLAN_NO"/> <!--필드명(planVO 필드), 컬럼명  -->
 		<id property="planPeriod" column="PLAN_PERIOD" />
 		<id property="memberNo" column="MEMBER_NO" />
+		<id property="blogHit" column="BLOG_HIT" />
 		<result property="planStart" column="PLAN_START" />
 		<result property="planEnd" column="PLAN_END" />
-		<result property="planMemo" column="PLAN_MEMO" />
+		<result property="blogTitle" column="BLOG_TITLE" />
 	</resultMap>
    
    <insert id="insertPlan" parameterType="plan">
-      <!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE">
-      SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD
-      </selectKey> -->
+      <selectKey keyProperty="planNo" resultType="int" order="BEFORE">
+      	SELECT NVL(MAX(PLAN_NO), 0) + 1 FROM PLAN
+      </selectKey>
       <!-- CDATA 태그인식을 막는 명령어 -->
-        INSERT INTO PLAN(
-                      PLAN_NO
-                    , PLAN_PERIOD
-                    , PLAN_START
-                    , PLAN_END
-                    , PLAN_MEMO
-                    , MEMBER_NO)
-        VALUES(
-             #{planNo}
-           , #{planPeriod} 
-           , #{planStart}
-           , #{planEnd}
-           , #{planMemo}
-           , #{memberNo})
+      INSERT INTO PLAN(
+      				  PLAN_NO
+      				, PLAN_PERIOD
+      				, PLAN_START
+      				, PLAN_END
+      				, MEMBER_NO
+      				, BLOG_HIT
+      				, BLOG_TITLE)
+      VALUES(
+      	  #{planNo}
+      	, #{planPeriod}
+      	, #{planStart}
+      	, #{planEnd}
+      	, #{memberNo}
+      	, #{blogHit}
+      	, #{blogTitle})
    </insert>
 
 </mapper>

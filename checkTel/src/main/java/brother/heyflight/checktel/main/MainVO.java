@@ -1,14 +1,18 @@
 package brother.heyflight.checktel.main;
 
 public class MainVO {
-	private int spotNo;
-	private int day;
-	private int dayNo;
+	private int spotNo; //장소 idx
+	private String spotName; //장소 이름
+	private String spotFurl; //장소 이미지
 	private double lat;
 	private double lng;
-	private String furl;
+	private String cityName; //도시이름
+	private int no;
+	private int dayVisit; // 방문 순서
+	private int planNo;
 	private int categoryId;
-	private String cityName;
+	private int dayNo; //경과일수
+	//list
 	
 	public int getSpotNo() {
 		return spotNo;
@@ -16,17 +20,17 @@ public class MainVO {
 	public void setSpotNo(int spotNo) {
 		this.spotNo = spotNo;
 	}
-	public int getDay() {
-		return day;
+	public String getSpotName() {
+		return spotName;
 	}
-	public void setDay(int day) {
-		this.day = day;
+	public void setSpotName(String spotName) {
+		this.spotName = spotName;
 	}
-	public int getDayNo() {
-		return dayNo;
+	public String getSpotFurl() {
+		return spotFurl;
 	}
-	public void setDayNo(int dayNo) {
-		this.dayNo = dayNo;
+	public void setSpotFurl(String spotFurl) {
+		this.spotFurl = spotFurl;
 	}
 	public double getLat() {
 		return lat;
@@ -40,11 +44,29 @@ public class MainVO {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-	public String getFurl() {
-		return furl;
+	public String getCityName() {
+		return cityName;
 	}
-	public void setFurl(String furl) {
-		this.furl = furl;
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public int getDayVisit() {
+		return dayVisit;
+	}
+	public void setDayVisit(int dayVisit) {
+		this.dayVisit = dayVisit;
+	}
+	public int getPlanNo() {
+		return planNo;
+	}
+	public void setPlanNo(int planNo) {
+		this.planNo = planNo;
 	}
 	public int getCategoryId() {
 		return categoryId;
@@ -52,16 +74,19 @@ public class MainVO {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-	public String getCityName() {
-		return cityName;
+	public int getDayNo() {
+		return dayNo;
 	}
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setDayNo(int dayNo) {
+		this.dayNo = dayNo;
 	}
 	@Override
 	public String toString() {
-		return "MainVO [spotNo=" + spotNo + ", day=" + day + ", dayNo=" + dayNo
-				+ ", lat=" + lat + ", lng=" + lng + ", furl=" + furl
-				+ ", categoryId=" + categoryId + ", cityName=" + cityName + "]";
+		return "MainVO [spotNo=" + spotNo + ", spotName=" + spotName
+				+ ", spotFurl=" + spotFurl + ", lat=" + lat + ", lng=" + lng
+				+ ", cityName=" + cityName + ", no=" + no + ", dayVisit="
+				+ dayVisit + ", planNo=" + planNo + ", categoryId="
+				+ categoryId + ", dayNo=" + dayNo + "]";
 	}
+	
 }

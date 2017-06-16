@@ -1,77 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-<link rel="shortcut icon" href="images/favicon.png">
-<title>¿©ÇàÀÇ ½ÃÀÛ! Check_TEL</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="vendor/fontawesome/css/font-awesome.min.css" type="text/css"
-	rel="stylesheet">
-<link href="vendor/animateit/animate.min.css" rel="stylesheet">
-
-<!-- Vendor css -->
-<link href="vendor/owlcarousel/owl.carousel.css" rel="stylesheet">
-<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-<!-- Template base -->
-<link href="css/theme-base.css" rel="stylesheet">
-
-<!-- Template elements -->
-<link href="css/theme-elements.css" rel="stylesheet">
-
-<!-- Responsive classes -->
-<link href="css/responsive.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-	<![endif]-->
-
-
-<!-- Template color -->
-<link href="css/color-variations/blue.css" rel="stylesheet"
-	type="text/css" media="screen" title="blue">
-
-<!-- LOAD GOOGLE FONTS -->
-<link
-	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600%7CRaleway:100,300,600,700,800"
-	rel="stylesheet" type="text/css" />
-
-<!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
-<link rel="stylesheet" property="stylesheet"
-	href="vendor/rs-plugin/css/settings.css" type="text/css" media="all" />
-<link rel="stylesheet" href="css/rs-plugin-styles.css" type="text/css" />
-
-<!-- CSS CUSTOM STYLE -->
-<link rel="stylesheet" type="text/css" href="css/custom.css"
-	media="screen" />
-
-<!--VENDOR SCRIPT-->
-<script src="vendor/jquery/jquery-1.11.2.min.js"></script>
-<script src="vendor/plugins-compressed.js"></script>
-
-<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
-<script type="text/javascript"
-	src="vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script type="text/javascript"
-	src="vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-
-<!-- Åõ¾îÇÃ·£ºñ -->
+<!-- íˆ¬ì–´í”Œëœë¹„ -->
 <script
 	src="https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM="></script>
 <script>
 	var map;
 	var places;
 	var markerGroup;
-	// Áöµµ »ı¼º
+	// ì§€ë„ ìƒì„±
 	bm.ready(function() {
 		var maxZoom = 18;
 		var minZoom = 4;
@@ -89,19 +32,19 @@
 			maxZoom : maxZoom,
 			minZoom : minZoom
 		}).addTo(map);
-		// ¸¶Ä¿ ±×·ì °ü¸®¸¦ À§ÇÑ ¿ÀºêÁ§Æ® »ı¼º
+		// ë§ˆì»¤ ê·¸ë£¹ ê´€ë¦¬ë¥¼ ìœ„í•œ ì˜¤ë¸Œì íŠ¸ ìƒì„±
 		markerGroup = bm.layerGroup().addTo(map);
-		// ÇöÀç ÁÜ ·¹º§°ú ¿µ¿ª¿¡ ´ëÇÑ Àå¼ÒÁ¤º¸ °¡Á®¿À±â
+		// í˜„ì¬ ì¤Œ ë ˆë²¨ê³¼ ì˜ì—­ì— ëŒ€í•œ ì¥ì†Œì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		getContents(map.getBounds(), map.getZoom());
-		map.on('zoomend', function(e) { // Áöµµ ÁÜÀÌ ¹Ù²ğ¶§¸¶´Ù Àå¼Ò Á¤º¸ °¡Á®¿À±â
+		map.on('zoomend', function(e) { // ì§€ë„ ì¤Œì´ ë°”ë€”ë•Œë§ˆë‹¤ ì¥ì†Œ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
 		});
-		map.on('dragend', function(e) { // Áöµµ°¡ µå·¡±× µÉ¶§¸¶´Ù Àå¼Ò Á¤º¸ °¡Á®¿À±â
+		map.on('dragend', function(e) { // ì§€ë„ê°€ ë“œë˜ê·¸ ë ë•Œë§ˆë‹¤ ì¥ì†Œ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
 		});
-		map.on('moveend', function(e) { // Áöµµ°¡ ÀÌµ¿ µÉ¶§¸¶´Ù Àå¼Ò Á¤º¸ °¡Á®¿À±â
+		map.on('moveend', function(e) { // ì§€ë„ê°€ ì´ë™ ë ë•Œë§ˆë‹¤ ì¥ì†Œ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
 		});
@@ -158,7 +101,7 @@
 				}
 			}
 
-			$("#img" + placeIdx).on('click', function(e) { // ¸®½ºÆ® Å¬¸¯½Ã »ó¼¼ Á¤º¸ Ç¥½Ã
+			$("#img" + placeIdx).on('click', function(e) { // ë¦¬ìŠ¤íŠ¸ í´ë¦­ì‹œ ìƒì„¸ ì •ë³´ í‘œì‹œ
 				showInfoImg(placeIdx);
 			});
 
@@ -166,7 +109,7 @@
 	}
 	function getContents(bounds, zoom) {
 		var xmlhttp = new XMLHttpRequest();
-		// Åõ¾îÇÃ·£ºñ ÄÜÅÙÃ÷ API È£Ãâ
+		// íˆ¬ì–´í”Œëœë¹„ ì½˜í…ì¸  API í˜¸ì¶œ
 		var url = 'https://tourplanb.com:4443/place/map/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM=&zoom='
 				+ zoom
 				+ '&nelat='
@@ -180,7 +123,7 @@
 			if (this.readyState == 4 && this.status == 200) {
 				places = JSON.parse(this.responseText).data;
 				if ($.isArray(places)) {
-					// ¸¶Ä¿ »ı¼º
+					// ë§ˆì»¤ ìƒì„±
 					createMarkers(places);
 					imgClick(places);
 				}
@@ -243,7 +186,7 @@
 								markerGroup);
 			}
 
-			marker.on('click', function(e) { // ¸¶Ä¿ Å¬¸¯½Ã »ó¼¼ Á¤º¸ Ç¥½Ã
+			marker.on('click', function(e) { // ë§ˆì»¤ í´ë¦­ì‹œ ìƒì„¸ ì •ë³´ í‘œì‹œ
 				if (places[placeIdx].Mode != "City") {
 					showInfo(placeIdx);
 				} else {
@@ -278,12 +221,12 @@
 						.append(
 								'<img src=' + places[placeIdx].Furl + ' style="max-width: 300px;">');
 			}
-			$('#info').append('<p>Àå¼Ò¸í: ' + places[placeIdx].Title + '</p>');
-			$('#info').append('<p>¼³¸í: ' + places[placeIdx].Contents + '</p>');
-			$('#info').append('<p>·©Å·: ' + places[placeIdx].Rank + '</p>');
+			$('#info').append('<p>ì¥ì†Œëª…: ' + places[placeIdx].Title + '</p>');
+			$('#info').append('<p>ì„¤ëª…: ' + places[placeIdx].Contents + '</p>');
+			$('#info').append('<p>ë­í‚¹: ' + places[placeIdx].Rank + '</p>');
 		}
-		$('#info').append('<input type="button" id ="addPlan" value="ÀÏÁ¤ Ãß°¡">');
-		$('#info').append('<input type="button" id ="close" value="´İ±â">');
+		$('#info').append('<input type="button" id ="addPlan" value="ì¼ì • ì¶”ê°€">');
+		$('#info').append('<input type="button" id ="close" value="ë‹«ê¸°">');
 		$("#close").click(function() {
 			$('#info').empty();
 			$('#info').hide();
@@ -296,19 +239,53 @@
 											'<img src=' + places[placeIdx].Furl + ' style="max-width: 50px; max-height: 50px;">');
 						});
 	}
+
+	// ê²½ë¡œ ëª¨ë‹¬
+	$(function() {
+		$("#dialog1").dialog({
+			autoOpen : false,
+			width : '500',
+			height : '500',
+			show : {
+				effect : "blind",
+				duration : 1000
+			},
+			hide : {
+				effect : "explode",
+				duration : 1000
+			}
+		});
+
+		$("#opener").on("click", function() {
+			$("#dialog1").dialog("open");
+		});
+	});
+	
+$(function() {	
+	$("#planCreate").append('<div class="post-date">'
+			+'<span class="post-date-day">1<a class="post-date-month">ì¼ì°¨</a></span>'
+			+'</div>')
+});
 </script>
 </head>
 
 <body class="boxed-simple">
-	<div>
-		json
-		<hr>
-		spotNo :${member.spotNo }<br>
+<div id='BeeMap'
+				class="mainFullLayer beemap-container beemap-fade-anim"
+				style="width: 100%; height: 100%; border: 0px;"></div>
+
+<div id="dialog1">
+		<div class="fullscreen no-padding">
+			<div id='BeeMap'
+				class="mainFullLayer beemap-container beemap-fade-anim"
+				style="width: 100%; height: 100%; border: 0px;"></div>
+		</div>
 	</div>
+
 	<!--SITE LOADER-->
 	<div class="loader-wrapper">
 		<div class="loader">
-			<img width="40" src="images/svg-loaders/puff.svg" alt=""> <span
+			<img width="40" src="../images/svg-loaders/puff.svg" alt=""> <span
 				class="loader-title">Page is loading, just a sec...</span>
 		</div>
 	</div>
@@ -317,13 +294,13 @@
 	<!-- PAGE TITLE -->
 	<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
-		style="background-image:url(images/blog/1.jpg); padding:0px;">
+		style="background-image:url(../images/blog/1.jpg); padding:0px;">
 	<div class="container">
 		<div class="page-title col-md-8">
 			<br />
-			<h3>´©±¸¾¾ÀÇ ºí·Î±×</h3>
+			<h3>ëˆ„êµ¬ì”¨ì˜ ë¸”ë¡œê·¸</h3>
 			<br />
-			<h1>ÀÏÁ¤ ÀÌ¸§</h1>
+			<h1>ì¼ì • ì´ë¦„</h1>
 		</div>
 		<br />
 		<div class="breadcrumb col-md-4">
@@ -342,459 +319,105 @@
 		<div class="col-md-6 center"
 			style="text-align: center; background-color: white;">
 			<ul class="nav nav-pills nav-justified">
-				<li><a href="#">ÀÏÁ¤</a></li>
-				<li><a href="#">Áöµµ</a></li>
-				<li><a href="#">´ñ±Û</a></li>
-				<li><a href="#">¼öÁ¤ÇÏ±â</a></li>
-				<li><a href="#">´Ù¿î·Îµå</a></li>
-				<li><a href="#">º¹»çÇÏ±â</a></li>
+				<li><a href="#">ì¼ì • ë³µì‚¬</a></li>				
+				<li><a href="#commentsM">ëŒ“ê¸€</a></li>				
+				<li><a href="#">ì‚­ì œ</a></li>
+				<li><a href="#">ë‹¤ìš´ë¡œë“œ</a></li>				
 			</ul>
 		</div>
 	</div>
 	</section>
 	<!-- END: PAGE TITLE -->
 	<!-- CONTENT -->
-	<!-- ·Î±×ÀÎ ¸ğ´Ş -->
 
-	<script>
-		$(function() {
-			$("#dialog1").dialog({
-				autoOpen : false,
-				width : '500',
-				height : '500',
-				show : {
-					effect : "blind",
-					duration : 1000
-				},
-				hide : {
-					effect : "explode",
-					duration : 1000
-				}
-			});
-
-			$("#opener").on("click", function() {
-				$("#dialog1").dialog("open");
-			});
-		});
-	</script>
-</head>
-<body>
-
-	<div id="dialog1">
-		<div class="fullscreen no-padding">
-			<div id='BeeMap'
-				class="mainFullLayer beemap-container beemap-fade-anim"
-				style="width: 100%; height: 100%; border: 0px;"></div>
-		</div>
-	</div>
+	
 	<!-- SECTION -->
 	<section class="content">
 	<div class="container">
 
 		<!-- Blog post-->
-		<div class="post-content post-content-single post-modern">
+		<div id="planCreate" class="post-content post-content-single post-modern">
 			<!-- Post item-->
-			<!-- 1ÀÏÂ÷ -->
+			<!-- 1ì¼ì°¨ -->
 			<div class="post-item">
 				<div class="post-content-details">
 					<div class="post-meta">
 						<div class="post-date">
-							<span class="post-date-day">1<a class="post-date-month">ÀÏÂ÷</a></span>
+							<span class="post-date-day">1<a class="post-date-month">ì¼ì°¨</a></span>
 						</div>
 
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-comments-o"></i> <span
-								class="post-comments-number">´ñ±Û<br>324
-							</span>
-							</a>
-						</div>
+						
 						<div class="post-comments" id="opener">
-							<a href="#"> <i class="fa fa-share-alt"></i> <span
-								class="post-comments-number">°æ·Î</span>
-							</a>
+							<a href="#"> <i class="fa fa-share-alt"></i>
+								<span class="post-comments-number">ì§€ë„ ê²½ë¡œ</span>	</a>
 						</div>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/portfolio/1.jpg">
-						</a>
 					</div>
 					<div class="post-title">
-						<h2>Vivamus luctus commodo dolor porta feugiat</h2>
+						<h4><b>ì¼ì •1</b> <small> ì„œìš¸ ì–´ë”˜ê°€</small></h4>
 					</div>
-					<div class="post-info">
-						<span class="post-autor">Post by: <a href="#">Alea
-								Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-					</div>
-					<div class="post-description">
-						<p>Curabitur pulvinar euismod ante, ac sagittis ante posuere
-							ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit id
-							ligula pharetra laoreet. Ut nec metus a mi ullamcorper hendrerit.
-							Nulla facilisi. Pellentesque sed nibh a quam accumsan dignissim
-							quis quis urna. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Praesent id dolor dui, dapibus gravida elit.
-							Donec consequat laoreet sagittis. Suspendisse ultricies ultrices
-							viverra. Morbi rhoncus laoreet tincidunt. Mauris interdum
-							convallis metus.M</p>
-						<blockquote>
-							<p>The world is a dangerous place to live; not because of the
-								people who are evil, but because of the people who don't do
-								anything about it.</p>
-							<small>by <cite>Albert Einstein</cite></small>
-						</blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Praesent id dolor dui, dapibus gravida elit. Donec consequat
-							laoreet sagittis. Suspendisse ultricies ultrices viverra. Morbi
-							rhoncus laoreet tincidunt. Mauris interdum convallis metus.
-							Suspendisse vel lacus est, sit amet tincidunt erat. Etiam purus
-							sem, euismod eu vulputate eget, porta quis sapien. Donec tellus
-							est, rhoncus vel scelerisque id, iaculis eu nibh.</p>
-
-
-						<p>Donec posuere bibendum metus. Quisque gravida luctus
-							volutpat. Mauris interdum, lectus in dapibus molestie, quam felis
-							sollicitudin mauris, sit amet tempus velit lectus nec lorem.
-							Nullam vel mollis neque. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nullam vel enim dui. Cum sociis natoque
-							penatibus et magnis dis parturient montes, nascetur ridiculus
-							mus. Sed tincidunt accumsan massa id viverra. Sed sagittis, nisl
-							sit amet imperdiet convallis, nunc tortor consequat tellus, vel
-							molestie neque nulla non ligula. Proin tincidunt tellus ac porta
-							volutpat. Cras mattis congue lacus id bibendum. Mauris ut sodales
-							libero. Maecenas feugiat sit amet enim in accumsan.</p>
-
-						<p>Duis vestibulum quis quam vel accumsan. Nunc a vulputate
-							lectus. Vestibulum eleifend nisl sed massa sagittis vestibulum.
-							Vestibulum pretium blandit tellus, sodales volutpat sapien varius
-							vel. Phasellus tristique cursus erat, a placerat tellus laoreet
-							eget. Fusce vitae dui sit amet lacus rutrum convallis. Vivamus
-							sit amet lectus venenatis est rhoncus interdum a vitae velit.</p>
-					</div>
-					<hr>
 					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/portfolio/1.jpg">
-						</a>
-					</div>
-					<div class="post-content-details">
-						<div class="post-title">
-							<h2>Vivamus luctus commodo dolor porta feugiat</h2>
-						</div>
-						<div class="post-info">
-							<span class="post-autor">Post by: <a href="#">Alea
-									Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-						</div>
-						<div class="post-description">
-							<p>Curabitur pulvinar euismod ante, ac sagittis ante posuere
-								ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit
-								id ligula pharetra laoreet. Ut nec metus a mi ullamcorper
-								hendrerit. Nulla facilisi. Pellentesque sed nibh a quam accumsan
-								dignissim quis quis urna. Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit. Praesent id dolor dui, dapibus
-								gravida elit. Donec consequat laoreet sagittis. Suspendisse
-								ultricies ultrices viverra. Morbi rhoncus laoreet tincidunt.
-								Mauris interdum convallis metus.M</p>
-							<blockquote>
-								<p>The world is a dangerous place to live; not because of
-									the people who are evil, but because of the people who don't do
-									anything about it.</p>
-								<small>by <cite>Albert Einstein</cite></small>
-							</blockquote>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Praesent id dolor dui, dapibus gravida elit. Donec consequat
-								laoreet sagittis. Suspendisse ultricies ultrices viverra. Morbi
-								rhoncus laoreet tincidunt. Mauris interdum convallis metus.
-								Suspendisse vel lacus est, sit amet tincidunt erat. Etiam purus
-								sem, euismod eu vulputate eget, porta quis sapien. Donec tellus
-								est, rhoncus vel scelerisque id, iaculis eu nibh.</p>
-
-
-							<p>Donec posuere bibendum metus. Quisque gravida luctus
-								volutpat. Mauris interdum, lectus in dapibus molestie, quam
-								felis sollicitudin mauris, sit amet tempus velit lectus nec
-								lorem. Nullam vel mollis neque. Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit. Nullam vel enim dui. Cum sociis
-								natoque penatibus et magnis dis parturient montes, nascetur
-								ridiculus mus. Sed tincidunt accumsan massa id viverra. Sed
-								sagittis, nisl sit amet imperdiet convallis, nunc tortor
-								consequat tellus, vel molestie neque nulla non ligula. Proin
-								tincidunt tellus ac porta volutpat. Cras mattis congue lacus id
-								bibendum. Mauris ut sodales libero. Maecenas feugiat sit amet
-								enim in accumsan.</p>
-
-							<p>Duis vestibulum quis quam vel accumsan. Nunc a vulputate
-								lectus. Vestibulum eleifend nisl sed massa sagittis vestibulum.
-								Vestibulum pretium blandit tellus, sodales volutpat sapien
-								varius vel. Phasellus tristique cursus erat, a placerat tellus
-								laoreet eget. Fusce vitae dui sit amet lacus rutrum convallis.
-								Vivamus sit amet lectus venenatis est rhoncus interdum a vitae
-								velit.</p>
-						</div>
-						<hr>
-					</div>
+						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
+					</div><br>			
 				</div>
 			</div>
-			<!-- 2ÀÏÂ÷²¨ -->
-			<div class="post-item">
-				<div class="post-content-details">
-					<div class="post-meta">
-						<div class="post-date">
-							<span class="post-date-day">2<a class="post-date-month">ÀÏÂ÷</a></span>
-						</div>
-
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-comments-o"></i> <span
-								class="post-comments-number">´ñ±Û<br>324
-							</span>
-							</a>
-						</div>
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-share-alt"></i> <span
-								class="post-comments-number">°æ·Î</span>
-							</a>
-						</div>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/portfolio/1.jpg">
-						</a>
-					</div>
-					<div class="post-title">
-						<h2>Vivamus luctus commodo dolor porta feugiat</h2>
-					</div>
-					<div class="post-info">
-						<span class="post-autor">Post by: <a href="#">Alea
-								Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-					</div>
-					<div class="post-description">
-						<p>Curabitur pulvinar euismod ante, ac sagittis ante posuere
-							ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit id
-							ligula pharetra laoreet. Ut nec metus a mi ullamcorper hendrerit.
-							Nulla facilisi. Pellentesque sed nibh a quam accumsan dignissim
-							quis quis urna. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Praesent id dolor dui, dapibus gravida elit.
-							Donec consequat laoreet sagittis. Suspendisse ultricies ultrices
-							viverra. Morbi rhoncus laoreet tincidunt. Mauris interdum
-							convallis metus.M</p>
-						<blockquote>
-							<p>The world is a dangerous place to live; not because of the
-								people who are evil, but because of the people who don't do
-								anything about it.</p>
-							<small>by <cite>Albert Einstein</cite></small>
-						</blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Praesent id dolor dui, dapibus gravida elit. Donec consequat
-							laoreet sagittis. Suspendisse ultricies ultrices viverra. Morbi
-							rhoncus laoreet tincidunt. Mauris interdum convallis metus.
-							Suspendisse vel lacus est, sit amet tincidunt erat. Etiam purus
-							sem, euismod eu vulputate eget, porta quis sapien. Donec tellus
-							est, rhoncus vel scelerisque id, iaculis eu nibh.</p>
-
-
-						<p>Donec posuere bibendum metus. Quisque gravida luctus
-							volutpat. Mauris interdum, lectus in dapibus molestie, quam felis
-							sollicitudin mauris, sit amet tempus velit lectus nec lorem.
-							Nullam vel mollis neque. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nullam vel enim dui. Cum sociis natoque
-							penatibus et magnis dis parturient montes, nascetur ridiculus
-							mus. Sed tincidunt accumsan massa id viverra. Sed sagittis, nisl
-							sit amet imperdiet convallis, nunc tortor consequat tellus, vel
-							molestie neque nulla non ligula. Proin tincidunt tellus ac porta
-							volutpat. Cras mattis congue lacus id bibendum. Mauris ut sodales
-							libero. Maecenas feugiat sit amet enim in accumsan.</p>
-
-						<p>Duis vestibulum quis quam vel accumsan. Nunc a vulputate
-							lectus. Vestibulum eleifend nisl sed massa sagittis vestibulum.
-							Vestibulum pretium blandit tellus, sodales volutpat sapien varius
-							vel. Phasellus tristique cursus erat, a placerat tellus laoreet
-							eget. Fusce vitae dui sit amet lacus rutrum convallis. Vivamus
-							sit amet lectus venenatis est rhoncus interdum a vitae velit.</p>
-					</div>
-					<hr>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/portfolio/1.jpg">
-						</a>
-					</div>
-					<div class="post-content-details">
-						<div class="post-title">
-							<h2>Vivamus luctus commodo dolor porta feugiat</h2>
-						</div>
-						<div class="post-info">
-							<span class="post-autor">Post by: <a href="#">Alea
-									Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-						</div>
-						<div class="post-description">
-							<p>Curabitur pulvinar euismod ante, ac sagittis ante posuere
-								ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit
-								id ligula pharetra laoreet. Ut nec metus a mi ullamcorper
-								hendrerit. Nulla facilisi. Pellentesque sed nibh a quam accumsan
-								dignissim quis quis urna. Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit. Praesent id dolor dui, dapibus
-								gravida elit. Donec consequat laoreet sagittis. Suspendisse
-								ultricies ultrices viverra. Morbi rhoncus laoreet tincidunt.
-								Mauris interdum convallis metus.M</p>
-							<blockquote>
-								<p>The world is a dangerous place to live; not because of
-									the people who are evil, but because of the people who don't do
-									anything about it.</p>
-								<small>by <cite>Albert Einstein</cite></small>
-							</blockquote>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Praesent id dolor dui, dapibus gravida elit. Donec consequat
-								laoreet sagittis. Suspendisse ultricies ultrices viverra. Morbi
-								rhoncus laoreet tincidunt. Mauris interdum convallis metus.
-								Suspendisse vel lacus est, sit amet tincidunt erat. Etiam purus
-								sem, euismod eu vulputate eget, porta quis sapien. Donec tellus
-								est, rhoncus vel scelerisque id, iaculis eu nibh.</p>
-
-
-							<p>Donec posuere bibendum metus. Quisque gravida luctus
-								volutpat. Mauris interdum, lectus in dapibus molestie, quam
-								felis sollicitudin mauris, sit amet tempus velit lectus nec
-								lorem. Nullam vel mollis neque. Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit. Nullam vel enim dui. Cum sociis
-								natoque penatibus et magnis dis parturient montes, nascetur
-								ridiculus mus. Sed tincidunt accumsan massa id viverra. Sed
-								sagittis, nisl sit amet imperdiet convallis, nunc tortor
-								consequat tellus, vel molestie neque nulla non ligula. Proin
-								tincidunt tellus ac porta volutpat. Cras mattis congue lacus id
-								bibendum. Mauris ut sodales libero. Maecenas feugiat sit amet
-								enim in accumsan.</p>
-
-							<p>Duis vestibulum quis quam vel accumsan. Nunc a vulputate
-								lectus. Vestibulum eleifend nisl sed massa sagittis vestibulum.
-								Vestibulum pretium blandit tellus, sodales volutpat sapien
-								varius vel. Phasellus tristique cursus erat, a placerat tellus
-								laoreet eget. Fusce vitae dui sit amet lacus rutrum convallis.
-								Vivamus sit amet lectus venenatis est rhoncus interdum a vitae
-								velit.</p>
-						</div>
-						<hr>
-					</div>
-				</div>
-			</div>
+		</div>
 
 			<!-- Comments-->
 			<div id="comments" class="comments">
 				<div class="heading">
-					<h4 class="comments-title">
-						Comments <small class="number">(4)</small>
-					</h4>
+					<h4 class="comments-title">ëŒ“ê¸€ ë³´ê¸°<small class="number"></small></h4>
 				</div>
-
-
 				<div class="comment">
-					<a href="#" class="pull-left"> <img alt=""
-						src="images/team/1.jpg" class="avatar">
-					</a>
+					<a href="#" class="pull-left"> <img alt="" src="../images/team/2.jpg" class="avatar"></a>
 					<div class="media-body">
-						<h4 class="media-heading">Alea Grande</h4>
-						<p class="time">Feb 25, 2015 at 9:30 PM</p>
-						<p>Maecenas nec iaculis turpis, eget congue massa. Ut ultrices
-							consectetur eleifend. Nullam nisl dui, congue in mi non, dapibus
-							adipiscing metus. Donec mollis semper rutrum. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit. Maecenas sed euismod
-							neque. Aliquam eget malesuada enim, eu interdum elit. Sed
-							sagittis ornare velit a congue.</p>
-						<a href="#" class="comment-reply pull-right"><i
-							class="fa fa-reply"></i> Reply</a>
+						<h4 class="media-heading">ì´í˜¸ì§„</h4>
+						<p class="time">2017/06/11 ì˜¤ì „ 11:33</p>
+						<p>ì–´ë µë‹¤</p>
+						<a href="#" class="comment-reply pull-right"><i	class="fa fa-reply"></i>ëŒ“ê¸€ì“°ê¸°</a>
 					</div>
-				</div>
-
-				<div class="comment">
-					<a href="#" class="pull-left"> <img alt=""
-						src="images/team/2.jpg" class="avatar">
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">Juna Smith</h4>
-						<p class="time">Jan 18, 2015 at 10:30 PM</p>
-						<p>Nullam nisl dui, congue in mi non, dapibus adipiscing
-							metus. Donec mollis semper rutrum. Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit. Maecenas sed euismod neque. Aliquam
-							eget malesuada enim, eu interdum elit. Sed sagittis ornare velit
-							a congue.</p>
-						<a href="#" class="comment-reply pull-right"><i
-							class="fa fa-reply"></i> Reply</a>
-					</div>
-
-
-
+					
 					<div class="comment comment-replied">
-						<a href="#" class="pull-left"> <img alt=""
-							src="images/team/3.jpg" class="avatar">
-						</a>
+						<a href="#" class="pull-left"> <img alt="" src="../images/team/1.jpg" class="avatar"></a>
 						<div class="media-body">
-							<h4 class="media-heading">Ariol Smith</h4>
-							<p class="time">Jun 24, 2015 at 14:28 PM</p>
-							<p>Ut ultrices consectetur eleifend. Nullam nisl dui, congue
-								in mi non, dapibus adipiscing metus. Donec mollis semper rutrum.
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Maecenas sed euismod neque. Aliquam eget malesuada enim, eu
-								interdum elit. Sed sagittis ornare velit a congue.</p>
-							<a href="#" class="comment-reply pull-right"><i
-								class="fa fa-reply"></i> Reply</a>
+							<h4 class="media-heading">ë°•ì„±ìµ</h4>
+							<p class="time">2017/06/11 ì˜¤ì „ 11:34</p>
+							<p>ë‚˜ë„</p>
+							<a href="#" class="comment-reply pull-right"><i	class="fa fa-reply"></i>ëŒ“ê¸€ì“°ê¸°</a>
 						</div>
 					</div>
-				</div>
-
-				<div class="comment">
-					<a href="#" class="pull-left"> <img alt=""
-						src="images/team/4.jpg" class="avatar">
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">Dia Perry</h4>
-						<p class="time">Jun 24, 2015 at 14:28 PM</p>
-						<p>Donec mollis semper rutrum. Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit. Maecenas sed euismod neque. Aliquam
-							eget malesuada enim, eu interdum elit. Donec mollis semper
-							rutrum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Maecenas sed euismod neque. Aliquam eget malesuada enim, eu
-							interdum elit. Sed sagittis ornare velit a congue. Sed sagittis
-							ornare velit a congue. Maecenas nec iaculis turpis, eget congue
-							massa. Ut ultrices consectetur eleifend. Nullam nisl dui, congue
-							in mi non, dapibus adipiscing metus.</p>
-						<a href="#" class="comment-reply pull-right"><i
-							class="fa fa-reply"></i> Reply</a>
-					</div>
-				</div>
+				</div>				
 
 			</div>
 			<div class="comment-form">
 				<div class="heading">
-					<h4>Leave a comment</h4>
+					<h4>ëŒ“ê¸€ ì“°ê¸°</h4>
 				</div>
-				<form class="form-gray-fields">
+				<form class="form-gray-fields" action="./blog/reViewAdd.do">
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="name" class="upper">Your Name</label> <input
-									type="text" aria-required="true" id="name"
-									placeholder="Enter name" name="senderName"
-									class="form-control required">
+								<label for="name" class="upper">ì´ë¦„</label>
+									<input type="text" aria-required="true" id="name"
+										placeholder="ë°•ì„±ìµ" name="memberNo" class="form-control required">
 							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="email" class="upper">Your Email</label> <input
-									type="email" aria-required="true" id="email"
-									placeholder="Enter email" name="senderEmail"
-									class="form-control required email">
-							</div>
-						</div>
+						</div>						
 
-						<div class="col-md-4">
+						<!-- <div class="col-md-4">
 							<div class="form-group">
 								<label for="phone" class="upper">Your Phone</label> <input
 									type="text" aria-required="true" id="phone"
 									placeholder="Enter phone" name="phone"
 									class="form-control required">
 							</div>
-						</div>
+						</div> -->
 
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="comment" class="upper">Your comment</label>
+								<label for="comment" class="upper">ë‚´ìš©</label>
 								<textarea aria-required="true" id="comment"
-									placeholder="Enter comment" rows="9" name="comment"
+									placeholder="Enter comment" rows="9" name="reviewContent"
 									class="form-control required"></textarea>
 							</div>
 						</div>
@@ -802,8 +425,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group text-center">
-								<button type="submit" class="btn btn-primary">
-									<i class="fa fa-paper-plane"></i>&nbsp;Post comment
+								<button class="btn btn-primary">
+									<i class="fa fa-paper-plane"></i>&nbsp; ëŒ“ê¸€ ë“±ë¡í•˜ê¸°
 								</button>
 							</div>
 						</div>
@@ -815,21 +438,9 @@
 		</div>
 		<!-- END: Blog post-->
 
-	</div>
 	</section>
 	<!-- END: SECTION -->
 	<!-- END: WRAPPER -->
-
-
-	<!-- GO TOP BUTTON -->
-	<a class="gototop gototop-button" href="#"><i
-		class="fa fa-chevron-up"></i></a>
-
-	<!-- Theme Base, Components and Settings -->
-	<script src="js/theme-functions.js"></script>
-
-	<!-- Custom js file -->
-	<script src="js/custom.js"></script>
 
 </body>
 </html>

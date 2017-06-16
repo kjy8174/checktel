@@ -23,7 +23,7 @@ public class PlanController {
 	}
 	
 	//등록폼
-		@RequestMapping(method = RequestMethod.GET, value={"/plan/planResult.do"})
+		@RequestMapping(method = RequestMethod.GET, value={"/plan/planResult.do"}) //스마트플랜 설정한거
 		public String plaInsert(HttpServletRequest httpServletRequest, Model model){
 			String selCity = httpServletRequest.getParameter("selCity");
 			String selDay = httpServletRequest.getParameter("selDay");
@@ -46,6 +46,8 @@ public class PlanController {
 			return "/plan/planResult";
 		}
 	
+		
+		
 	
 	/*//등록
 	@RequestMapping(value="/plan/planView.do",method= RequestMethod.POST)

@@ -168,36 +168,14 @@
     });
   
   $( function() { //검색 자동완성
-	    /* var availableTags = [
-	      "ActionScript",
-	      "AppleScript",
-	      "Asp",
-	      "BASIC",
-	      "C",
-	      "C++",
-	      "Clojure",
-	      "COBOL",
-	      "ColdFusion",
-	      "Erlang",
-	      "Fortran",
-	      "Groovy",
-	      "Haskell",
-	      "Java",
-	      "JavaScript",
-	      "Lisp",
-	      "Perl",
-	      "PHP",
-	      "Python",
-	      "Ruby",
-	      "Scala",
-	      "Scheme"
-	    ]; */
+	    /* var availableTags = []; */
 	    
-	    $( "#serch" ).autocomplete({
+	   /*  $( "#serch" ).autocomplete({
 	      source: availableTags
-	    });
+	    }); */
   });
   var dayNo=1;
+  var seq = 1;
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
@@ -341,7 +319,6 @@
     		mIdx = places[i].CityIdx;   
     	}
     	  city_array[mIdx]=places[i];
-    	  console.log(city_array[mIdx])
     	  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9&&city_array[mIdx].Mode!="City") {
     		marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } else if(city_array[mIdx].Furl == null&&city_array[mIdx].Mode!="City") {
@@ -404,11 +381,18 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
-		var a=1;
-		var plan = {"spotNo":(a++),"day":(div+1),"dayNo":(dayNo++),"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"furl":city_array[mIdx].Furl,"categoryId":city_array[mIdx].CategoryIdx,"cityName":city_array[mIdx].Title}; //json으로 배열 만듬
+		var furl;
+		if(city_array[mIdx].Furl==null){
+			furl = "../img/no_image.png";
+		}
+		else{
+			furl=city_array[mIdx].Furl;
+		}
+		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+        planSub.push(plan);
 		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
 		/* var plan = new Object();
-		plan.day = div+1;
+		plan.day = div+1;\\\\\\\\\\
 		plan.dayNo = dayNo++;
 		plan.lat = city_array[mIdx].Lat;
 		plan.lng = city_array[mIdx].Lng;
@@ -418,14 +402,10 @@ function showInfo(mIdx) { //상세 정보 출력
 		planSub.push(plan);
 		var jsonData = JSON.stringify(planSub) ;        
         alert(planSub) ; */
-        planSub.push(plan);
 /* 		var jsonData = JSON.stringify(planSub); //json string로 변환?
 		console.log(jsonData) */
 		//$('#json1').val(jsonData);
 		
-				
-		
-		console.log(a)
 		  flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -493,10 +473,15 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#info').hide();
 	});
 	$("#addPlan"+a).click(function() {
-		var plan = {spotNo:1,day:(div+1),dayNo:(dayNo++),lat:city_array[mIdx].Lat,lng:city_array[mIdx].Lng,furl:city_array[mIdx].Furl,categoryId:city_array[mIdx].CategoryIdx,cityName:city_array[mIdx].Title}; //json으로 배열 만듬
-		planSub.push(plan);
-		console.log(planSub)
-		console.log(a)
+		var furl;
+		if(city_array[mIdx].Furl==null){
+			furl = "../img/no_image.png";
+		}
+		else{
+			furl=city_array[mIdx].Furl;
+		}
+		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+        planSub.push(plan);
 		flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
 		  var flightPath = bm.polyline(flightPlanCoordinates,{
 		      color: '#FF0000',
@@ -548,8 +533,6 @@ function addDay(){ //일정 늘리기
 	'"></div>'+
 	'<div id="smallImg'+(a)+'">'+
 	'</div></div>');
-	console.log(a);
-	console.log(div)
 	
 	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
 		
@@ -603,17 +586,19 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
-		var jsonData = JSON.stringify(planSub);
+		var fir = {"planPeriod":1,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+a+"일 여행","blogHit":0};
+		//var jsonData = JSON.stringify(planSub);
+		var jsonData = JSON.stringify(fir);
 		console.log(jsonData)
 		alert("전송")
 		$.ajax({
-			url : '../blog/save.do',
-			method : "post",
-			dataType : "json",
+			url : '../main/save.do',
+			method : "post",	
 			data : jsonData,
 			contentType: "application/json",
 			success : function() {
 				console.log("ajax전송");
+				location.href="../blog/myBlogShow.do"
 			},
 			error:function(request,status,error){
 			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}

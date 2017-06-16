@@ -43,22 +43,20 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css" media="screen" />
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-
-  
-
-
+  <link rel="stylesheet" href="/resources/demos/style.css">  
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 <style>
-#custom-handle {
-    width: 45px;
+ #custom-handle {
+    width: 3em;
     height: 1.6em;
     top: 50%;
     margin-top: -.8em;
     text-align: center;
     line-height: 1.6em;
   }
+  #slider .ui-slider-range { background: #ef2929; }
+  #slider .ui-slider-handle { border-color: #ef2929; }
 .imgteaser .desc {	display: none; }
 .imgteaser:hover .desc{ /*ĸ�� �ؽ�Ʈ*/
 	display: block;
@@ -135,14 +133,6 @@ $(function() {
 			handle.text(ui.value+"day");
 			$("#selDay").val(ui.value)
 		}
-	});
-});
-$(function() {
-	$("#datepicker").datepicker({
-		showOn : "button",
-		buttonImage : "../img/icon_calendar_w.png",
-		buttonImageOnly : true,
-		buttonText : "Select date"
 	});
 });
 $(function() {
@@ -530,16 +520,12 @@ $(function() {
 							<span class="lead">여행일정이 정해지셨다면?<br>2박3일, 3박4일?! 여행일정이 정해지셨다면 출발날짜와 여행일정을 선택하시면, 일정에
 		맞는 일정을 만들어 드립니다.</span>
 						</div>
-					</div>
+					</div><br><br><br><br>
 					<div class="col-md-5">
-						<div id="startU" class="startUp" style="float: left; background-color: rgb(34, 190, 203);; width: 200px">
-						<p>
-							<span style="color: white;">출발일 수정</span> <input type="text"
-								id="datepicker">
-						</p>
+						<div id="startU" class="startUp" style="float: left; background-image:url('../img/icon_calendar_w.png'); background-repeat:no-repeat; background-color:pink; width: 32px; height: 33px;">
 						</div>
-						<div id="slider" style="width: 200px; height: 30px; background: rgb(216, 230, 233);">
-						  <div id="custom-handle" class="ui-slider-handle" style="background: rgb(34, 190, 203);"></div>
+						<div id="slider" style="width: 400px; height: 30px; margin-left:35px; background: pink;">
+						  <div id="custom-handle" class="ui-slider-handle" style="background: red;"></div>
 						</div>	
 						머무실 일정을 선택해 주세요.<br>(최대 7일 일정 선택이 가능합니다.)
 					</div>

@@ -24,4 +24,9 @@ public class MainDAOMybatis {
         System.out.println("===> Mybatis로 insertMain() 기능 처리");
         mybatis.insert("MainDAO.insertMain", mainVO); //main-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
     }
+	
+	public void selectMain(MainVO mainVO) {
+        System.out.println("===> Mybatis로 selectMain() 기능 처리");
+        mybatis.insert("MainDAO.selectMain", mainVO); //main-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
+    }
 }

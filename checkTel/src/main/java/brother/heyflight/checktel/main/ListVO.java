@@ -1,13 +1,13 @@
-package brother.heyflight.checktel.plan;
+package brother.heyflight.checktel.main;
 
 import java.util.Date;
+import java.util.List;
 
-public class PlanVO {
-	private int planNo;
+public class ListVO {
 	private int planPeriod;
 	private Date planStart;
 	private Date planEnd;
-	private int memberNo;
+	private List<MainVO> detail;
 	private String blogTitle;
 	private int blogHit;
 	
@@ -23,19 +23,12 @@ public class PlanVO {
 	public void setBlogHit(int blogHit) {
 		this.blogHit = blogHit;
 	}
-	public int getPlanNo() {
-		return planNo;
-	}
-	public void setPlanNo(int planNo) {
-		this.planNo = planNo;
-	}
 	public int getPlanPeriod() {
 		return planPeriod;
 	}
 	public void setPlanPeriod(int planPeriod) {
 		this.planPeriod = planPeriod;
 	}
-	
 	public Date getPlanStart() {
 		return planStart;
 	}
@@ -48,17 +41,17 @@ public class PlanVO {
 	public void setPlanEnd(Date planEnd) {
 		this.planEnd = planEnd;
 	}
-	public int getMemberNo() {
-		return memberNo;
+	public List<MainVO> getDetail() {
+		return detail;
 	}
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+	public void setDetail(List<MainVO> detail) {
+		this.detail = detail;
 	}
 	@Override
 	public String toString() {
-		return "PlanVO [planNo=" + planNo + ", planPeriod=" + planPeriod
-				+ ", planStart=" + planStart + ", planEnd=" + planEnd
-				+ ", memberNo=" + memberNo + ", blogTitle=" + blogTitle
+		return "ListVO [planPeriod=" + planPeriod + ", planStart=" + planStart
+				+ ", planEnd=" + planEnd + ", detail=" + detail
+				+ ", blogTitle=" + blogTitle 
 				+ ", blogHit=" + blogHit + "]";
 	}
 	

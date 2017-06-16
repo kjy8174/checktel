@@ -6,40 +6,69 @@
 
 	<resultMap id="mainResult" type="main"> <!--type에는 클래스 명  -->
 		<id property="spotNo" column="SPOT_NO" /> <!--필드명(BoardVO 필드), 컬럼명  -->
-		<id property="day" column="DAY" />
-		<id property="dayNo" column="DAY_NO" />
-		<!-- <id property="planNo" column="PLAN_NO" /> -->
+		<id property="planNo" column="PLAN_NO" />
+		<id property="no" column="NO" />
+		<id property="dayVisit" column="DAY_VISIT" />
 		<id property="categoryId" column="CATEGORY_ID" />
-		<result property="furl" column="FURL" />
+		<id property="dayNo" column="DAY_NO" />
+		<result property="spotName" column="SPOT_NAME" />
+		<result property="spotFurl" column="SPOT_FURL" />
 		<result property="lat" column="LAT" />
 		<result property="lng" column="LNG" />
-		<result property="cityName" column="CITY_NAME" />
+		<result property="cityName" column="CITY_NAME" />		
 	</resultMap>
    
    <insert id="insertMain" parameterType="main">
-      <!-- <selectKey keyProperty="spotNo" resultType="int" order="BEFORE">
-      SELECT NVL(MAX(SPOT_NO), 0) + 1 FROM DETAIL
-      </selectKey> -->
-      <!-- CDATA 태그인식을 막는 명령어 -->
+      <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      	SELECT NVL(MAX(NO), 0)+1 FROM DETAIL
+      </selectKey>
         INSERT INTO DETAIL(
                       SPOT_NO
-                    , DAY
-                    , DAY_NO
-                    <!-- , PLAN_NO -->
+                    , NO
+                    , DAY_VISIT
+                    , PLAN_NO
                     , CATEGORY_ID
+                    , DAY_NO
+                    , SPOT_NAME
+                    , SPOT_FURL
                     , LAT
                     , LNG
-                    , FURL
                     , CITY_NAME)
         VALUES(
              #{spotNo}
-           , #{day} 
-           , #{dayNo}
-          <!--  , #{planNo} -->
+           , #{no} 
+           , #{dayVisit}
+           , #{planNo}
            , #{categoryId}
+           , #{dayNo}
+           , #{spotName}
+           , #{spotFurl}
            , #{lat}
            , #{lng}
-           , #{furl}
            , #{cityName})
    </insert>
+   
+   	<select id="getPlanList" resultType="map">
+	SELECT P.PLAN_NO
+		   , PLAN_PERIOD
+		   , PLAN_START
+		   , PLAN_END
+		   , MEMBER_NO
+		   , BLOG_HIT
+	  	   , BLOG_TITLE
+           , SPOT_NO
+           , NO
+           , DAY_VISIT
+           , PLAN_NO
+           , CATEGORY_ID
+           , DAY_NO
+           , SPOT_NAME
+           , SPOT_FURL
+           , LAT
+           , LNG
+           , CITY_NAME)
+	FROM   DETAIL D, PLAN P
+	WHERE  D.PLAN_NO = P.PLAN_NO	
+	</select>
+	<!--AND MEMBER_NO  -->	
 </mapper>
