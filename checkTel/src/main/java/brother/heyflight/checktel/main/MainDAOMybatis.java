@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import brother.heyflight.checktel.plan.PlanVO;
 
 
@@ -34,4 +35,9 @@ public class MainDAOMybatis {
 		System.out.println("===> Mybatis로 getPlanList() 기능 처리");
         return mybatis.selectList("MainDAO.getPlanList", planVO);
 	}
+    public int deleteBlog(int planNo) {
+        System.out.println("===> Mybatis로 deleteBlog() 기능 처리");
+        return mybatis.delete("MainDAO.deleteBlog", planNo);
+    }
+	
 }

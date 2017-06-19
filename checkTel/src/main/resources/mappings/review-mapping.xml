@@ -30,8 +30,10 @@
    </insert>
        
    <select id="getReviewList" parameterType="review" resultMap="reviewResult">
-   		SELECT REVIEW_NO, PLAN_NO , MEMBER_NO, REVIEW_CONTENT, REVIEW_DATE
-   		FROM REVIEW
+   		SELECT REVIEW_NO, PLAN_NO , M.MEMBER_NO, REVIEW_CONTENT, REVIEW_DATE, M.MEMBER_NAME
+   		FROM REVIEW R, MEMBER M
+   		WHERE R.MEMBER_NO=M.MEMBER_NO
+   		AND R.PLAN_NO=#{planNo}
    </select>
 
 </mapper>

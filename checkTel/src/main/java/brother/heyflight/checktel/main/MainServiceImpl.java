@@ -56,4 +56,14 @@ public class MainServiceImpl implements MainService{
     public List<MainVO> getPlanList(PlanVO planVO){    	
     	return mainDAO.getPlanList(planVO);
     }
+/*    
+    public void deleteBlog(PlanVO planVO) {
+        mainDAO.deleteBlog(planVO);
+    }*/
+	@Override
+	public int deleteBlog(int planNo) {
+		// TODO Auto-generated method stub
+		return mainDAO.deleteBlog(planNo);
+	}
+    
 }

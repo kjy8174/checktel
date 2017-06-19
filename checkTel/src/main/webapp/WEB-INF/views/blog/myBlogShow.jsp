@@ -336,26 +336,6 @@ span {
 			+a+'</div>'
 	+'</div>')
 }); */
-		
-	$(function(){
-		//페이지 로딩 후에 댓글 목록 조회
-		$.getJSON("../review/review.do", function(data){
-			for(i=0; i<data.length; i++){
-				/* $("#comments").append("<div>"+ data[i].title +data[i].writer +"</div>"); */
-				/* $("#comments").append("<div><a><div><h4>"+data[i].memberNo+"</h4><p>"+data[i].reviewDate+"</p><p>"+data[i].reviewContent+"</p></div></a></div>"); */
-				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNo+"</h4><p class='time'>"+data[i].reviewDate+"</p><p>"+data[i].reviewContent+"</p></div></div>");
-			}	
-		})		
-		$("#btnReviewIns").click(function(){
-			// 댓글 등록
-			var param = $("#frmReview").serialize();
-			$.getJSON("../review/reviewInsert.do",param,  function(data){				
-				/* $("#comments").append("<div>"+ data.title +data.writer +"</div>"); */
-				/* $("#comments").append("<div><a><div><h4>"+data.memberNO+"</h4><p>"+data.reviewDate+"</p><p>"+data.reviewContent+"</p></div></a></div>"); */
-				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data.memberNo+"</h4><p class='time'>"+data.reviewDate+"</p><p>"+data.reviewContent+"</p></div></div>");				
-			})
-		});
-	});
 	
 function mapClick(id) {
 	var lng = document.getElementById("lng"+id).value;
@@ -369,7 +349,22 @@ function mapOver(id) {
 	var loc = {"lat": lat, "lng": lng};
 	map.setView(loc)
 }
-
+$(function(){
+	//페이지 로딩 후에 댓글 목록 조회
+	$.getJSON("../review/review.do", function(data){
+		for(i=0; i<data.length; i++){				
+			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNo+"</h4><p class='time'>"+data[i].reviewDate+"</p><p>"+data[i].reviewContent+"</p></div></div>");
+		}	
+	})		
+	$("#btnReviewIns").click(function(event){
+		// 댓글 등록
+		event.preventDefault();
+		var param = $("#frmReview").serialize();
+		$.getJSON("../review/reviewInsert.do",param,  function(data){				
+			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data.memberNo+"</h4><p class='time'>"+data.reviewDate+"</p><p>"+data.reviewContent+"</p></div></div>");				
+		})
+	});
+});
 
 </script>
 </head>
@@ -405,9 +400,9 @@ function mapOver(id) {
 		<div class="col-md-6 center"
 			style="text-align: center; background-color: white;">
 			<ul class="nav nav-pills nav-justified">
-				<li><a href="#">일정 복사</a></li>				
-				<li><a href="#commentsM">댓글</a></li>				
-				<li><a href="#">삭제</a></li>
+				<li><a href="../main/mainCopy.do?planNo=${plan.planNo}">일정 복사</a></li>				
+				<li><a href="#commentsTop">댓글</a></li>				
+				<li><a href="../blog/blogDelete.do?planNo=${plan.planNo}">삭제</a></li><!--자기꺼만 지우기 -->
 				<li><a href="#">다운로드</a></li>				
 			</ul>
 		</div>
@@ -480,7 +475,7 @@ function mapOver(id) {
 
 			<!-- Comments-->
 			<div class="comments" style="clear: both; ">
-				<div class="heading">
+				<div class="heading" id="commentsTop">
 					<h4 class="comments-title">댓글 보기<small class="number"></small></h4>
 				</div>
 			</div>
@@ -494,33 +489,14 @@ function mapOver(id) {
 						<p>안해</p>						
 					</div>
 				</div>
-
-				<div class="comment">
-					<a href="#" class="pull-left"> <img alt="" src="../images/team/2.jpg" class="avatar"></a>
-					<div class="media-body">
-						<h4 class="media-heading">이호진</h4>
-						<p class="time">2017/06/11 오전 11:33</p>
-						<p>어렵다</p>
-						<a href="#" class="comment-reply pull-right"><i	class="fa fa-reply"></i>댓글쓰기</a>
-					</div>
-					
-					<div class="comment comment-replied">
-						<a href="#" class="pull-left"> <img alt="" src="../images/team/1.jpg" class="avatar"></a>
-						<div class="media-body">
-							<h4 class="media-heading">박성익</h4>
-							<p class="time">2017/06/11 오전 11:34</p>
-							<p>나도</p>
-							<a href="#" class="comment-reply pull-right"><i	class="fa fa-reply"></i>댓글쓰기</a>
-						</div>
-					</div>
-				</div>				
+	
 
 			</div>
 			<div class="comment-form">
 				<div class="heading">
 					<h4>댓글 쓰기</h4>
 				</div>
-				<form class="form-gray-fields" action="./myBLogShow" id="frmReview" >
+				<form class="form-gray-fields" id="frmReview" >
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">

@@ -66,4 +66,12 @@
 	ORDER BY DAY_NO ASC, DAY_VISIT
 	</select>
 	<!--AND MEMBER_NO  -->	
+
+<!-- 일정 삭제 -->
+	<delete id="deleteBlog" parameterType="int">
+        <![CDATA[
+         DELETE FROM PLAN 
+         WHERE PLAN_NO= #{planNo}
+        ]]>
+	</delete>
 </mapper>

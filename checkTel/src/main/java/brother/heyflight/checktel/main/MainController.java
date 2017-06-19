@@ -12,15 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import brother.heyflight.checktel.captcha.CaptchaService;
 import brother.heyflight.checktel.member.Member;
 import brother.heyflight.checktel.member.MemberService;
-import brother.heyflight.checktel.member.SnsMember;
-import brother.heyflight.checktel.oauth.NaverLoginService;
-
 import brother.heyflight.checktel.plan.PlanService;
 import brother.heyflight.checktel.plan.PlanVO;
 
@@ -59,7 +55,7 @@ public class MainController {
 	public String mainUpd(){
 		return "main/mainUpd";
 	}
-	
+
 	//일정 저장
 	@RequestMapping(value={"main/save.do"}, method=RequestMethod.POST)
 	@ResponseBody
@@ -77,6 +73,27 @@ public class MainController {
 		model.addAttribute("planList",mainService.getPlanList(planVO));
 		
 		return "blog/myBlogShow";
+	}
+	
+	
+	//일정복사
+	@RequestMapping (value={"main/mainCopy.do"})
+		public String getPlan(PlanVO planVO, Model model){
+			model.addAttribute("plan", planService.getPlan(planVO));
+			model.addAttribute("planList",mainService.getPlanList(planVO));
+			return "main/mainUpd";		
+		}
+	
+	//일정 삭제
+	@RequestMapping(value={"/blog/blogDelete.do"})
+	@ResponseBody
+	public String blogDelete(@RequestParam(value="planNo") int planNo, Model model){
+		System.out.println("삭제 : "+planNo);
+		mainService.deleteBlog(planNo);
+		System.out.println("삭제 : "+planNo);
+
+		return "redirect:main/main.do";
+	
 	}
 	
 	//항공권 추천 뷰페이지 이동
