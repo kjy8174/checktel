@@ -16,7 +16,7 @@ public class BlogServiceImpl implements BlogService {
 	/*public void insertUser(UserVO vo) {
 		userDAO.insertUser(vo);
 	}*/
-	public void updateUser(BlogVO vo) {
+	public void updateBlog(BlogVO vo) {
 		blogDAO.updateBlog(vo);
 	}
 	public void deleteBlog(BlogVO vo) {
@@ -47,13 +47,10 @@ public class BlogServiceImpl implements BlogService {
 		return null;
 	}*/
 	@Override
-	public void updateBlog(BlogVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public BlogVO login(BlogVO vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }

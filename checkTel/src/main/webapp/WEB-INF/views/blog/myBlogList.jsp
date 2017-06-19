@@ -12,8 +12,8 @@
 <script src="vendor/jquery/jquery-1.11.2.min.js"></script>
 <script src="vendor/plugins-compressed.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
-<link rel="stylesheet"    
+
+<link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -130,34 +130,47 @@ label {
 			}
 		}
 
-		function addUser() {
-			var valid = true;
-			allFields.removeClass("ui-state-error");
-
-			valid = valid && checkLength(name, "username", 3, 16);
-			valid = valid && checkLength(email, "email", 6, 80);
-			valid = valid && checkLength(password, "password", 5, 16);
-
-			valid = valid
-					&& checkRegexp(
-							name,
-							/^[a-z]([0-9a-z_\s])+$/i,
-							"Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
-			valid = valid
-					&& checkRegexp(email, emailRegex, "eg. ui@jquery.com");
-			valid = valid
-					&& checkRegexp(password, /^([0-9a-zA-Z])+$/,
-							"Password field only allow : a-z 0-9");
-
-			if (valid) {
-				$("#users tbody").append(
-						"<tr>" + "<td>" + name.val() + "</td>" + "<td>"
-								+ email.val() + "</td>" + "<td>"
-								+ password.val() + "</td>" + "</tr>");
-				dialog.dialog("close");
-			}
-			return valid;
+		function userUpd() {
+			
+				var jsonData = $("updForm").serialize();//JSON.stringify();
+				console.log(jsonData)
+				alert("저장 되었습니다")
+				$.ajax({
+					url : '/blogUpdate.do',
+					method : "post",
+					dataType : "json",
+					data : updForm,
+					success : function() {
+						console.log("ajax전송");
+					},
+					error:function(request,status,error){
+					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+				});
+			
 		}
+		/*  	/* $("#btnIns").click(function(){   //버튼 주소 */
+			// 파라미터 -> 쿼리문자열 만들기
+			//var params = $("#updForm").serialize(); //폼태그 주소
+			// 등록 ajax 요청
+			/* $.post("/blogUpdate.do", params, function(data, status) { //서버 url주소
+				var jData = eval("(" + data + ")"); //json으로 변환
+				if (status == "success") {
+					if (jData.length == 1) {
+						alert("등록완료");
+						var div = "<div id='"+jData[0].departmentId+"'>"
+								+ "<span>" + jData[0].departmentId + "</span>"
+								+ "<span>" + jData[0].departmentName
+								+ "</span>" + "</div>"
+						$(div).prependTo("#deptList");
+					} else {
+						alert("등록에러");
+					}
+				}
+			});
+			return false; //event.preventDefault()
+		}   */
+		
+		
 
 		dialog = $("#dialog-form").dialog({
 			autoOpen : false,
@@ -165,7 +178,8 @@ label {
 			width : 500,
 			modal : true,
 			buttons : {
-				"저장" : addUser,
+
+				"저장" : userUpd,
 				취소 : function() {
 					dialog.dialog("close");
 				}
@@ -318,7 +332,7 @@ label {
 		style="background-image:url(../images/Desert.jpg);">
 	<div class="container">
 		<div class="page-title col-md-8">
-			<table >
+			<table>
 				<tr>
 					<td><a
 						href="${pageContext.request.contextPath}/blog/getBlogList.do">
@@ -478,126 +492,128 @@ label {
 	</div>
 
 	<!-- 모달 -->
-	<div id="dialog-form" title="My page">
-		<br> <br>
-		<div class="w3-bar w3-black">
-			<button class="w3-bar-item w3-button tablink w3-red"
-				onclick="openCity(event,'Londo')">프로필</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="openCity(event,'Pari')">계정 설정</button>
+	<form id=updForm>
+		<div id="dialog-form" title="My page">
+			<br> <br>
+			<div class="w3-bar w3-black">
+				<button class="w3-bar-item w3-button tablink w3-red"
+					onclick="openCity(event,'Londo')">프로필</button>
+				<button class="w3-bar-item w3-button tablink"
+					onclick="openCity(event,'Pari')">계정 설정</button>
 
-		</div>
+			</div>
 
-		<div id="Londo" class="w3-container w3-border city">
-			<div class="row">
-				<table>
-					<tr>
-						<td>
-							<form id="form1" runat="server">
-								<input type='file' id="imgInp" /> <img id="blah"
-									src="../img/Koala.jpg" style="width: 150px; height: 150px;" />
-							</form>
-						</td>
-						<td>
-							<div>이름</div>
-							<div>닉네임</div>
-						</td>
-					</tr>
-				</table>
-				<div class="col-md-5" data-animation="flipInY"
-					data-animation-delay="0">
-					<div class="center" style="width: 500px;">
-						<br> <br> 나의 선호도 <br>
-						<div>
-							<img src="../img/icon_category_1_b.png"
-								style="margin-right: 12px" /> <img
-								src="../img/icon_category_2_b.png" style="margin-right: 12px" />
-							<img src="../img/icon_category_3_b.png"
-								style="margin-right: 11px" /> <img
-								src="../img/icon_category_4_b.png" style="margin-right: 10px" />
-							<img src="../img/icon_category_5_b.png"
-								style="margin-right: 10px" /> <img
-								src="../img/icon_category_6_b.png" style="margin-right: 10px" />
-							<img src="../img/icon_category_7_b.png" />
-						</div>
-						<br>
-						<div style="float: left; width: 550px;">
-							<div id="slider-vertical1"
-								style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
-							<div id="slider-vertical2"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-							<div id="slider-vertical3"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-							<div id="slider-vertical4"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-							<div id="slider-vertical5"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-							<div id="slider-vertical6"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-							<div id="slider-vertical7"
-								style="height: 200px; float: left; margin-right: 50px"></div>
-						</div>
-						<div style="clear: both;">
-							<label for="amount1">기타:</label> <input type="text" id="amount1"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount3">문화:</label> <input type="text" id="amount3"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount4">역사:</label> <input type="text" id="amount4"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount5">자연:</label> <input type="text" id="amount5"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount6">이벤트:</label> <input type="text" id="amount6"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount7">음식점:</label> <input type="text" id="amount7"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+			<div id="Londo" class="w3-container w3-border city">
+				<div class="row">
+					<table>
+						<tr>
+							<td>
+								<form id="form1" runat="server">
+									<input type='file' id="imgInp" /> <img id="blah"
+										src="../img/Koala.jpg" style="width: 150px; height: 150px;" />
+								</form>
+							</td>
+							<td>
+								<div>이름</div>
+								<div>닉네임</div>
+							</td>
+						</tr>
+					</table>
+					<div class="col-md-5" data-animation="flipInY"
+						data-animation-delay="0">
+						<div class="center" style="width: 500px;">
+							<br> <br> 나의 선호도 <br>
+							<div>
+								<img src="../img/icon_category_1_b.png"
+									style="margin-right: 12px" /> <img
+									src="../img/icon_category_2_b.png" style="margin-right: 12px" />
+								<img src="../img/icon_category_3_b.png"
+									style="margin-right: 11px" /> <img
+									src="../img/icon_category_4_b.png" style="margin-right: 10px" />
+								<img src="../img/icon_category_5_b.png"
+									style="margin-right: 10px" /> <img
+									src="../img/icon_category_6_b.png" style="margin-right: 10px" />
+								<img src="../img/icon_category_7_b.png" />
+							</div>
+							<br>
+							<div style="float: left; width: 550px;">
+								<div id="slider-vertical1"
+									style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
+								<div id="slider-vertical2"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+								<div id="slider-vertical3"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+								<div id="slider-vertical4"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+								<div id="slider-vertical5"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+								<div id="slider-vertical6"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+								<div id="slider-vertical7"
+									style="height: 200px; float: left; margin-right: 50px"></div>
+							</div>
+							<div style="clear: both;">
+								<label for="amount1">기타:</label> <input type="text" id="amount1"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount3">문화:</label> <input type="text" id="amount3"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount4">역사:</label> <input type="text" id="amount4"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount5">자연:</label> <input type="text" id="amount5"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount6">이벤트:</label> <input type="text"
+									id="amount6" readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+								<label for="amount7">음식점:</label> <input type="text"
+									id="amount7" readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div id="Pari" class="w3-container w3-border city"
-			style="display: none">
-			<br>
-			<table style="border-collapse: separate;">
-				<tbody>
-					<tr height="50">
-						<td width="110">이메일</td>
-						<td>호진@naver.com</td>
-					</tr>
-					<tr height="50">
-						<td width="110">닉네임</td>
-						<td><input type="text" name="member_nick" value="호진" /></td>
-					</tr>
-					<tr height="50">
-						<td width="110">비밀번호변경</td>
-					</tr>
-					<tr height="50">
-						<td width="110">기존비밀번호</td>
-						<td><input type="text" name="member_pw" value="" /></td>
-					</tr>
-					<tr height="50">
-						<td width="110">새비밀번호</td>
-						<td><input type="text" name="new_pk" value="" /></td>
-					</tr>
-					<tr height="50">
-						<td width="150">새비밀번호 재입력</td>
-						<td><input type="text" name="new_pkcon" value="" /></td>
-					</tr>
+			<div id="Pari" class="w3-container w3-border city"
+				style="display: none">
+				<br>
+				<table style="border-collapse: separate;">
+					<tbody>
+						<tr height="50">
+							<td width="110">이메일</td>
+							<td>호진@naver.com</td>
+						</tr>
+						<tr height="50">
+							<td width="110">닉네임</td>
+							<td><input type="text" name="member_nick" value="호진" /></td>
+						</tr>
+						<tr height="50">
+							<td width="110">비밀번호변경</td>
+						</tr>
+						<tr height="50">
+							<td width="110">기존비밀번호</td>
+							<td><input type="text" name="member_pw" value="" /></td>
+						</tr>
+						<tr height="50">
+							<td width="110">새비밀번호</td>
+							<td><input type="text" name="new_pk" value="" /></td>
+						</tr>
+						<tr height="50">
+							<td width="150">새비밀번호 재입력</td>
+							<td><input type="text" name="new_pkcon" value="" /></td>
+						</tr>
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
+	</form>
 
 	<script>
 		function openCity(evt, cityName) {

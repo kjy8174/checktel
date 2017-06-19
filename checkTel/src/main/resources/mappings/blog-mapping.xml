@@ -13,48 +13,49 @@
 
 	<update id="updateBlog">
         <![CDATA[
-        UPDATE BLOG SET
+        UPDATE member SET
             member_nick = #{memberNick}, 
             member_pw = #{memberPw} 
-        WHERE blog_no = #{blogNo}
+        WHERE member_no = #{memberNo}
         ]]>
 	</update>
 
 	<delete id="deleteBlog">
         <![CDATA[
-        DELETE BLOG
-        WHERE blog_no = #{blogNo}
+        DELETE PLAN
+        WHERE plan_no = #{planNo}
         ]]>
 	</delete>
 
 	<select id="getBlog" resultType="blog">
         <![CDATA[
         SELECT * 
-        FROM BLOG
-        WHERE blog_no = #{blogNo}
+        FROM PLAN
+        WHERE plan_no = #{planNo}
         ]]>
 	</select>
 
 	<select id="getBlogList" resultType="map">
-		SELECT blog_no, blog_title, member_nick, blog_hit, blog_date, review_count
-		FROM BLOG
-		ORDER BY blog_no ASC
+		SELECT plan_no, blog_title, blog_content, blog_hit, member_no, member_nick
+		FROM PLAN
+		ORDER BY plan_no ASC
 	</select>
 	
 	<resultMap type="blog" id="blogMap">
-		<id property="blogNo" column="blog_no" />
+		<id property="planNo" column="plan_no" />
 		<result property="blogTitle" column="blog_title"/>
-		<result property="memberNick" column="blog_title"/>
-		<result property="memberPw" column="member_pw"/>
+		<result property="blogContent" column="blog_content"/>
 		<result property="blogHit" column="blog_hit"/>
-		<result property="blogDate" column="blog_date"/>  
-		<result property="reviewCount" column="review_count"/>  
+		<result property="memberNo" column="member_no"/>
+		<result property="memberNick" column="member_nick"/>
+	 
+		 
 		
 	</resultMap>
 	<select id="getBlogListVO" resultMap="blogMap">
-		SELECT blog_no, blog_title, member_nick, blog_hit, blog_date, review_count
-		FROM BLOG
-		ORDER BY blog_no ASC
+		SELECT plan_no, blog_title,blog_content, blog_hit, member_no, member_nick
+		FROM plan
+		ORDER BY plan_no ASC
 	</select>
 
 </mapper>
