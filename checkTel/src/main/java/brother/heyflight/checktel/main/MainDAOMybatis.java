@@ -3,9 +3,14 @@ package brother.heyflight.checktel.main;
 /*import org.apache.ibatis.session.SqlSession;
 import com.springbook.biz.util.SqlSessionFactoryBean;*/
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import brother.heyflight.checktel.plan.PlanVO;
+
 
 
 @Repository
@@ -24,9 +29,9 @@ public class MainDAOMybatis {
         System.out.println("===> Mybatis로 insertMain() 기능 처리");
         mybatis.insert("MainDAO.insertMain", mainVO); //main-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
     }
-	
-	public void selectMain(MainVO mainVO) {
-        System.out.println("===> Mybatis로 selectMain() 기능 처리");
-        mybatis.insert("MainDAO.selectMain", mainVO); //main-mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입
-    }
+
+	public List<MainVO> getPlanList(PlanVO planVO) {
+		System.out.println("===> Mybatis로 getPlanList() 기능 처리");
+        return mybatis.selectList("MainDAO.getPlanList", planVO);
+	}
 }

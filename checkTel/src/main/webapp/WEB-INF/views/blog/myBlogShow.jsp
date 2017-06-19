@@ -1,10 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+#short {        
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    
+    width:300px;
+}
+
+section{
+	padding-top: 0px;
+}
+.shadow{
+    background-color: white;
+    box-shadow: 5px 5px 5px grey;
+    width: 300px;
+}
+span {
+	height: 40px;
+	width: 40px;
+	display: block;
+	position: relative;
+}
+
+.demoSpan1 {
+	overflow: hidden;
+	height: 25px;
+}
+
+.demoSpan1:before {
+	content: '';
+	height: 20px;
+	width: 20px;
+	display: block;
+	border: 5px solid pink;
+	border-right-width: 0;
+	border-top-width: 0;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	position: absolute;
+	bottom: 7px;
+	left: 7px;
+}
+</style>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 투어플랜비 -->
@@ -185,6 +235,7 @@
 								}).bindPopup(places[i].CityName_ko).addTo(
 								markerGroup);
 			}
+			
 
 			marker.on('click', function(e) { // 마커 클릭시 상세 정보 표시
 				if (places[placeIdx].Mode != "City") {
@@ -258,9 +309,33 @@
 
 		$("#opener").on("click", function() {
 			$("#dialog1").dialog("open");
+			
 		});
 	});
 	
+	//일차 생성
+/* $(function() {	
+	var a = '${plan.planPeriod}';
+	$("#planCreate").append('<div class="post-item">'
+			+'<div class="post-content-details">'
+			+'<div class="post-meta">'
+			+'<div class="post-date">'
+			+'	<span class="post-date-day">1<a class="post-date-month">일차</a></span>'
+			+'</div>'
+			+'<div class="post-comments" id="opener">'
+			+'	<a href="#"> <i class="fa fa-share-alt"></i>'
+			+'		<span class="post-comments-number">지도 경로</span>	</a>'
+			+'</div>'
+			+'</div>'
+			+'<div class="post-title">'
+			+'<h4><b>일정1</b> <small> 서울 어딘가</small></h4>'
+			+'</div>'
+			+'<div class="post-image">'
+			+'	<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>'
+			+'</div><br>'
+			+a+'</div>'
+	+'</div>')
+}); */
 		
 	$(function(){
 		//페이지 로딩 후에 댓글 목록 조회
@@ -282,6 +357,20 @@
 		});
 	});
 	
+function mapClick(id) {
+	var lng = document.getElementById("lng"+id).value;
+	var lat = document.getElementById("lat"+id).value;
+	var loc = {"lat": lat, "lng": lng};
+	map.setView(loc)
+}
+function mapOver(id) {
+	var lng = document.getElementById("lng"+id).value;
+	var lat = document.getElementById("lat"+id).value;
+	var loc = {"lat": lat, "lng": lng};
+	map.setView(loc)
+}
+
+
 </script>
 </head>
 
@@ -299,22 +388,15 @@
 	<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
 		style="background-image:url(../images/blog/1.jpg); padding:0px;">
+		<div id="planCreate"></div>
 	<div class="container">
 		<div class="page-title col-md-8">
 			<br />
-			<h3>누구씨의 블로그</h3>
+			<h3>${plan.blogTitle}</h3><br>
 			<br />
-			<h1>일정 이름</h1>
+			<h1>${plan.blogTitle}</h1>
 		</div>
 		<br />
-		<div class="breadcrumb col-md-4">
-			<ul>
-				<li><a href="#"><i class="fa fa-home"></i></a></li>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Page title</a></li>
-				<li class="active"><a href="#">Page title version</a></li>
-			</ul>
-		</div>
 	</div>
 	<div class="row"></div>
 	<hr class="space">
@@ -334,143 +416,70 @@
 	<!-- END: PAGE TITLE -->
 	<!-- CONTENT -->
 
-	<div id="dialog1">
+<!-- 	<div id="dialog1">
 		<div class="fullscreen no-padding">
 			<div id='BeeMap'
 				class="mainFullLayer beemap-container beemap-fade-anim"
 				style="width: 100%; height: 100%; border: 0px;"></div>
 		</div>
-	</div>
+	</div> -->
+	
 	<!-- SECTION -->
 	<section class="content">
-	<div class="container">
+	
+	<div class="container" style="margin-left: 50px; margin-top: 30px;">
 
+	<div>
 		<!-- Blog post-->
-		<div class="post-content post-content-single post-modern">
+		<div class="post-content post-content-single post-modern" style="width: 50%">
 			<!-- Post item-->
-			<!-- 1일차 -->
+			<c:forEach var="planPeriod" begin="1" end="${plan.planPeriod }" step="1" varStatus="pcnt">
+			 <c:set var="decr" value="${planPeriod}"/>
 			<div class="post-item">
+				<!-- 일차 -->
 				<div class="post-content-details">
 					<div class="post-meta">
 						<div class="post-date">
-							<span class="post-date-day">1<a class="post-date-month">일차</a></span>
-						</div>
-
+							<span class="post-date-day"><c:out value="${decr}"/> <%-- ${pcnt.count} --%> <a class="post-date-month">일차</a>
+							</span>
+							<c:if test="${pcnt.first }">
+								${plan.planStart}
+							</c:if>
 						
-						<div class="post-comments" id="opener">
-							<a href="#"> <i class="fa fa-share-alt"></i>
-								<span class="post-comments-number">지도 경로</span>	</a>
-						</div>
+						</div>						
+						
+					</div>					
+					<!--일정 순서  -->
+					<c:forEach var="planList" items="${planList}" varStatus="status">
+					<c:if test= "${planList.dayNo eq decr}">
+					<div class="post-title shadow" id="${planList.dayVisit}" onclick="mapClick(${planList.dayVisit})" onmouseover="mapOver(${planList.dayVisit})">
+					<input type="hidden" id="lat${planList.dayVisit}" value="${planList.lat}">
+					<input type="hidden" id="lng${planList.dayVisit}" value="${planList.lng}">
+						<h3 id="short"><b>${status.index+1}</b> <small>${planList.spotName }</small></h3>
+						<a href="#"> <img alt="" src="${planList.spotFurl }" style="width: 300px; height: 150px;"></a>
 					</div>
-					<div class="post-title">
-						<h4><b>일정1</b> <small> 서울 어딘가</small></h4>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
-					</div><br>
-					<div class="post-title">
-						<h4><b>일정2</b> <small> 서울 어딘가</small></h4>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
-					</div><br>
-					<div class="post-title">
-						<h4><b>일정3</b> <small> 서울 어딘가</small></h4>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
-					</div><br>
-					
-					
-					<!-- <div class="post-info">
-						<span class="post-autor">Post by: <a href="#">Alea
-								Grande</a></span> <span class="post-category">in <a href="#">Productivity</a></span>
-					</div>
-					<div class="post-description">
-						<p>Curabitur pulvinar euismod ante, ac sagittis ante posuere
-							ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit id
-							ligula pharetra laoreet. Ut nec metus a mi ullamcorper hendrerit.
-							Nulla facilisi. Pellentesque sed nibh a quam accumsan dignissim
-							quis quis urna. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Praesent id dolor dui, dapibus gravida elit.
-							Donec consequat laoreet sagittis. Suspendisse ultricies ultrices
-							viverra. Morbi rhoncus laoreet tincidunt. Mauris interdum
-							convallis metus.M</p>
-						<blockquote>
-							<p>The world is a dangerous place to live; not because of the
-								people who are evil, but because of the people who don't do
-								anything about it.</p>
-							<small>by <cite>Albert Einstein</cite></small>
-						</blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Praesent id dolor dui, dapibus gravida elit. Donec consequat
-							laoreet sagittis. Suspendisse ultricies ultrices viverra. Morbi
-							rhoncus laoreet tincidunt. Mauris interdum convallis metus.
-							Suspendisse vel lacus est, sit amet tincidunt erat. Etiam purus
-							sem, euismod eu vulputate eget, porta quis sapien. Donec tellus
-							est, rhoncus vel scelerisque id, iaculis eu nibh.</p>
-
-
-						<p>Donec posuere bibendum metus. Quisque gravida luctus
-							volutpat. Mauris interdum, lectus in dapibus molestie, quam felis
-							sollicitudin mauris, sit amet tempus velit lectus nec lorem.
-							Nullam vel mollis neque. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nullam vel enim dui. Cum sociis natoque
-							penatibus et magnis dis parturient montes, nascetur ridiculus
-							mus. Sed tincidunt accumsan massa id viverra. Sed sagittis, nisl
-							sit amet imperdiet convallis, nunc tortor consequat tellus, vel
-							molestie neque nulla non ligula. Proin tincidunt tellus ac porta
-							volutpat. Cras mattis congue lacus id bibendum. Mauris ut sodales
-							libero. Maecenas feugiat sit amet enim in accumsan.</p>
-
-						<p>Duis vestibulum quis quam vel accumsan. Nunc a vulputate
-							lectus. Vestibulum eleifend nisl sed massa sagittis vestibulum.
-							Vestibulum pretium blandit tellus, sodales volutpat sapien varius
-							vel. Phasellus tristique cursus erat, a placerat tellus laoreet
-							eget. Fusce vitae dui sit amet lacus rutrum convallis. Vivamus
-							sit amet lectus venenatis est rhoncus interdum a vitae velit.</p>
-					</div> -->						
+					<div style="padding-left: 135px;">
+					<!--화살표 -->
+					<c:if test="${!status.last }">
+					<br>
+						<span class="demoSpan1"></span>
+					</c:if>					
+					</div><br>	
+					</c:if>
+					</c:forEach>		
 				</div>
-			</div>
-					
-			<!-- 2일차꺼 -->
-			<div class="post-item">
-				<div class="post-content-details">
-					<div class="post-meta">
-						<div class="post-date">
-							<span class="post-date-day">2<a class="post-date-month">일차</a></span>
-						</div>
-
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-comments-o"></i>
-								<span class="post-comments-number">댓글<br>324</span>		</a>
-						</div>
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-share-alt"></i>
-								<span class="post-comments-number">경로</span>	</a>
-						</div>
-					</div>
-					
-					<div class="post-title">
-						<h4><b>일정1</b> <small> 서울 어딘가</small></h4>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
-					</div><br>
-					<div class="post-title">
-						<h4><b>일정2</b> <small> 서울 어딘가</small></h4>
-					</div>
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../images/test/1.jpg" style="width: 500px; height: 350px;"></a>
-					</div><br>				
-				</div>
-			</div>
-			
-			
+			</div>	
+			</c:forEach>		
 		</div>
+	</div>
+		<div class="post-comments" id="opener" style='float:right; right:520px; top :380px; border: 1px; position:fixed; '>
+			<i class="fa fa-share-alt"></i> 
+			<span class="post-comments-number">경로</span>
+		</div>
+		<div class="container" id='BeeMap' style='float:right; right:20px; top :380px;width: 500px; height: 378px; border: 1px; position:fixed; '></div>
 
 			<!-- Comments-->
-			<div class="comments">
+			<div class="comments" style="clear: both; ">
 				<div class="heading">
 					<h4 class="comments-title">댓글 보기<small class="number"></small></h4>
 				</div>
@@ -545,6 +554,7 @@
 			</div>
 			<!-- END: Comments-->
 		</div>
+		
 		<!-- END: Blog post-->
 
 	</section>

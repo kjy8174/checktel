@@ -4,6 +4,7 @@ package brother.heyflight.checktel.plan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service("planService")
 public class PlanServiceImpl implements PlanService{
 
@@ -16,5 +17,10 @@ public class PlanServiceImpl implements PlanService{
 		planDAO.insertPlan(vo);
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public PlanVO getPlan(PlanVO vo) {
+		// TODO Auto-generated method stub
+		return planDAO.getPlan(vo);
 	}
 }

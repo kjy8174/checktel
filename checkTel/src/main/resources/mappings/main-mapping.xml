@@ -48,27 +48,22 @@
            , #{cityName})
    </insert>
    
-   	<select id="getPlanList" resultType="map">
-	SELECT P.PLAN_NO
-		   , PLAN_PERIOD
-		   , PLAN_START
-		   , PLAN_END
-		   , MEMBER_NO
-		   , BLOG_HIT
-	  	   , BLOG_TITLE
+   	<select id="getPlanList" resultMap="mainResult">
+	SELECT   P.PLAN_NO
            , SPOT_NO
            , NO
            , DAY_VISIT
-           , PLAN_NO
            , CATEGORY_ID
            , DAY_NO
            , SPOT_NAME
            , SPOT_FURL
            , LAT
            , LNG
-           , CITY_NAME)
+           , CITY_NAME
 	FROM   DETAIL D, PLAN P
-	WHERE  D.PLAN_NO = P.PLAN_NO	
+	WHERE  D.PLAN_NO = P.PLAN_NO
+	AND	P.PLAN_NO = #{planNo}
+	ORDER BY DAY_NO ASC, DAY_VISIT
 	</select>
 	<!--AND MEMBER_NO  -->	
 </mapper>

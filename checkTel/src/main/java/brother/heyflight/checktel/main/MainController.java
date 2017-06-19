@@ -21,11 +21,16 @@ import brother.heyflight.checktel.member.MemberService;
 import brother.heyflight.checktel.member.SnsMember;
 import brother.heyflight.checktel.oauth.NaverLoginService;
 
+import brother.heyflight.checktel.plan.PlanService;
+import brother.heyflight.checktel.plan.PlanVO;
+
 @Controller 
 public class MainController {
 	
 	@Autowired
 	MainService mainService;
+	@Autowired
+	PlanService planService;
 
 	@Autowired
 	private MemberService memberService;
@@ -58,19 +63,19 @@ public class MainController {
 	//일정 저장
 	@RequestMapping(value={"main/save.do"}, method=RequestMethod.POST)
 	@ResponseBody
-	public String mainBlogSave(@RequestBody ListVO listVO){
+	public PlanVO mainBlogSave(@RequestBody ListVO listVO, HttpSession session){
 		System.out.println("등록 : "+listVO);
-		mainService.insertMain(listVO);
-		return "jjj";
+		return mainService.insertMain(listVO);
+		//session.setAttribute("", );		
+	
 	}
 	
 	//일정 저장후 개인페이지로 이동
 	@RequestMapping(value={"blog/myBlogShow.do"})
-	public String mainBlog(ListVO listVO, Model model){
-		model.addAttribute("planList", mainService);
+	public String mainBlog(PlanVO planVO, Model model){
+		model.addAttribute("plan", planService.getPlan(planVO));
+		model.addAttribute("planList",mainService.getPlanList(planVO));
+		
 		return "blog/myBlogShow";
 	}
-	
-	
-	
 }

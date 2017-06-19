@@ -2,7 +2,12 @@ package brother.heyflight.checktel.main;
 
 import java.util.List;
 
+import brother.heyflight.checktel.plan.PlanVO;
+
 public interface MainService {
-	public void insertMain(ListVO listVO);
-	//public void insertMain(List<MainVO> mainVO);
+	public PlanVO insertMain(ListVO listVO);
+	
+	//plan 상세보기
+	List<MainVO> getPlanList(PlanVO planVO);
+
 }

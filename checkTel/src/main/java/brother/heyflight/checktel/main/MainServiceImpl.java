@@ -27,7 +27,7 @@ public class MainServiceImpl implements MainService{
 	}*/
 
 	@Override
-	public void insertMain(ListVO listVO) {
+	public PlanVO insertMain(ListVO listVO) {
 		// TODO Auto-generated method stub
 		//plan 등록
 		PlanVO vo = new PlanVO();
@@ -46,11 +46,14 @@ public class MainServiceImpl implements MainService{
 			mainVO.setPlanNo(vo.getPlanNo());
 			mainDAO.insertMain(mainVO);
 		}	
-	}
-	
-	public void selectList(ListVO listVO) {
-		
+		return vo;
+	}	
+	//
+    public PlanVO getPlan(PlanVO planVO) {  	
+        return planDAO.getPlan(planVO);
     }
-	
-	
+    
+    public List<MainVO> getPlanList(PlanVO planVO){    	
+    	return mainDAO.getPlanList(planVO);
+    }
 }

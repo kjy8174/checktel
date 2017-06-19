@@ -4,9 +4,19 @@
 <html>
 <head>
 <style>
+.short {        
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    
+    width:170px;
+}
+
 .shadow{
     width: 170px;
-    height: 90px;
+    height: 70px;
     background-color: white;
     box-shadow: 5px 5px 5px grey;
 }
@@ -418,20 +428,20 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'">'+ city_array[mIdx].Title+'</div></div>');
+			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }else if(city_array[mIdx].Furl == null) {
  			$('#smallImg'+(div+1))
  			.append(
  					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
  			$('#smallImg'+(div+1))
  			.append(
  					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -495,20 +505,20 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#smallLng').val(city_array[mIdx].Lng);
 		  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
 			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
-	 					'<div>'+ city_array[mIdx].Title+'</div></div>');
+	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  } else if(city_array[mIdx].Furl == null) {
    			$('#smallImg'+(div+1))
    			.append(
    					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
    			$('#smallImg'+(div+1))
    			.append(
    					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div>'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -586,7 +596,7 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
-		var fir = {"planPeriod":1,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+a+"일 여행","blogHit":0};
+		var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+(a-1)+"박"+a+"일 여행","blogHit":0};
 		//var jsonData = JSON.stringify(planSub);
 		var jsonData = JSON.stringify(fir);
 		console.log(jsonData)
@@ -596,15 +606,16 @@ $(function() {
 			method : "post",	
 			data : jsonData,
 			contentType: "application/json",
-			success : function() {
+			success : function(data) {
 				console.log("ajax전송");
-				location.href="../blog/myBlogShow.do"
+				location.href="../blog/myBlogShow.do?planNo="+data.planNo;
 			},
 			error:function(request,status,error){
 			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 		});
 	});
 });
+
 </script>
 </head>
 <body>

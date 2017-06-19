@@ -36,5 +36,13 @@
       	, #{blogHit}
       	, #{blogTitle})
    </insert>
+   
+   	<select id="getPlan" resultMap="planResult">
+        <![CDATA[
+        SELECT * 
+        FROM PLAN
+        WHERE PLAN_NO = #{planNo}
+        ]]>
+	</select>
 
 </mapper>
