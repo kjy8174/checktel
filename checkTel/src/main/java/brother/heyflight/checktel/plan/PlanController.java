@@ -16,7 +16,7 @@ public class PlanController {
 	@Autowired
 	PlanService planService;
 	
-	//등록폼
+	//스마트플랜
 	@RequestMapping(value={"/plan/planView.do"})
 	public String userInsert(){
 		return "/plan/planView";

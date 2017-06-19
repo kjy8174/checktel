@@ -230,7 +230,7 @@ public class MemberController {
 
 		Member member = memberService.getMemberByMemberName(userName);
 		if (member != null && member.isValidPassword(password)) {
-			session.setAttribute("USER", member);
+			session.setAttribute("user", member);
 			return new ModelAndView("redirect:/main/main.do");
 		} else {
 			String naverAuthorizeUrl = naverLoginService
@@ -263,6 +263,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		memberService.initSession(session);
+		session.invalidate();
 		return new ModelAndView("redirect:/main/main.do");
 	}
 

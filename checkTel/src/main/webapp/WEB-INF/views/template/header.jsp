@@ -43,27 +43,27 @@
 			<div class="container">
 				<nav class="main-menu mega-menu center" id="mainMenu">
 				<ul class="main-menu nav nav-pills">
-					<li class="dropdown"><a href="#section1" class="scroll-to"><i
+					<li><a href='<c:url value="/main/main.do"/>' class="btn"><i
 							class="fa fa-home"></i></a></li>
-					<li class="dropdown"><a href="#section2" class="scroll-to">일정만들기</a>
+					<li><a href='<c:url value="/main/mainUpd.do"/>' class="btn">일정만들기</a>
 					</li>
-					<li class="dropdown"><a href="#section3" class="scroll-to">스마트플랜</a>
+					<li><a href='<c:url value="/plan/planView.do"/>' class="btn">스마트플랜</a>
 					</li>
-					<li class="dropdown"><a href="#section4" class="scroll-to">트래블로그</a>
+					<li><a href='<c:url value="/blog/getBlogList.do"/>' class="btn">트래블로그</a>
 					</li>
-					<li class="dropdown"><a href="#section4" class="scroll-to">항공권</a>
+					<li><a href='<c:url value="/etc/flightView.do"/>' class="btn">항공권</a>
 					</li>
-					<li class="dropdown"><a href="#section5" class="scroll-to">호텔</a>
+					<li><a href='<c:url value="/etc/hotelView.do"/>' class="btn">호텔</a>
 					</li>
-					<li class="dropdown"><a href="#section5" class="scroll-to">이용방법</a>
+					<li><a href='<c:url value="/etc/useView.do"/>' class="btn">이용방법</a>
 					</li>
 				</ul>
 				</nav>
 				<!-- login button -->
-				<c:if test="${empty USER}">
+				<c:if test="${empty user}">
 					<a href='<c:url value="/login" />' class="right btn btn-default" id="login" style="margin: -61px 60px 0px 0px;"><i class="fa fa-user"></i></a>
 				</c:if>
-				<c:if test="${!empty USER}">
+				<c:if test="${!empty user}">
 					<a href='<c:url value="/logout" />' class="right btn btn-default" id="logout" style="margin: -61px 60px 0px 0px;">${user.memberName }<i class="fa fa-user-times"></i></a>
 				</c:if>
 			</div>

@@ -38,26 +38,26 @@ public class MainController {
 	
 	//메인
 	@RequestMapping("main/main.do")
-	public ModelAndView main(HttpSession session){
-		SnsMember snsMember = memberService.getSnsMemberSession(session);
+	public String main(Model model, HttpSession session){
 		Member member = memberService.getMemberSession(session);
-		if (snsMember != null) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("user", snsMember);
-			return new ModelAndView("main/main", paramMap);
-		} else if (member != null) {
+		
+		if(member != null) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("user", member);
-			return new ModelAndView("main/main", paramMap);
-		} else {
-			return new ModelAndView("main/main");
+			model.addAttribute(paramMap);
+			
+			return "main/main";
 		}
+		else {
+			return "main/main";
+		}
+		
 	}
 	
 	//메인 ( 모달 X)
-	@RequestMapping(value={"/main/mainUpd.do"})
+	@RequestMapping(value={"main/mainUpd.do"})
 	public String mainUpd(){
-		return "/main/mainUpd";
+		return "main/mainUpd";
 	}
 	
 	//일정 저장
@@ -77,5 +77,23 @@ public class MainController {
 		model.addAttribute("planList",mainService.getPlanList(planVO));
 		
 		return "blog/myBlogShow";
+	}
+	
+	//항공권 추천 뷰페이지 이동
+	@RequestMapping(value="/etc/flightView.do")
+	public String flightView(HttpSession session){
+		return "etc/flightView";
+	}
+
+	//호텔 추천 뷰페이지 이동	
+	@RequestMapping(value="/etc/hotelView.do")
+	public String hotelView(HttpSession session){
+		return "etc/hotelView";
+	}
+	
+	//사용방법 뷰페이지 이동	
+	@RequestMapping(value="/etc/useView.do")
+	public String useView(HttpSession session){
+		return "etc/useView";
 	}
 }
