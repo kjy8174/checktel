@@ -185,7 +185,7 @@
 	    }); */
   });
   var dayNo=1;
-  var seq = 1;
+  var delClick=0;
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
@@ -428,20 +428,20 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
+			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }else if(city_array[mIdx].Furl == null) {
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+ 					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+ 					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" onclick="DeletePlan(this);" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -504,21 +504,21 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
+			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
 	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  } else if(city_array[mIdx].Furl == null) {
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+   					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+   					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -560,7 +560,7 @@ function addDay(){ //일정 늘리기
 	});
 }
 
-$( function() { //x버튼 클릭 시 삭제
+/* $( function() { //x버튼 클릭 시 삭제
 	$( ".delete" ).click(function() {
     	$(".delete").parents("div .allPlan").remove();
     });
@@ -568,7 +568,7 @@ $( function() { //x버튼 클릭 시 삭제
     	$(".delete").parents("div .shadow").remove();
     });
   });
-
+ */
 
 $( function() { //탭 바
     $( "#tabs" ).tabs();
@@ -619,6 +619,16 @@ $(function() {
 //일정 삭제
 function DeletePlan(id) {
 	id.parentNode.remove();
+}
+function DeleteSmallPlan(id) {
+	var pId = document.getElementById(id);
+	pId.remove();
+	console.log("id-2-delClick:"+(id-2-delClick)+"id-2:"+(id-2))
+	console.log(planSub.length)
+	console.log(planSub)
+	planSub.splice(id-2-delClick, 1);
+	console.log(planSub)
+	delClick++;
 }
 
 </script>

@@ -128,6 +128,7 @@
 	      source: availableTags
 	    }); */
   });
+  var delClick=0;
   var dayNo=1;
   var seq = 1;
   var availableTags = [];
@@ -376,16 +377,16 @@ function showInfo(mIdx) { //상세 정보 출력
  		  }else if(city_array[mIdx].Furl == null) {
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+ 					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+ 					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -448,21 +449,21 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
+			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
 	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  } else if(city_array[mIdx].Furl == null) {
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+   					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+   					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  }
 		$('#detailPlan'+(div+1))
 		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
@@ -516,7 +517,7 @@ $( function() {
     });
 });
 
-$( function() { //x버튼 클릭 시 삭제
+/* $( function() { //x버튼 클릭 시 삭제
 	$( ".delete" ).click(function() {
     	$(".delete").parents("div .allPlan").remove();
     });
@@ -524,7 +525,7 @@ $( function() { //x버튼 클릭 시 삭제
     	$(".delete").parents("div .shadow").remove();
     });
   });
-
+ */
 
 $( function() { //탭 바
     $( "#tabs" ).tabs();
@@ -572,6 +573,30 @@ $(function() {
 	});
 });
 
+//일정 삭제
+function DeletePlan(id) {
+	id.parentNode.remove();
+}
+function DeleteSmallPlan(id) {
+	var pId = document.getElementById(id);
+	pId.remove();
+	console.log("id-delClick:"+(id-delClick)+"id-1:"+(id-1))
+	console.log("id:"+id)
+	console.log("delClick:"+delClick)
+	console.log(planSub.length)
+	console.log(planSub)
+	if(delClick==0){
+		planSub.splice(id-delClick-1, 1);		
+	}
+	else{
+		planSub.splice(id-delClick, 1);
+	}
+	console.log(planSub)
+	delClick++;
+	console.log("dayNo1:"+dayNo);
+}
+
+
 </script>
 </head>
 <body>
@@ -600,8 +625,14 @@ $(function() {
         planSub.push(plan);
 		console.log(plan);
 		dayNo = '${planList.dayVisit+1}'
-		console.log(dayNo);
+		console.log("dayNo2:"+dayNo);
 </script>
+<c:if test="${status.last }">
+<script>
+dayNo = '${planList.dayVisit+1}';
+console.log("dayNo3:"+dayNo)
+</script>
+</c:if>
 </c:forEach>
 
     <!--end-->
@@ -620,7 +651,7 @@ $(function() {
 		<c:forEach var="planList" items="${planList}" varStatus="status">
 
 		<c:if test= "${planList.dayNo eq decr}">
-			<img src="${planList.spotFurl}" style="max-width: 45px; max-height: 45px; margin-right:3px;">
+			<img id="${planList.dayVisit }" src="${planList.spotFurl}" style="max-width: 45px; max-height: 45px; margin-right:3px;">
 		</c:if>
 		</c:forEach>
 			</div>
@@ -628,7 +659,7 @@ $(function() {
 		</c:forEach>
 		
 	</div>
-	<a href="../main/mainUpd.do?planNo=${plan.planNo}"><button class="button2 button1">전체 삭제</button></a>
+	<a href="../main/mainUpd.do"><button class="button2 button1">전체 삭제</button></a>
 	<button class="button2 button1" id="planSave">일정 저장</button>
 </div>
 
@@ -641,7 +672,7 @@ $(function() {
 	<c:forEach var="planList" items="${planList}" varStatus="status">
 	<c:if test= "${planList.dayNo eq decr}">
 	<div class="shadow" id="${planList.spotNo }">
-	<img style="width: 45px; height: 45px;" src="${planList.spotFurl}"><img class="delete" src="../img/icon_delete_n.png" style="float:right"><div class="short">${planList.spotName }</div></div>
+	<img style="width: 45px; height: 45px;" src="${planList.spotFurl}"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan(${planList.dayVisit});" src="../img/icon_delete_n.png" style="float:right"><div class="short">${planList.spotName }</div></div>
 	</c:if>
 	</c:forEach>
 	</div>	

@@ -34,6 +34,11 @@
 	</beans:bean>
 	<context:component-scan base-package="brother.heyflight.checktel" />
 
+	<!-- Transaction 설정 -->
+	<beans:bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
+
 	<!-- google Class Bean설정 추가 -->
 	<!-- 클라이언트ID와 보안비밀 세팅 -->
 	<beans:bean id="googleConnectionFactory"

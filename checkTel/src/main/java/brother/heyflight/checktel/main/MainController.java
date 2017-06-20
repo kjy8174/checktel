@@ -81,7 +81,7 @@ public class MainController {
 		public String getPlan(PlanVO planVO, Model model){
 			model.addAttribute("plan", planService.getPlan(planVO));
 			model.addAttribute("planList",mainService.getPlanList(planVO));
-			return "main/mainUpd";		
+			return "main/mainUpd";
 		}
 	
 	//일정 삭제

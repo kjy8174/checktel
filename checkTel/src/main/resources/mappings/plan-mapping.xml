@@ -22,7 +22,7 @@
       INSERT INTO PLAN(
       				  PLAN_NO
       				, PLAN_PERIOD
-      				, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"')
+      				, PLAN_START
       				, PLAN_END
       				, MEMBER_NO
       				, BLOG_HIT
@@ -30,6 +30,7 @@
       VALUES(
       	  #{planNo}
       	, #{planPeriod}
+      	<!-- , TO_CHAR(#{planStart},'YY"년"MM"월"DD"일"') -->
       	, #{planStart}
       	, #{planEnd}
       	, #{memberNo}
