@@ -592,6 +592,18 @@ $(function() {
 <div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 60px; left: 0px; background-color:#616265;">
 <div id="plan">
 
+<c:forEach var="planList" items="${planList}" varStatus="status">
+<script>
+		var plan = {"spotNo":'${planList.spotNo}',"spotName":'${planList.spotName}',"spotFurl":'${planList.spotFurl}',
+		"lat":'${planList.lat}',"lng":'${planList.lng}',"cityName":'${planList.cityName}',
+		"dayVisit":'${planList.dayVisit}',"categoryId":'${planList.categoryId}',"dayNo":'${planList.dayNo}'}; //json으로 배열 만듬
+        planSub.push(plan);
+		console.log(plan);
+		dayNo = '${planList.dayVisit+1}'
+		console.log(dayNo);
+</script>
+</c:forEach>
+
     <!--end-->
 
 		<button class="button2 button1" onclick="addDay();">+일정 추가</button><br>
@@ -606,6 +618,7 @@ $(function() {
 			</div>
 		<div id="smallImg<c:out value="${decr}"/>">
 		<c:forEach var="planList" items="${planList}" varStatus="status">
+
 		<c:if test= "${planList.dayNo eq decr}">
 			<img src="${planList.spotFurl}" style="max-width: 45px; max-height: 45px; margin-right:3px;">
 		</c:if>

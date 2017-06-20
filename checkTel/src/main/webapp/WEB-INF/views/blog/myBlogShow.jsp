@@ -400,9 +400,9 @@ $(function(){
 		<div class="col-md-6 center"
 			style="text-align: center; background-color: white;">
 			<ul class="nav nav-pills nav-justified">
-				<li><a href="../main/mainCopy.do?planNo=${plan.planNo}">일정 복사</a></li>				
+				<li><a href="${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}">일정 복사</a></li>				
 				<li><a href="#commentsTop">댓글</a></li>				
-				<li><a href="../blog/blogDelete.do?planNo=${plan.planNo}">삭제</a></li><!--자기꺼만 지우기 -->
+				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}">삭제</a></li><!--자기꺼만 지우기 -->
 				<li><a href="#">다운로드</a></li>				
 			</ul>
 		</div>

@@ -53,7 +53,7 @@ public class MainController {
 	//메인 ( 모달 X)
 	@RequestMapping(value={"main/mainUpd.do"})
 	public String mainUpd(){
-		return "main/mainUpd";
+		return "main/mainNoModal";
 	}
 
 	//일정 저장
@@ -86,13 +86,11 @@ public class MainController {
 	
 	//일정 삭제
 	@RequestMapping(value={"/blog/blogDelete.do"})
-	@ResponseBody
 	public String blogDelete(@RequestParam(value="planNo") int planNo, Model model){
 		System.out.println("삭제 : "+planNo);
 		mainService.deleteBlog(planNo);
-		System.out.println("삭제 : "+planNo);
 
-		return "redirect:main/main.do";
+		return "main/main";
 	
 	}
 	
