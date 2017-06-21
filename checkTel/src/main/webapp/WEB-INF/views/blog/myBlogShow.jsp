@@ -64,6 +64,12 @@ span {
 	var map;
 	var places;
 	var markerGroup;
+	var dayPath = new Array(); // 날짜별 지도 위,경도 정보 저장
+	var pathColor = ['red','green','blue','black','white'];
+	var p_lat;	// 위도
+	var p_lng;	// 경도
+	var pre_idx = 0;	//비교 인덱스
+	var idx = 1;		//인덱스
 	// 지도 생성
 	bm.ready(function() {
 		var maxZoom = 18;
@@ -98,6 +104,17 @@ span {
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
 		});
+		
+		//생성된 지도에 패스 그리기
+		for(var i=0; i < dayPath.length;i++){
+			var drawPath = bm.polyline(dayPath[i],{
+			      color: pathColor[i],
+			      opacity: 0.5,
+			      weight: 2
+			    });
+			drawPath.addTo(map);
+		}
+		console.log(dayPath);
 	});
 	function imgClick(places) {
 		$("#list").empty();
@@ -473,6 +490,20 @@ function openWin(mIdx) { //길찾기
 					</c:if>					
 					</div><br>	
 					</c:if>
+					<script>
+						//일정에서 위, 경도 데이터 배열에 저장
+						if(pre_idx == 0) {
+							dayPath[pre_idx] = new Array();
+						} 
+						pre_idx = ${planList.dayNo}
+						if(pre_idx != idx) {
+							dayPath[pre_idx - 1] = new Array();
+						}
+						p_lat=${planList.lat};
+						p_lng=${planList.lng};
+						dayPath[pre_idx-1].push({lat : p_lat, lng : p_lng});
+						idx = ${planList.dayNo};
+					</script>
 					</c:forEach>		
 				</div>
 			</div>	
