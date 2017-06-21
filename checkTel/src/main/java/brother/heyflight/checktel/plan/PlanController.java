@@ -17,10 +17,10 @@ public class PlanController {
 	PlanService planService;
 	
 	//스마트플랜
-/*	@RequestMapping(value={"/plan/planView.do"})
+	@RequestMapping(value={"/plan/planView.do"})
 	public String userInsert(){
 		return "/plan/planView";
-	}*/
+	}
 	
 	//등록폼
 		@RequestMapping(method = RequestMethod.GET, value={"/plan/planResult.do"}) //스마트플랜 설정한거

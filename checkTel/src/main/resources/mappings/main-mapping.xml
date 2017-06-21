@@ -75,6 +75,7 @@
         ]]>
 	</delete>
 	
+<!--
 	<select id="ResPlan" resultMap="mainResult">
 		
 	    SELECT   P.PLAN_NO
@@ -96,12 +97,12 @@
 
 				
 		
-		<!-- FROM (SELECT D.CITY_NAME, D.SPOT_FURL, D.DAY_NO, D.CATEGORY_ID, P.PLAN_NO
+		 FROM (SELECT D.CITY_NAME, D.SPOT_FURL, D.DAY_NO, D.CATEGORY_ID, P.PLAN_NO
 		      FROM DETAIL D, PLAN P
 		      WHERE D.PLAN_NO = P.PLAN_NO(+)
 		      AND D.CATEGORY_ID = 1
 		      AND D.DAY_NO = 1
 		      ORDER BY PLAN_NO)
-		WHERE ROWNUM < 5; -->
-	</select>
+		WHERE ROWNUM < 5
+	</select> -->
 </mapper>
