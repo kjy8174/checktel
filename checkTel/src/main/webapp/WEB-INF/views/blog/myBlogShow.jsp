@@ -421,15 +421,19 @@ $(function(){
 		
 	});
 
-function openWin(mIdx) { //길찾기
-	window
-			.open(
-					"https://www.google.co.kr/maps/dir/"
-							+city_array[mIdx].Lat+","+city_array[mIdx].Lng +"/37.5365,126.9771/am=t",
-					"길찾기",
-					"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
-}
-
+	function Navi(id) { //길찾기
+		var no = id+1;
+		var before = document.getElementById("latlng"+id).value;
+		var after = document.getElementById("latlng"+no).value;
+		console.log(no)
+		console.log(id+":"+before+","+no+":"+after);
+		window
+				.open(
+						"https://www.google.co.kr/maps/dir/"
+								+before+"/"+after+"/am=t",
+						"길찾기",
+						"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+	}
 </script>
 </head>
 
@@ -510,21 +514,20 @@ function openWin(mIdx) { //길찾기
 						</div>						
 						
 					</div>					
-					<!--일정 순서  -->
 					<c:forEach var="planList" items="${planList}" varStatus="status">
 					<c:if test= "${planList.dayNo eq decr}">
 					<div class="post-title shadow" id="${planList.dayVisit}" onclick="mapClick(${planList.dayVisit})" onmouseover="mapOver(${planList.dayVisit})">
 					<input type="hidden" id="lat${planList.dayVisit}" value="${planList.lat}">
 					<input type="hidden" id="lng${planList.dayVisit}" value="${planList.lng}">
 						<h3 id="short"><b>${status.index+1}</b> <small>${planList.spotName }</small></h3>
-						<input type="text" value="${status.index+1}">
+						<input type="hidden" id="latlng${status.index+1}" value="${planList.lat},${planList.lng}">
 						<a href="#"> <img alt="" src="${planList.spotFurl }" style="width: 300px; height: 150px;"></a>
 					</div>
 					<div style="padding-left: 135px;">
 					<!--화살표 -->
 					<c:if test="${!status.last }">
 					<br>
-						<span class="demoSpan1"></span>
+						<span class="demoSpan1"></span><button onclick="Navi(${status.index+1})">${status.index+1}</button>
 					</c:if>					
 					</div><br>	
 					</c:if>
