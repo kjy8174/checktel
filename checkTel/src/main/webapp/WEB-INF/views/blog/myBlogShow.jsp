@@ -366,6 +366,15 @@ $(function(){
 	});
 });
 
+function openWin(mIdx) { //길찾기
+	window
+			.open(
+					"https://www.google.co.kr/maps/dir/"
+							+city_array[mIdx].Lat+","+city_array[mIdx].Lng +"/37.5365,126.9771/am=t",
+					"길찾기",
+					"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+}
+
 </script>
 </head>
 
@@ -431,15 +440,17 @@ $(function(){
 			<c:forEach var="planPeriod" begin="1" end="${plan.planPeriod }" step="1" varStatus="pcnt">
 			 <c:set var="decr" value="${planPeriod}"/>
 			<div class="post-item">
+			<h2><c:if test="${pcnt.first }">
+								${plan.planStarts}+1
+							</c:if></h2>
 				<!-- 일차 -->
 				<div class="post-content-details">
 					<div class="post-meta">
 						<div class="post-date">
+							
 							<span class="post-date-day"><c:out value="${decr}"/> <%-- ${pcnt.count} --%> <a class="post-date-month">일차</a>
 							</span>
-							<c:if test="${pcnt.first }">
-								${plan.planStart}
-							</c:if>
+							
 						
 						</div>						
 						
@@ -451,6 +462,7 @@ $(function(){
 					<input type="hidden" id="lat${planList.dayVisit}" value="${planList.lat}">
 					<input type="hidden" id="lng${planList.dayVisit}" value="${planList.lng}">
 						<h3 id="short"><b>${status.index+1}</b> <small>${planList.spotName }</small></h3>
+						<input type="text" value="${status.index+1}">
 						<a href="#"> <img alt="" src="${planList.spotFurl }" style="width: 300px; height: 150px;"></a>
 					</div>
 					<div style="padding-left: 135px;">

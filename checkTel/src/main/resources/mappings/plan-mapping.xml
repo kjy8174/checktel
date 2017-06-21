@@ -10,6 +10,7 @@
 		<id property="memberNo" column="MEMBER_NO" />
 		<id property="blogHit" column="BLOG_HIT" />
 		<result property="planStart" column="PLAN_START" />
+		<result property="planStarts" column="PLAN_STARTS" />
 		<result property="planEnd" column="PLAN_END" />
 		<result property="blogTitle" column="BLOG_TITLE" />
 	</resultMap>
@@ -40,9 +41,17 @@
    
    	<select id="getPlan" resultMap="planResult">
         <![CDATA[
-        SELECT * 
+        SELECT 	  PLAN_NO
+				, PLAN_PERIOD
+				, PLAN_START
+				, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
+				, PLAN_END
+				, MEMBER_NO
+				, BLOG_HIT
+				, BLOG_TITLE 
         FROM PLAN
         WHERE PLAN_NO = #{planNo}
         ]]>
 	</select>
+	<!--,   -->
 </mapper>

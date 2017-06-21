@@ -184,7 +184,7 @@
 	      source: availableTags
 	    }); */
   });
-  var dayNo=1;
+  var dayNo=0;
   var delClick=0;
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
@@ -621,14 +621,23 @@ function DeletePlan(id) {
 	id.parentNode.remove();
 }
 function DeleteSmallPlan(id) {
+	console.log(flightPlanCoordinates);
 	var pId = document.getElementById(id);
 	pId.remove();
-	console.log("id-2-delClick:"+(id-2-delClick)+"id-2:"+(id-2))
-	console.log(planSub.length)
-	console.log(planSub)
-	planSub.splice(id-2-delClick, 1);
-	console.log(planSub)
-	delClick++;
+ 	for(i=0;i<planSub.length;i++){
+ 		if(planSub[i].dayVisit==(id-1)){
+ 			flightPlanCoordinates.splice(i,1);
+ 			planSub.splice(i,1)
+ 			var flightPath = bm.polyline(flightPlanCoordinates,{
+ 			      color: '#FF0000',
+ 			      opacity: 1.0,
+ 			      weight: 2
+ 			    });
+ 			console.log(i)
+ 			  flightPath.remove(map);
+ 		}
+ 	}
+ 	
 }
 
 </script>

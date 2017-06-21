@@ -6,11 +6,18 @@ public class PlanVO {
 	private int planNo;
 	private int planPeriod;
 	private Date planStart;
+	private String planStarts;
 	private Date planEnd;
 	private int memberNo;
 	private String blogTitle;
 	private int blogHit;
 	
+	public String getPlanStarts() {
+		return planStarts;
+	}
+	public void setPlanStarts(String planStarts) {
+		this.planStarts = planStarts;
+	}
 	public String getBlogTitle() {
 		return blogTitle;
 	}
@@ -57,9 +64,9 @@ public class PlanVO {
 	@Override
 	public String toString() {
 		return "PlanVO [planNo=" + planNo + ", planPeriod=" + planPeriod
-				+ ", planStart=" + planStart + ", planEnd=" + planEnd
-				+ ", memberNo=" + memberNo + ", blogTitle=" + blogTitle
-				+ ", blogHit=" + blogHit + "]";
+				+ ", planStart=" + planStart + ", planStarts=" + planStarts
+				+ ", planEnd=" + planEnd + ", memberNo=" + memberNo
+				+ ", blogTitle=" + blogTitle + ", blogHit=" + blogHit + "]";
 	}
 	
 }

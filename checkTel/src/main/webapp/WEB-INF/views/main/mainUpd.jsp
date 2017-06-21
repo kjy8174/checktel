@@ -577,7 +577,7 @@ $(function() {
 function DeletePlan(id) {
 	id.parentNode.remove();
 }
-function DeleteSmallPlan(id) {
+/* function DeleteSmallPlan(id) {
 	var pId = document.getElementById(id);
 	pId.remove();
 	console.log("id-delClick:"+(id-delClick)+"id-1:"+(id-1))
@@ -594,6 +594,15 @@ function DeleteSmallPlan(id) {
 	console.log(planSub)
 	delClick++;
 	console.log("dayNo1:"+dayNo);
+} */
+function DeleteSmallPlan(id) {
+	var pId = document.getElementById(id);
+	pId.remove();
+ 	for(i=0;i<planSub.length;i++){
+ 		if(planSub[i].dayVisit==(id-1)){
+ 			planSub.splice(i,1)
+ 		}
+ 	}
 }
 
 
