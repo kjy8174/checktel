@@ -61,6 +61,7 @@ span {
 <script
 	src="https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM="></script>
 <script>
+var num=0;
 	var map;
 	var places;
 	var markerGroup;
@@ -367,21 +368,58 @@ function mapOver(id) {
 	map.setView(loc)
 }
 $(function(){
-	//페이지 로딩 후에 댓글 목록 조회
-	$.getJSON("../review/review.do", function(data){
-		for(i=0; i<data.length; i++){				
-			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNo+"</h4><p class='time'>"+data[i].reviewDate+"</p><p>"+data[i].reviewContent+"</p></div></div>");
-		}	
-	})		
-	$("#btnReviewIns").click(function(event){
-		// 댓글 등록
-		event.preventDefault();
-		var param = $("#frmReview").serialize();
-		$.getJSON("../review/reviewInsert.do",param,  function(data){				
-			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data.memberNo+"</h4><p class='time'>"+data.reviewDate+"</p><p>"+data.reviewContent+"</p></div></div>");				
+	/* 	if(user.memberNo !=) {
+			$("#btnReviewDel").
+			document.getElementById('btnReviewDel').setAttribute('hidden','hidden');
+		} */
+		
+		//페이지 로딩 후에 댓글 목록 조회
+		var param = {planNo:"${plan.planNo}"}
+		$.getJSON("../review/review.do", param, function(data){
+			for(i=0; i<data.length; i++){				
+				var btn3 ="";
+				if(data[i].memberNo=="${user.memberNo}") {
+				 btn3="<button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/>";
+				}
+				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+									+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"
+									+data[i].reviewContent+"</p>" + btn3 +"</div></div>");
+
+				/* $("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"+data[i].reviewContent+"</p><button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/></div></div>"); */
+			}
 		})
+		$("#btnReviewIns").click(function(event){
+			// 댓글 등록
+			event.preventDefault();
+			var param = $("#frmReview").serialize();
+			$.getJSON("../review/reviewInsert.do", param,  function(data){				
+				var btn3 ="";
+				if(data.memberNo=="${user.memberNo}") {
+				 btn3="<button class='btn' id='btnReviewDel"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
+				}
+				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+									+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p>"
+									+data.reviewContent+"</p>" + btn3 +"</div></div>");
+
+			});
+		});
+		
+		// 댓글 삭제
+		/* $("#btnReviewDel").click(function(){ */
+		$(document).on("click","#btnReviewDel",function(event){
+			event.preventDefault();
+			var param = $(this).parent().children('#hiddenId').val()+"";
+			console.log(param);
+			/* param.slice(0,-1); */
+			$(this).parents(".comment").remove();
+			$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
+				/* $(".comment").remove(); */
+				/* console.log($(this).parents(".comment").text()); */
+			});
+			
+		});	
+		
 	});
-});
 
 function openWin(mIdx) { //길찾기
 	window
@@ -529,7 +567,8 @@ function openWin(mIdx) { //길찾기
 					<div class="media-body">
 						<h4 class="media-heading">박성익</h4>
 						<p class="time">2017/06/11 오전 11:51</p>
-						<p>안해</p>						
+						<p>안해</p>
+								
 					</div>
 				</div>
 	
@@ -540,12 +579,16 @@ function openWin(mIdx) { //길찾기
 					<h4>댓글 쓰기</h4>
 				</div>
 				<form class="form-gray-fields" id="frmReview" >
+				<input type="hidden" name="planNo" value="${plan.planNo}">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group">
+							<div class="form-group" >
 								<label for="name" class="upper">이름</label>
-									<input type="text" aria-required="true" id="name"
-										placeholder="박성익" name="memberNo" class="form-control required">									
+									<input type="text" aria-required="true" 
+										placeholder="${user.memberNick}" value="${user.memberNick}" class="form-control required">
+								<label for="name" class="upper"></label>
+									<input type="hidden" aria-required="true" id="name"
+										placeholder="박성익" name="memberNo" value="${user.memberNo}" class="form-control required">									
 							</div>
 						</div>		
 					</div>

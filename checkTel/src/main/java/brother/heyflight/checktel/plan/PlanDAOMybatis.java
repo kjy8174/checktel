@@ -6,8 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import brother.heyflight.checktel.main.ListVO;
-
 
 @Repository
 public class PlanDAOMybatis {
@@ -35,4 +33,5 @@ public class PlanDAOMybatis {
         return mybatis.selectOne("PlanDAO.getPlan", planVO);
 		
 	}
+
 }

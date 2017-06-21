@@ -8,7 +8,21 @@ public class ReviewVO {
 	private Date reviewDate;
 	private int planNo;
 	private int memberNo;
+	private String memberNick;
+	private String reviewDates;
 	
+	public String getReviewDates() {
+		return reviewDates;
+	}
+	public void setReviewDates(String reviewDates) {
+		this.reviewDates = reviewDates;
+	}
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -43,7 +57,8 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [reviewNo=" + reviewNo + ", reviewContent="
 				+ reviewContent + ", reviewDate=" + reviewDate + ", planNo="
-				+ planNo + ", memberNo=" + memberNo + "]";
+				+ planNo + ", memberNo=" + memberNo + ", memberNick="
+				+ memberNick + ", reviewDates=" + reviewDates + "]";
 	}	
 	
 }

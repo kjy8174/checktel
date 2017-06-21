@@ -30,4 +30,19 @@ public class ReviewDAOMybatis {
         System.out.println("===> Mybatis로 getReviewList() 기능 처리");
         return mybatis.selectList("ReviewDAO.getReviewList", vo);
     }
+
+	public void deleteReview(ReviewVO vo) {
+		 System.out.println("===> Mybatis로 deleteReview() 기능 처리");
+	        mybatis.delete("ReviewDAO.deleteReview", vo);	    
+	}
+
+	public int deleteReview(int reviewNo) {
+		 System.out.println("===> Mybatis로 deleteReview() 기능 처리");
+		 return mybatis.delete("ReviewDAO.deleteReview", reviewNo);	
+	}
+
+	public ReviewVO getReview(ReviewVO vo) {
+		System.out.println("===> Mybatis로 getReview() 기능 처리");
+		return mybatis.selectOne("ReviewDAO.getReview", vo);	
+	}
 }

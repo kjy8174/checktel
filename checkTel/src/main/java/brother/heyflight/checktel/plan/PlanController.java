@@ -17,14 +17,14 @@ public class PlanController {
 	PlanService planService;
 	
 	//스마트플랜
-	@RequestMapping(value={"/plan/planView.do"})
+/*	@RequestMapping(value={"/plan/planView.do"})
 	public String userInsert(){
 		return "/plan/planView";
-	}
+	}*/
 	
 	//등록폼
 		@RequestMapping(method = RequestMethod.GET, value={"/plan/planResult.do"}) //스마트플랜 설정한거
-		public String plaInsert(HttpServletRequest httpServletRequest, Model model){
+		public String plaInsert(HttpServletRequest httpServletRequest, Model model, PlanVO vo){
 			String selCity = httpServletRequest.getParameter("selCity");
 			String selDay = httpServletRequest.getParameter("selDay");
 			String selCategory1 = httpServletRequest.getParameter("selCategory1");
@@ -42,18 +42,17 @@ public class PlanController {
 			model.addAttribute("selCategory4",selCategory4);
 			model.addAttribute("selCategory5",selCategory5);
 			model.addAttribute("selCategory6",selCategory6);
-			model.addAttribute("selCategory7",selCategory7);
+			model.addAttribute("selCategory7",selCategory7);			
 			return "/plan/planResult";
-		}
+		}		
 	
-		
-		
-	
-	/*//등록
+	//등록
 	@RequestMapping(value="/plan/planView.do",method= RequestMethod.POST)
 	public String userInsert(PlanVO planVO, HttpServletRequest request){
 		System.out.println("등록 : "+planVO);
 		planService.insertPlan(planVO);
 		return "redirect:/plan/planResult";
-	}*/
+	}
+	
+	
 }

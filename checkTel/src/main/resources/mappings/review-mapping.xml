@@ -8,8 +8,10 @@
 		<id property="reviewNo" column="REVIEW_NO" /> <!-- 필드명(BoardVO 필드), 컬럼명 -->
 		<id property="planNo" column="PLAN_NO" />
 		<id property="memberNo" column="MEMBER_NO" />
+		<id property="reviewDate" column="REVIEW_DATE" />
+		<result property="reviewDates" column="REVIEW_DATES" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
-		<result property="reviewDate" column="REVIEW_DATE" />
+		<result property="memberNick" column="MEMBER_NICK" />		
 		
 				
 	</resultMap>
@@ -25,15 +27,30 @@
         	#{planNo}, 
         	#{memberNo}, 
         	#{reviewContent}, 
-        	SYSDATE
+        	SYSDATE 
         	)
    </insert>
        
    <select id="getReviewList" parameterType="review" resultMap="reviewResult">
-   		SELECT REVIEW_NO, PLAN_NO , M.MEMBER_NO, REVIEW_CONTENT, REVIEW_DATE, M.MEMBER_NAME
+   		SELECT R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK
    		FROM REVIEW R, MEMBER M
    		WHERE R.MEMBER_NO=M.MEMBER_NO
    		AND R.PLAN_NO=#{planNo}
+   		ORDER BY REVIEW_NO ASC
    </select>
-
+   
+   <select id="getReview" resultMap="reviewResult">
+   <![CDATA[
+   SELECT	R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK
+   FROM REVIEW R, MEMBER M
+   WHERE R.MEMBER_NO = M.MEMBER_NO 
+   AND R.REVIEW_NO=#{reviewNo}
+   ]]>   
+   </select>      	
+   
+   <delete id="deleteReview" parameterType="int">
+   		DELETE FROM REVIEW
+		WHERE REVIEW_NO=#{reviewNo}
+   </delete>
+   
 </mapper>

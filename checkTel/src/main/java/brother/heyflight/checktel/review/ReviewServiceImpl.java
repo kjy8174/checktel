@@ -24,4 +24,21 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<ReviewVO> getReviewList(ReviewVO vo) {
         return ReviewDAO.getReviewList(vo);
     }
+
+/*	@Override
+	public void deleteReview(ReviewVO vo) {
+		ReviewDAO.deleteReview(vo);
+	}*/
+
+	@Override
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return ReviewDAO.deleteReview(reviewNo);
+	}
+
+	@Override
+	public ReviewVO getReview(ReviewVO vo) {
+		// TODO Auto-generated method stub
+		return ReviewDAO.getReview(vo);
+	}
 }

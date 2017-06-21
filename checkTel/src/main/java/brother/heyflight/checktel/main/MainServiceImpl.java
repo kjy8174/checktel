@@ -1,6 +1,5 @@
 package brother.heyflight.checktel.main;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +64,10 @@ public class MainServiceImpl implements MainService{
 		// TODO Auto-generated method stub
 		return mainDAO.deleteBlog(planNo);
 	}
-    
+/*	// 스마트 플랜
+	@Override
+	public PlanVO ResPlan(MainVO vo) {
+		// TODO Auto-generated method stub
+		return mainDAO.ResPlan(vo);
+	}*/
 }
