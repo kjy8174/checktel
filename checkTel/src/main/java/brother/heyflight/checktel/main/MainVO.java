@@ -1,5 +1,7 @@
 package brother.heyflight.checktel.main;
 
+import java.util.Date;
+
 public class MainVO {
 	private int spotNo; //장소 idx
 	private String spotName; //장소 이름
@@ -12,10 +14,38 @@ public class MainVO {
 	private int planNo;
 	private int categoryId;
 	private int dayNo; //경과일수
+	private String blogTitle;
+	private int memberNo;
+	private String memberNick;
+	private Date planStart;
 	//list
 	
 	public int getSpotNo() {
 		return spotNo;
+	}
+	public String getBlogTitle() {
+		return blogTitle;
+	}
+	public void setBlogTitle(String blogTitle) {
+		this.blogTitle = blogTitle;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	public Date getPlanStart() {
+		return planStart;
+	}
+	public void setPlanStart(Date planStart) {
+		this.planStart = planStart;
 	}
 	public void setSpotNo(int spotNo) {
 		this.spotNo = spotNo;
@@ -86,7 +116,9 @@ public class MainVO {
 				+ ", spotFurl=" + spotFurl + ", lat=" + lat + ", lng=" + lng
 				+ ", cityName=" + cityName + ", no=" + no + ", dayVisit="
 				+ dayVisit + ", planNo=" + planNo + ", categoryId="
-				+ categoryId + ", dayNo=" + dayNo + "]";
+				+ categoryId + ", dayNo=" + dayNo + ", blogTitle=" + blogTitle
+				+ ", memberNo=" + memberNo + ", memberNick=" + memberNick
+				+ ", planStart=" + planStart + "]";
 	}
 	
 }

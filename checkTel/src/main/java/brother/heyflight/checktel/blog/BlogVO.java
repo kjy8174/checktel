@@ -1,6 +1,6 @@
 package brother.heyflight.checktel.blog;
 
-public class BlogVO {
+public class BlogVO extends DefaultVO {
 
 	private int planNo;
 	private String blogTitle;

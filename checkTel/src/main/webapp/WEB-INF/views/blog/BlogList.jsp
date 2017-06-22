@@ -2,6 +2,22 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
+<!-- 페이징 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my"%>
+  
+<script>
+	/* pagination 페이지 링크 function */
+	function fn_egov_link_page(pageNo) {
+		document.listForm.pageIndex.value = pageNo;
+		document.listForm.action = "<c:url value='/blog/getBlogList.do'/>";
+		document.listForm.submit();
+	}
+</script>
+<!-- 페이징 끝 -->
+
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
@@ -41,44 +57,47 @@ label {
 </script>
 <body class="boxed-simple">
 	<!-- PAGE TITLE -->
-	
+
 	<!-- END: PAGE TITLE -->
-	<!--트래블로그: HEADER -->  
-	<div id="travelLogBox" align="center">    
+	<!--트래블로그: HEADER -->
+	<div id="travelLogBox" align="center">
 		<section id="page-title"
-		class="page-title-parallax page-title-center text-dark"
-		style="background-image:url(../images/Lighthouse.jpg);">
-	<div class="container">
-		<div class="page-title col-md-8">
-			<div style="line-height: 1px">
-			<h1 class="travelTitle" style="line-height: 20px">
-				<span align="center" style="font-size: 14px;">트래블로그</span><br>
-				<img src="../img/title_travelog.png">
-			</h1>
-			<a href="${pageContext.request.contextPath}/blog/myBlogList.do">
-				<div style="font-size: 13px; margin-left: 900px;">
-					<span class="name" style="font-size: 20px; font-weight: bold;">호진</span></b>
-					님의 트래블로그
+			class="page-title-parallax page-title-center text-dark"
+			style="background-image:url(../images/Lighthouse.jpg);">
+		<div class="container">
+			<div class="page-title col-md-8">
+				<div style="line-height: 1px">
+
+					<h1 class="travelTitle" style="line-height: 20px">
+						<span align="center" style="font-size: 14px;">트래블로그</span><br>
+						<img src="../img/title_travelog.png">
+					</h1>
+
+					<a href="${pageContext.request.contextPath}/blog/myBlogList.do">
+						<div style="font-size: 13px; margin-left: 900px;">
+							<span class="name" style="font-size: 20px; font-weight: bold;">호진</span></b>
+							님의 트래블로그
+						</div>
+					</a>
 				</div>
-			</a>
+
+			</div>
+			<div class="breadcrumb col-md-4"></div>
 		</div>
-			
-		</div>
-		<div class="breadcrumb col-md-4"></div>
-	</div>
-	</section>
-		
+		</section>
+
 		<hr>
 		<!--트래블로그:end HEADER -->
-
 		<!-- CONTENT -->
 		<div class="demo">
 			<form action="#">
 				<fieldset>
 					<label for="number">도시별 검색</label> <select name="number"
 						id="number">
+
+						<option selected="selected">전체</option>
+						<option>서울</option>
 						<option>제주</option>
-						<option selected="selected">서울</option>
 						<option>도쿄</option>
 						<option>런던</option>
 						<option>상하이</option>
@@ -107,491 +126,68 @@ label {
 			</form>
 		</div>
 
-		<section class="content">
+		<form name="listForm"
+			action="<%=request.getContextPath()%>/getBlogList.do" method="post">
 
-		<div class="polaroid">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
+			<section class="content"> <input type="hidden"
+				name="pageIndex" /> <c:forEach items="${planList}" var="plan">
+				<div class="polaroid">
+					<div class="container">
+						<!-- Blog post-->
+						<div class="post-content post-4-columns">
+							<!-- Blog image post-->
 
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
+							<div class="post-item">
+								<div class="post-image">
+									<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
+										alt="" src="${plan.spotFurl}">
+									</a>
+								</div>
+								<div class="post-content-details">
+									<div class="post-title">
 
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
+										<h3>
+											<a href="#">${plan.memberNick}님의 4박5일 여행</a>
+										</h3>
 
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+									</div>
+									<div class="post-info">
+										<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
+									</div>
+								</div>
 
+								<div class="post-meta">
+									<div class="post-date">
+										<span class="post-date-day">${plan.planStart}</span>
+									</div>
 
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
+									<div class="post-comments">
+										<a href="#"> <i class="fa fa-comments-o"></i> <span
+											class="post-comments-number">324</span>
+										</a>
+									</div>
+									<div class="post-comments">
+										<a href="#"> <i class="fa fa-share-alt"></i> <span
+											class="post-comments-number">324</span>
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</c:forEach> 
+			</section>
+		</form>
 
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-				
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<div class="polaroid" style="float: left;">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
-
-					<div class="post-item">
-						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
+		<!-- 페이징 태그 출력  -->
+		<my:paging paginationInfo="${paginationInfo}" />
 		<!-- pagination nav -->
-		<div class="text-center">
-			<div class="pagination-wrap">
-				<ul class="pagination">
-					<li><a aria-label="Previous" href="#"> <span
-							aria-hidden="true"><i class="fa fa-angle-left"></i></span>
 
-					</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li class="active"><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a aria-label="Next" href="#"> <span
-							aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-					</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
 
 	</div>
-	</section>
+
+
 	<!-- END: SECTION -->
 	</div>
 	<!-- END: WRAPPER -->

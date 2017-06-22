@@ -2,7 +2,9 @@ package brother.heyflight.checktel.plan;
 
 import java.util.Date;
 
-public class PlanVO {
+import brother.heyflight.checktel.blog.DefaultVO;
+
+public class PlanVO extends DefaultVO {
 	private int planNo;
 	private int planPeriod;
 	private Date planStart;
@@ -11,7 +13,28 @@ public class PlanVO {
 	private int memberNo;
 	private String blogTitle;
 	private int blogHit;
+	private String memberNick;
+	private String spotFurl;
+	private String cityName;
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	public String getSpotFurl() {
+		return spotFurl;
+	}
+	public void setSpotFurl(String spotFurl) {
+		this.spotFurl = spotFurl;
+	}
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	public String getPlanStarts() {
 		return planStarts;
 	}
@@ -66,7 +89,9 @@ public class PlanVO {
 		return "PlanVO [planNo=" + planNo + ", planPeriod=" + planPeriod
 				+ ", planStart=" + planStart + ", planStarts=" + planStarts
 				+ ", planEnd=" + planEnd + ", memberNo=" + memberNo
-				+ ", blogTitle=" + blogTitle + ", blogHit=" + blogHit + "]";
+				+ ", blogTitle=" + blogTitle + ", blogHit=" + blogHit
+				+ ", memberNick=" + memberNick + ", spotFurl=" + spotFurl
+				+ ", cityName=" + cityName + "]";
 	}
 	
 }

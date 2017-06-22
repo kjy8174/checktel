@@ -64,6 +64,12 @@ public class MainServiceImpl implements MainService{
 		// TODO Auto-generated method stub
 		return mainDAO.deleteBlog(planNo);
 	}
+	
+	@Override
+	public List<MainVO> getBlogL(PlanVO planVO) {
+		// TODO Auto-generated method stub
+		return mainDAO.getBlogL(planVO);
+	}
 /*	// 스마트 플랜
 	@Override
 	public PlanVO ResPlan(MainVO vo) {

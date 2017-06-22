@@ -15,7 +15,8 @@
 		<result property="spotFurl" column="SPOT_FURL" />
 		<result property="lat" column="LAT" />
 		<result property="lng" column="LNG" />
-		<result property="cityName" column="CITY_NAME" />		
+		<result property="cityName" column="CITY_NAME" />
+		<result property="planStart" column="PLAN_START" />		
 	</resultMap>
    
    <insert id="insertMain" parameterType="main">
@@ -74,6 +75,35 @@
          WHERE PLAN_NO= #{planNo}
         ]]>
 	</delete>
+	
+	<select id="getBlogL" resultMap="mainResult">
+		
+		SELECT * FROM (
+		SELECT A.*, ROWNUM RNUM FROM (
+		
+		SELECT P.PLAN_NO
+		, P.BLOG_TITLE
+		, M.MEMBER_NICK
+		, D.SPOT_FURL
+		, D.CITY_NAME
+		, P.PLAN_START
+
+
+		FROM PLAN P, MEMBER M, DETAIL D
+		WHERE
+		M.MEMBER_NO = P.MEMBER_NO
+		AND D.PLAN_NO
+		= P.PLAN_NO
+		AND D.DAY_NO=1
+		AND D.DAY_VISIT=1
+		ORDER BY PLAN_NO DESC 
+		
+		<![CDATA[					
+	) A WHERE ROWNUM <= #{lastIndex}
+)WHERE RNUM > #{firstIndex}
+]]>
+	
+	</select>
 	
 <!--
 	<select id="ResPlan" resultMap="mainResult">

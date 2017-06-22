@@ -19,13 +19,22 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import brother.heyflight.checktel.blog.BlogVO;
+import brother.heyflight.checktel.main.MainService;
 import brother.heyflight.checktel.member.Member;
+import brother.heyflight.checktel.plan.PlanService;
+import brother.heyflight.checktel.plan.PlanVO;
 
 @Controller
 public class BlogController {
 
 	@Autowired
 	BlogService blogService;
+	
+	@Autowired
+	PlanService planService;
+	
+	@Autowired
+	MainService mainService;
 
 	// 마이페이지 조회
 	@RequestMapping("/blog/myBlogList.do")
@@ -47,6 +56,31 @@ public class BlogController {
 
 	// 목록조회
 	@RequestMapping("/blog/getBlogList.do")
+	public String getBlogList(PlanVO planVO, Model model) {
+		System.out.println("dfdfdf"+planVO);
+		
+		/** pageing setting */
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(planVO.getPageUnit());
+		paginationInfo.setPageSize(planVO.getPageSize());
+
+		planVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		planVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		planVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+		int totCnt = blogService.getBlogListCnt(planVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
+		System.out.println(planVO.getFirstIndex()+":"+planVO.getLastIndex());
+		model.addAttribute("planList",mainService.getBlogL(planVO));
+		
+		
+				
+		return "blog/BlogList";
+	}
+	
+	/*@RequestMapping("/blog/getBlogList.do")
 	public ModelAndView getBlogList(BlogVO vo, ModelAndView mv) {
 		// List<Map<String, Object>> list=userService.getUserList(vo);
 		List<BlogVO> list = blogService.getBlogListVO(vo);
@@ -55,7 +89,7 @@ public class BlogController {
 		return mv;
 		// model.addAttribute("list", list);
 		// return "user/userList";
-	}
+	}*/
 
 	// 수정폼
 	@RequestMapping(value = "/blogUpdate.do")
@@ -97,6 +131,8 @@ public class BlogController {
 		model.addAttribute("user", result);
 		return "blog/getBlog";
 	}
+	
+
 	/*
 	 * //로그인폼
 	 * 

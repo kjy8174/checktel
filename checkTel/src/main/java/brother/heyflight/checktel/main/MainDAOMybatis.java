@@ -38,6 +38,11 @@ public class MainDAOMybatis {
         System.out.println("===> Mybatis로 deleteBlog() 기능 처리");
         return mybatis.delete("MainDAO.deleteBlog", planNo);
     }
+    
+    public List<MainVO> getBlogL(PlanVO planVO) {
+		System.out.println("===> Mybatis로 getBlogL() 기능 처리");
+        return mybatis.selectList("MainDAO.getBlogL", planVO);
+	}
 /*    public PlanVO ResPlan(MainVO vo) {	
 		System.out.println("===> Mybatis로 ResPlan() 기능 처리");
 	    return mybatis.selectOne("PlanDAO.ResPlan", vo);

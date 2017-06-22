@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import brother.heyflight.checktel.main.MainVO;
+import brother.heyflight.checktel.plan.PlanVO;
+
 @Service("blogService")
 public class BlogServiceImpl implements BlogService {
 
@@ -50,6 +53,16 @@ public class BlogServiceImpl implements BlogService {
 	public BlogVO login(BlogVO vo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<MainVO> getPlanList(PlanVO planVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getBlogListCnt(PlanVO vo) { 
+		// TODO Auto-generated method stub
+		return blogDAO.getBlogListCnt(vo);
 	}
 
 	

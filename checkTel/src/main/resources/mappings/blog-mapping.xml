@@ -57,5 +57,11 @@
 		FROM plan
 		ORDER BY plan_no ASC
 	</select>
+	
+	 <select id="getBlogListCnt" resultType="int" >
+		SELECT COUNT(*)
+		FROM PLAN
+	
+	</select> 
 
 </mapper>

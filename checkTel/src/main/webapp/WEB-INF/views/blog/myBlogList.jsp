@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 페이징 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my"%>
 
+<script>
+	/* pagination 페이지 링크 function */
+	function fn_egov_link_page(pageNo) {
+		document.listForm.pageIndex.value = pageNo;
+		document.listForm.action = "<c:url value='/blog/myBlogList.do'/>";
+		document.listForm.submit();
+	}
+</script>
+<!-- 페이징 끝 -->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -131,46 +143,46 @@ label {
 		}
 
 		function userUpd() {
-			
-				var jsonData = $("updForm").serialize();//JSON.stringify();
-				console.log(jsonData)
-				alert("저장 되었습니다")
-				$.ajax({
-					url : '/blogUpdate.do',
-					method : "post",
-					dataType : "json",
-					data : updForm,
-					success : function() {
-						console.log("ajax전송");
-					},
-					error:function(request,status,error){
-					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-				});
-			
-		}
-		/*  	/* $("#btnIns").click(function(){   //버튼 주소 */
-			// 파라미터 -> 쿼리문자열 만들기
-			//var params = $("#updForm").serialize(); //폼태그 주소
-			// 등록 ajax 요청
-			/* $.post("/blogUpdate.do", params, function(data, status) { //서버 url주소
-				var jData = eval("(" + data + ")"); //json으로 변환
-				if (status == "success") {
-					if (jData.length == 1) {
-						alert("등록완료");
-						var div = "<div id='"+jData[0].departmentId+"'>"
-								+ "<span>" + jData[0].departmentId + "</span>"
-								+ "<span>" + jData[0].departmentName
-								+ "</span>" + "</div>"
-						$(div).prependTo("#deptList");
-					} else {
-						alert("등록에러");
-					}
+
+			var jsonData = $("updForm").serialize();//JSON.stringify();
+			console.log(jsonData)
+			alert("저장 되었습니다")
+			$.ajax({
+				url : '/blogUpdate.do',
+				method : "post",
+				dataType : "json",
+				data : updForm,
+				success : function() {
+					console.log("ajax전송");
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
 				}
 			});
-			return false; //event.preventDefault()
+
+		}
+		/*  	/* $("#btnIns").click(function(){   //버튼 주소 */
+		// 파라미터 -> 쿼리문자열 만들기
+		//var params = $("#updForm").serialize(); //폼태그 주소
+		// 등록 ajax 요청
+		/* $.post("/blogUpdate.do", params, function(data, status) { //서버 url주소
+			var jData = eval("(" + data + ")"); //json으로 변환
+			if (status == "success") {
+				if (jData.length == 1) {
+					alert("등록완료");
+					var div = "<div id='"+jData[0].departmentId+"'>"
+							+ "<span>" + jData[0].departmentId + "</span>"
+							+ "<span>" + jData[0].departmentName
+							+ "</span>" + "</div>"
+					$(div).prependTo("#deptList");
+				} else {
+					alert("등록에러");
+				}
+			}
+		});
+		return false; //event.preventDefault()
 		}   */
-		
-		
 
 		dialog = $("#dialog-form").dialog({
 			autoOpen : false,
@@ -397,101 +409,60 @@ label {
 	<!--트래블로그:end HEADER -->
 
 	<!-- CONTENT -->
+	<form name="listForm"
+		action="<%=request.getContextPath()%>/myBlogList.do" method="post">
 	<section class="content">
+	
+		<div class="polaroid">
+			<div class="container">
+				<!-- Blog post-->
+				<div class="post-content post-4-columns">
+					<!-- Blog image post-->
 
-	<div class="polaroid">
-		<div class="container">
-			<!-- Blog post-->
-			<div class="post-content post-4-columns">
-				<!-- Blog image post-->
-
-				<div class="post-item">
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../img/Desert.jpg">
-						</a>
-					</div>
-					<div class="post-content-details">
-						<div class="post-title">
-							<h3>
-								<a href="#">이호진님의 4박5일 여행</a>
-							</h3>
-						</div>
-						<div class="post-info">
-							<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-						</div>
-					</div>
-
-					<div class="post-meta">
-						<div class="post-date">
-							<span class="post-date-day">16</span> <span
-								class="post-date-month">January</span> <span
-								class="post-date-year">2015</span>
-						</div>
-
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-comments-o"></i> <span
-								class="post-comments-number">324</span>
+					<div class="post-item">
+						<div class="post-image">
+							<a href="#"> <img alt="" src="../img/Desert.jpg">
 							</a>
 						</div>
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-share-alt"></i> <span
-								class="post-comments-number">324</span>
-							</a>
+						<div class="post-content-details">
+							<div class="post-title">
+								<h3>
+									<a href="#">이호진님의 4박5일 여행</a>
+								</h3>
+							</div>
+							<div class="post-info">
+								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
+							</div>
+						</div>
+
+						<div class="post-meta">
+							<div class="post-date">
+								<span class="post-date-day">16</span> <span
+									class="post-date-month">January</span> <span
+									class="post-date-year">2015</span>
+							</div>
+
+							<div class="post-comments">
+								<a href="#"> <i class="fa fa-comments-o"></i> <span
+									class="post-comments-number">324</span>
+								</a>
+							</div>
+							<div class="post-comments">
+								<a href="#"> <i class="fa fa-share-alt"></i> <span
+									class="post-comments-number">324</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-	<div class="polaroid" style="float: left;">
-		<div class="container">
-			<!-- Blog post-->
-			<div class="post-content post-4-columns">
-				<!-- Blog image post-->
-
-				<div class="post-item">
-					<div class="post-image">
-						<a href="#"> <img alt="" src="../img/Desert.jpg">
-						</a>
-					</div>
-					<div class="post-content-details">
-						<div class="post-title">
-							<h3>
-								<a href="#">이호진님의 4박5일 여행</a>
-							</h3>
-						</div>
-						<div class="post-info">
-							<span class="post-autor">작성자: <a href="#">똑호진</a></span>
-						</div>
-					</div>
-
-					<div class="post-meta">
-						<div class="post-date">
-							<span class="post-date-day">16</span> <span
-								class="post-date-month">January</span> <span
-								class="post-date-year">2015</span>
-						</div>
-
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-comments-o"></i> <span
-								class="post-comments-number">324</span>
-							</a>
-						</div>
-						<div class="post-comments">
-							<a href="#"> <i class="fa fa-share-alt"></i> <span
-								class="post-comments-number">324</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- 모달 -->
+		</section>
+	</form>
+	<!-- 페이징 태그 출력  --> <my:paging paginationInfo="${paginationInfo}" /> <!-- 모달 -->
+	
+	
+	
 	<form id=updForm>
 		<div id="dialog-form" title="My page">
 			<br> <br>
@@ -630,43 +601,10 @@ label {
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " w3-red";
 		}
-	</script> <!-- 모달 end -->
-	<div class="text-center">
-		<div class="pagination-wrap">
-			<ul class="pagination">
-				<li><a aria-label="Previous" href="#"> <span
-						aria-hidden="true"><i class="fa fa-angle-left"></i></span>
-
-				</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li class="active"><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a aria-label="Next" href="#"> <span aria-hidden="true"><i
-							class="fa fa-angle-right"></i></span>
-				</a></li>
-			</ul>
-		</div>
-	</div>
-	</div>
-	<!-- END: Blog post-->
-	</div>
-	</section>
-	<!-- END: SECTION -->
-	</div>
-	<!-- END: WRAPPER -->
-
-	<!-- GO TOP BUTTON -->
-	<a class="gototop gototop-button" href="#"><i
-		class="fa fa-chevron-up"></i></a>
-
-	<!-- Theme Base, Components and Settings -->
-	<script src="js/theme-functions.js"></script>
-
-	<!-- Custom js file -->
-	<script src="js/custom.js"></script>
-
-
+	</script> <!-- 모달 end --> <!-- GO TOP BUTTON --> <a
+		class="gototop gototop-button" href="#"><i
+		class="fa fa-chevron-up"></i></a> <!-- Theme Base, Components and Settings -->
+	<script src="js/theme-functions.js"></script> <!-- Custom js file --> <script
+		src="js/custom.js"></script>
 </body>
 </html>
