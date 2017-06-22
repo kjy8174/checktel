@@ -33,5 +33,10 @@ public class PlanDAOMybatis {
         return mybatis.selectOne("PlanDAO.getPlan", planVO);
 		
 	}
+	public PlanVO updatePlan(PlanVO vo) {
+		System.out.println("===> Mybatis로 updatePlan() 기능 처리");
+        return mybatis.selectOne("PlanDAO.updatePlan", vo);
+		
+	}
 
 }

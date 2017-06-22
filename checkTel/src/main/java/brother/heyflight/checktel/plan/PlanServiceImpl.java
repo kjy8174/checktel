@@ -23,4 +23,9 @@ public class PlanServiceImpl implements PlanService{
 		// TODO Auto-generated method stub
 		return planDAO.getPlan(vo);
 	}
+	@Override
+	public void updatePlan(PlanVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
 }

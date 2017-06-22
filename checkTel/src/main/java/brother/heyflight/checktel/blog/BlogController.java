@@ -114,25 +114,26 @@ public class BlogController {
 	// 수정폼
 	@RequestMapping(value = "/blogUpdate.do")
 	@ResponseBody
-	public String updateBlog(@ModelAttribute("blog") BlogVO vo,
+	public String updateBlog(@ModelAttribute("plan") PlanVO vo,
 			SessionStatus status, HttpSession session) { // command 객체
 
 		Member user = (Member) session.getAttribute("user");
 		vo.setMemberNo(Integer.parseInt(user.getMemberNo()));
-		blogService.updateBlog(vo);
-
+	
+		planService.updatePlan(vo);
+	
 		status.setComplete(); // 세션에 저장된 VO를 삭제
 		return "vo";
 	}
 
 	// 수정 boardUpdate
 
-	@RequestMapping("/blog/.do")// get
+/*	@RequestMapping("/blog/.do")// get
 	public String UpdateForm(@ModelAttribute("blog") BlogVO vo, Model model) {
 		System.out.println(vo);
 		// model.addAttribute("board", boardService.getBoard(vo));
 		return "blog/myBlogList";
-	}
+	}*/
 
 	// 삭제 boardDelete sessionstatus 넣어야됨
 	@RequestMapping("/blogDelete.do")
