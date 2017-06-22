@@ -434,6 +434,11 @@ $(function(){
 						"길찾기",
 						"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 	}
+	
+
+  
+    
+
 </script>
 </head>
 
@@ -499,9 +504,53 @@ $(function(){
 			<c:forEach var="planPeriod" begin="1" end="${plan.planPeriod }" step="1" varStatus="pcnt">
 			 <c:set var="decr" value="${planPeriod}"/>
 			<div class="post-item">
-			<h2><c:if test="${pcnt.first }">
+			<h2 id="day${decr}">
+			<%-- <c:if test="${pcnt.first }">
 								${plan.planStarts}+1
-							</c:if></h2>
+							</c:if> --%>
+			<script>
+			//날짜 계산
+			var str = '${plan.planStart}';
+			var str1 = '${plan.planStarts}';
+			var decr = Number('${decr}');
+			    var res1 = str1.substring(5, 7); //월
+			    var res2 = str.substring(8, 10); //일
+			    var res3 = str.substring(24, 28); //년
+			    var date = new Date(res3, res1, res2);  // date로 변경
+			var s =
+			        leadingZeros(date.getFullYear(), 4) + '년' +
+			        leadingZeros(date.getMonth() + 1, 2) + '월' +
+			        leadingZeros(date.getDate(), 2) + '일'; 
+			    console.log(s)
+			   	document.getElementById("day"+'${decr}').innerHTML = date_add(s,(decr-1));			 
+
+			function leadingZeros(n, digits) {
+				var zero = '';
+				n = n.toString();
+				
+				if (n.length < digits) {
+				    for (i = 0; i < digits - n.length; i++)
+				        zero += '0';
+				}
+				return zero + n;	
+			}
+			    
+			    //날짜 더하기
+			    function date_add(sDate, nDays) {
+			        var yy = parseInt(sDate.substr(0, 4), 10);
+			        var mm = parseInt(sDate.substr(5, 2), 10);
+			        var dd = parseInt(sDate.substr(8), 10);
+			     
+			        d = new Date(yy, mm - 1, dd + nDays);
+			     
+			        yy = d.getFullYear();
+			        mm = d.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+			        dd = d.getDate(); dd = (dd < 10) ? '0' + dd : dd;
+			     
+			        return '' + yy + '년' +  mm  + '월' + dd + '일';
+			    }
+			</script>
+							</h2>
 				<!-- 일차 -->
 				<div class="post-content-details">
 					<div class="post-meta">

@@ -92,7 +92,7 @@
     font-size: 24px;
     font-weight: bold;
     
-}Polo Logo
+}
 
 
  label, input { display:block; }
@@ -185,6 +185,7 @@
 	      source: availableTags
 	    }); */
   });
+  var flightPath = [];
   var dayNo=0;
   var delClick=0;
   var availableTags = [];
@@ -419,13 +420,14 @@ function showInfo(mIdx) { //상세 정보 출력
 		console.log(jsonData) */
 		//$('#json1').val(jsonData);
 		
-		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates[cut-1],{
+		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
+		  console.log(cut-1)
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
@@ -493,13 +495,14 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		}
 		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
         planSub.push(plan);
-		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates[cut-1],{
+		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng, dayNum:dayNo}); //경로 그리기
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
+		  console.log(cut-1)
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
@@ -619,20 +622,35 @@ function DeleteSmallPlan(id) {
  	for(i=0;i<planSub.length;i++){
  		if(planSub[i].dayVisit==(id-1)){
  			planSub.splice(i,1)
- 			/* flightPlanCoordinates[i].splice(i,1);
- 			var flightPath = bm.polyline(flightPlanCoordinates[i],{
- 			      color: '#FF0000',
- 			      opacity: 1.0,
- 			      weight: 2
- 			    });
- 			flightPath.addTo(map)
- 			flightPath.redraw(); */
  		}
- 	} 	
- 	
- 	/* for (i<=0;i<flightPlanCoordinates[i].length;i++){
- 		consolle.log("i:"+flightPlanCoordinates[i])
- 	} */
+ 	}
+ 	for (fnum=0;fnum<flightPlanCoordinates.length;fnum++){
+ 		for(jnum=0;jnum<flightPlanCoordinates[fnum].length;jnum++){
+ 			if(flightPlanCoordinates[fnum][jnum].dayNum==id){
+ 				console.log("fnum: "+fnum+"jnum: "+jnum+" id: "+id+" dayNum: "+flightPlanCoordinates[fnum][jnum].dayNum)
+ 				map.removeLayer(flightPath[fnum]);
+		 		flightPlanCoordinates[fnum].splice(jnum,1);
+ 				console.log(flightPlanCoordinates);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+ 				flightPath[fnum].addTo(map);
+ 				console.log(cut-1)
+ 			}
+ 			else{
+ 				map.removeLayer(flightPath[fnum]);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+				flightPath[fnum].addTo(map);
+				console.log(cut-1)
+ 			}
+ 		}
+ 	}
 }
 
 </script>
