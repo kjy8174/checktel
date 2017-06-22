@@ -8,7 +8,7 @@
 		<id property="spotNo" column="SPOT_NO" /> <!--필드명(BoardVO 필드), 컬럼명  -->
 		<id property="planNo" column="PLAN_NO" />
 		<id property="no" column="NO" />
-		<id property="dayVisit" column="DAY_VISIT" />
+		<id property="dayVisit" column="DAY_VISIT" />  
 		<id property="categoryId" column="CATEGORY_ID" />
 		<id property="dayNo" column="DAY_NO" />
 		<result property="spotName" column="SPOT_NAME" />
@@ -16,7 +16,8 @@
 		<result property="lat" column="LAT" />
 		<result property="lng" column="LNG" />
 		<result property="cityName" column="CITY_NAME" />
-		<result property="planStart" column="PLAN_START" />		
+		<result property="planStart" column="PLAN_START" />	
+		<result property="planStarts" column="PLAN_STARTS" />	
 	</resultMap>
    
    <insert id="insertMain" parameterType="main">
@@ -86,8 +87,8 @@
 		, M.MEMBER_NICK
 		, D.SPOT_FURL
 		, D.CITY_NAME
-		, P.PLAN_START
-
+		, PLAN_START
+		, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
 
 		FROM PLAN P, MEMBER M, DETAIL D
 		WHERE

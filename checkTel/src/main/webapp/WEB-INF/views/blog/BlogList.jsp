@@ -71,11 +71,11 @@ label {
 					<h1 class="travelTitle" style="line-height: 20px">
 						<span align="center" style="font-size: 14px;">트래블로그</span><br>
 						<img src="../img/title_travelog.png">
-					</h1>--${USER}----
-					<c:if test="${!empty USER}">
+					</h1>
+					<c:if test="${!empty user}">
 						<a href="${pageContext.request.contextPath}/blog/myBlogList.do">
 							<div style="font-size: 13px; margin-left: 900px;">
-								<span class="name" style="font-size: 20px; font-weight: bold;">호진</span></b>
+								<span class="name" style="font-size: 20px; font-weight: bold;">${user.memberNick}</span></b>
 								님의 트래블로그
 							</div>
 						</a>
@@ -147,7 +147,7 @@ label {
 								<div class="post-title">
 
 									<h3>
-										<a href="#">${plan.memberNick}님의 4박5일 여행</a>
+										<a href="#">${user.memberNick}님의 4박5일 여행</a>
 									</h3>
 
 								</div>
@@ -158,7 +158,7 @@ label {
 
 							<div class="post-meta">
 								<div class="post-date">
-									<span class="post-date-day">${plan.planStart}</span>
+									<span class="post-date-day">${plan.planStarts}</span>
 								</div>
 
 								<div class="post-comments">

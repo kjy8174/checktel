@@ -18,10 +18,17 @@ public class MainVO {
 	private int memberNo;
 	private String memberNick;
 	private Date planStart;
+	private String planStarts;
 	//list
 	
 	public int getSpotNo() {
 		return spotNo;
+	}
+	public String getPlanStarts() {
+		return planStarts;
+	}
+	public void setPlanStarts(String planStarts) {
+		this.planStarts = planStarts;
 	}
 	public String getBlogTitle() {
 		return blogTitle;
@@ -118,7 +125,8 @@ public class MainVO {
 				+ dayVisit + ", planNo=" + planNo + ", categoryId="
 				+ categoryId + ", dayNo=" + dayNo + ", blogTitle=" + blogTitle
 				+ ", memberNo=" + memberNo + ", memberNick=" + memberNick
-				+ ", planStart=" + planStart + "]";
+				+ ", planStart=" + planStart + ", planStarts=" + planStarts
+				+ "]";
 	}
 	
 }
