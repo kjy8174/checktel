@@ -64,7 +64,7 @@
 					<a href='<c:url value="/login" />' class="right btn btn-default" id="login" style="margin: -61px 60px 0px 0px;"><i class="fa fa-user"></i></a>
 				</c:if>
 				<c:if test="${!empty user}">
-					<a href='<c:url value="/logout" />' class="right btn btn-default" id="logout" style="margin: -61px 60px 0px 0px;">${user.memberName }<i class="fa fa-user-times"></i></a>
+					<a href='<c:url value="/logout" />' class="right btn btn-default" id="logout" style="margin: -61px 60px 0px 0px;">${user.memberName }  <i class="fa fa-user-times"></i></a>
 				</c:if>
 			</div>
 		</div>

@@ -54,6 +54,18 @@ span {
 	bottom: 7px;
 	left: 7px;
 }
+.dayFlag {
+	background: url("../img/icon_day_flag.png");
+	background-position-x: center;
+    background-position-y: center;
+    background-size: initial;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+}
 </style>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -66,6 +78,8 @@ var num=0;
 	var places;
 	var markerGroup;
 	var dayPath = new Array(); // 날짜별 지도 위,경도 정보 저장
+	var dayContent = new Array();
+	var drawPath = new Array();
 	var pathColor = ['red','green','blue','black','white'];
 	var p_lat;	// 위도
 	var p_lng;	// 경도
@@ -74,11 +88,11 @@ var num=0;
 	// 지도 생성
 	bm.ready(function() {
 		var maxZoom = 18;
-		var minZoom = 4;
+		var minZoom = 10;
 		var defZoom = 14;
 		// sample geolocation
-		var curLat = 37.57315;
-		var curLng = 126.9944;
+		var curLat = dayPath[0][0].lat;
+		var curLng = dayPath[0][0].lng;
 		// create a map
 		map = new bm.Map('BeeMap', {
 			center : [ curLat, curLng ],
@@ -92,7 +106,7 @@ var num=0;
 		// 마커 그룹 관리를 위한 오브젝트 생성
 		markerGroup = bm.layerGroup().addTo(map);
 		// 현재 줌 레벨과 영역에 대한 장소정보 가져오기
-		getContents(map.getBounds(), map.getZoom());
+/* 		getContents(map.getBounds(), map.getZoom());
 		map.on('zoomend', function(e) { // 지도 줌이 바뀔때마다 장소 정보 가져오기
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
@@ -104,16 +118,41 @@ var num=0;
 		map.on('moveend', function(e) { // 지도가 이동 될때마다 장소 정보 가져오기
 			$("#list").empty();
 			getContents(map.getBounds(), map.getZoom());
-		});
+		}); */
 		
 		//생성된 지도에 패스 그리기
-		for(var i=0; i < dayPath.length;i++){
-			var drawPath = bm.polyline(dayPath[i],{
-			      color: pathColor[i],
+ 		for(var i=0; i < dayPath.length;i++){
+
+ 			
+ 			drawPath[i] = bm.polyline(dayPath[i],{
+			      color: 'grey',
 			      opacity: 0.5,
 			      weight: 2
 			    });
-			drawPath.addTo(map);
+ 			
+
+ 			for(var j=0; j<dayPath[i].length;j++) {
+ 	 			var myIcon = bm.divIcon({
+ 	 				html : '<img src="'+dayContent[i][j].spotFurl+'" style="width:47px; height:47px; border-radius:50%;"/><div class="dayFlag" style="margin-top: -78px; margin-left: -12px; width:69px; height: 49px; z-index: 50; position : absolute; display : block; "><div style="font-size: 1em; color:white; font-weight: bold; padding: 15px 0px 0px 12px;">Day '+(i+1)+'</div></div>' ,
+ 	 				className : "dayFlag_plan",
+ 	 				iconAnchor : [23,42],
+ 	 				iconSize : [47,47]
+ 	 			});
+ 				var contentIcon = bm.divIcon({
+ 	 				html : '<img src="'+dayContent[i][j].spotFurl+'" style="width:47px; height:47px; border-radius:50%;"/></div> ',
+ 	 				className : "dayContent", 
+ 	 				iconAnchor : [23,42],
+ 	 				iconSize : [47,47]
+ 	 			});
+ 				if(j==0) {
+ 					bm.marker(dayPath[i][0],{icon : myIcon}).addTo(map);		
+ 				} else {
+ 					bm.marker(dayPath[i][j],{icon : contentIcon}).addTo(map);	
+ 				}
+ 					
+ 			}
+ 			
+			drawPath[i].addTo(map);
 		}
 		console.log(dayPath);
 	});
@@ -361,11 +400,31 @@ function mapClick(id) {
 	var loc = {"lat": lat, "lng": lng};
 	map.setView(loc)
 }
-function mapOver(id) {
+function mapOver(id,no) {
 	var lng = document.getElementById("lng"+id).value;
 	var lat = document.getElementById("lat"+id).value;
 	var loc = {"lat": lat, "lng": lng};
 	map.setView(loc)
+	
+	for(var i = 0; i < dayPath.length; i++) {
+		if((no-1) == i) {
+			map.removeLayer(drawPath[i]);
+			drawPath[i] = bm.polyline(dayPath[i],{
+			      color: 'red',
+			      opacity: 0.5,
+			      weight: 2
+			    });
+			drawPath[i].addTo(map);
+		} else {
+			map.removeLayer(drawPath[i]);
+			drawPath[i] = bm.polyline(dayPath[i],{
+			      color: 'grey',
+			      opacity: 0.5,
+			      weight: 2
+			    });
+			drawPath[i].addTo(map);
+		}
+	}
 }
 $(function(){
 	/* 	if(user.memberNo !=) {
@@ -565,7 +624,7 @@ $(function(){
 					</div>					
 					<c:forEach var="planList" items="${planList}" varStatus="status">
 					<c:if test= "${planList.dayNo eq decr}">
-					<div class="post-title shadow" id="${planList.dayVisit}" onclick="mapClick(${planList.dayVisit})" onmouseover="mapOver(${planList.dayVisit})">
+					<div class="post-title shadow" id="${planList.dayVisit}" onclick="mapClick(${planList.dayVisit})" onmouseover="mapOver(${planList.dayVisit},${planList.dayNo })">
 					<input type="hidden" id="lat${planList.dayVisit}" value="${planList.lat}">
 					<input type="hidden" id="lng${planList.dayVisit}" value="${planList.lng}">
 						<h3 id="short"><b>${status.index+1}</b> <small>${planList.spotName }</small></h3>
@@ -584,14 +643,20 @@ $(function(){
 						//일정에서 위, 경도 데이터 배열에 저장
 						if(pre_idx == 0) {
 							dayPath[pre_idx] = new Array();
+							dayContent[pre_idx] = new Array();
 						} 
 						pre_idx = ${planList.dayNo}
 						if(pre_idx != idx) {
 							dayPath[pre_idx - 1] = new Array();
+							dayContent[pre_idx - 1] = new Array();
 						}
 						p_lat=${planList.lat};
 						p_lng=${planList.lng};
+						var spotName = '${planList.spotName}';
+						var spotFurl = '${planList.spotFurl}';
+						var categoryId = '${planList.categoryId}';
 						dayPath[pre_idx-1].push({lat : p_lat, lng : p_lng});
+						dayContent[pre_idx-1].push({spotName : spotName, spotFurl : spotFurl, categoryId : categoryId});
 						idx = ${planList.dayNo};
 					</script>
 					</c:forEach>		
