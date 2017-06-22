@@ -18,6 +18,9 @@
 		<result property="cityName" column="CITY_NAME" />
 		<result property="planStart" column="PLAN_START" />	
 		<result property="planStarts" column="PLAN_STARTS" />	
+		<result property="memberNo" column="MEMBER_NO" />	
+				<result property="memberNick" column="MEMBER_NICK" />	
+		
 	</resultMap>
    
    <insert id="insertMain" parameterType="main">
@@ -76,7 +79,7 @@
          WHERE PLAN_NO= #{planNo}
         ]]>
 	</delete>
-	
+<!-- 리스트 목록 -->
 	<select id="getBlogL" resultMap="mainResult">
 		
 		SELECT * FROM (
@@ -84,7 +87,7 @@
 		
 		SELECT P.PLAN_NO
 		, P.BLOG_TITLE
-		, M.MEMBER_NICK
+		, p.MEMBER_NICK
 		, D.SPOT_FURL
 		, D.CITY_NAME
 		, PLAN_START
@@ -97,6 +100,36 @@
 		= P.PLAN_NO
 		AND D.DAY_NO=1
 		AND D.DAY_VISIT=1
+		ORDER BY PLAN_NO DESC 
+		
+		<![CDATA[					
+	) A WHERE ROWNUM <= #{lastIndex}
+)WHERE RNUM > #{firstIndex}
+]]>
+	
+	</select>
+<!-- MY리스트 목록 -->
+	<select id="getmyBlogL" resultMap="mainResult">
+		
+		SELECT * FROM (
+		SELECT A.*, ROWNUM RNUM FROM (
+		
+		SELECT P.PLAN_NO
+		, P.BLOG_TITLE
+		, p.MEMBER_NICK
+		, D.SPOT_FURL
+		, D.CITY_NAME
+		, PLAN_START
+		, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
+
+		FROM PLAN P, MEMBER M, DETAIL D
+		WHERE
+		M.MEMBER_NO = P.MEMBER_NO
+		AND D.PLAN_NO = P.PLAN_NO
+		AND P.MEMBER_NO= #{memberNo}
+		AND D.DAY_NO=1
+		AND D.DAY_VISIT=1
+		
 		ORDER BY PLAN_NO DESC 
 		
 		<![CDATA[					

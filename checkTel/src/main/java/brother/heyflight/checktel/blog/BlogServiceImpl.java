@@ -64,6 +64,11 @@ public class BlogServiceImpl implements BlogService {
 		// TODO Auto-generated method stub
 		return blogDAO.getBlogListCnt(vo);
 	}
+	@Override
+	public int getmyBlogListCnt(PlanVO vo) {
+		// TODO Auto-generated method stub
+		return blogDAO.getmyBlogListCnt(vo);
+	}
 
 	
 }

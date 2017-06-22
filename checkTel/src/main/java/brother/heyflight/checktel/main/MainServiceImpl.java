@@ -76,4 +76,9 @@ public class MainServiceImpl implements MainService{
 		// TODO Auto-generated method stub
 		return mainDAO.ResPlan(vo);
 	}*/
+	@Override
+	public List<MainVO> getmyBlogL(PlanVO planVO) {
+		// TODO Auto-generated method stub
+		return mainDAO.getmyBlogL(planVO);
+	}
 }

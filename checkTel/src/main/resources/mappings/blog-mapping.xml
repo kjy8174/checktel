@@ -63,5 +63,11 @@
 		FROM PLAN
 	
 	</select> 
+	
+	<select id="getmyBlogListCnt" resultType="int" >
+		SELECT COUNT(*)
+		FROM PLAN
+	
+	</select> 
 
 </mapper>

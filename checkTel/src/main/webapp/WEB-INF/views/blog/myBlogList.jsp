@@ -360,14 +360,13 @@ label {
 					</td>
 					<td>
 						<div>
-							<span style="font-size: 25px; font-weight: bold;">호진</span> 님의
+							<span style="font-size: 25px; font-weight: bold;">★${user.memberNick}</span> 님의
 							트래블로그 <br> <br> <input type="button" id="create-use"
 								value="프로필 수정">
 						</div>
 					</td>
 				</tr>
 			</table>
-
 
 		</div>
 	</div>
@@ -377,31 +376,32 @@ label {
 		<form action="#">
 
 			<label for="number">도시별 검색</label> <select name="number" id="number">
-				<option>제주</option>
-				<option selected="selected">서울</option>
-				<option>도쿄</option>
-				<option>런던</option>
-				<option>상하이</option>
-				<option>파리</option>
-				<option>방콕</option>
-				<option>로스 엔젤레스</option>
-				<option>홍콩</option>
-				<option>로마</option>
-				<option>하노이</option>
-				<option>부산</option>
-				<option>바르셀로나</option>
-				<option>오사카</option>
-				<option>싱가포르</option>
-				<option>뉴욕</option>
-				<option>베이징</option>
-				<option>푸켓</option>
-				<option>라스베이거스</option>
-				<option>세부</option>
-				<option>교토</option>
-				<option>마카오</option>
-				<option>타이베이</option>
-				<option>시드니</option>
-				<option>쿠알라 룸푸르</option>
+					<option selected="selected" value="전체">전체</option>
+					<option value="서울">서울</option>
+					<option value="제주">제주</option>
+					<option value="도쿄">도쿄</option>
+					<option value="런던">런던</option>
+					<option value="상하이">상하이</option>
+					<option value="파리">파리</option>
+					<option value="방콕">방콕</option>
+					<option value="로스엔젤레스">로스 엔젤레스</option>
+					<option value="홍콩">홍콩</option>
+					<option value="로마">로마</option>
+					<option value="하노이">하노이</option>
+					<option value="부산">부산</option>
+					<option value="바르셀로나">바르셀로나</option>
+					<option value="오사카">오사카</option>
+					<option value="싱가포르">싱가포르</option>
+					<option value="뉴욕">뉴욕</option>
+					<option value="베이징">베이징</option>
+					<option value="푸켓">푸켓</option>
+					<option value="라스베이거스">라스베이거스</option>
+					<option value="세부">세부</option>
+					<option value="교토">교토</option>
+					<option value="마카오">마카오</option>
+					<option value="타이베이">타이베이</option>
+					<option value="시드니">시드니</option>
+					<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
 			</select>
 
 		</form>
@@ -412,7 +412,8 @@ label {
 	<form name="listForm"
 		action="<%=request.getContextPath()%>/myBlogList.do" method="post">
 	<section class="content">
-	
+	 <input type="hidden" name="pageIndex" />
+	 <c:forEach items="${plan}" var="plan">
 		<div class="polaroid">
 			<div class="container">
 				<!-- Blog post-->
@@ -421,25 +422,23 @@ label {
 
 					<div class="post-item">
 						<div class="post-image">
-							<a href="#"> <img alt="" src="../img/Desert.jpg">
+							<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img alt="" src="${plan.spotFurl}">
 							</a>
 						</div>
 						<div class="post-content-details">
 							<div class="post-title">
 								<h3>
-									<a href="#">이호진님의 4박5일 여행</a>
+									<a href="#">${user.memberNick}님의 4박5일 여행</a>
 								</h3>
 							</div>
 							<div class="post-info">
-								<span class="post-autor">작성자: <a href="#">똑호진</a></span>
+								<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
 							</div>
 						</div>
 
 						<div class="post-meta">
 							<div class="post-date">
-								<span class="post-date-day">16</span> <span
-									class="post-date-month">January</span> <span
-									class="post-date-year">2015</span>
+								<span class="post-date-day">${plan.planStarts}</span>
 							</div>
 
 							<div class="post-comments">
@@ -457,6 +456,7 @@ label {
 				</div>
 			</div>
 		</div>
+		</c:forEach>
 		</section>
 	</form>
 	<!-- 페이징 태그 출력  --> <my:paging paginationInfo="${paginationInfo}" /> <!-- 모달 -->
@@ -485,8 +485,8 @@ label {
 								</form>
 							</td>
 							<td>
-								<div>이름</div>
-								<div>닉네임</div>
+								<div>이름 : ${user.memberName}</div>
+								<div>닉네임 : ${user.memberNick}</div>
 							</td>
 						</tr>
 					</table>
@@ -558,11 +558,11 @@ label {
 					<tbody>
 						<tr height="50">
 							<td width="110">이메일</td>
-							<td>호진@naver.com</td>
+							<td>${user.memberEmail}</td>
 						</tr>
 						<tr height="50">
 							<td width="110">닉네임</td>
-							<td><input type="text" name="member_nick" value="호진" /></td>
+							<td><input type="text" name="member_nick" value="${user.memberNick}" /></td>
 						</tr>
 						<tr height="50">
 							<td width="110">비밀번호변경</td>

@@ -38,7 +38,27 @@ public class BlogController {
 
 	// 마이페이지 조회
 	@RequestMapping("/blog/myBlogList.do")
-	public String myBlogList() {
+	public String myBlogList(PlanVO planVO, Model model,HttpSession session) {
+		/** pageing setting */
+		Member user = (Member) session.getAttribute("user");
+		planVO.setMemberNo(Integer.parseInt(user.getMemberNo()));
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(planVO.getPageUnit());
+		paginationInfo.setPageSize(planVO.getPageSize());
+
+		planVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		planVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		planVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+		int totCnt = blogService.getBlogListCnt(planVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
+		System.out.println(planVO.getFirstIndex()+":"+planVO.getLastIndex());
+		
+		model.addAttribute("plan",mainService.getmyBlogL(planVO));
+			
 		return "blog/myBlogList";
 	}
 
@@ -57,8 +77,7 @@ public class BlogController {
 	// 목록조회
 	@RequestMapping("/blog/getBlogList.do")
 	public String getBlogList(PlanVO planVO, Model model) {
-		System.out.println("dfdfdf"+planVO);
-		
+				
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
@@ -73,6 +92,7 @@ public class BlogController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 		System.out.println(planVO.getFirstIndex()+":"+planVO.getLastIndex());
+		
 		model.addAttribute("planList",mainService.getBlogL(planVO));
 		
 		
@@ -97,8 +117,8 @@ public class BlogController {
 	public String updateBlog(@ModelAttribute("blog") BlogVO vo,
 			SessionStatus status, HttpSession session) { // command 객체
 
-		Member user = (Member) session.getAttribute("login");
-		vo.setMemberNo(user.getMemberNo());
+		Member user = (Member) session.getAttribute("user");
+		vo.setMemberNo(Integer.parseInt(user.getMemberNo()));
 		blogService.updateBlog(vo);
 
 		status.setComplete(); // 세션에 저장된 VO를 삭제

@@ -20,4 +20,5 @@ public interface BlogService {
 	public BlogVO login(BlogVO vo);
 	List<MainVO> getPlanList(PlanVO planVO);
 	int getBlogListCnt(PlanVO vo);
+	int getmyBlogListCnt(PlanVO vo);
 }

@@ -6,7 +6,7 @@ public class BlogVO extends DefaultVO {
 	private String blogTitle;
 	private String blogContent;
 	private int blogHit;
-	private String memberNo;
+	private int memberNo;
 	private String memberNick;
 	public int getPlanNo() {
 		return planNo;
@@ -41,10 +41,10 @@ public class BlogVO extends DefaultVO {
 	public void setBlogHit(int blogHit) {
 		this.blogHit = blogHit;
 	}
-	public String getMemberNo() {
+	public int getMemberNo() {
 		return memberNo;
 	}
-	public void setMemberNo(String memberNo) {
+	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 	

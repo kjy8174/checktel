@@ -16,5 +16,6 @@ public interface BlogMapper {
 	public List<Map<String,Object>> getBlogList(BlogVO vo);
 	public List<BlogVO> getBlogListVO(BlogVO vo);
 	int getBlogListCnt(PlanVO vo);
+	int getmyBlogListCnt(PlanVO vo);
 
 }

@@ -517,15 +517,18 @@
         width: 100%;
     }
     /*	blog*/
-    .post-thumbnail .post-image,
+    .post-thumbnail .post-image {
+     width: 267.44px;
+        height:178.11px;},
     .post-thumbnail .post-video,
     .post-thumbnail .post-audio,
     .post-thumbnail .post-embed,
     .post-thumbnail .post-slider,
     .post-thumbnail .post-content-details,
     .post-thumbnail .post-meta {
-        width: 100%;
+       
         padding: 0;
+       
     }
     /*	footer*/
     footer .footer-logo {

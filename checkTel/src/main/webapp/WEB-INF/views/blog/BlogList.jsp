@@ -94,33 +94,32 @@ label {
 		<form action="#">
 			<fieldset>
 				<label for="number">도시별 검색</label> <select name="number" id="number">
-
-					<option selected="selected">전체</option>
-					<option value="">서울</option>
-					<option value="">제주</option>
-					<option value="">도쿄</option>
-					<option value="">런던</option>
-					<option value="">상하이</option>
-					<option value="">파리</option>
-					<option value="">방콕</option>
-					<option value="">로스 엔젤레스</option>
-					<option value="">홍콩</option>
-					<option value="">로마</option>
-					<option value="">하노이</option>
-					<option value="">부산</option>
-					<option value="">바르셀로나</option>
-					<option value="">오사카</option>
-					<option value="">싱가포르</option>
-					<option value="">뉴욕</option>
-					<option value="">베이징</option>
-					<option value="">푸켓</option>
-					<option value="">라스베이거스</option>
-					<option value="">세부</option>
-					<option value="">교토</option>
-					<option value="">마카오</option>
-					<option value="">타이베이</option>
-					<option value="">시드니</option>
-					<option value="">쿠알라 룸푸르</option>
+					<option selected="selected" value="전체">전체</option>
+					<option value="서울">서울</option>
+					<option value="제주">제주</option>
+					<option value="도쿄">도쿄</option>
+					<option value="런던">런던</option>
+					<option value="상하이">상하이</option>
+					<option value="파리">파리</option>
+					<option value="방콕">방콕</option>
+					<option value="로스엔젤레스">로스 엔젤레스</option>
+					<option value="홍콩">홍콩</option>
+					<option value="로마">로마</option>
+					<option value="하노이">하노이</option>
+					<option value="부산">부산</option>
+					<option value="바르셀로나">바르셀로나</option>
+					<option value="오사카">오사카</option>
+					<option value="싱가포르">싱가포르</option>
+					<option value="뉴욕">뉴욕</option>
+					<option value="베이징">베이징</option>
+					<option value="푸켓">푸켓</option>
+					<option value="라스베이거스">라스베이거스</option>
+					<option value="세부">세부</option>
+					<option value="교토">교토</option>
+					<option value="마카오">마카오</option>
+					<option value="타이베이">타이베이</option>
+					<option value="시드니">시드니</option>
+					<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
 				</select>
 			</fieldset>
 		</form>
@@ -129,8 +128,9 @@ label {
 	<form name="listForm"
 		action="<%=request.getContextPath()%>/getBlogList.do" method="post">
 
-		<section class="content"> <input type="hidden"
-			name="pageIndex" /> <c:forEach items="${planList}" var="plan">
+		<section class="content">
+		 <input type="hidden" name="pageIndex" />
+			 <c:forEach items="${planList}" var="plan">
 			<div class="polaroid">
 				<div class="container">
 					<!-- Blog post-->
@@ -140,14 +140,14 @@ label {
 						<div class="post-item">
 							<div class="post-image">
 								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
-									alt="" src="${plan.spotFurl}">
+									alt="" src="${plan.spotFurl}" >
 								</a>
 							</div>
 							<div class="post-content-details">
 								<div class="post-title">
 
 									<h3>
-										<a href="#">${user.memberNick}님의 4박5일 여행</a>
+										<a href="#">${plan.memberNick}님의 4박5일 여행</a>
 									</h3>
 
 								</div>

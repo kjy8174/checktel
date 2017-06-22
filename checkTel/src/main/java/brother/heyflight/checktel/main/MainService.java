@@ -15,6 +15,9 @@ public interface MainService {
 	
 	//트래블로그 리스트
 		List<MainVO> getBlogL(PlanVO planVO);
+		
+	//마이 트래블로그리스트
+		List<MainVO> getmyBlogL(PlanVO planVO);
 	// 스마트플랜 결과
 	/*public PlanVO ResPlan(MainVO vo);*/
 
