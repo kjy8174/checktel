@@ -5,7 +5,7 @@
 <!-- 페이징 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my"%>
-  
+
 <script>
 	/* pagination 페이지 링크 function */
 	function fn_egov_link_page(pageNo) {
@@ -71,126 +71,118 @@ label {
 					<h1 class="travelTitle" style="line-height: 20px">
 						<span align="center" style="font-size: 14px;">트래블로그</span><br>
 						<img src="../img/title_travelog.png">
-					</h1>
-
-					<a href="${pageContext.request.contextPath}/blog/myBlogList.do">
-						<div style="font-size: 13px; margin-left: 900px;">
-							<span class="name" style="font-size: 20px; font-weight: bold;">호진</span></b>
-							님의 트래블로그
-						</div>
-					</a>
-				</div>
-
+					</h1>--${USER}----
+					<c:if test="${!empty USER}">
+						<a href="${pageContext.request.contextPath}/blog/myBlogList.do">
+							<div style="font-size: 13px; margin-left: 900px;">
+								<span class="name" style="font-size: 20px; font-weight: bold;">호진</span></b>
+								님의 트래블로그
+							</div>
+						</a>
+					</c:if>
 			</div>
-			<div class="breadcrumb col-md-4"></div>
+
 		</div>
-		</section>
+		<div class="breadcrumb col-md-4"></div>
+	</div>
+	</section>
 
-		<hr>
-		<!--트래블로그:end HEADER -->
-		<!-- CONTENT -->
-		<div class="demo">
-			<form action="#">
-				<fieldset>
-					<label for="number">도시별 검색</label> <select name="number"
-						id="number">
+	<hr>
+	<!--트래블로그:end HEADER -->
+	<!-- CONTENT -->
+	<div class="demo">
+		<form action="#">
+			<fieldset>
+				<label for="number">도시별 검색</label> <select name="number" id="number">
 
-						<option selected="selected">전체</option>
-						<option>서울</option>
-						<option>제주</option>
-						<option>도쿄</option>
-						<option>런던</option>
-						<option>상하이</option>
-						<option>파리</option>
-						<option>방콕</option>
-						<option>로스 엔젤레스</option>
-						<option>홍콩</option>
-						<option>로마</option>
-						<option>하노이</option>
-						<option>부산</option>
-						<option>바르셀로나</option>
-						<option>오사카</option>
-						<option>싱가포르</option>
-						<option>뉴욕</option>
-						<option>베이징</option>
-						<option>푸켓</option>
-						<option>라스베이거스</option>
-						<option>세부</option>
-						<option>교토</option>
-						<option>마카오</option>
-						<option>타이베이</option>
-						<option>시드니</option>
-						<option>쿠알라 룸푸르</option>
-					</select>
-				</fieldset>
-			</form>
-		</div>
+					<option selected="selected">전체</option>
+					<option value="">서울</option>
+					<option value="">제주</option>
+					<option value="">도쿄</option>
+					<option value="">런던</option>
+					<option value="">상하이</option>
+					<option value="">파리</option>
+					<option value="">방콕</option>
+					<option value="">로스 엔젤레스</option>
+					<option value="">홍콩</option>
+					<option value="">로마</option>
+					<option value="">하노이</option>
+					<option value="">부산</option>
+					<option value="">바르셀로나</option>
+					<option value="">오사카</option>
+					<option value="">싱가포르</option>
+					<option value="">뉴욕</option>
+					<option value="">베이징</option>
+					<option value="">푸켓</option>
+					<option value="">라스베이거스</option>
+					<option value="">세부</option>
+					<option value="">교토</option>
+					<option value="">마카오</option>
+					<option value="">타이베이</option>
+					<option value="">시드니</option>
+					<option value="">쿠알라 룸푸르</option>
+				</select>
+			</fieldset>
+		</form>
+	</div>
 
-		<form name="listForm"
-			action="<%=request.getContextPath()%>/getBlogList.do" method="post">
+	<form name="listForm"
+		action="<%=request.getContextPath()%>/getBlogList.do" method="post">
 
-			<section class="content"> <input type="hidden"
-				name="pageIndex" /> <c:forEach items="${planList}" var="plan">
-				<div class="polaroid">
-					<div class="container">
-						<!-- Blog post-->
-						<div class="post-content post-4-columns">
-							<!-- Blog image post-->
+		<section class="content"> <input type="hidden"
+			name="pageIndex" /> <c:forEach items="${planList}" var="plan">
+			<div class="polaroid">
+				<div class="container">
+					<!-- Blog post-->
+					<div class="post-content post-4-columns">
+						<!-- Blog image post-->
 
-							<div class="post-item">
-								<div class="post-image">
-									<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
-										alt="" src="${plan.spotFurl}">
+						<div class="post-item">
+							<div class="post-image">
+								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
+									alt="" src="${plan.spotFurl}">
+								</a>
+							</div>
+							<div class="post-content-details">
+								<div class="post-title">
+
+									<h3>
+										<a href="#">${plan.memberNick}님의 4박5일 여행</a>
+									</h3>
+
+								</div>
+								<div class="post-info">
+									<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
+								</div>
+							</div>
+
+							<div class="post-meta">
+								<div class="post-date">
+									<span class="post-date-day">${plan.planStart}</span>
+								</div>
+
+								<div class="post-comments">
+									<a href="#"> <i class="fa fa-comments-o"></i> <span
+										class="post-comments-number">324</span>
 									</a>
 								</div>
-								<div class="post-content-details">
-									<div class="post-title">
-
-										<h3>
-											<a href="#">${plan.memberNick}님의 4박5일 여행</a>
-										</h3>
-
-									</div>
-									<div class="post-info">
-										<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
-									</div>
-								</div>
-
-								<div class="post-meta">
-									<div class="post-date">
-										<span class="post-date-day">${plan.planStart}</span>
-									</div>
-
-									<div class="post-comments">
-										<a href="#"> <i class="fa fa-comments-o"></i> <span
-											class="post-comments-number">324</span>
-										</a>
-									</div>
-									<div class="post-comments">
-										<a href="#"> <i class="fa fa-share-alt"></i> <span
-											class="post-comments-number">324</span>
-										</a>
-									</div>
+								<div class="post-comments">
+									<a href="#"> <i class="fa fa-share-alt"></i> <span
+										class="post-comments-number">324</span>
+									</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</c:forEach> 
-			</section>
-		</form>
+			</div>
+		</c:forEach> </section>
+	</form>
 
-		<!-- 페이징 태그 출력  -->
-		<my:paging paginationInfo="${paginationInfo}" />
-		<!-- pagination nav -->
+	<!-- 페이징 태그 출력  -->
+	<my:paging paginationInfo="${paginationInfo}" />
+	<!-- pagination nav -->
 
-
-	</div>
-
-
-	<!-- END: SECTION -->
-	</div>
-	<!-- END: WRAPPER -->
 
 	<!-- GO TOP BUTTON -->
 	<a class="gototop gototop-button" href="#"><i

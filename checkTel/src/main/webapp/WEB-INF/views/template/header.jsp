@@ -10,7 +10,7 @@
 		<div id="logo" style="position: fixed;">
 			<a href="index.html" class="logo"
 				data-dark-logo="${pageContext.request.contextPath }/images/logo-dark.png">
-				<img src="${pageContext.request.contextPath }/images/logo.png"
+				<img src="${pageContext.request.contextPath }/images/ц╫ез╥н╟М.jpg"
 				alt="Polo Logo">
 			</a>
 		</div>

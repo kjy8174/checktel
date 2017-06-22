@@ -92,7 +92,7 @@
     font-size: 24px;
     font-weight: bold;
     
-}
+}Polo Logo
 
 
  label, input { display:block; }
