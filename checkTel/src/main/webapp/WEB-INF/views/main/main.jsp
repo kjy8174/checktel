@@ -334,19 +334,19 @@
     	}
     	  city_array[mIdx]=places[i];
     	  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9&&city_array[mIdx].Mode!="City") {
-    		marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+    		  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>' , className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } else if(city_array[mIdx].Furl == null&&city_array[mIdx].Mode!="City") {
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"  style="width:47px; height:47px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } 
    		  else if (city_array[mIdx].Furl == null&&city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div></div>'})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
           }
 
           else if (city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><img src="'+city_array[mIdx].Furl+' " style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div></div>'})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
           }
    		  else{
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><img src="'+city_array[mIdx].Furl+' " style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);
    		  }
     	           
 		marker.on('click', function(e) { // 마커 클릭시 상세 정보 표시
