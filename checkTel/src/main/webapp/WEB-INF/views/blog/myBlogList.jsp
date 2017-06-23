@@ -210,6 +210,23 @@ label {
 		$("#create-use").button().on("click", function() {
 			dialog.dialog("open");
 		});
+		
+		/* 파일첨부시 사진 미리보기  시작*/
+		$("#uploadFile").on('change', function() {
+			if (typeof (FileReader) != "undefined") {
+				var imgchange = $("#imgchange");
+				imgchange.empty();
+				var reader = new FileReader();
+				reader.onload = function(e) { $( "<img />", {
+							"src" : e.target.result,
+							"class" : "thumb-image",})
+							.appendTo(imgchange)
+				}
+					imgchange.show();
+					reader.readAsDataURL($(this)[0].files[0]);
+			} else { alert("This browser does not support FileReader.");
+				}
+			});
 	});
 
 	$(function() {
@@ -360,8 +377,8 @@ label {
 					</td>
 					<td>
 						<div>
-							<span style="font-size: 25px; font-weight: bold;">★${user.memberNick}</span> 님의
-							트래블로그 <br> <br> <input type="button" id="create-use"
+							<span style="font-size: 25px; font-weight: bold;">★${user.memberNick}</span>
+							님의 트래블로그 <br> <br> <input type="button" id="create-use"
 								value="프로필 수정">
 						</div>
 					</td>
@@ -376,32 +393,32 @@ label {
 		<form action="#">
 
 			<label for="number">도시별 검색</label> <select name="number" id="number">
-					<option selected="selected" value="전체">전체</option>
-					<option value="서울">서울</option>
-					<option value="제주">제주</option>
-					<option value="도쿄">도쿄</option>
-					<option value="런던">런던</option>
-					<option value="상하이">상하이</option>
-					<option value="파리">파리</option>
-					<option value="방콕">방콕</option>
-					<option value="로스엔젤레스">로스 엔젤레스</option>
-					<option value="홍콩">홍콩</option>
-					<option value="로마">로마</option>
-					<option value="하노이">하노이</option>
-					<option value="부산">부산</option>
-					<option value="바르셀로나">바르셀로나</option>
-					<option value="오사카">오사카</option>
-					<option value="싱가포르">싱가포르</option>
-					<option value="뉴욕">뉴욕</option>
-					<option value="베이징">베이징</option>
-					<option value="푸켓">푸켓</option>
-					<option value="라스베이거스">라스베이거스</option>
-					<option value="세부">세부</option>
-					<option value="교토">교토</option>
-					<option value="마카오">마카오</option>
-					<option value="타이베이">타이베이</option>
-					<option value="시드니">시드니</option>
-					<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
+				<option selected="selected" value="전체">전체</option>
+				<option value="서울">서울</option>
+				<option value="제주">제주</option>
+				<option value="도쿄">도쿄</option>
+				<option value="런던">런던</option>
+				<option value="상하이">상하이</option>
+				<option value="파리">파리</option>
+				<option value="방콕">방콕</option>
+				<option value="로스엔젤레스">로스 엔젤레스</option>
+				<option value="홍콩">홍콩</option>
+				<option value="로마">로마</option>
+				<option value="하노이">하노이</option>
+				<option value="부산">부산</option>
+				<option value="바르셀로나">바르셀로나</option>
+				<option value="오사카">오사카</option>
+				<option value="싱가포르">싱가포르</option>
+				<option value="뉴욕">뉴욕</option>
+				<option value="베이징">베이징</option>
+				<option value="푸켓">푸켓</option>
+				<option value="라스베이거스">라스베이거스</option>
+				<option value="세부">세부</option>
+				<option value="교토">교토</option>
+				<option value="마카오">마카오</option>
+				<option value="타이베이">타이베이</option>
+				<option value="시드니">시드니</option>
+				<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
 			</select>
 
 		</form>
@@ -411,59 +428,60 @@ label {
 	<!-- CONTENT -->
 	<form name="listForm"
 		action="<%=request.getContextPath()%>/myBlogList.do" method="post">
-	<section class="content">
-	 <input type="hidden" name="pageIndex" />
-	 <c:forEach items="${plan}" var="plan">
-		<div class="polaroid">
-			<div class="container">
-				<!-- Blog post-->
-				<div class="post-content post-4-columns">
-					<!-- Blog image post-->
+		<section class="content"> <input type="hidden"
+			name="pageIndex" /> <c:forEach items="${plan}" var="plan">
+			<div class="polaroid">
+				<div class="container">
+					<!-- Blog post-->
+					<div class="post-content post-4-columns">
+						<!-- Blog image post-->
 
-					<div class="post-item">
-						<div class="post-image">
-							<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img alt="" src="${plan.spotFurl}">
-							</a>
-						</div>
-						<div class="post-content-details">
-							<div class="post-title">
-								<h3>
-									<a href="#">${user.memberNick}님의 4박5일 여행</a>
-								</h3>
-							</div>
-							<div class="post-info">
-								<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
-							</div>
-						</div>
-
-						<div class="post-meta">
-							<div class="post-date">
-								<span class="post-date-day">${plan.planStarts}</span>
-							</div>
-
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-comments-o"></i> <span
-									class="post-comments-number">324</span>
+						<div class="post-item">
+							<div class="post-image">
+								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
+									alt="" src="${plan.spotFurl}">
 								</a>
 							</div>
-							<div class="post-comments">
-								<a href="#"> <i class="fa fa-share-alt"></i> <span
-									class="post-comments-number">324</span>
-								</a>
+							<div class="post-content-details">
+								<div class="post-title">
+									<h3>
+										<a href="#">${user.memberNick}님의 4박5일 여행</a>
+									</h3>
+								</div>
+								<div class="post-info">
+									<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
+								</div>
+							</div>
+
+							<div class="post-meta">
+								<div class="post-date">
+									<span class="post-date-day">${plan.planStarts}</span>
+								</div>
+
+								<div class="post-comments">
+									<a href="#"> <i class="fa fa-comments-o"></i> <span
+										class="post-comments-number">324</span>
+									</a>
+								</div>
+								<div class="post-comments">
+									<a href="#"> <i class="fa fa-share-alt"></i> <span
+										class="post-comments-number">324</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		</c:forEach>
-		</section>
+		</c:forEach> </section>
 	</form>
-	<!-- 페이징 태그 출력  --> <my:paging paginationInfo="${paginationInfo}" /> <!-- 모달 -->
+	<!-- 페이징 태그 출력  -->
+	<my:paging paginationInfo="${paginationInfo}" />
+	<!-- 모달 -->
+
+
+
 	
-	
-	
-	<form id=updForm>
 		<div id="dialog-form" title="My page">
 			<br> <br>
 			<div class="w3-bar w3-black">
@@ -479,9 +497,24 @@ label {
 					<table>
 						<tr>
 							<td>
-								<form id="form1" runat="server">
-									<input type='file' id="imgInp" /> <img id="blah"
-										src="../img/Koala.jpg" style="width: 150px; height: 150px;" />
+								<form
+									action="${pageContext.request.contextPath}/blog/myBlogList.do"
+									method="post" enctype="multipart/form-data">
+									<div class="modal-body">
+										<input type="hidden" id="img" name="img"> <img>
+										<hr>
+										<div id="imgchange"></div>
+										<br> <input type="hidden" name="member_id"
+											value="${user.memberNo}"><br> <br>
+										프로필 사진: <input type="file" id="uploadFile" name="uploadFile"
+											alt="이미지선택"><br>
+									</div>
+									<div class="modal-footer">
+										<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
+										<input type="button" class="close btn btn-warning"
+											data-dismiss="modal" value="취소"> <input type="submit"
+											class="btn btn-success" value="사진등록 및 변경">
+									</div>
 								</form>
 							</td>
 							<td>
@@ -553,6 +586,7 @@ label {
 
 			<div id="Pari" class="w3-container w3-border city"
 				style="display: none">
+				<form id=updForm>
 				<br>
 				<table style="border-collapse: separate;">
 					<tbody>
@@ -562,7 +596,8 @@ label {
 						</tr>
 						<tr height="50">
 							<td width="110">닉네임</td>
-							<td><input type="text" name="member_nick" value="${user.memberNick}" /></td>
+							<td><input type="text" name="member_nick"
+								value="${user.memberNick}" /></td>
 						</tr>
 						<tr height="50">
 							<td width="110">비밀번호변경</td>
@@ -582,9 +617,11 @@ label {
 
 					</tbody>
 				</table>
+				</form>
 			</div>
+			
 		</div>
-	</form>
+	
 
 	<script>
 		function openCity(evt, cityName) {
@@ -601,10 +638,14 @@ label {
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " w3-red";
 		}
-	</script> <!-- 모달 end --> <!-- GO TOP BUTTON --> <a
-		class="gototop gototop-button" href="#"><i
-		class="fa fa-chevron-up"></i></a> <!-- Theme Base, Components and Settings -->
-	<script src="js/theme-functions.js"></script> <!-- Custom js file --> <script
-		src="js/custom.js"></script>
+	</script>
+	<!-- 모달 end -->
+	<!-- GO TOP BUTTON -->
+	<a class="gototop gototop-button" href="#"><i
+		class="fa fa-chevron-up"></i></a>
+	<!-- Theme Base, Components and Settings -->
+	<script src="js/theme-functions.js"></script>
+	<!-- Custom js file -->
+	<script src="js/custom.js"></script>
 </body>
 </html>

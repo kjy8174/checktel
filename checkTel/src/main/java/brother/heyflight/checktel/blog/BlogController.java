@@ -1,7 +1,7 @@
 package brother.heyflight.checktel.blog;
 
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
-import brother.heyflight.checktel.blog.BlogVO;
 import brother.heyflight.checktel.main.MainService;
 import brother.heyflight.checktel.member.Member;
 import brother.heyflight.checktel.plan.PlanService;
@@ -152,6 +150,31 @@ public class BlogController {
 		model.addAttribute("user", result);
 		return "blog/getBlog";
 	}
+	
+	// 서브프로필 이미지추가
+		@RequestMapping(value = "/blog/myBlogList.do", method = RequestMethod.POST)
+		public String profileUpdate(PlanVO vo,
+		// @RequestParam String img,
+				HttpServletRequest request) throws IllegalStateException,
+				IOException {
+
+			long t = System.currentTimeMillis();
+			String randomName = t + ""; // 랜덤 이름 정하기
+			String realPath = request.getSession().getServletContext()
+					.getRealPath("/");// 서블릿 내의 realPath
+			String image = request.getParameter("img");
+			System.out.println(image);
+			MultipartFile file = vo.getUploadFile();
+			File saveFile = new File(realPath + "profile_img/", randomName);
+			file.transferTo(saveFile); // 서버에 파일 저장
+		
+				vo.setMemberImg(randomName); // 파일명 저장 file.getOriginalFilename()
+				
+			
+			blogService.profileUpdate(vo);
+
+			return "blog/myBlogList";
+		}
 	
 
 	/*

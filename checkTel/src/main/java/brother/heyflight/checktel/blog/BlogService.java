@@ -21,4 +21,6 @@ public interface BlogService {
 	List<MainVO> getPlanList(PlanVO planVO);
 	int getBlogListCnt(PlanVO vo);
 	int getmyBlogListCnt(PlanVO vo);
+	//서브 프로필 사진 추가 
+		public void profileUpdate(PlanVO vo);
 }

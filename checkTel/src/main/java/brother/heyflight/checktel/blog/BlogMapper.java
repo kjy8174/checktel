@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
 
+
+
 import brother.heyflight.checktel.plan.PlanVO;
 
 @MapperScan
@@ -17,5 +19,7 @@ public interface BlogMapper {
 	public List<BlogVO> getBlogListVO(BlogVO vo);
 	int getBlogListCnt(PlanVO vo);
 	int getmyBlogListCnt(PlanVO vo);
+	//서브 프로필 사진추가
+		public void profileUpdate(PlanVO vo);
 
 }

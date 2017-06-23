@@ -18,7 +18,8 @@
 		<result property="cityName" column="CITY_NAME" />
 		<result property="planStart" column="PLAN_START" />	
 		<result property="planStarts" column="PLAN_STARTS" />	
-		<result property="memberNo" column="MEMBER_NO" />	
+		<result property="memberNo" column="MEMBER_NO" />	 
+		<result property="memberImg" column="MEMBER_Img" />	
 				<result property="memberNick" column="MEMBER_NICK" />	
 		
 	</resultMap>
@@ -138,6 +139,19 @@
 ]]>
 	
 	</select>
+	
+	<!-- 프로필 사진 추가 및 변경 -->
+	<update id="profileUpdate" parameterType="member">
+
+		UPDATE MEMBER SET
+		<if test="member_img1 != null and member_img1 !='' ">
+			MEMBER_IMG= #{memberImg}
+		</if>
+		
+		WHERE MEMBER_NO = #{memberNo}
+
+	</update>
+	
 	
 <!--
 	<select id="ResPlan" resultMap="mainResult">

@@ -2,6 +2,8 @@ package brother.heyflight.checktel.main;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MainVO {
 	private int spotNo; //장소 idx
 	private String spotName; //장소 이름
@@ -19,11 +21,14 @@ public class MainVO {
 	private String memberNick;
 	private Date planStart;
 	private String planStarts;
+	
+	
 	//list
 	
 	public int getSpotNo() {
 		return spotNo;
 	}
+	
 	public String getPlanStarts() {
 		return planStarts;
 	}

@@ -2,6 +2,8 @@ package brother.heyflight.checktel.plan;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import brother.heyflight.checktel.blog.DefaultVO;
 
 public class PlanVO extends DefaultVO {
@@ -26,6 +28,22 @@ public class PlanVO extends DefaultVO {
 	private String selCategory5;
 	private String selCategory6;
 	private String selCategory7;
+	private MultipartFile uploadFile;
+	private String memberImg;
+	
+	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	public String getMemberImg() {
+		return memberImg;
+	}
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
+	}
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -174,7 +192,8 @@ public class PlanVO extends DefaultVO {
 				+ selCategory2 + ", selCategory3=" + selCategory3
 				+ ", selCategory4=" + selCategory4 + ", selCategory5="
 				+ selCategory5 + ", selCategory6=" + selCategory6
-				+ ", selCategory7=" + selCategory7 + ", memberNick="
+				+ ", selCategory7=" + selCategory7 + ", uploadFile="
+				+ uploadFile + ", memberImg=" + memberImg + ", memberNick="
 				+ memberNick + "]";
 	}
 	
