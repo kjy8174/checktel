@@ -447,20 +447,33 @@ $(function(){
 				/* $("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"+data[i].reviewContent+"</p><button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/></div></div>"); */
 			}
 		})
+		
 		$("#btnReviewIns").click(function(event){
 			// 댓글 등록
-			event.preventDefault();
-			var param = $("#frmReview").serialize();
-			$.getJSON("../review/reviewInsert.do", param,  function(data){				
-				var btn3 ="";
-				if(data.memberNo=="${user.memberNo}") {
-				 btn3="<button class='btn' id='btnReviewDel"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
+			if('${user}'){
+				if(confirm("댓글 등록 하시겠습니까?")){
+					event.preventDefault();
+					var param = $("#frmReview").serialize();
+					$.getJSON("../review/reviewInsert.do", param,  function(data){				
+						var btn3 ="";
+						if(data.memberNo=="${user.memberNo}") {
+						 btn3="<button class='btn' id='btnReviewDel"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
+						}
+						$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+											+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p>"
+											+data.reviewContent+"</p>" + btn3 +"</div></div>");
+		
+					});
 				}
-				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
-									+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p>"
-									+data.reviewContent+"</p>" + btn3 +"</div></div>");
-
-			});
+				else{
+					event.preventDefault();
+					return;
+				}
+			}
+			else{
+				event.preventDefault();
+				alert("로그인 하세여")
+			}
 		});
 		
 		// 댓글 삭제
@@ -495,7 +508,25 @@ $(function(){
 	}
 	
 
-  
+	$(function(){
+		$("#pCopy").click(function(e){
+			if(confirm("일정 복사 하시겠습니까?")){
+			}
+			else{
+					e.preventDefault(); 
+					return;
+			}
+		});
+		
+		$("#pDelete").click(function(e){
+			if(confirm("일정 삭제 하시겠습니까?")){
+			}
+			else{
+					e.preventDefault(); 
+					return;
+			}
+		});
+	});
     
 
 </script>
@@ -532,9 +563,13 @@ $(function(){
 		<div class="col-md-6 center"
 			style="text-align: center; background-color: white;">
 			<ul class="nav nav-pills nav-justified">
-				<li><a href="${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}">일정 복사</a></li>				
-				<li><a href="#commentsTop">댓글</a></li>				
-				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}">삭제</a></li><!--자기꺼만 지우기 -->
+			<c:if test="${!empty user}">
+				<li><a href="${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}" id="pCopy">일정 복사</a></li>
+			</c:if>
+				<li><a href="#commentsTop">댓글</a></li>	
+			<c:if test="${user.memberNo eq plan.memberNo}">
+				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
+			</c:if>
 				<li><a href="#">다운로드</a></li>				
 			</ul>
 		</div>

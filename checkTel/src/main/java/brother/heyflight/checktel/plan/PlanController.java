@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -23,28 +24,15 @@ public class PlanController {
 	}
 	
 	//등록폼
-		@RequestMapping(method = RequestMethod.GET, value={"/plan/planResult.do"}) //스마트플랜 설정한거
-		public String plaInsert(HttpServletRequest httpServletRequest, Model model, PlanVO vo){
-			String selCity = httpServletRequest.getParameter("selCity");
-			String selDay = httpServletRequest.getParameter("selDay");
-			String selCategory1 = httpServletRequest.getParameter("selCategory1");
-			String selCategory2 = httpServletRequest.getParameter("selCategory2");
-			String selCategory3 = httpServletRequest.getParameter("selCategory3");
-			String selCategory4 = httpServletRequest.getParameter("selCategory4");
-			String selCategory5 = httpServletRequest.getParameter("selCategory5");
-			String selCategory6 = httpServletRequest.getParameter("selCategory6");
-			String selCategory7 = httpServletRequest.getParameter("selCategory7");
-			model.addAttribute("selCity",selCity);
-			model.addAttribute("selDay",selDay);
-			model.addAttribute("selCategory1",selCategory1);
-			model.addAttribute("selCategory2",selCategory2);
-			model.addAttribute("selCategory3",selCategory3);
-			model.addAttribute("selCategory4",selCategory4);
-			model.addAttribute("selCategory5",selCategory5);
-			model.addAttribute("selCategory6",selCategory6);
-			model.addAttribute("selCategory7",selCategory7);			
+		@RequestMapping(value={"/plan/planResult.do"}) //스마트플랜 설정한거
+		public String rsPlan(HttpServletRequest httpServletRequest, Model model, PlanRsVO vo){			
+			model.addAttribute("prsList1", vo);
+			System.out.println(vo);
+			System.out.println(vo.getSelCity());
+			model.addAttribute("prsList2", planService.rsPlan(vo));
 			return "/plan/planResult";
-		}		
+		}
+		
 	
 	//등록
 	@RequestMapping(value="/plan/planView.do",method= RequestMethod.POST)
@@ -53,6 +41,4 @@ public class PlanController {
 		planService.insertPlan(planVO);
 		return "redirect:/plan/planResult";
 	}
-	
-	
 }

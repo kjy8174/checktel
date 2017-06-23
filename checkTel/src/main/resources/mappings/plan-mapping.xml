@@ -9,11 +9,17 @@
 		<id property="planPeriod" column="PLAN_PERIOD" />
 		<id property="memberNo" column="MEMBER_NO" />
 		<id property="blogHit" column="BLOG_HIT" />
+		<id property="categoryId" column="CATEGORY_ID" />		
 		<result property="planStart" column="PLAN_START" />
 		<result property="planStarts" column="PLAN_STARTS" />
 		<result property="planEnd" column="PLAN_END" />
 		<result property="blogTitle" column="BLOG_TITLE" />
+		<result property="spotFurl" column="SPOT_FURL" />
+		<result property="cityName" column="CITY_NAME" />
+		<result property="spotName" column="SPOT_NAME" />		
 	</resultMap>
+	
+	
    
    <insert id="insertPlan" parameterType="plan">
       <selectKey keyProperty="planNo" resultType="int" order="BEFORE">
@@ -54,4 +60,199 @@
         ]]>
 	</select>
 	<!--,   -->
+	
+<!-- 	<select id="rsPlanGo" resultMap="planResult">
+		SELECT D.PLAN_NO, P.BLOG_HIT, P.BLOG_TITLE, D.CITY_NAME, D.SPOT_NAME, D.SPOT_FURL, D.DAY_NO, D.DAY_VISIT
+		FROM DETAIL D, PLAN P
+		WHERE D.PLAN_NO = P.PLAN_NO
+		AND D.PLAN_NO IN (82, 62, 76, 85)
+		AND D.PLAN_NO = #{planNo}
+		AND D.DAY_NO = 1
+		AND D.DAY_VISIT IN (	SELECT MIN(DAY_VISIT)
+				                  FROM DETAIL
+				                  WHERE PLAN_NO IN (82, 62, 76, 85)
+				                  AND D.PLAN_NO IN (#{planNo}, #{planNo}, #{planNo}, #{planNo})
+				                  AND DAY_NO = 1
+				                  GROUP BY PLAN_NO	)
+		ORDER BY P.BLOG_HIT DESC
+	</select> -->
+	
+	<resultMap id="planRsResult" type="planRs"> <!--type에는 클래스 명  -->
+		<id property="planNo" column="PLAN_NO"/> <!--필드명(planRsVO 필드), 컬럼명  -->
+		<id property="planPeriod" column="PLAN_PERIOD" />		
+		<id property="blogHit" column="BLOG_HIT" />
+		<id property="categoryId" column="CATEGORY_ID" />		
+		<id property="selCategory1" column="SELCATEGORY1" />
+		<id property="selCategory2" column="SELCATEGORY2" />
+		<id property="selCategory3" column="SELCATEGORY3" />
+		<id property="selCategory4" column="SELCATEGORY4" />
+		<id property="selCategory5" column="SELCATEGORY5" />
+		<id property="selCategory6" column="SELCATEGORY6" />
+		<id property="selCategory7" column="SELCATEGORY7" />
+		<id property="selDay" column="SELDAY" />
+		<result property="blogTitle" column="BLOG_TITLE" />
+		<result property="spotFurl" column="SPOT_FURL" />
+		<result property="cityName" column="CITY_NAME" />
+		<result property="spotName" column="SPOT_NAME" />				
+		<result property="selCity" column="SELCITY" />
+	</resultMap>
+	
+	
+	<select id="rsPlan" resultMap="planRsResult">
+		SELECT 	A.PLAN_NO,
+	          	A.BLOG_TITLE,
+	          	C.SPOT_FURL,
+	          	B.BLOG_HIT,
+	          	SELCATEGORY1/CC*10 AS SELCATEGORY1,
+	          	SELCATEGORY2/CC*10 AS SELCATEGORY2,
+	          	SELCATEGORY3/CC*10 AS SELCATEGORY3, 
+	          	SELCATEGORY4/CC*10 AS SELCATEGORY4, 
+	          	SELCATEGORY5/CC*10 AS SELCATEGORY5, 
+	          	SELCATEGORY6/CC*10 AS SELCATEGORY6, 
+	          	SELCATEGORY7/CC*10 AS SELCATEGORY7
+		FROM (
+		      	SELECT  PLAN_NO,
+		                MAX(CC) AS CC,
+		                BLOG_TITLE
+		      	FROM (
+		              	SELECT  P.PLAN_NO,
+		                        D.CATEGORY_ID,
+		                        COUNT(D.CATEGORY_ID) AS CC,
+		                        P.BLOG_TITLE
+		                FROM PLAN P, DETAIL D
+		                WHERE P.PLAN_NO = D.PLAN_NO	
+		                GROUP BY P.PLAN_NO, D.CATEGORY_ID, P.BLOG_TITLE
+		             )
+		      	GROUP BY PLAN_NO, BLOG_TITLE
+		        ORDER BY PLAN_NO
+		      ) A, (
+		              SELECT *
+		              FROM (
+		                      SELECT  P.PLAN_NO,
+		                              P.BLOG_HIT,
+		                              P.BLOG_TITLE,
+		                              SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) SELCATEGORY1,
+		                              SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) SELCATEGORY2,
+		                              SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) SELCATEGORY3,
+		                              SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) SELCATEGORY4,
+		                              SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) SELCATEGORY5,
+		                              SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) SELCATEGORY6,
+		                              SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) SELCATEGORY7
+		                      FROM PLAN P, DETAIL D
+		                      WHERE P.PLAN_NO=D.PLAN_NO
+		                      AND D.CITY_NAME=#{selCity}
+		                      AND P.PLAN_PERIOD=#{selDay}
+		                      GROUP BY P.PLAN_NO, P.BLOG_HIT, P.BLOG_TITLE
+		                      HAVING 	SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) = #{selCategory1}
+		                      AND	 	SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) = #{selCategory2}
+		                      AND 		SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) = #{selCategory3}
+		                      AND 		SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) = #{selCategory4}
+		                      AND	 	SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) = #{selCategory5}
+		                      AND 		SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) = #{selCategory6}
+		                      AND 		SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) = #{selCategory7}
+		                      ORDER BY P.BLOG_HIT DESC, P.PLAN_NO ASC
+		                 )
+		              WHERE ROWNUM BETWEEN 1 AND 4
+		      		) B, (                
+		                  SELECT  P.PLAN_NO,
+		                          D.SPOT_FURL
+		                  FROM (	SELECT  PLAN_NO,
+		                                  SPOT_FURL,
+		                                  DAY_VISIT
+		                          FROM DETAIL V
+		                          WHERE DAY_NO = 1
+		                          AND DAY_VISIT = ( SELECT MIN(DAY_VISIT)
+		                                            FROM DETAIL
+		                                            WHERE PLAN_NO = V.PLAN_NO
+		                                            AND DAY_NO= 1
+		                                          )
+		                        ) D, PLAN P
+		                  WHERE D.PLAN_NO = P.PLAN_NO                
+		                  ORDER BY 1, P.BLOG_HIT DESC
+		                ) C
+		WHERE A.PLAN_NO = B.PLAN_NO
+		AND B.PLAN_NO = C.PLAN_NO
+	
+	
+	
+	
+	
+<!-- 	SELECT 	A.PLAN_NO,
+			A.BLOG_TITLE,
+			B.BLOG_HIT,
+			SELCATEGORY1/CC*10 AS SELCATEGORY1,
+			SELCATEGORY2/CC*10 AS SELCATEGORY2,
+			SELCATEGORY3/CC*10 AS SELCATEGORY3, 
+			SELCATEGORY4/CC*10 AS SELCATEGORY4, 
+			SELCATEGORY5/CC*10 AS SELCATEGORY5, 
+			SELCATEGORY6/CC*10 AS SELCATEGORY6, 
+			SELCATEGORY7/CC*10 AS SELCATEGORY7
+	FROM (
+      	SELECT PLAN_NO, MAX(CC) AS CC, BLOG_TITLE
+      	FROM (
+              	SELECT P.PLAN_NO, D.CATEGORY_ID, COUNT(D.CATEGORY_ID) AS CC, P.BLOG_TITLE
+                FROM PLAN P, DETAIL D
+                WHERE P.PLAN_NO=D.PLAN_NO	
+                GROUP BY P.PLAN_NO, D.CATEGORY_ID, P.BLOG_TITLE
+                )
+      	GROUP BY PLAN_NO, BLOG_TITLE
+    ) A, (
+          SELECT *
+          FROM(
+          	    SELECT P.PLAN_NO, P.BLOG_HIT,
+                    SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) SELCATEGORY1,
+                    SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) SELCATEGORY2,
+                    SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) SELCATEGORY3,
+                    SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) SELCATEGORY4,
+                    SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) SELCATEGORY5,
+                    SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) SELCATEGORY6,
+                    SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) SELCATEGORY7
+                FROM PLAN P, DETAIL D
+                WHERE P.PLAN_NO=D.PLAN_NO
+                AND D.CITY_NAME=#{selCity}
+                AND P.PLAN_PERIOD=#{selDay}
+                GROUP BY P.PLAN_NO, P.BLOG_HIT
+                HAVING 	SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) = #{selCategory1}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) = #{selCategory2}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) = #{selCategory3}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) = #{selCategory4}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) = #{selCategory5}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) = #{selCategory6}
+                    AND 	SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) = #{selCategory7}
+                ORDER BY P.BLOG_HIT DESC, P.PLAN_NO ASC)
+              WHERE ROWNUM BETWEEN 1 AND 4
+      		 ) B       
+	WHERE A.PLAN_NO = B.PLAN_NO -->
+	
+	
+	
+	
+	
+	
+	
+	
+		<!-- SELECT * FROM(
+			SELECT P.PLAN_NO, P.BLOG_HIT,
+				    SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) selCategory1,
+				    SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) selCategory2,
+				    SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) selCategory3,
+				    SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) selCategory4,
+				    SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) selCategory5,
+				    SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) selCategory6,
+				    SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) selCategory7
+			FROM PLAN P, DETAIL D
+			WHERE P.PLAN_NO=D.PLAN_NO
+			AND D.CITY_NAME=#{cityName}
+			AND P.PLAN_PERIOD=#{planPeriod}
+			GROUP BY P.PLAN_NO, P.BLOG_HIT
+			HAVING 	SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) = #{cityCategory1}
+			AND 	SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) = #{cityCategory2}
+			AND 	SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) = #{cityCategory3}
+			AND 	SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) = #{cityCategory4}
+			AND 	SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) = #{cityCategory5}
+			AND 	SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) = #{cityCategory6}
+			AND 	SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) = #{cityCategory7}
+			ORDER BY P.BLOG_HIT DESC, P.PLAN_NO ASC)
+		WHERE ROWNUM BETWEEN 1 AND 4 -->
+	</select>
 </mapper>

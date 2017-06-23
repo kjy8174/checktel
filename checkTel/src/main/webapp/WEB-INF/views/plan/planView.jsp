@@ -61,7 +61,7 @@
 .imgteaser:hover .desc{ /*ĸ�� �ؽ�Ʈ*/
 	display: block;
 	font-size: 11px;
-	font-family:����;
+	font-family:;
 	letter-spacing:-1px;
 	line-height:140%;
 	padding: 10px 0;
@@ -141,7 +141,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount1").val(ui.value);
 			$("#selCategory1").val(ui.value);
@@ -155,7 +155,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount2").val(ui.value);
 			$("#selCategory2").val(ui.value);
@@ -169,7 +169,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount3").val(ui.value);
 			$("#selCategory3").val(ui.value);
@@ -183,7 +183,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount4").val(ui.value);
 			$("#selCategory4").val(ui.value);
@@ -197,7 +197,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount5").val(ui.value);
 			$("#selCategory5").val(ui.value);
@@ -211,7 +211,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value :0,
 		slide : function(event, ui) {
 			$("#amount6").val(ui.value);
 			$("#selCategory6").val(ui.value);
@@ -225,7 +225,7 @@ $(function() {
 		range : "min",
 		min : 0,
 		max : 10,
-		value : 6,
+		value : 0,
 		slide : function(event, ui) {
 			$("#amount7").val(ui.value);
 			$("#selCategory7").val(ui.value);
@@ -569,7 +569,7 @@ $(function() {
 				<div id="slider-vertical7" style="height: 200px; float: left; margin-right: 50px"></div>
 			</div>
 			<div style="clear: both;">
-			<label for="amount1">기타:</label> <input type="text" id="amount1"
+			<label for="amount1">명소:</label> <input type="text" id="amount1"
 					readonly
 					style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
 				<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
@@ -584,7 +584,7 @@ $(function() {
 				<label for="amount5">자연:</label> <input type="text" id="amount5"
 					readonly
 					style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-				<label for="amount6">이벤트:</label> <input type="text" id="amount6"
+				<label for="amount6">기타:</label> <input type="text" id="amount6"
 					readonly
 					style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
 				<label for="amount7">음식점:</label> <input type="text" id="amount7"
@@ -603,16 +603,17 @@ $(function() {
 		
 	</div>
 	<!-- END: WRAPPER -->
-	<form action="../plan/planResult.do" method="get">
+	<form action="../plan/planResult.do" method="post">
 	<input type="text" id="selCity" name="selCity" required>
 	<input type="text" id="selDay" name="selDay" required>
-	<input type="text" id="selCategory1" name="selCategory1" value="6" required>
-	<input type="hidden" id="selCategory2" name="selCategory2" value="6" required>
-	<input type="hidden" id="selCategory3" name="selCategory3" value="6" required>
-	<input type="hidden" id="selCategory4" name="selCategory4" value="6" value="6" required>
-	<input type="hidden" id="selCategory5" name="selCategory5" value="6" required>
-	<input type="hidden" id="selCategory6" name="selCategory6" value="6" required>
-	<input type="hidden" id="selCategory7" name="selCategory7" value="6" required>
+	<!-- 서울 2 / 1 2 0 1 2 0 0  -->
+	<input type="text" id="selCategory1" name="selCategory1" value="0" required>
+	<input type="hidden" id="selCategory2" name="selCategory2" value="0" required>
+	<input type="hidden" id="selCategory3" name="selCategory3" value="0" required>
+	<input type="hidden" id="selCategory4" name="selCategory4" value="0" required>
+	<input type="hidden" id="selCategory5" name="selCategory5" value="0" required>
+	<input type="hidden" id="selCategory6" name="selCategory6" value="0" required>
+	<input type="hidden" id="selCategory7" name="selCategory7" value="0" required>
 	<button class="button button1" id="planResult">나만의 추천일정 만들기</button>
 	</form>
 

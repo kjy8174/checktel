@@ -229,6 +229,7 @@
           $("#list").empty();
           getContents(map.getBounds(), map.getZoom());
       });
+      //bm.getLayers()
   });
   
   function getContents(bounds, zoom) {
@@ -426,7 +427,10 @@ function showInfo(mIdx) { //상세 정보 출력
 		      opacity: 1.0,
 		      weight: 2
 		    });
+		  //console.log(flightPath[cut-1])
+		  map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1].addTo(map);
+		  
 		  console.log(cut-1)
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
@@ -449,7 +453,7 @@ function showInfo(mIdx) { //상세 정보 출력
  					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		$("#"+city_array[mIdx].Idx).click(function() {
-			showInfoImg(mIdx);
+			showInfo(mIdx);
 		});
 	});
 }
@@ -501,6 +505,7 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		      opacity: 1.0,
 		      weight: 2
 		    });
+		map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1].addTo(map);
 		  console.log(cut-1)
 		  
@@ -550,7 +555,7 @@ function addDay(){ //일정 늘리기
 	    	 }		    
 	    	 $("#detailPlan"+(div+1)).show();
 	    	
-	    	 console.log(cut);
+	    	 console.log("cut: " +cut);
 	    });
 	});
 }
@@ -591,23 +596,37 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
-		var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+(a-1)+"박"+a+"일 여행","blogHit":0};
-		//var jsonData = JSON.stringify(planSub);
-		var jsonData = JSON.stringify(fir);
-		console.log(jsonData)
-		alert("전송")
-		$.ajax({
-			url : '../main/save.do',
-			method : "post",	
-			data : jsonData,
-			contentType: "application/json",
-			success : function(data) {
-				console.log("ajax전송");
-				location.href="../blog/myBlogShow.do?planNo="+data.planNo;
-			},
-			error:function(request,status,error){
-			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-		});
+		if('${user}'){
+			if($("#cal").val()){
+				if(confirm("일정 생성 하시겠습니까?")){
+					var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
+					//var jsonData = JSON.stringify(planSub);
+					var jsonData = JSON.stringify(fir);
+					console.log(jsonData)
+					$.ajax({
+						url : '../main/save.do',
+						method : "post",	
+						data : jsonData,
+						contentType: "application/json",
+						success : function(data) {
+							console.log("ajax전송");
+							location.href="../blog/myBlogShow.do?planNo="+data.planNo;
+						},
+						error:function(request,status,error){
+						    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+					});
+				}
+				else{
+					return;
+				}
+		}
+			else{
+				alert("출발일 선택 하세여")
+			}
+	}
+		else{
+			alert("로그인 하세여")
+		}
 	});
 });
 
@@ -624,22 +643,28 @@ function DeleteSmallPlan(id) {
  			planSub.splice(i,1)
  		}
  	}
+ 	//경로 삭제
  	for (fnum=0;fnum<flightPlanCoordinates.length;fnum++){
  		for(jnum=0;jnum<flightPlanCoordinates[fnum].length;jnum++){
  			if(flightPlanCoordinates[fnum][jnum].dayNum==id){
  				console.log("fnum: "+fnum+"jnum: "+jnum+" id: "+id+" dayNum: "+flightPlanCoordinates[fnum][jnum].dayNum)
- 				map.removeLayer(flightPath[fnum]);
+ 				//map.removeLayer(flightPath[fnum]);
 		 		flightPlanCoordinates[fnum].splice(jnum,1);
- 				console.log(flightPlanCoordinates);
+ 				console.log(flightPlanCoordinates[fnum]);
  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
 				      color: '#FF0000',
 				      opacity: 1.0,
 				      weight: 2
+				    });
+ 				console.log(flightPath[fnum])
+/*  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
 				    }); 				
- 				flightPath[fnum].addTo(map);
- 				console.log(cut-1)
+ 				flightPath[fnum].addTo(map); */
  			}
- 			else{
+ 			/* else{
  				map.removeLayer(flightPath[fnum]);
  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
 				      color: '#FF0000',
@@ -647,8 +672,7 @@ function DeleteSmallPlan(id) {
 				      weight: 2
 				    }); 				
 				flightPath[fnum].addTo(map);
-				console.log(cut-1)
- 			}
+ 			} */
  		}
  	}
 }

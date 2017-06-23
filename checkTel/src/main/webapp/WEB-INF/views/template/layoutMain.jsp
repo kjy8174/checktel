@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>¿©ÇàÀÇ ½ÃÀÛ! Check_TEL</title>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>ì—¬í–‰ì˜ ì‹œìž‘! Check_TEL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
 <link rel="shortcut icon"
@@ -112,7 +112,7 @@
 			<div class="modal-content"></div>
 		</div>
 	</div>
-	<!-- È¸¿øµî·Ï modal -->
+	<!-- íšŒì›ë“±ë¡ modal -->
 	<div id="regModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content"></div>

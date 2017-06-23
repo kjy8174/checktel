@@ -6,6 +6,7 @@
     <typeAliases>
         <typeAlias alias="main" type="brother.heyflight.checktel.main.MainVO"/>
         <typeAlias alias="plan" type="brother.heyflight.checktel.plan.PlanVO"/>
+        <typeAlias alias="planRs" type="brother.heyflight.checktel.plan.PlanRsVO"/>
         <typeAlias alias="blog" type="brother.heyflight.checktel.blog.BlogVO"/>
         <typeAlias alias="member" type="brother.heyflight.checktel.member.Member"/>
         <typeAlias alias="review" type="brother.heyflight.checktel.review.ReviewVO"/>        

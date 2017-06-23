@@ -129,6 +129,9 @@
 	      source: availableTags
 	    }); */
   });
+  var pre_idx = 0;	//비교 인덱스
+  var idx = 1;		//인덱스
+  var flightPath = [];
   var delClick=0;
   var dayNo=1;
   var seq = 1;
@@ -144,14 +147,17 @@
   var map;
   var places;
   var markerGroup;
+  var cut = '${plan.planPeriod}';
+  var flightPath = [];
+  //flightPlanCoordinates[cut-1] = new Array();
   // 지도 생성
   bm.ready(function () {
       var maxZoom = 18;
       var minZoom = 4;
       var defZoom = 14;
       // sample geolocation
-      var curLat = 37.57315;
-      var curLng = 126.9944;
+      var curLat = document.getElementById("fLat").value;
+      var curLng = document.getElementById("fLng").value;
       // create a map
       map = new bm.Map('BeeMap', {
           center: [curLat, curLng]
@@ -170,14 +176,30 @@
       map.on('zoomend dragend moveend', function (e) { // 지도 줌이 바뀔때마다 장소 정보 가져오기    	  
           $("#list").empty();
           getContents(map.getBounds(), map.getZoom());
-      });
-      var flightPath = bm.polyline(flightPlanCoordinates,{
-	      color: '#FF0000',
-	      opacity: 1.0,
-	      weight: 2,
-	      stroke : false
-	    });
-	  flightPath.addTo(map);
+      });	  
+      
+      for(var i=0; i < flightPlanCoordinates.length;i++){
+			flightPath[i] = bm.polyline(flightPlanCoordinates[i],{
+			      color: '#FF0000',
+			      opacity: 1.0,
+			      weight: 2
+			    });
+			flightPath[i].addTo(map);
+		}
+/*       for(var i=0;i<a;a++){
+    	  flightPath[i] = bm.polyline(flightPlanCoordinates[i],{
+		      color: '#FF0000',
+		      opacity: 1.0,
+		      weight: 2
+		    });
+		  flightPath[i].addTo(map);
+      } */
+      
+     /*  for(var i=0;i<a;i++){
+    	  flightPlanCoordinates[a-1]= [];
+      } */
+      
+      
   });
   
   function getContents(bounds, zoom) {
@@ -369,13 +391,13 @@ function showInfo(mIdx) { //상세 정보 출력
 		console.log(jsonData) */
 		//$('#json1').val(jsonData);
 		
-		  flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates,{
+		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
@@ -398,7 +420,7 @@ function showInfo(mIdx) { //상세 정보 출력
  		  }
 		
 		$("#"+city_array[mIdx].Idx).click(function() {
-			showInfoImg(mIdx);
+			showInfo(mIdx);
 		});
 	});
 }
@@ -444,13 +466,13 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		}
 		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
         planSub.push(plan);
-		flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates,{
+		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
@@ -487,7 +509,7 @@ function addDay(){ //일정 늘리기
 	'</div></div>');
 	
 	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
-		
+	 flightPlanCoordinates[a-1] = new Array();	
 	$( function() {
 	    $(".allPlan").click(function() {
 	    	 div = $(".allPlan").index(this);
@@ -498,6 +520,7 @@ function addDay(){ //일정 늘리기
 		    	 }
 	    	 }		    
 	    	 $("#detailPlan"+(div+1)).show();
+	    	 console.log("cut: " +cut);
 	    });
 	});
 }
@@ -550,39 +573,78 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
-		var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+(a-1)+"박"+a+"일 여행","blogHit":0};
-		//var jsonData = JSON.stringify(planSub);
-		var jsonData = JSON.stringify(fir);
-		console.log(jsonData)
-		alert("전송")
-		$.ajax({
-			url : '../main/save.do',
-			method : "post",	
-			data : jsonData,
-			contentType: "application/json",
-			success : function(data) {
-				console.log("ajax전송");
-				location.href="../blog/myBlogShow.do?planNo="+data.planNo;
-			},
-			error:function(request,status,error){
-			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-		});
+		if('${user}'){
+			if($("#cal").val()){
+				if(confirm("일정 생성 하시겠습니까?")){
+				var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
+				//var jsonData = JSON.stringify(planSub);
+				var jsonData = JSON.stringify(fir);
+				$.ajax({
+					url : '../main/save.do',
+					method : "post",	
+					data : jsonData,
+					contentType: "application/json",
+					success : function(data) {
+						location.href="../blog/myBlogShow.do?planNo="+data.planNo;
+					},
+					error:function(request,status,error){
+					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+				});
+				}
+				else{
+					return;
+				}
+		}
+			else{
+				alert("출발일 선택 하세여")
+			}
+	}
+		else{
+			alert("로그인 하세여")
+		}
 	});
 });
-
 //일정 삭제
 function DeletePlan(id) {
 	id.parentNode.remove();
 }
 function DeleteSmallPlan(id) {
+	console.log(flightPlanCoordinates);
 	var pId = document.getElementById(id);
 	pId.remove();
  	for(i=0;i<planSub.length;i++){
  		if(planSub[i].dayVisit==(id)){
- 			flightPlanCoordinates.splice(i,1);
  			planSub.splice(i,1)
  		}
  	}
+ 	console.log(flightPlanCoordinates)
+ 	for (fnum=0;fnum<flightPlanCoordinates.length;fnum++){
+ 		for(jnum=0;jnum<flightPlanCoordinates[fnum].length;jnum++){
+ 			if(flightPlanCoordinates[fnum][jnum].dayNum==id){
+ 				console.log("fnum: "+fnum+"jnum: "+jnum+" id: "+id+" dayNum: "+flightPlanCoordinates[fnum][jnum].dayNum)
+ 				map.removeLayer(flightPath[fnum]);
+		 		flightPlanCoordinates[fnum].splice(jnum,1);
+ 				console.log(flightPlanCoordinates);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+ 				flightPath[fnum].addTo(map);
+ 				
+ 			}
+/*  			else{
+ 				map.removeLayer(flightPath[fnum]);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+				flightPath[fnum].addTo(map);
+ 			} */
+ 		}
+ 	}
+ 	
 }
 
 
@@ -607,19 +669,36 @@ function DeleteSmallPlan(id) {
 <div id="plan">
 
 <c:forEach var="planList" items="${planList}" varStatus="status">
+<c:if test="${status.first }">
+<input type="hidden" id="fLat">
+<input type="hidden" id="fLng">
+<script>
+document.getElementById("fLat").value = '${planList.lat}';
+document.getElementById("fLng").value = '${planList.lng}';
+</script>
+</c:if>
 <script>
 		var plan = {"spotNo":'${planList.spotNo}',"spotName":'${planList.spotName}',"spotFurl":'${planList.spotFurl}',
 		"lat":'${planList.lat}',"lng":'${planList.lng}',"cityName":'${planList.cityName}',
 		"dayVisit":'${planList.dayVisit}',"categoryId":'${planList.categoryId}',"dayNo":'${planList.dayNo}'}; //json으로 배열 만듬
         planSub.push(plan);
-		console.log(plan);
-		dayNo = '${planList.dayVisit+1}'
-		console.log("dayNo2:"+dayNo);
+		dayNo = '${planList.dayVisit+1}'		
+			$(function() {	
+				$("#"+'${planList.spotNo}').click(function() {
+					var loc = {lat: '${planList.lat}', lng:'${planList.lng}'};
+					if(map.getZoom()<14){
+						map.setView(loc,14);
+					}else{
+						map.setView(loc);
+					}
+					//showInfo('${planList.spotNo}');
+				});
+			});
+		
 </script>
 <c:if test="${status.last }">
 <script>
 dayNo = '${planList.dayVisit+1}';
-console.log("dayNo3:"+dayNo)
 </script>
 </c:if>
 </c:forEach>
@@ -659,20 +738,31 @@ console.log("dayNo3:"+dayNo)
 	<div id="detailPlan<c:out value="${decr}"/>" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;">
 	<h2><b>DAY<c:out value="${decr}"/></b></h2>
 	<c:forEach var="planList" items="${planList}" varStatus="status">
-	<c:if test= "${planList.dayNo eq decr}">
 	<script>
-	flightPlanCoordinates.push({lat: '${planList.lat}', lng:'${planList.lng}'}); //경로 그리기
-	/*   var flightPath = bm.polyline(flightPlanCoordinates,{
-	      color: '#FF0000',
-	      opacity: 1.0,
-	      weight: 2
-	    });
-	  flightPath.addTo(map); */
+	/* console.log("visit:"+'${planList.dayVisit}'+"dayNo")
+	var pDayno = Number('${planList.dayNo}')-1;
+	flightPlanCoordinates[pDayno] = []
+	console.log(pDayno)
+	flightPlanCoordinates[pDayno].push({lat: '${planList.lat}', lng:'${planList.lng}' ,dayNum:'${planList.dayVisit}'}); //경로 그리기 */
+
+		if(pre_idx == 0) {
+			flightPlanCoordinates[pre_idx] = new Array();
+		} 
+		pre_idx = ${planList.dayNo}
+		if(pre_idx != idx) {
+			flightPlanCoordinates[pre_idx - 1] = new Array();
+		}
+		p_lat=${planList.lat};
+		p_lng=${planList.lng};
+		var dayN = Number('${planList.dayVisit}');
+		flightPlanCoordinates[pre_idx-1].push({lat: '${planList.lat}', lng:'${planList.lng}' ,dayNum:dayN});
+		idx = ${planList.dayNo};
+		
 	</script>
+	<c:if test= "${planList.dayNo eq decr}">
 	<div class="shadow" id="${planList.spotNo }">
 	<img style="width: 45px; height: 45px;" src="${planList.spotFurl}"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan(${planList.dayVisit});" src="../img/icon_delete_n.png" style="float:right"><div class="short">${planList.spotName }</div>
 	</div>
-	<br>
 	</c:if>
 	</c:forEach>
 	</div>	

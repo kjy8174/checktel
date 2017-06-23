@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -93,31 +94,105 @@ function goBack() {
 }
 
 
-$(function() {
-	$("#passR").click(function() {		
-		$.ajax({
-			url : '../plan/Result.do',
-			method : "post",			
-			success : function(data) {
-				console.log("ajax전송");
-				location.href="../blog/myBlogShow.do?planNo="+data.planNo;
-			},
-			error:function(request,status,error){
-			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-		});
-	});
-});
-</script>
-<%-- selCity : ${selCity } <br>
-selDay : ${selDay } <br>
-selCategory1 : ${selCategory1 } <br>
-selCategory2 : ${selCategory2 } <br>
-selCategory3 : ${selCategory3} <br>
-selCategory4 : ${selCategory4 } <br>
-selCategory5 : ${selCategory5 } <br>
-selCategory6 : ${selCategory6 } <br>
-selCategory7 : ${selCategory7 } <br> --%>
 
+/* 쿼리문
+ select p.plan_no,
+ sum(case when category_id=1 then 1 else 0 end ) c1,
+ sum(case when category_id=2 then 1 else 0 end ) c2,
+ sum(case when category_id=3 then 1 else 0 end ) c3,
+ sum(case when category_id=4 then 1 else 0 end ) c4,
+ sum(case when category_id=5 then 1 else 0 end ) c5,
+ sum(case when category_id=6 then 1 else 0 end ) c6,
+ sum(case when category_id=7 then 1 else 0 end ) c7
+from plan p, detail d
+where p.plan_no=d.plan_no
+and d.city_name='서울'
+and p.plan_period=2
+group by p.plan_no
+order by p.plan_no asc;
+
+
+
+select a.plan_no, b.blog_hit, selCategory1/cc*10 as c1, selCategory2/cc*10 as c2, selCategory3/cc*10 as c3, selCategory4/cc*10 as c4, selCategory5/cc*10 as c5, selCategory6/cc*10 as c6, selCategory7/cc*10 as c7
+from (
+      select plan_no, max(cc) as cc
+      from (
+              select p.plan_no, d.category_id, count(d.category_id) as cc
+                from plan p, detail d
+                where p.plan_no=d.plan_no	
+                group by p.plan_no, d.category_id
+                )
+      group by plan_no
+    ) a, 
+   (
+              SELECT * FROM(
+                    SELECT P.PLAN_NO, P.BLOG_HIT,
+                          SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) selCategory1,
+                          SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) selCategory2,
+                          SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) selCategory3,
+                          SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) selCategory4,
+                          SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) selCategory5,
+                          SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) selCategory6,
+                          SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) selCategory7
+                from plan p, detail d
+                where p.plan_no=d.plan_no
+                and d.city_name='서울'
+                and p.plan_period=2
+                group by p.plan_no, p.blog_hit
+                HAVING 	SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) = 1
+                    AND 	SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) = 2
+                    AND 	SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) = 0
+                    AND 	SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) = 1
+                    AND 	SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) = 2
+                    AND 	SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) = 0
+                    AND 	SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) = 0
+                order by p.blog_hit desc, p.plan_no asc)
+              WHERE ROWNUM BETWEEN 1 AND 4
+       ) b       
+where a.plan_no = b.plan_no;
+
+
+이런 식의 쿼리문 결과의 카테고리count한 C1~C7중의 max값으로 수치 계산
+ex)명소 2곳, 음식점 1곳, 나머지0일 경우     max=2    명소= 2/2*10으로 계산, 음식점은 1/2*10으로 계산
+수치는 명소 10, 음식점 5, 나머지0
+
+0~10
+
+
+방법2. 카테고리 7가지 모두다 설정해서 조회
+
+넘어온거의 plan_no를 클릭할때 넘겨서 그걸 조회한 상세페이지로!
+
+
+참고 http://annehouse.tistory.com/416
+★ 분석용 함수
+RANK - 해당값에 대한 우선순위를 결정 (중복 우선순위 허용)
+DENSE_RANK - 해당값에 대한 우선순위를 결정 (중복 우선순위 허용 안함)
+ROW_NUMBER - 조건을 만족하는 모든 행의 번호를 제공
+CUME_DIST - 분산값
+PERCENT_RANK - 백분율
+NTILE(n) - 전체 데이터 분포를 n-Buckets으로 나누어 표시
+FIRST_VALUE - 정렬된 값중에서 첫번째 값을 반환.
+LAST_VALUE - 정렬된 값중에서 마지막 값을 반환.
+ 
+★ OVER() 에 사용되는 OPTION
+1. PARTITION BY
+2. ORDER BY DESC
+3. NULLS FIRST : NULL 데이터를 먼저 출력.
+4. NULLS LAST : NULL 데이터를 나중에 출력.
+
+
+
+
+
+쿼리한 결과의 
+
+	
+	
+	*/	
+
+	
+</script>
 <body>
 <div class="container">
 		<div class="heading heading-center">
@@ -126,28 +201,33 @@ selCategory7 : ${selCategory7 } <br> --%>
 					<img src="../images/man.jpg" alt="">
 				</div>
 				<div class="image-box-description text-center">
-					<h3>조장님</h3>
+					<h3>${user.memberNick} 님</h3>
 					<p class="subtitle">추천 일정이 완성되었습니다.</p>					
 				</div>
 			</div>
 			<hr><br>
 			
 		<div class="row">
-			<div class="col-md-3">
+			<c:forEach var="prsList2" items="${prsList2}">	
+			<div class="col-md-3">			
 				<div class="image-box">
-					<img src="../images/test/1.jpg" alt="">
+					<img src="${prsList2.spotFurl}" alt="">
 				</div>
 				<div class="image-box-description ">
-					<h4>${selCity}</h4>
-					<p class="subtitle">${selDay-1}박 ${selDay}일</p>
-					<hr class="line">					
+					<h4>${prsList2.blogTitle}<small>(${prsList1.selCity})</small></h4>
+					<p class="subtitle">${prsList1.selDay-1}박 ${prsList1.selDay}일</p>
+					<hr class="line">
 					<div class="social-icons social-icons-border m-t-10">
-						<a <%-- href="../blog/myBlogShow.do?planNo=${planNo}" --%> id="passR" class="myButton">일정 상세보기</a>						
+						<a href="../blog/myBlogShow.do?planNo=${prsList2.planNo}" class="myButton">일정 상세보기</a>						
 					</div>
 				</div>
 			</div>
+			</c:forEach>
+				
 			
-			<div class="col-md-3">
+				
+			
+			<!-- <div class="col-md-3">
 				<div class="image-box">
 					<img src="../images/test/2.jpg" alt="">
 				</div>
@@ -187,7 +267,9 @@ selCategory7 : ${selCategory7 } <br> --%>
 						<a href="#" class="myButton">일정 상세보기</a>						
 					</div>
 				</div>
-			</div>
+			</div> -->
+			
+			
 			<hr>
 		</div>
 		<a href="" class="myButton" style="font-size:15px; padding:10px 15px;" onclick="goBack()">처음부터 새로 만들기</a>
@@ -195,16 +277,15 @@ selCategory7 : ${selCategory7 } <br> --%>
 </div>
 
 
-selCity : ${selCity } <br>
-selDay : ${selDay } <br>
-selCategory1 : ${selCategory1 } <br>
-selCategory2 : ${selCategory2 } <br>
-selCategory3 : ${selCategory3 } <br>
-selCategory4 : ${selCategory4 } <br>
-selCategory5 : ${selCategory5 } <br>
-selCategory6 : ${selCategory6 } <br>
-selCategory7 : ${selCategory7 } <br>
-
+selCity : ${planRsVO.selCity } <br>
+selDay : ${planRsVO.selDay } <br>
+selCategory1 : ${planRsVO.selCategory1 } <br>
+selCategory2 : ${planRsVO.selCategory2 } <br>
+selCategory3 : ${planRsVO.selCategory3 } <br>
+selCategory4 : ${planRsVO.selCategory4 } <br>
+selCategory5 : ${planRsVO.selCategory5 } <br>
+selCategory6 : ${planRsVO.selCategory6 } <br>
+selCategory7 : ${planRsVO.selCategory7 } <br>
 
 
 </body>

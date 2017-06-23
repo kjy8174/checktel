@@ -13,9 +13,86 @@ public class PlanVO extends DefaultVO {
 	private int memberNo;
 	private String blogTitle;
 	private int blogHit;
-	private String memberNick;
 	private String spotFurl;
+	private int categoryId;
 	private String cityName;
+	private String spotName;
+	private int selDay;
+	private String selCity;
+	private String selCategory1;
+	private String selCategory2;
+	private String selCategory3;
+	private String selCategory4;
+	private String selCategory5;
+	private String selCategory6;
+	private String selCategory7;
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getSpotName() {
+		return spotName;
+	}
+	public void setSpotName(String spotName) {
+		this.spotName = spotName;
+	}
+	public int getSelDay() {
+		return selDay;
+	}
+	public void setSelDay(int selDay) {
+		this.selDay = selDay;
+	}
+	public String getSelCity() {
+		return selCity;
+	}
+	public void setSelCity(String selCity) {
+		this.selCity = selCity;
+	}
+	public String getSelCategory1() {
+		return selCategory1;
+	}
+	public void setSelCategory1(String selCategory1) {
+		this.selCategory1 = selCategory1;
+	}
+	public String getSelCategory2() {
+		return selCategory2;
+	}
+	public void setSelCategory2(String selCategory2) {
+		this.selCategory2 = selCategory2;
+	}
+	public String getSelCategory3() {
+		return selCategory3;
+	}
+	public void setSelCategory3(String selCategory3) {
+		this.selCategory3 = selCategory3;
+	}
+	public String getSelCategory4() {
+		return selCategory4;
+	}
+	public void setSelCategory4(String selCategory4) {
+		this.selCategory4 = selCategory4;
+	}
+	public String getSelCategory5() {
+		return selCategory5;
+	}
+	public void setSelCategory5(String selCategory5) {
+		this.selCategory5 = selCategory5;
+	}
+	public String getSelCategory6() {
+		return selCategory6;
+	}
+	public void setSelCategory6(String selCategory6) {
+		this.selCategory6 = selCategory6;
+	}
+	public String getSelCategory7() {
+		return selCategory7;
+	}
+	public void setSelCategory7(String selCategory7) {
+		this.selCategory7 = selCategory7;
+	}
+	private String memberNick;
 	
 	public String getMemberNick() {
 		return memberNick;
@@ -90,8 +167,16 @@ public class PlanVO extends DefaultVO {
 				+ ", planStart=" + planStart + ", planStarts=" + planStarts
 				+ ", planEnd=" + planEnd + ", memberNo=" + memberNo
 				+ ", blogTitle=" + blogTitle + ", blogHit=" + blogHit
-				+ ", memberNick=" + memberNick + ", spotFurl=" + spotFurl
-				+ ", cityName=" + cityName + "]";
+				+ ", spotFurl=" + spotFurl + ", categoryId=" + categoryId
+				+ ", cityName=" + cityName + ", spotName=" + spotName
+				+ ", selDay=" + selDay + ", selCity=" + selCity
+				+ ", selCategory1=" + selCategory1 + ", selCategory2="
+				+ selCategory2 + ", selCategory3=" + selCategory3
+				+ ", selCategory4=" + selCategory4 + ", selCategory5="
+				+ selCategory5 + ", selCategory6=" + selCategory6
+				+ ", selCategory7=" + selCategory7 + ", memberNick="
+				+ memberNick + "]";
 	}
+	
 	
 }
