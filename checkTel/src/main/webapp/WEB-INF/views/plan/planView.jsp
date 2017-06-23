@@ -7,45 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	
 	
-	<link rel="shortcut icon" href="images/favicon.png">
-	<title>POLO | The Multi-Purpose HTML5 Template</title>
-
-	<!-- Bootstrap Core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="vendor/fontawesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-	<link href="vendor/animateit/animate.min.css" rel="stylesheet">
-
-	<!-- Vendor css -->
-	<link href="vendor/owlcarousel/owl.carousel.css" rel="stylesheet">
-	<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
-
-	<!-- Template base -->
-	<link href="css/theme-base.css" rel="stylesheet">
-
-	<!-- Template elements -->
-	<link href="css/theme-elements.css" rel="stylesheet">	
-	
-<!-- Responsive classes -->
-	<link href="css/responsive.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-	<![endif]-->	
-
-
-	<!-- Template color -->
-	<link href="css/color-variations/blue.css" rel="stylesheet" type="text/css" media="screen" title="blue">
-
-	<!-- LOAD GOOGLE FONTS -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600%7CRaleway:100,300,600,700,800" rel="stylesheet" type="text/css" />
-
-	<!-- CSS CUSTOM STYLE -->
-    <link rel="stylesheet" type="text/css" href="css/custom.css" media="screen" />
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">  
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
 <style>
  #custom-handle {
     width: 3em;
@@ -113,6 +74,45 @@
     border: 2px solid #f44336;
 }
 </style>
+	<link rel="shortcut icon" href="images/favicon.png">
+	<title>POLO | The Multi-Purpose HTML5 Template</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="vendor/fontawesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link href="vendor/animateit/animate.min.css" rel="stylesheet">
+
+	<!-- Vendor css -->
+	<link href="vendor/owlcarousel/owl.carousel.css" rel="stylesheet">
+	<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+	<!-- Template base -->
+	<link href="css/theme-base.css" rel="stylesheet">
+
+	<!-- Template elements -->
+	<link href="css/theme-elements.css" rel="stylesheet">	
+	
+<!-- Responsive classes -->
+	<link href="css/responsive.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->	
+
+
+	<!-- Template color -->
+	<link href="css/color-variations/blue.css" rel="stylesheet" type="text/css" media="screen" title="blue">
+
+	<!-- LOAD GOOGLE FONTS -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600%7CRaleway:100,300,600,700,800" rel="stylesheet" type="text/css" />
+
+	<!-- CSS CUSTOM STYLE -->
+    <link rel="stylesheet" type="text/css" href="css/custom.css" media="screen" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">  
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
     <!--VENDOR SCRIPT-->
     <script src="vendor/jquery/jquery-1.11.2.min.js"></script>
     <script src="vendor/plugins-compressed.js"></script>

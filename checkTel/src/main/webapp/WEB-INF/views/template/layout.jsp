@@ -96,7 +96,7 @@
 
 	<!-- include_directive.jsp -->
 	<div class="wrapper">
-		<header id="header" class="header-mini">
+		<header id="header" class="header-mini header-sticky">
 			<tiles:insertAttribute name="header" />
 		</header>
 		<section>

@@ -403,7 +403,12 @@ function showInfo(mIdx) { //상세 정보 출력
 		else{
 			furl=city_array[mIdx].Furl;
 		}
-		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		if(city_array[mIdx].CategoryIdx>7){
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		else{
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
         planSub.push(plan);
 		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
 		/* var plan = new Object();
@@ -497,8 +502,14 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		else{
 			furl=city_array[mIdx].Furl;
 		}
-		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
-        planSub.push(plan);
+		if(city_array[mIdx].CategoryIdx>7){
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		else{
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		
+		planSub.push(plan);
 		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng, dayNum:dayNo}); //경로 그리기
 		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
@@ -648,7 +659,7 @@ function DeleteSmallPlan(id) {
  		for(jnum=0;jnum<flightPlanCoordinates[fnum].length;jnum++){
  			if(flightPlanCoordinates[fnum][jnum].dayNum==id){
  				console.log("fnum: "+fnum+"jnum: "+jnum+" id: "+id+" dayNum: "+flightPlanCoordinates[fnum][jnum].dayNum)
- 				//map.removeLayer(flightPath[fnum]);
+ 				map.removeLayer(flightPath[fnum]);
 		 		flightPlanCoordinates[fnum].splice(jnum,1);
  				console.log(flightPlanCoordinates[fnum]);
  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{

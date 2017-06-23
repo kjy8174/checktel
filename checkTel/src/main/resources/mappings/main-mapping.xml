@@ -18,9 +18,8 @@
 		<result property="cityName" column="CITY_NAME" />
 		<result property="planStart" column="PLAN_START" />	
 		<result property="planStarts" column="PLAN_STARTS" />	
-		<result property="memberNo" column="MEMBER_NO" />	 
-		<result property="memberImg" column="MEMBER_Img" />	
-				<result property="memberNick" column="MEMBER_NICK" />	
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberNick" column="MEMBER_NICK" />	
 		
 	</resultMap>
    
