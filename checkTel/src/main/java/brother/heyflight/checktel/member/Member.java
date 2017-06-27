@@ -1,6 +1,7 @@
 package brother.heyflight.checktel.member;
 
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import brother.heyflight.checktel.utils.SecureUtils;
 
@@ -17,8 +18,26 @@ public class Member {
 	private String memberBirth;
 	private String memberSex;
 	private String memberCategory;
+	private String memberImg;
+	private MultipartFile uploadFile;
 	private static final String DEFAULT_PASSPHRASE = "!@#!@#%^!(#$!@#asl1aoS9Va021@#";
 	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+	public String getMemberImg() {
+		return memberImg;
+	}
+
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
+	}
+
 	@SuppressWarnings("unused")
 	protected Member(){}
 	
@@ -90,11 +109,12 @@ public class Member {
 	
 	@Override
 	public String toString() {
-		return "MemberVO [memberNo=" + memberNo + ", memberName=" + memberName
+		return "Member [memberNo=" + memberNo + ", memberName=" + memberName
 				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
 				+ ", memberNick=" + memberNick + ", memberBirth=" + memberBirth
 				+ ", memberSex=" + memberSex + ", memberCategory="
-				+ memberCategory + "]";
+				+ memberCategory + ", memberImg=" + memberImg + ", uploadFile="
+				+ uploadFile + "]";
 	}
 	
 }

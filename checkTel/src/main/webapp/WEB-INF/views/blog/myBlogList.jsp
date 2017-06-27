@@ -104,6 +104,13 @@ label {
 .overflow {
 	height: 200px;
 }
+
+.modal-body img {
+	width: auto;
+	height: auto;
+	max-width: 250px;
+	max-height: 250px;
+}
 </style>
 
 <script>
@@ -142,26 +149,7 @@ label {
 			}
 		}
 
-		function userUpd() {
-
-			var jsonData = $("updForm").serialize();//JSON.stringify();
-			console.log(jsonData)
-			alert("저장 되었습니다")
-			$.ajax({
-				url : '/blogUpdate.do',
-				method : "post",
-				dataType : "json",
-				data : updForm,
-				success : function() {
-					console.log("ajax전송");
-				},
-				error : function(request, status, error) {
-					alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:" + error);
-				}
-			});
-
-		}
+	
 		/*  	/* $("#btnIns").click(function(){   //버튼 주소 */
 		// 파라미터 -> 쿼리문자열 만들기
 		//var params = $("#updForm").serialize(); //폼태그 주소
@@ -189,46 +177,39 @@ label {
 			height : 700,
 			width : 500,
 			modal : true,
-			buttons : {
-
-				"저장" : userUpd,
-				취소 : function() {
-					dialog.dialog("close");
-				}
-			},
 			close : function() {
 				form[0].reset();
 				allFields.removeClass("ui-state-error");
 			}
 		});
 
-		form = dialog.find("form").on("submit", function(event) {
-			event.preventDefault();
-			addUser();
-		});
-
-		$("#create-use").button().on("click", function() {
+/* 		$("#create-use").button().on("click", function() {
 			dialog.dialog("open");
-		});
-		
+		}); */
+
 		/* 파일첨부시 사진 미리보기  시작*/
 		$("#uploadFile").on('change', function() {
 			if (typeof (FileReader) != "undefined") {
 				var imgchange = $("#imgchange");
 				imgchange.empty();
 				var reader = new FileReader();
-				reader.onload = function(e) { $( "<img />", {
-							"src" : e.target.result,
-							"class" : "thumb-image",})
-							.appendTo(imgchange)
+				reader.onload = function(e) {
+					$("<img />", {
+						"src" : e.target.result,
+						"class" : "thumb-image",
+					}).appendTo(imgchange)
 				}
-					imgchange.show();
-					reader.readAsDataURL($(this)[0].files[0]);
-			} else { alert("This browser does not support FileReader.");
-				}
-			});
+				imgchange.show();
+				reader.readAsDataURL($(this)[0].files[0]);
+			} else {
+				alert("This browser does not support FileReader.");
+			}
+		});
 	});
 
+/*----------------------------------
+ * 카테고리 보기
+ --------------------------------*/
 	$(function() {
 		$("#slider-vertical1").slider({
 			orientation : "vertical",
@@ -241,8 +222,7 @@ label {
 			}
 		});
 		$("#amount1").val($("#slider-vertical1").slider("value"));
-	});
-	$(function() {
+
 		$("#slider-vertical2").slider({
 			orientation : "vertical",
 			range : "min",
@@ -254,8 +234,7 @@ label {
 			}
 		});
 		$("#amount2").val($("#slider-vertical2").slider("value"));
-	});
-	$(function() {
+	
 		$("#slider-vertical3").slider({
 			orientation : "vertical",
 			range : "min",
@@ -267,8 +246,8 @@ label {
 			}
 		});
 		$("#amount3").val($("#slider-vertical3").slider("value"));
-	});
-	$(function() {
+
+		
 		$("#slider-vertical4").slider({
 			orientation : "vertical",
 			range : "min",
@@ -280,8 +259,7 @@ label {
 			}
 		});
 		$("#amount4").val($("#slider-vertical4").slider("value"));
-	});
-	$(function() {
+
 		$("#slider-vertical5").slider({
 			orientation : "vertical",
 			range : "min",
@@ -293,8 +271,8 @@ label {
 			}
 		});
 		$("#amount5").val($("#slider-vertical5").slider("value"));
-	});
-	$(function() {
+
+		
 		$("#slider-vertical6").slider({
 			orientation : "vertical",
 			range : "min",
@@ -307,8 +285,7 @@ label {
 			}
 		});
 		$("#amount6").val($("#slider-vertical6").slider("value"));
-	});
-	$(function() {
+
 		$("#slider-vertical7").slider({
 			orientation : "vertical",
 			range : "min",
@@ -320,14 +297,69 @@ label {
 			}
 		});
 		$("#amount7").val($("#slider-vertical7").slider("value"));
-	});
 
-	$(function() {
 		$("#imgInp").on('change', function() {
 			readURL(this);
 		});
-	});
+		
+		
+		/*--------------------
+		   초기화
+		-----------------------*/
+		$("#number").selectmenu().selectmenu("menuWidget").addClass("overflow");  //
+		
+		dialog = $("#dialog-form").dialog({
+			autoOpen : false,
+			height : 700,
+			width : 500,
+			modal : true,
+			close : function() {
+				form[0].reset();
+				allFields.removeClass("ui-state-error");
+			}
+		});
 
+		$("#create-use").button().on("click", function() {
+			dialog.dialog("open");
+		});
+		
+	});
+	
+	/*--------------------
+	  계정 수정
+	-----------------------*/	
+	function userUpd() {
+
+		var f1 = document.updForm;
+		var pw1 = document.updForm.pwd_check.value;
+		var pw2 = document.updForm.pwd_confirm.value;
+	
+			if(pw1!=pw2){
+				 document.getElementById('checkPwd').style.color = "red";
+		 		  document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
+			}else {
+				document.getElementById('checkPwd').style.color = "black";
+				 document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+				}
+		var jsonData = $("#updForm").serialize();//JSON.stringify();
+		console.log(jsonData)
+		$.ajax({
+			url : 'blogUpdate.do',
+			method : "post",
+			dataType : "json",
+			data : updForm,
+			success : function() {
+				console.log("ajax전송");
+				alert("저장 되었습니다");
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+
+	}
+	
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -339,14 +371,8 @@ label {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-</script>
-<!--   모달 end -->
-<!-- 셀렉트 메뉴 -->
-<script>
-	$(function() {
 
-		$("#number").selectmenu().selectmenu("menuWidget").addClass("overflow");
-	});
+
 </script>
 
 </head>
@@ -481,112 +507,113 @@ label {
 
 
 
-	
-		<div id="dialog-form" title="My page">
-			<br> <br>
-			<div class="w3-bar w3-black">
-				<button class="w3-bar-item w3-button tablink w3-red"
-					onclick="openCity(event,'Londo')">프로필</button>
-				<button class="w3-bar-item w3-button tablink"
-					onclick="openCity(event,'Pari')">계정 설정</button>
+	<!-- 프로필 수정 팝업 시작-->
+	<div id="dialog-form" title="My page">
+		<br>
+		<div class="w3-bar w3-black">
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openCity(event,'Londo')">프로필</button>
+			<button class="w3-bar-item w3-button tablink"
+				onclick="openCity(event,'Pari')">계정 설정</button>
 
-			</div>
-
-			<div id="Londo" class="w3-container w3-border city">
-				<div class="row">
-					<table>
-						<tr>
-							<td>
-								<form
-									action="${pageContext.request.contextPath}/blog/myBlogList.do"
-									method="post" enctype="multipart/form-data">
-									<div class="modal-body">
-										<input type="hidden" id="img" name="img"> <img>
-										<hr>
-										<div id="imgchange"></div>
-										<br> <input type="hidden" name="member_id"
-											value="${user.memberNo}"><br> <br>
-										프로필 사진: <input type="file" id="uploadFile" name="uploadFile"
-											alt="이미지선택"><br>
-									</div>
-									<div class="modal-footer">
-										<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
-										<input type="button" class="close btn btn-warning"
-											data-dismiss="modal" value="취소"> <input type="submit"
-											class="btn btn-success" value="사진등록 및 변경">
-									</div>
-								</form>
-							</td>
-							<td>
-								<div>이름 : ${user.memberName}</div>
-								<div>닉네임 : ${user.memberNick}</div>
-							</td>
-						</tr>
-					</table>
-					<div class="col-md-5" data-animation="flipInY"
-						data-animation-delay="0">
-						<div class="center" style="width: 500px;">
-							<br> <br> 나의 선호도 <br>
-							<div>
-								<img src="../img/icon_category_1_b.png"
-									style="margin-right: 12px" /> <img
-									src="../img/icon_category_2_b.png" style="margin-right: 12px" />
-								<img src="../img/icon_category_3_b.png"
-									style="margin-right: 11px" /> <img
-									src="../img/icon_category_4_b.png" style="margin-right: 10px" />
-								<img src="../img/icon_category_5_b.png"
-									style="margin-right: 10px" /> <img
-									src="../img/icon_category_6_b.png" style="margin-right: 10px" />
-								<img src="../img/icon_category_7_b.png" />
-							</div>
-							<br>
-							<div style="float: left; width: 550px;">
-								<div id="slider-vertical1"
-									style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
-								<div id="slider-vertical2"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-								<div id="slider-vertical3"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-								<div id="slider-vertical4"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-								<div id="slider-vertical5"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-								<div id="slider-vertical6"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-								<div id="slider-vertical7"
-									style="height: 200px; float: left; margin-right: 50px"></div>
-							</div>
-							<div style="clear: both;">
-								<label for="amount1">기타:</label> <input type="text" id="amount1"
-									readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
-									readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount3">문화:</label> <input type="text" id="amount3"
-									readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount4">역사:</label> <input type="text" id="amount4"
-									readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount5">자연:</label> <input type="text" id="amount5"
-									readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount6">이벤트:</label> <input type="text"
-									id="amount6" readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-								<label for="amount7">음식점:</label> <input type="text"
-									id="amount7" readonly
-									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							</div>
+		</div>
+		<!-- 프로필 사진 수정 탭1 시작 -->
+		<div id="Londo" class="w3-container w3-border city">
+			<div class="row">
+				<table>
+					<tr>
+						<td>
+							<form
+								action="${pageContext.request.contextPath}/profileUpdate.do"
+								method="post" enctype="multipart/form-data">
+								<div class="modal-body">
+									<input type="hidden" id="img" name="img"> <img>
+									<hr>
+									<div id="imgchange"></div>
+									<br> <input type="hidden" name="member_id"
+										value="${user.memberNo}"><br> <br> 프로필 사진:
+									<input type="file" id="uploadFile" name="uploadFile"
+										alt="이미지선택"><br>
+								</div>
+								<div class="modal-footer">
+									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
+									<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소">
+								    <input type="submit" class="btn btn-success" value="사진등록 및 변경">
+								</div>
+							</form>
+						</td>
+						<td>
+							<div>이름 : ${user.memberName}</div>
+							<div>닉네임 : ${user.memberNick}</div>
+						</td>
+					</tr>
+				</table>
+				<div class="col-md-5" data-animation="flipInY"
+					data-animation-delay="0">
+					<div class="center" style="width: 500px;">
+						<br> <br> 나의 선호도 <br>
+						<div>
+							<img src="../img/icon_category_1_b.png"
+								style="margin-right: 12px" /> <img
+								src="../img/icon_category_2_b.png" style="margin-right: 12px" />
+							<img src="../img/icon_category_3_b.png"
+								style="margin-right: 11px" /> <img
+								src="../img/icon_category_4_b.png" style="margin-right: 10px" />
+							<img src="../img/icon_category_5_b.png"
+								style="margin-right: 10px" /> <img
+								src="../img/icon_category_6_b.png" style="margin-right: 10px" />
+							<img src="../img/icon_category_7_b.png" />
+						</div>
+						<br>
+						<div style="float: left; width: 550px;">
+							<div id="slider-vertical1"
+								style="height: 200px; float: left; margin-left: 20px; margin-right: 50px"></div>
+							<div id="slider-vertical2"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical3"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical4"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical5"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical6"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+							<div id="slider-vertical7"
+								style="height: 200px; float: left; margin-right: 50px"></div>
+						</div>
+						<div style="clear: both;">
+							<label for="amount1">기타:</label> <input type="text" id="amount1"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount3">문화:</label> <input type="text" id="amount3"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount4">역사:</label> <input type="text" id="amount4"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount5">자연:</label> <input type="text" id="amount5"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount6">이벤트:</label> <input type="text" id="amount6"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							<label for="amount7">음식점:</label> <input type="text" id="amount7"
+								readonly
+								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- 프로필 사진 수정 탭1 끝-->
 
-			<div id="Pari" class="w3-container w3-border city"
-				style="display: none">
-				<form id=updForm>
+		<!-- 계정수정 탭2 -->
+		<div id="Pari" class="w3-container w3-border city"
+			style="display: none">
+			<form id=updForm>
 				<br>
 				<table style="border-collapse: separate;">
 					<tbody>
@@ -604,24 +631,37 @@ label {
 						</tr>
 						<tr height="50">
 							<td width="110">기존비밀번호</td>
-							<td><input type="text" name="member_pw" value="" /></td>
+							<td><input type="password" name="pwd"
+								placeholder="Before Password" /></td>
 						</tr>
 						<tr height="50">
 							<td width="110">새비밀번호</td>
-							<td><input type="text" name="new_pk" value="" /></td>
+							<td><input type="password" name="pwd_check"
+								placeholder="After Password" /></td>
+								
 						</tr>
 						<tr height="50">
 							<td width="150">새비밀번호 재입력</td>
-							<td><input type="text" name="new_pkcon" value="" /></td>
+							<td><input type="password" name="pwd_confirm"
+								placeholder="Confirm Password" /></td>
 						</tr>
-
+						<tr>
+						 <td width="200"><div id="checkPwd">동일한 암호를 입력하세요.</div></td>
+						</tr>
+						<tr>
+						<td colspan="2">
+							<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
+							<input type="button" class="close btn btn-warning"	data-dismiss="modal" value="취소" OnClick="javascript:history.back(-1)"> 
+							<input type="button" onclick="userUpd()" class="btn btn-success" value="저장">
+						
+						</td></tr>
 					</tbody>
 				</table>
-				</form>
-			</div>
-			
+			</form>
 		</div>
-	
+		<!-- 계정수정 탭2 -->
+	</div>
+	<!-- 프로필 수정 팝업 끝-->
 
 	<script>
 		function openCity(evt, cityName) {

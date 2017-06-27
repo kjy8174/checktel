@@ -41,4 +41,10 @@ public class MemberDAOImpl implements MemberDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Member memberProfileUpdate(Member vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

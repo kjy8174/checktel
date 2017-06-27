@@ -112,16 +112,16 @@ public class BlogController {
 	// 수정폼
 	@RequestMapping(value = "/blogUpdate.do")
 	@ResponseBody
-	public String updateBlog(@ModelAttribute("plan") PlanVO vo,
+	public Member updateBlog(Member vo,
 			SessionStatus status, HttpSession session) { // command 객체
 
 		Member user = (Member) session.getAttribute("user");
-		vo.setMemberNo(Integer.parseInt(user.getMemberNo()));
+		vo.setMemberNo(user.getMemberNo());
 	
-		planService.updatePlan(vo);
+		blogService.updateBlog(vo);
 	
 		status.setComplete(); // 세션에 저장된 VO를 삭제
-		return "vo";
+		return vo;
 	}
 
 	// 수정 boardUpdate
@@ -134,11 +134,11 @@ public class BlogController {
 	}*/
 
 	// 삭제 boardDelete sessionstatus 넣어야됨
-	@RequestMapping("/blogDelete.do")
+	/*@RequestMapping("/blogDelete.do")
 	public String blogDelete(BlogVO vo, Model model) {
 		blogService.updateBlog(vo);
 		return "blog/myBlogList.do";
-	}
+	}*/
 
 	// 단건조회
 	@RequestMapping("/blog/getBlog.do/{id}")
@@ -152,30 +152,28 @@ public class BlogController {
 	}
 	
 	// 서브프로필 이미지추가
-		@RequestMapping(value = "/blog/myBlogList.do", method = RequestMethod.POST)
-		public String profileUpdate(PlanVO vo,
+		@RequestMapping(value ="/profileUpdate.do", method = RequestMethod.POST)
+		public String profileUpdate(Member vo,
 		// @RequestParam String img,
 				HttpServletRequest request) throws IllegalStateException,
 				IOException {
 
 			long t = System.currentTimeMillis();
 			String randomName = t + ""; // 랜덤 이름 정하기
-			String realPath = request.getSession().getServletContext()
-					.getRealPath("/");// 서블릿 내의 realPath
-			String image = request.getParameter("img");
-			System.out.println(image);
-			MultipartFile file = vo.getUploadFile();
-			File saveFile = new File(realPath + "profile_img/", randomName);
-			file.transferTo(saveFile); // 서버에 파일 저장
+			String realPath = request.getSession().getServletContext().getRealPath("/");// 서블릿 내의 realPath
 		
+			MultipartFile file = vo.getUploadFile();
+			if(file!=null && file.getSize()>0) {
+				File saveFile = new File(realPath + "/profile_img/", randomName);
+				file.transferTo(saveFile); // 서버에 파일 저장
 				vo.setMemberImg(randomName); // 파일명 저장 file.getOriginalFilename()
-				
+			}
 			
 			blogService.profileUpdate(vo);
-
+			System.out.println("저장");
 			return "blog/myBlogList";
 		}
-	
+			
 
 	/*
 	 * //로그인폼

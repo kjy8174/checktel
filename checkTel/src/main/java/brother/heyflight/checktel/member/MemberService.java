@@ -34,4 +34,5 @@ public interface MemberService {
 	
 	public SnsMember createNewMemberBySnsMember(NaverUser naverUser, String memberName);
 	
+	
 }

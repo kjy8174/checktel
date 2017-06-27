@@ -61,12 +61,15 @@
 	 <select id="getBlogListCnt" resultType="int" >
 		SELECT COUNT(*)
 		FROM PLAN
+		WHERE MEMBER_NO = #{memberNo}
 	
 	</select> 
 	
 	<select id="getmyBlogListCnt" resultType="int" >
 		SELECT COUNT(*)
 		FROM PLAN
+		WHERE MEMBER_NO = #{memberNo}
+		
 	
 	</select>
 

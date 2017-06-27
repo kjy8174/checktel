@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import brother.heyflight.checktel.main.MainVO;
+import brother.heyflight.checktel.member.Member;
+import brother.heyflight.checktel.member.MemberDAO;
 import brother.heyflight.checktel.plan.PlanVO;
 
 @Service("blogService")
@@ -19,9 +21,7 @@ public class BlogServiceImpl implements BlogService {
 	/*public void insertUser(UserVO vo) {
 		userDAO.insertUser(vo);
 	}*/
-	public void updateBlog(BlogVO vo) {
-		blogDAO.updateBlog(vo);
-	}
+	
 	public void deleteBlog(BlogVO vo) {
 		blogDAO.deleteBlog(vo);
 	}
@@ -69,10 +69,17 @@ public class BlogServiceImpl implements BlogService {
 		// TODO Auto-generated method stub
 		return blogDAO.getmyBlogListCnt(vo);
 	}
+	
 	@Override
-	public void profileUpdate(PlanVO vo) {
+	public void updateBlog(Member vo) {
 		// TODO Auto-generated method stub
-		blogDAO.profileUpdate(vo);
+		blogDAO.updateBlog(vo);
+		
+	}
+	@Override
+	public void profileUpdate(Member vo) {
+		// TODO Auto-generated method stub
+		
 		
 	}
 

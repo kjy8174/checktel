@@ -200,7 +200,7 @@ MERGE INTO detail
 	<update id="profileUpdate" parameterType="member">
 
 		UPDATE MEMBER SET
-		<if test="member_img1 != null and member_img1 !='' ">
+		<if test="member_img != null and member_img !='' ">
 			MEMBER_IMG= #{memberImg}
 		</if>
 		
