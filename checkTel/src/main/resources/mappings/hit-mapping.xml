@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HitDAO"> <!--namespace로 구분  -->
+
+	<resultMap id="hitResult" type="hit"> <!--type에는 클래스 명  -->
+		<id property="planNo" column="PLAN_NO"/> <!--필드명(planVO 필드), 컬럼명  -->
+		<id property="memberNo" column="MEMBER_NO" />
+		<id property="hitNo" column="HIT_NO" />
+	</resultMap>
+	
+		
+	<insert id="blogHit" parameterType="hit">
+		<selectKey keyProperty="hitNo" resultType="int" order="BEFORE">
+      	SELECT NVL(MAX(HIT_NO), 0)+1 FROM HIT
+        </selectKey>
+		INSERT INTO HIT(
+						  PLAN_NO
+						, MEMBER_NO
+						, HIT_NO)
+				VALUES(
+						  #{planNo}
+						, #{memberNo}
+						, #{hitNo})		
+	</insert>
+	
+	<delete id="deleteHit" parameterType="int">
+        <![CDATA[
+         DELETE FROM HIT 
+         WHERE PLAN_NO= #{planNo}
+         AND MEMBER_NO = #{memberNo}
+        ]]>
+	</delete>
+	
+</mapper>

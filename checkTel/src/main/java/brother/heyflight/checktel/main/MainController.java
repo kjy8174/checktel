@@ -81,17 +81,43 @@ public class MainController {
 		public String getPlan(PlanVO planVO, Model model){
 			model.addAttribute("plan", planService.getPlan(planVO));
 			model.addAttribute("planList",mainService.getPlanList(planVO));
-			return "main/mainUpd";
+			return "main/mainCopy";
 		}
+	
+//일정 수정
+	@RequestMapping(value={"/blog/blogUpdate.do"})
+	public String blogUpdate(@RequestParam(value="planNo") int planNo, PlanVO planVO, Model model){
+		System.out.println("수정 : "+planNo);
+		model.addAttribute("plan", planService.getPlan(planVO));
+		model.addAttribute("planList",mainService.getPlanList(planVO));
+		//mainService.deleteUpd(planNo);
+		return "main/mainUpd";	
+	}
+	
+	//일정 수정 후 저장
+	@RequestMapping(value={"main/saveUpd.do"}, method=RequestMethod.POST)
+	@ResponseBody
+	public void mainBlogSaveUpd(@RequestBody ListVO listVO, HttpSession session){
+		System.out.println("등록 : "+listVO);
+		mainService.updateMain(listVO);
+	
+	}
 	
 	//일정 삭제
 	@RequestMapping(value={"/blog/blogDelete.do"})
 	public String blogDelete(@RequestParam(value="planNo") int planNo, Model model){
 		System.out.println("삭제 : "+planNo);
 		mainService.deleteBlog(planNo);
-
-		return "main/main";
+		return "main/main";	
+	}
 	
+	//좋아요 눌렀을 때
+	@RequestMapping(value={"blog/blogHit.do"}, method=RequestMethod.POST)
+	@ResponseBody
+	public void blogHit(@RequestBody HitVO hitVO, Model model){
+		System.out.println("좋아요 : "+hitVO);
+		mainService.blogHit(hitVO);
+		//return "blog/myBlogShow";
 	}
 	
 	//항공권 추천 뷰페이지 이동

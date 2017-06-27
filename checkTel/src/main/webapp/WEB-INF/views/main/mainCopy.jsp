@@ -641,18 +641,16 @@ $(function() {
 		if('${user}'){
 			if($("#cal").val()){
 				if(confirm("일정 생성 하시겠습니까?")){
-				var pN = Number('${plan.planNo}')
-					alert(pN)
-				var fir = {"planNo":'${plan.planNo}',"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
+				var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
 				//var jsonData = JSON.stringify(planSub);
 				var jsonData = JSON.stringify(fir);
 				$.ajax({
-					url : '../main/saveUpd.do',
+					url : '../main/save.do',
 					method : "post",	
 					data : jsonData,
 					contentType: "application/json",
 					success : function(data) {
-						location.href="../blog/myBlogShow.do?planNo="+'${plan.planNo}';
+						location.href="../blog/myBlogShow.do?planNo="+data.planNo;
 					},
 					error:function(request,status,error){
 					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}

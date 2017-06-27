@@ -41,4 +41,9 @@ public class ReviewServiceImpl implements ReviewService{
 		// TODO Auto-generated method stub
 		return ReviewDAO.getReview(vo);
 	}
+
+	@Override
+	public void updateReview(ReviewVO vo) {
+		ReviewDAO.updateReview(vo);
+	}
 }

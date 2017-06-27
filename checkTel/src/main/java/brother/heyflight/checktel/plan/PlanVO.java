@@ -8,6 +8,7 @@ import brother.heyflight.checktel.blog.DefaultVO;
 
 public class PlanVO extends DefaultVO {
 	private int planNo;
+	private String memberNick;
 	private int planPeriod;
 	private Date planStart;
 	private String planStarts;
@@ -30,8 +31,15 @@ public class PlanVO extends DefaultVO {
 	private String selCategory7;
 	private MultipartFile uploadFile;
 	private String memberImg;
+	private int hit;
 	
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
@@ -110,14 +118,6 @@ public class PlanVO extends DefaultVO {
 	public void setSelCategory7(String selCategory7) {
 		this.selCategory7 = selCategory7;
 	}
-	private String memberNick;
-	
-	public String getMemberNick() {
-		return memberNick;
-	}
-	public void setMemberNick(String memberNick) {
-		this.memberNick = memberNick;
-	}
 	public String getSpotFurl() {
 		return spotFurl;
 	}
@@ -195,6 +195,12 @@ public class PlanVO extends DefaultVO {
 				+ ", selCategory7=" + selCategory7 + ", uploadFile="
 				+ uploadFile + ", memberImg=" + memberImg + ", memberNick="
 				+ memberNick + "]";
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	
 	

@@ -68,6 +68,6 @@
 		SELECT COUNT(*)
 		FROM PLAN
 	
-	</select> 
+	</select>
 
 </mapper>

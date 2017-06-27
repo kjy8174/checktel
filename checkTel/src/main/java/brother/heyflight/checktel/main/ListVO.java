@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 public class ListVO {
+	private int memberNo;
+	private String memberNick;
+	private int planNo;
 	private int planPeriod;
 	private Date planStart;
 	private Date planEnd;
@@ -53,6 +56,24 @@ public class ListVO {
 				+ ", planEnd=" + planEnd + ", detail=" + detail
 				+ ", blogTitle=" + blogTitle 
 				+ ", blogHit=" + blogHit + "]";
+	}
+	public int getPlanNo() {
+		return planNo;
+	}
+	public void setPlanNo(int planNo) {
+		this.planNo = planNo;
+	}
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	
 }

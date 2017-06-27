@@ -11,15 +11,15 @@
 		<id property="blogHit" column="BLOG_HIT" />
 		<id property="categoryId" column="CATEGORY_ID" />		
 		<result property="planStart" column="PLAN_START" />
+		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="planStarts" column="PLAN_STARTS" />
 		<result property="planEnd" column="PLAN_END" />
 		<result property="blogTitle" column="BLOG_TITLE" />
 		<result property="spotFurl" column="SPOT_FURL" />
 		<result property="cityName" column="CITY_NAME" />
-		<result property="spotName" column="SPOT_NAME" />		
-	</resultMap>
-	
-	
+		<result property="spotName" column="SPOT_NAME" />
+		<result property="hit" column="HIT" />		
+	</resultMap>	
    
    <insert id="insertPlan" parameterType="plan">
       <selectKey keyProperty="planNo" resultType="int" order="BEFORE">
@@ -32,6 +32,7 @@
       				, PLAN_START
       				, PLAN_END
       				, MEMBER_NO
+      				, MEMBER_NICK
       				, BLOG_HIT
       				, BLOG_TITLE)
       VALUES(
@@ -41,6 +42,7 @@
       	, #{planStart}
       	, #{planEnd}
       	, #{memberNo}
+      	, #{memberNick}
       	, #{blogHit}
       	, #{blogTitle})
    </insert>
@@ -55,6 +57,7 @@
 				, MEMBER_NO
 				, BLOG_HIT
 				, BLOG_TITLE 
+				, NVL((SELECT HIT_NO FROM HIT WHERE PLAN_NO =  #{planNo} AND MEMBER_NO = #{memberNo}),0) AS HIT
         FROM PLAN
         WHERE PLAN_NO = #{planNo}
         ]]>

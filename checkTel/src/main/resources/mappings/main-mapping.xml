@@ -53,6 +53,12 @@
            , #{cityName})
    </insert>
    
+   <update id="updPeriod" parameterType="main">
+   	UPDATE PLAN SET
+	PLAN_PERIOD = (SELECT MAX(DAY_NO) FROM DETAIL WHERE PLAN_NO = #{plan_no})
+	WHERE PLAN_NO = #{plan_no}
+   </update>
+   
    	<select id="getPlanList" resultMap="mainResult">
 	SELECT   P.PLAN_NO
            , SPOT_NO
@@ -79,6 +85,57 @@
          WHERE PLAN_NO= #{planNo}
         ]]>
 	</delete>
+	
+<!-- 일정 상세 삭제 -->
+<delete id="deleteUpd" parameterType="int">
+       <![CDATA[
+        DELETE FROM DETAIL
+        WHERE PLAN_NO= #{planNo}
+       ]]>
+</delete>
+
+<!-- <merge id="mergePlan">
+MERGE INTO detail
+            USING DUAL
+            ON (plan_no = #{planNo} and day_visit = #{dayVisit)
+            WHEN MATCHED THEN
+                      UPDATE SET
+                                  SPOT_NO = #{spotNo}
+                                , NO = #{no}
+                                , DAY_VISIT = #{dayVisit}
+                                , PLAN_NO = #{planNo}
+                                , CATEGORY_ID = #{categoryId}
+                                , DAY_NO = #{dayNo}
+                                , SPOT_NAME = #{spotName}
+                                , SPOT_FURL = #{spotFurl}
+                                , LAT = #{lat}
+                                , LNG = #{lng}
+                                , CITY_NAME = #{cityName}
+            WHEN NOT MATCHED THEN
+                      INSERT (SPOT_NO
+                    , NO
+                    , DAY_VISIT
+                    , PLAN_NO
+                    , CATEGORY_ID
+                    , DAY_NO
+                    , SPOT_NAME
+                    , SPOT_FURL
+                    , LAT
+                    , LNG
+                    , CITY_NAME ) 
+                                 VALUES (
+                                         #{spotNo}
+                                       , #{no} 
+                                       , #{dayVisit}
+                                       , #{planNo}
+                                       , #{categoryId}
+                                       , #{dayNo}
+                                       , #{spotName}
+                                       , #{spotFurl}
+                                       , #{lat}
+                                       , #{lng}
+                                       , #{cityName})
+</merge> -->
 <!-- 리스트 목록 -->
 	<select id="getBlogL" resultMap="mainResult">
 		

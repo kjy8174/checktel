@@ -35,6 +35,8 @@ public class MainServiceImpl implements MainService{
 		vo.setPlanStart(listVO.getPlanStart());
 		vo.setBlogHit(listVO.getBlogHit());
 		vo.setBlogTitle(listVO.getBlogTitle());
+		vo.setMemberNick(listVO.getMemberNick());
+		vo.setMemberNo(listVO.getMemberNo());
 		planDAO.insertPlan(vo);
 		
 		//detail 등록		
@@ -46,6 +48,21 @@ public class MainServiceImpl implements MainService{
 			mainDAO.insertMain(mainVO);
 		}	
 		return vo;
+	}
+	
+	public void updateMain(ListVO listVO) {
+		// TODO Auto-generated method stub
+	
+		 mainDAO.deleteUpd(listVO.getPlanNo());
+		//detail 등록		
+		List<MainVO> mainList = listVO.getDetail();
+		
+		for(int i = 0;i<mainList.size();i++){
+			MainVO mainVO = mainList.get(i);
+			mainVO.setPlanNo(listVO.getPlanNo());
+			mainDAO.insertMain(mainVO);
+		}
+		mainDAO.updPeriod(listVO.getPlanNo());
 	}	
 	//
     public PlanVO getPlan(PlanVO planVO) {  	
@@ -80,5 +97,14 @@ public class MainServiceImpl implements MainService{
 	public List<MainVO> getmyBlogL(PlanVO planVO) {
 		// TODO Auto-generated method stub
 		return mainDAO.getmyBlogL(planVO);
+	}
+	@Override
+	public int deleteUpd(int planNo) {
+		// TODO Auto-generated method stub
+		return mainDAO.deleteUpd(planNo);
+	}
+	
+	public void blogHit(HitVO hitVO){
+		mainDAO.blogHit(hitVO);
 	}
 }

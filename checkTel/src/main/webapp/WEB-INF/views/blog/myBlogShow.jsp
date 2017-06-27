@@ -74,6 +74,7 @@ span {
 	src="https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM="></script>
 <script>
 var num=0;
+var num1 = 0;
 	var map;
 	var places;
 	var markerGroup;
@@ -427,71 +428,122 @@ function mapOver(id,no) {
 	}
 }
 $(function(){
-	/* 	if(user.memberNo !=) {
-			$("#btnReviewDel").
-			document.getElementById('btnReviewDel').setAttribute('hidden','hidden');
-		} */
-		
-		//페이지 로딩 후에 댓글 목록 조회
-		var param = {planNo:"${plan.planNo}"}
-		$.getJSON("../review/review.do", param, function(data){
-			for(i=0; i<data.length; i++){				
-				var btn3 ="";
-				if(data[i].memberNo=="${user.memberNo}") {
-				 btn3="<button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/>";
-				}
-				$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
-									+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"
-									+data[i].reviewContent+"</p>" + btn3 +"</div></div>");
-
-				/* $("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"+data[i].reviewContent+"</p><button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/></div></div>"); */
+	//페이지 로딩 후에 댓글 목록 조회
+	var param = {planNo:"${plan.planNo}"}
+	$.getJSON("../review/review.do", param, function(data){
+		for(i=0; i<data.length; i++){				
+			var btn3 ="";
+			var btn4 ="";
+			if(data[i].memberNo=="${user.memberNo}") {
+			 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/>";
+			 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1)+">수정</button><input type='hidden' id='hiddenId1' value='"+data[i].reviewNo+"'/>";
 			}
-		})
-		
-		$("#btnReviewIns").click(function(event){
-			// 댓글 등록
-			if('${user}'){
-				if(confirm("댓글 등록 하시겠습니까?")){
-					event.preventDefault();
-					var param = $("#frmReview").serialize();
-					$.getJSON("../review/reviewInsert.do", param,  function(data){				
-						var btn3 ="";
-						if(data.memberNo=="${user.memberNo}") {
-						 btn3="<button class='btn' id='btnReviewDel"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
-						}
-						$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
-											+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p>"
-											+data.reviewContent+"</p>" + btn3 +"</div></div>");
-		
-					});
-				}
-				else{
-					event.preventDefault();
-					return;
-				}
+			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+								+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p id='updRview'>"
+								+data[i].reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
+
+			/* $("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"+data[i].reviewContent+"</p><button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/></div></div>"); */
+		}
+	})
+	
+	$("#btnReviewIns").click(function(event){
+		// 댓글 등록
+		if('${user}'){
+			if(confirm("댓글 등록 하시겠습니까?")){
+				event.preventDefault();
+				var param = $("#frmReview").serialize();
+				$.getJSON("../review/reviewInsert.do", param,  function(data){				
+					var btn3 ="";
+					var btn4 ="";
+					if(data.memberNo=="${user.memberNo}") {
+					 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
+					 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1++)+">수정</button><input type='hidden' id='hiddenId1' value='"+data.reviewNo+"'/>";
+					}
+					$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+										+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p id='updRview'>"
+										+data.reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
+	
+				});
 			}
 			else{
 				event.preventDefault();
-				alert("로그인 하세여")
+				return;
 			}
-		});
-		
-		// 댓글 삭제
-		/* $("#btnReviewDel").click(function(){ */
-		$(document).on("click","#btnReviewDel",function(event){
+		}
+		else{
 			event.preventDefault();
-			var param = $(this).parent().children('#hiddenId').val()+"";
+			alert("로그인 하세여")
+		}
+	});
+	
+	// 댓글 삭제
+	/* $("#btnReviewDel").click(function(){ */
+	$(document).on("click","#btnReviewDel",function(event){
+		if('${user}'){
+			if(confirm("댓글 삭제 하시겠습니까?")){
+		event.preventDefault();
+		var param = $(this).parent().children('#hiddenId').val()+"";
+		console.log(param);
+		/* param.slice(0,-1); */
+		$(this).parents(".comment").remove();
+		$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
 			console.log(param);
-			/* param.slice(0,-1); */
 			$(this).parents(".comment").remove();
-			$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
+			/* $(".comment").remove(); */
+			/* console.log($(this).parents(".comment").text()); */
+			});
+		}				
+		}
+		else{
+			event.preventDefault();
+			return;
+		}			
+	});	
+
+	// 댓글 수정
+	$(document).on("click","#btnReviewUpd",function(event){
+		if('${user}'){
+			if(confirm("댓글 수정 하시겠습니까?")){					
+		event.preventDefault();
+		var param = $(this).parent().children('#hiddenId1').val()+"";
+		var updtext = $(this).parent().children('#updRview').text();
+		var updtext2 = $(this).siblings('#updRview').text();
+		var updtag = "<textarea style='margin:10px;' aria-required='true' id='Rupd' placeholder='수정할 내용을 입력하세요' rows='5' name='reviewContent' class='form-control required'>"+updtext+"</textarea><button class='btn' style='margin-right:10px; float:right;' id='RUpdbtn'>수정 등록</button>"
+		console.log(param);
+		console.log(updtext);
+		console.log(updtext2);
+		$(this).parents(".comment").children().append(updtag);
+		
+		$(document).on("click","#RUpdbtn", function(event) {			
+			event.preventDefault();
+			var Rupd = $("#Rupd").val();
+			console.log(Rupd);
+			$(this).siblings('#updRview').text(Rupd);				
+			
+			/* $(this).parent("#updRview") */
+			/* param.slice(0,-1); */
+			/* $(this).parents(".comment").remove(); */
+			$.getJSON("../review/reviewUpd.do?reviewNo="+param+"&reviewContent="+Rupd, function(data){
+				$("#Rupd").remove();
+				$("#RUpdbtn").remove();
 				/* $(".comment").remove(); */
 				/* console.log($(this).parents(".comment").text()); */
-			});
-			
-		});	
+				});
+		});
 		
+		
+		}				
+		}
+		else{
+			event.preventDefault();
+			return;
+		}			
 	});
+	
+	
+	
+	
+});
 
 	function Navi(id) { //길찾기
 		var no = id+1;
@@ -525,6 +577,30 @@ $(function(){
 					e.preventDefault(); 
 					return;
 			}
+		});
+		$("#pLike").click(function(e){
+			console.log('${plan.hit}')
+			
+			if($("#eLike").attr("src")=="../img/empHeart.png"){
+				$("#eLike").attr("src","../img/redHeart.png");
+				//$('#pLike:nth-child(1)').text("좋아요 취소");
+			}
+			else{
+				$("#eLike").attr("src","../img/empHeart.png")
+			}
+			var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
+			var jsonData = JSON.stringify(fir);
+			$.ajax({
+				url : '../blog/blogHit.do',
+				method : "post",
+				contentType: "application/json",
+				data : jsonData,
+				success : function(data){
+					console.log("전송")	
+				},
+				error:function(request,status,error){
+				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+			});
 		});
 	});
     
@@ -566,11 +642,16 @@ $(function(){
 			<c:if test="${!empty user}">
 				<li><a href="${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}" id="pCopy">일정 복사</a></li>
 			</c:if>
+			<c:if test="${user.memberNo eq plan.memberNo}">
+			<li><a href="${pageContext.request.contextPath }/blog/blogUpdate.do?planNo=${plan.planNo}" id="pUpd">일정 수정</a></li>
+			</c:if>
 				<li><a href="#commentsTop">댓글</a></li>	
 			<c:if test="${user.memberNo eq plan.memberNo}">
 				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
 			</c:if>
-				<li><a href="#">다운로드</a></li>				
+				<li><a href="#">다운로드</a></li>
+				<li><a href="#" id="pLike">좋아요 <img id="eLike" src="../img/empHeart.png" style="width:28px; height: 26px;"></a></li>	
+				<!-- <li><a href="#" id="pLike">좋아요 <img id="rLike" src="../img/redHeart.png" style="width:28px; height: 26px;"></a></li> -->		
 			</ul>
 		</div>
 	</div>

@@ -21,4 +21,10 @@ public interface MainService {
 	// 스마트플랜 결과
 	/*public PlanVO ResPlan(MainVO vo);*/
 
+		public int deleteUpd(int planNo);
+
+		public void updateMain(ListVO listVO);
+
+		public void blogHit(HitVO hitVO);
+
 }

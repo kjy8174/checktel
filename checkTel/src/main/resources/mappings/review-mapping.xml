@@ -53,4 +53,10 @@
 		WHERE REVIEW_NO=#{reviewNo}
    </delete>
    
+   <update id="updateReview" parameterType="review">
+   		UPDATE REVIEW
+   		SET REVIEW_CONTENT = #{reviewContent}
+   		WHERE REVIEW_NO = #{reviewNo}   
+   </update>
+   
 </mapper>

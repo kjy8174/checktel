@@ -45,4 +45,10 @@ public class ReviewDAOMybatis {
 		System.out.println("===> Mybatis로 getReview() 기능 처리");
 		return mybatis.selectOne("ReviewDAO.getReview", vo);	
 	}
+
+	public void updateReview(ReviewVO vo) {
+		System.out.println("===> Mybatis로 updateReview() 기능 처리");
+        mybatis.update("ReviewDAO.updateReview", vo); 
+		
+	}
 }

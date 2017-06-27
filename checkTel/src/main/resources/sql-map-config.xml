@@ -13,6 +13,7 @@
         <typeAlias alias="blog" type="brother.heyflight.checktel.blog.BlogVO"/>
         <typeAlias alias="member" type="brother.heyflight.checktel.member.Member"/>
         <typeAlias alias="review" type="brother.heyflight.checktel.review.ReviewVO"/>
+        <typeAlias alias="hit" type="brother.heyflight.checktel.main.HitVO"/>  
     </typeAliases>
 
 	<!-- DataSource 설정 -->

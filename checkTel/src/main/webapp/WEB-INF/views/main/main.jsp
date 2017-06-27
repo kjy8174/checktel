@@ -202,6 +202,7 @@
   var markerGroup;
   var cut =1;
   flightPlanCoordinates[cut-1] = new Array();
+  flightPath[cut-1] = new Array();
   // 지도 생성
   bm.ready(function () {
       var maxZoom = 18;
@@ -426,14 +427,13 @@ function showInfo(mIdx) { //상세 정보 출력
 		console.log(jsonData) */
 		//$('#json1').val(jsonData);
 		
-		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
+		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기		  
+		  map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  //console.log(flightPath[cut-1])
-		  map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1].addTo(map);
 		  
 		  console.log(cut-1)
@@ -510,15 +510,14 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		}
 		
 		planSub.push(plan);
-		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng, dayNum:dayNo}); //경로 그리기
+		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기		  
+		  map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		map.removeLayer(flightPath[cut-1]);
 		  flightPath[cut-1].addTo(map);
-		  console.log(cut-1)
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
@@ -555,6 +554,7 @@ function addDay(){ //일정 늘리기
 	
 	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
 	 flightPlanCoordinates[a-1] = new Array();
+	 flightPath[a-1] = new Array();
 	$( function() {
 	    $(".allPlan").click(function() {
 	    	 div = $(".allPlan").index(this);
@@ -564,6 +564,24 @@ function addDay(){ //일정 늘리기
 		    		 $("#detailPlan"+i).hide();
 		    	 }
 	    	 }		    
+	    	//해당 경로만 빨간색
+	    	 for(i=0;i<flightPath.length;i++){
+	    		 map.removeLayer(flightPath[i]);
+	 				flightPath[i] = bm.polyline(flightPlanCoordinates[i],{
+					      color: 'grey',
+					      opacity: 1.0,
+					      weight: 2
+					    });
+	 				flightPath[i].addTo(map);
+	 				map.removeLayer(flightPath[cut-1]);
+	 				flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
+					      color: '#FF0000',
+					      opacity: 1.0,
+					      weight: 2
+					    });
+	 				flightPath[cut-1].addTo(map);
+	    	 }
+	    	 
 	    	 $("#detailPlan"+(div+1)).show();
 	    	
 	    	 console.log("cut: " +cut);
@@ -607,10 +625,11 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
+		console.log('${user.memberNick}'+" : "+'${user.memberNo}')
 		if('${user}'){
 			if($("#cal").val()){
 				if(confirm("일정 생성 하시겠습니까?")){
-					var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
+					var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":'${user.memberNo}',"memberNick":'${user.memberNick}'};
 					//var jsonData = JSON.stringify(planSub);
 					var jsonData = JSON.stringify(fir);
 					console.log(jsonData)
@@ -668,6 +687,7 @@ function DeleteSmallPlan(id) {
 				      weight: 2
 				    });
  				console.log(flightPath[fnum])
+ 				flightPath[fnum].addTo(map);
 /*  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
 				      color: '#FF0000',
 				      opacity: 1.0,

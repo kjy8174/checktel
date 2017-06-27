@@ -55,6 +55,16 @@ public class ReviewController {
 		return "redirect:/review/review.do";
 		
 	}
+	
+	// 수정
+		@RequestMapping(value="/review/reviewUpd.do")
+		public String ReviewUpd(ReviewVO vo, HttpSession session){		
+			System.out.println(vo);
+			reviewService.updateReview(vo);
+			System.out.println(vo);
+			return "redirect:/review/review.do";
+			
+		}
 			
 	
 /*	// 댓글 등록

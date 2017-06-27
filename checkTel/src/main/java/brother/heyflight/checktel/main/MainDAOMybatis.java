@@ -52,4 +52,20 @@ public class MainDAOMybatis {
 		System.out.println("===> Mybatis로 ResPlan() 기능 처리");
 	    return mybatis.selectOne("PlanDAO.ResPlan", vo);
 	}*/
+
+	public int deleteUpd(int planNo) {
+		System.out.println("===> Mybatis로 deleteUpd() 기능 처리");
+        return mybatis.delete("MainDAO.deleteUpd", planNo);
+	}
+
+	public int updPeriod(int planNo) {
+		System.out.println("===> Mybatis로 updPeriod() 기능 처리");
+        return mybatis.update("MainDAO.updPeriod", planNo);
+		
+	}
+
+	public void blogHit(HitVO hitVO) {
+		System.out.println("===> Mybatis로 blogHit() 기능 처리");
+		mybatis.insert("HitDAO.blogHit", hitVO);
+	}
 }
