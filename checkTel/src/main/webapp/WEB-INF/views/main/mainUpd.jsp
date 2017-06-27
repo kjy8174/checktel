@@ -389,21 +389,6 @@ function showInfo(mIdx) { //상세 정보 출력
 		}
 		
 		planSub.push(plan);
-		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
-		/* var plan = new Object();
-		plan.day = div+1;\\\\\\\\\\
-		plan.dayNo = dayNo++;
-		plan.lat = city_array[mIdx].Lat;
-		plan.lng = city_array[mIdx].Lng;
-		plan.furl = city_array[mIdx].Furl;
-		plan.categoryId = city_array[mIdx].CategoryIdx;
-		plan.cityName = city_array[mIdx].Title;
-		planSub.push(plan);
-		var jsonData = JSON.stringify(planSub) ;        
-        alert(planSub) ; */
-/* 		var jsonData = JSON.stringify(planSub); //json string로 변환?
-		console.log(jsonData) */
-		//$('#json1').val(jsonData);
 		
 		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
 		  map.removeLayer(flightPath[cut-1]);
@@ -642,7 +627,6 @@ $(function() {
 			if($("#cal").val()){
 				if(confirm("일정 생성 하시겠습니까?")){
 				var pN = Number('${plan.planNo}')
-					alert(pN)
 				var fir = {"planNo":'${plan.planNo}',"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
 				//var jsonData = JSON.stringify(planSub);
 				var jsonData = JSON.stringify(fir);

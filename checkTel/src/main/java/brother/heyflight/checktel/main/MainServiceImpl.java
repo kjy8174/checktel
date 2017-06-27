@@ -107,4 +107,16 @@ public class MainServiceImpl implements MainService{
 	public void blogHit(HitVO hitVO){
 		mainDAO.blogHit(hitVO);
 	}
+
+	@Override
+	public void deleteHit(HitVO hitVO) {
+		mainDAO.deleteHit(hitVO);
+		
+	}
+
+	@Override
+	public void hitUpd(HitVO hitVO) {
+		mainDAO.hitUpd(hitVO);
+		
+	}
 }

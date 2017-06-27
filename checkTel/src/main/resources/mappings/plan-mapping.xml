@@ -10,6 +10,8 @@
 		<id property="memberNo" column="MEMBER_NO" />
 		<id property="blogHit" column="BLOG_HIT" />
 		<id property="categoryId" column="CATEGORY_ID" />		
+		<id property="hit" column="HIT" />		
+		<id property="hitNo" column="HIT_NO" />
 		<result property="planStart" column="PLAN_START" />
 		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="planStarts" column="PLAN_STARTS" />
@@ -18,7 +20,6 @@
 		<result property="spotFurl" column="SPOT_FURL" />
 		<result property="cityName" column="CITY_NAME" />
 		<result property="spotName" column="SPOT_NAME" />
-		<result property="hit" column="HIT" />		
 	</resultMap>	
    
    <insert id="insertPlan" parameterType="plan">
@@ -48,7 +49,7 @@
    </insert>
    
    	<select id="getPlan" resultMap="planResult">
-        <![CDATA[
+    
         SELECT 	  PLAN_NO
 				, PLAN_PERIOD
 				, PLAN_START
@@ -57,10 +58,14 @@
 				, MEMBER_NO
 				, BLOG_HIT
 				, BLOG_TITLE 
+				 <if test="memberNo != null and memberNo != '' ">				
 				, NVL((SELECT HIT_NO FROM HIT WHERE PLAN_NO =  #{planNo} AND MEMBER_NO = #{memberNo}),0) AS HIT
+				 </if>
+							 
+				 
         FROM PLAN
         WHERE PLAN_NO = #{planNo}
-        ]]>
+
 	</select>
 	<!--,   -->
 	
@@ -258,4 +263,12 @@
 			ORDER BY P.BLOG_HIT DESC, P.PLAN_NO ASC)
 		WHERE ROWNUM BETWEEN 1 AND 4 -->
 	</select>
+		
+	<update id="hitUpd" parameterType="main">
+		UPDATE PLAN SET
+		BLOG_HIT = ((SELECT COUNT(HIT_NO) FROM HIT WHERE PLAN_NO = #{planNo}))
+		WHERE PLAN_NO = #{planNo}		
+	</update>
+		
+		
 </mapper>

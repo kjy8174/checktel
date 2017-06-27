@@ -8,6 +8,7 @@ import brother.heyflight.checktel.blog.DefaultVO;
 
 public class PlanVO extends DefaultVO {
 	private int planNo;
+	private int hitNo;
 	private String memberNick;
 	private int planPeriod;
 	private Date planStart;
@@ -181,7 +182,8 @@ public class PlanVO extends DefaultVO {
 	}
 	@Override
 	public String toString() {
-		return "PlanVO [planNo=" + planNo + ", planPeriod=" + planPeriod
+		return "PlanVO [planNo=" + planNo + ", hitNo=" + hitNo
+				+ ", memberNick=" + memberNick + ", planPeriod=" + planPeriod
 				+ ", planStart=" + planStart + ", planStarts=" + planStarts
 				+ ", planEnd=" + planEnd + ", memberNo=" + memberNo
 				+ ", blogTitle=" + blogTitle + ", blogHit=" + blogHit
@@ -193,14 +195,20 @@ public class PlanVO extends DefaultVO {
 				+ ", selCategory4=" + selCategory4 + ", selCategory5="
 				+ selCategory5 + ", selCategory6=" + selCategory6
 				+ ", selCategory7=" + selCategory7 + ", uploadFile="
-				+ uploadFile + ", memberImg=" + memberImg + ", memberNick="
-				+ memberNick + "]";
+				+ uploadFile + ", memberImg=" + memberImg + ", hit=" + hit
+				+ "]";
 	}
 	public int getHit() {
 		return hit;
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public int getHitNo() {
+		return hitNo;
+	}
+	public void setHitNo(int hitNo) {
+		this.hitNo = hitNo;
 	}
 	
 	

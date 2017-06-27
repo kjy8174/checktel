@@ -27,4 +27,8 @@ public interface MainService {
 
 		public void blogHit(HitVO hitVO);
 
+		public void deleteHit(HitVO hitVO);
+
+		public void hitUpd(HitVO hitVO);
+
 }

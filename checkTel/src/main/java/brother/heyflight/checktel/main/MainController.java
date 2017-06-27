@@ -68,10 +68,13 @@ public class MainController {
 	
 	//일정 저장후 개인페이지로 이동
 	@RequestMapping(value={"blog/myBlogShow.do"})
-	public String mainBlog(PlanVO planVO, Model model){
+	public String mainBlog(PlanVO planVO, Model model, HttpSession session){
+		Member user = (Member) session.getAttribute("user");
+		if(user != null){
+			planVO.setMemberNo(Integer.parseInt(user.getMemberNo()));
+		}
 		model.addAttribute("plan", planService.getPlan(planVO));
 		model.addAttribute("planList",mainService.getPlanList(planVO));
-		
 		return "blog/myBlogShow";
 	}
 	
@@ -86,8 +89,7 @@ public class MainController {
 	
 //일정 수정
 	@RequestMapping(value={"/blog/blogUpdate.do"})
-	public String blogUpdate(@RequestParam(value="planNo") int planNo, PlanVO planVO, Model model){
-		System.out.println("수정 : "+planNo);
+	public String blogUpdate(PlanVO planVO, Model model){
 		model.addAttribute("plan", planService.getPlan(planVO));
 		model.addAttribute("planList",mainService.getPlanList(planVO));
 		//mainService.deleteUpd(planNo);
@@ -117,8 +119,19 @@ public class MainController {
 	public void blogHit(@RequestBody HitVO hitVO, Model model){
 		System.out.println("좋아요 : "+hitVO);
 		mainService.blogHit(hitVO);
+		mainService.hitUpd(hitVO);
 		//return "blog/myBlogShow";
 	}
+	
+	//좋아요 눌렀을 때(삭제)
+		@RequestMapping(value={"blog/blogHitDel.do"}, method=RequestMethod.POST)
+		@ResponseBody
+		public void blogHitDel(@RequestBody HitVO hitVO, Model model){
+			System.out.println("좋아요 : "+hitVO);
+			mainService.deleteHit(hitVO);
+			mainService.hitUpd(hitVO);
+			//return "blog/myBlogShow";
+		}
 	
 	//항공권 추천 뷰페이지 이동
 	@RequestMapping(value="/etc/flightView.do")

@@ -68,4 +68,16 @@ public class MainDAOMybatis {
 		System.out.println("===> Mybatis로 blogHit() 기능 처리");
 		mybatis.insert("HitDAO.blogHit", hitVO);
 	}
+
+	public void deleteHit(HitVO hitVO) {
+		System.out.println("===> Mybatis로 deleteHit() 기능 처리");
+		mybatis.insert("HitDAO.deleteHit", hitVO);
+		
+	}
+
+	public void hitUpd(HitVO hitVO) {
+		System.out.println("===> Mybatis로 hitUpd() 기능 처리");
+        mybatis.update("PlanDAO.hitUpd", hitVO);
+		
+	}
 }

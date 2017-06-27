@@ -56,4 +56,24 @@
 			value="http://localhost/checktel/oauth2callback" />
 	</beans:bean>
 
+
+    <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/*/*.do"/>
+            <mapping path="/*.do"/>
+            <exclude-mapping path="login"/>
+            <exclude-mapping path="/login/submit.do"/>
+            <exclude-mapping path="/main/main.do"/>
+            <exclude-mapping path="/blog/getBlogList.do"/>
+            <exclude-mapping path="/etc/useView.do"/>
+            <exclude-mapping path="/etc/flightView.do"/>
+            <exclude-mapping path="/etc/hotelView.do"/>
+            <exclude-mapping path="/blog/myBlogShow.do"/>
+            <exclude-mapping path="/main/mainUpd.do"/>                       
+		    <beans:bean class="brother.heyflight.checktel.utils.AuthenticInterceptor" />
+        </interceptor>
+    </interceptors>
+
+
 </beans:beans>

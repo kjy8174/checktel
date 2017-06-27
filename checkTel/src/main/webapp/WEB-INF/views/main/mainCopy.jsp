@@ -194,18 +194,6 @@
 			    });
 			flightPath[cut-1].addTo(map);
 		}
-/*       for(var i=0;i<a;a++){
-    	  flightPath[i] = bm.polyline(flightPlanCoordinates[i],{
-		      color: '#FF0000',
-		      opacity: 1.0,
-		      weight: 2
-		    });
-		  flightPath[i].addTo(map);
-      } */
-      
-     /*  for(var i=0;i<a;i++){
-    	  flightPlanCoordinates[a-1]= [];
-      } */
       
       
   });
@@ -389,21 +377,6 @@ function showInfo(mIdx) { //상세 정보 출력
 		}
 		
 		planSub.push(plan);
-		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
-		/* var plan = new Object();
-		plan.day = div+1;\\\\\\\\\\
-		plan.dayNo = dayNo++;
-		plan.lat = city_array[mIdx].Lat;
-		plan.lng = city_array[mIdx].Lng;
-		plan.furl = city_array[mIdx].Furl;
-		plan.categoryId = city_array[mIdx].CategoryIdx;
-		plan.cityName = city_array[mIdx].Title;
-		planSub.push(plan);
-		var jsonData = JSON.stringify(planSub) ;        
-        alert(planSub) ; */
-/* 		var jsonData = JSON.stringify(planSub); //json string로 변환?
-		console.log(jsonData) */
-		//$('#json1').val(jsonData);
 		
 		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
 		  map.removeLayer(flightPath[cut-1]);

@@ -73,6 +73,7 @@ span {
 <script
 	src="https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM="></script>
 <script>
+var like = Number('${plan.hit}');
 var num=0;
 var num1 = 0;
 	var map;
@@ -578,29 +579,63 @@ $(function(){
 					return;
 			}
 		});
-		$("#pLike").click(function(e){
-			console.log('${plan.hit}')
+		$("#pLike").on("click",function(e){	
+			if('${user}'){
+			if(like!=0){
+				like = 0; 
+				console.log(like)
+				e.preventDefault();
+				alert("좋아요 취소")
+				$("#eLike").attr("src","../img/empHeart.png");	
+				var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
+				var jsonData = JSON.stringify(fir);
+				$.ajax({
+					url : '../blog/blogHitDel.do',
+					method : "post",
+					contentType: "application/json",
+					data : jsonData,
+					success : function(data){
+						console.log("전송")	
+					},
+					error:function(request,status,error){
+					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					    }
+				});
+			}
+			else{
+				like = like + 1;
+				console.log(like)
+				e.preventDefault();
+				alert("좋아요")
+				$("#eLike").attr("src","../img/redHeart.png");
+				var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
+				var jsonData = JSON.stringify(fir);
+				$.ajax({
+					url : '../blog/blogHit.do',
+					method : "post",
+					contentType: "application/json",
+					data : jsonData,
+					success : function(data){
+						console.log("전송")	
+					},
+					error:function(request,status,error){
+					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					    }
+				});
+			}
 			
-			if($("#eLike").attr("src")=="../img/empHeart.png"){
+			/* if($("#eLike").attr("src")=="../img/empHeart.png"){
 				$("#eLike").attr("src","../img/redHeart.png");
 				//$('#pLike:nth-child(1)').text("좋아요 취소");
 			}
 			else{
 				$("#eLike").attr("src","../img/empHeart.png")
+			} */
+			
+		}
+			else{
+				alert("로그인 하세여")
 			}
-			var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
-			var jsonData = JSON.stringify(fir);
-			$.ajax({
-				url : '../blog/blogHit.do',
-				method : "post",
-				contentType: "application/json",
-				data : jsonData,
-				success : function(data){
-					console.log("전송")	
-				},
-				error:function(request,status,error){
-				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-			});
 		});
 	});
     
@@ -650,8 +685,17 @@ $(function(){
 				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
 			</c:if>
 				<li><a href="#">다운로드</a></li>
+			<c:if test="${plan.hit eq 0}">
 				<li><a href="#" id="pLike">좋아요 <img id="eLike" src="../img/empHeart.png" style="width:28px; height: 26px;"></a></li>	
-				<!-- <li><a href="#" id="pLike">좋아요 <img id="rLike" src="../img/redHeart.png" style="width:28px; height: 26px;"></a></li> -->		
+			</c:if>
+			<c:if test="${plan.hit ne 0}">
+				<li><a href="#" id="pLike">좋아요 <img id="eLike" src="../img/redHeart.png" style="width:28px; height: 26px;"></a></li>	
+			</c:if>			
+			<%-- <c:if test="${plan.hit ne null}">
+				<li><a href="#" id="pLike">좋아요 <img id="eLike" src="../img/empHeart.png" style="width:28px; height: 26px;"></a></li>	
+			</c:if>	 --%>
+			
+			<!-- <li><a href="#" id="pLike">좋아요 <img id="rLike" src="../img/redHeart.png" style="width:28px; height: 26px;"></a></li> -->		
 			</ul>
 		</div>
 	</div>

@@ -19,6 +19,7 @@
     height: 70px;
     background-color: white;
     box-shadow: 5px 5px 5px grey;
+    margin-bottom: 10px;
 }
 
 .imgteaser .desc{ 
@@ -127,8 +128,9 @@
 	      source: availableTags
 	    }); */
   });
-  var dayNo=1;
-  var seq = 1;
+  var flightPath = [];
+  var dayNo=0;
+  var delClick=0;
   var availableTags = [];
   var flightPlanCoordinates = []; //경로 만들 때 위도 경도
   var city_array = new Array();
@@ -141,6 +143,9 @@
   var map;
   var places;
   var markerGroup;
+  var cut =1;
+  flightPlanCoordinates[cut-1] = new Array();
+  flightPath[cut-1] = new Array();
   // 지도 생성
   bm.ready(function () {
       var maxZoom = 18;
@@ -168,6 +173,7 @@
           $("#list").empty();
           getContents(map.getBounds(), map.getZoom());
       });
+      //bm.getLayers()
   });
   
   function getContents(bounds, zoom) {
@@ -273,19 +279,19 @@
     	}
     	  city_array[mIdx]=places[i];
     	  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9&&city_array[mIdx].Mode!="City") {
-    		marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+    		  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>' , className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } else if(city_array[mIdx].Furl == null&&city_array[mIdx].Mode!="City") {
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style=" width: 100px;"><img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"  style="width:47px; height:47px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
    		  } 
    		  else if (city_array[mIdx].Furl == null&&city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div></div>'})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
           }
 
           else if (city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><img src="'+city_array[mIdx].Furl+' " style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div></div>'})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
           }
    		  else{
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="width: 100px;"><img src="'+city_array[mIdx].Furl+' " style="width: 80px; height: 80px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div></div>'})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);
    		  }
     	           
 		marker.on('click', function(e) { // 마커 클릭시 상세 정보 표시
@@ -341,7 +347,12 @@ function showInfo(mIdx) { //상세 정보 출력
 		else{
 			furl=city_array[mIdx].Furl;
 		}
-		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		if(city_array[mIdx].CategoryIdx>7){
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		else{
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
         planSub.push(plan);
 		//var plan = {"day":(div+1),"dayNo":(dayNo++)};
 		/* var plan = new Object();
@@ -359,37 +370,38 @@ function showInfo(mIdx) { //상세 정보 출력
 		console.log(jsonData) */
 		//$('#json1').val(jsonData);
 		
-		  flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates,{
+		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기		  
+		  map.removeLayer(flightPath[cut-1]);
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
+		  
+		  console.log(cut-1)
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
+			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }else if(city_array[mIdx].Furl == null) {
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+ 					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
  			$('#smallImg'+(div+1))
  			.append(
- 					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+ 					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
  			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
- 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" onclick="DeletePlan(this);" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+ 					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" src="../img/icon_delete_n.png" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
-		$('#detailPlan'+(div+1))
-		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
 		$("#"+city_array[mIdx].Idx).click(function() {
-			showInfoImg(mIdx);
+			showInfo(mIdx);
 		});
 	});
 }
@@ -433,51 +445,47 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		else{
 			furl=city_array[mIdx].Furl;
 		}
-		var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
-        planSub.push(plan);
-		flightPlanCoordinates.push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng}); //경로 그리기
-		  var flightPath = bm.polyline(flightPlanCoordinates,{
+		if(city_array[mIdx].CategoryIdx>7){
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		else{
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+		}
+		
+		planSub.push(plan);
+		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기		  
+		  map.removeLayer(flightPath[cut-1]);
+		  flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
 		      color: '#FF0000',
 		      opacity: 1.0,
 		      weight: 2
 		    });
-		  flightPath.addTo(map);
+		  flightPath[cut-1].addTo(map);
 		  
 		$('#smallIdx').val(city_array[mIdx].Idx);
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
-	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div>');
+			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
+	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div><br>');
    		  } else if(city_array[mIdx].Furl == null) {
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
+   					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
    			$('#smallImg'+(div+1))
    			.append(
-   					'<img src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
+   					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
    			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
-   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
+   					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  }
-		$('#detailPlan'+(div+1))
-		.append(' <input type=button value="길찾기" onclick="openWin('+mIdx+');">');
 		$("#"+city_array[mIdx].Idx).click(function() {
 			showInfoImg(mIdx);
 		});
 	});
-}
-
-function openWin(mIdx) { //길찾기
-	window
-			.open(
-					"https://www.google.co.kr/maps/dir/"
-							+city_array[mIdx].Lat+","+city_array[mIdx].Lng +"/37.5365,126.9771/am=t",
-					"길찾기",
-					"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 }
 function addDay(){ //일정 늘리기
 	$("#plan").append('<div id="allPlan'+(++a)+'" class="allPlan" style="border:solid #22becc 2px; background-color:white;">'+
@@ -488,7 +496,8 @@ function addDay(){ //일정 늘리기
 	'</div></div>');
 	
 	$("#detail").append('<div id="detailPlan'+a+'" style="position: fixed; overflow: scroll; width: 195px; height: 90%; top: 60px; left: 170px; background-color: #f1f2f6;"><h2><b>DAY'+a+'</b></h2></div>');
-		
+	 flightPlanCoordinates[a-1] = new Array();
+	 flightPath[a-1] = new Array();
 	$( function() {
 	    $(".allPlan").click(function() {
 	    	 div = $(".allPlan").index(this);
@@ -498,12 +507,32 @@ function addDay(){ //일정 늘리기
 		    		 $("#detailPlan"+i).hide();
 		    	 }
 	    	 }		    
+	    	//해당 경로만 빨간색
+	    	 for(i=0;i<flightPath.length;i++){
+	    		 map.removeLayer(flightPath[i]);
+	 				flightPath[i] = bm.polyline(flightPlanCoordinates[i],{
+					      color: 'grey',
+					      opacity: 1.0,
+					      weight: 2
+					    });
+	 				flightPath[i].addTo(map);
+	 				map.removeLayer(flightPath[cut-1]);
+	 				flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
+					      color: '#FF0000',
+					      opacity: 1.0,
+					      weight: 2
+					    });
+	 				flightPath[cut-1].addTo(map);
+	    	 }
+	    	 
 	    	 $("#detailPlan"+(div+1)).show();
+	    	
+	    	 console.log("cut: " +cut);
 	    });
 	});
 }
 
-$( function() { //x버튼 클릭 시 삭제
+/* $( function() { //x버튼 클릭 시 삭제
 	$( ".delete" ).click(function() {
     	$(".delete").parents("div .allPlan").remove();
     });
@@ -511,7 +540,7 @@ $( function() { //x버튼 클릭 시 삭제
     	$(".delete").parents("div .shadow").remove();
     });
   });
-
+ */
 
 $( function() { //탭 바
     $( "#tabs" ).tabs();
@@ -539,29 +568,87 @@ $( function() { //달력
 
 $(function() {
 	$("#planSave").click(function() {
-		var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"xx님의 "+(a-1)+"박"+a+"일 여행","blogHit":0};
-		//var jsonData = JSON.stringify(planSub);
-		var jsonData = JSON.stringify(fir);
-		console.log(jsonData)
-		alert("전송")
-		$.ajax({
-			url : '../main/save.do',
-			method : "post",	
-			data : jsonData,
-			contentType: "application/json",
-			success : function(data) {
-				console.log("ajax전송");
-				location.href="../blog/myBlogShow.do?planNo="+data.planNo;
-			},
-			error:function(request,status,error){
-			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
-		});
+		console.log('${user.memberNick}'+" : "+'${user.memberNo}')
+		if('${user}'){
+			if($("#cal").val()){
+				if(confirm("일정 생성 하시겠습니까?")){
+					var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":'${user.memberNo}',"memberNick":'${user.memberNick}'};
+					//var jsonData = JSON.stringify(planSub);
+					var jsonData = JSON.stringify(fir);
+					console.log(jsonData)
+					$.ajax({
+						url : '../main/save.do',
+						method : "post",	
+						data : jsonData,
+						contentType: "application/json",
+						success : function(data) {
+							console.log("ajax전송");
+							location.href="../blog/myBlogShow.do?planNo="+data.planNo;
+						},
+						error:function(request,status,error){
+						    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+					});
+				}
+				else{
+					return;
+				}
+		}
+			else{
+				alert("출발일 선택 하세여")
+			}
+	}
+		else{
+			alert("로그인 하세여")
+		}
 	});
 });
 
 //일정 삭제
 function DeletePlan(id) {
 	id.parentNode.remove();
+}
+function DeleteSmallPlan(id) {
+	console.log(flightPlanCoordinates);
+	var pId = document.getElementById(id);
+	pId.remove();
+ 	for(i=0;i<planSub.length;i++){
+ 		if(planSub[i].dayVisit==(id-1)){
+ 			planSub.splice(i,1)
+ 		}
+ 	}
+ 	//경로 삭제
+ 	for (fnum=0;fnum<flightPlanCoordinates.length;fnum++){
+ 		for(jnum=0;jnum<flightPlanCoordinates[fnum].length;jnum++){
+ 			if(flightPlanCoordinates[fnum][jnum].dayNum==id){
+ 				console.log("fnum: "+fnum+"jnum: "+jnum+" id: "+id+" dayNum: "+flightPlanCoordinates[fnum][jnum].dayNum)
+ 				map.removeLayer(flightPath[fnum]);
+		 		flightPlanCoordinates[fnum].splice(jnum,1);
+ 				console.log(flightPlanCoordinates[fnum]);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    });
+ 				console.log(flightPath[fnum])
+ 				flightPath[fnum].addTo(map);
+/*  				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+ 				flightPath[fnum].addTo(map); */
+ 			}
+ 			/* else{
+ 				map.removeLayer(flightPath[fnum]);
+ 				flightPath[fnum] = bm.polyline(flightPlanCoordinates[fnum],{
+				      color: '#FF0000',
+				      opacity: 1.0,
+				      weight: 2
+				    }); 				
+				flightPath[fnum].addTo(map);
+ 			} */
+ 		}
+ 	}
 }
 
 </script>
@@ -583,7 +670,6 @@ function DeletePlan(id) {
 </div>
 <div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 60px; left: 0px; background-color:#616265;">
 <div id="plan">
-    <!--end-->
 
 		<button class="button2 button1" onclick="addDay();">+일정 추가</button><br>
 		<input type="button" class="button2 button1" id="datepicker" value="출발일 수정">

@@ -11,6 +11,7 @@
 		<id property="dayVisit" column="DAY_VISIT" />  
 		<id property="categoryId" column="CATEGORY_ID" />
 		<id property="dayNo" column="DAY_NO" />
+		<id property="hitCount" column="HITCOUNT" />
 		<result property="spotName" column="SPOT_NAME" />
 		<result property="spotFurl" column="SPOT_FURL" />
 		<result property="lat" column="LAT" />
@@ -52,6 +53,8 @@
            , #{lng}
            , #{cityName})
    </insert>
+   
+
    
    <update id="updPeriod" parameterType="main">
    	UPDATE PLAN SET
@@ -149,7 +152,7 @@ MERGE INTO detail
 		, D.CITY_NAME
 		, PLAN_START
 		, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
-
+		, (SELECT COUNT(HIT_NO) FROM HIT WHERE PLAN_NO = D.PLAN_NO) AS HITCOUNT
 		FROM PLAN P, MEMBER M, DETAIL D
 		WHERE
 		M.MEMBER_NO = P.MEMBER_NO
@@ -178,7 +181,7 @@ MERGE INTO detail
 		, D.CITY_NAME
 		, PLAN_START
 		, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
-
+	 	, (SELECT COUNT(HIT_NO) AS HITCOUNT FROM HIT WHERE PLAN_NO = D.PLAN_NO) AS HITCOUNT
 		FROM PLAN P, MEMBER M, DETAIL D
 		WHERE
 		M.MEMBER_NO = P.MEMBER_NO
@@ -239,4 +242,9 @@ MERGE INTO detail
 		      ORDER BY PLAN_NO)
 		WHERE ROWNUM < 5
 	</select> -->
+	
+
+	
+	
+	
 </mapper>

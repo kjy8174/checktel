@@ -2,9 +2,9 @@ package brother.heyflight.checktel.main;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
 
 public class MainVO {
+	private int hitCount;
 	private int spotNo; //장소 idx
 	private String spotName; //장소 이름
 	private String spotFurl; //장소 이미지
@@ -124,14 +124,22 @@ public class MainVO {
 	}
 	@Override
 	public String toString() {
-		return "MainVO [spotNo=" + spotNo + ", spotName=" + spotName
-				+ ", spotFurl=" + spotFurl + ", lat=" + lat + ", lng=" + lng
-				+ ", cityName=" + cityName + ", no=" + no + ", dayVisit="
-				+ dayVisit + ", planNo=" + planNo + ", categoryId="
-				+ categoryId + ", dayNo=" + dayNo + ", blogTitle=" + blogTitle
-				+ ", memberNo=" + memberNo + ", memberNick=" + memberNick
-				+ ", planStart=" + planStart + ", planStarts=" + planStarts
-				+ "]";
+		return "MainVO [hitCount=" + hitCount + ", spotNo=" + spotNo
+				+ ", spotName=" + spotName + ", spotFurl=" + spotFurl
+				+ ", lat=" + lat + ", lng=" + lng + ", cityName=" + cityName
+				+ ", no=" + no + ", dayVisit=" + dayVisit + ", planNo="
+				+ planNo + ", categoryId=" + categoryId + ", dayNo=" + dayNo
+				+ ", blogTitle=" + blogTitle + ", memberNo=" + memberNo
+				+ ", memberNick=" + memberNick + ", planStart=" + planStart
+				+ ", planStarts=" + planStarts + "]";
+	}
+
+	public int getHitCount() {
+		return hitCount;
+	}
+
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
 	}
 	
 }

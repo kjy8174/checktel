@@ -160,15 +160,9 @@ label {
 								<div class="post-date">
 									<span class="post-date-day">${plan.planStarts}</span>
 								</div>
-
 								<div class="post-comments">
-									<a href="#"> <i class="fa fa-comments-o"></i> <span
-										class="post-comments-number">324</span>
-									</a>
-								</div>
-								<div class="post-comments">
-									<a href="#"> <i class="fa fa-share-alt"></i> <span
-										class="post-comments-number">324</span>
+									<a href="#"><img src="../img/redHeartS.png"> <span
+										class="post-comments-number">${plan.hitCount }</span>
 									</a>
 								</div>
 							</div>
