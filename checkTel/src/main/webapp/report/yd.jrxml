@@ -4,6 +4,7 @@
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="ireport.background.image.properties" value="true,true,0.25,-8,-8,0,0,200,71"/>
 	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -14,8 +15,15 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="BLOG_TITLE" class="java.lang.String"/>
-	<parameter name="MEMBER_NICK" class="java.lang.String"/>
+	<parameter name="BLOG_TITLE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MEMBER_NICK" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SPOT_FURL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT   P.PLAN_NO as "planNo"
            , DAY_VISIT as "dayVisit"
@@ -24,6 +32,7 @@
            , CITY_NAME as "cityName"
 	, BLOG_TITLE as "blogTitle"
 	,P.MEMBER_NICK as "memberNick"
+   	,case when SPOT_FURL ='../img/no_image.png' then 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/No_image.svg/220px-No_image.svg.png' else SPOT_FURL end as "spotFurl"
 	FROM   DETAIL D, PLAN P
 	WHERE  D.PLAN_NO = P.PLAN_NO
 	ORDER BY DAY_NO ASC, DAY_VISIT]]>
@@ -35,19 +44,27 @@
 	<field name="cityName" class="java.lang.String"/>
 	<field name="blogTitle" class="java.lang.String"/>
 	<field name="memberNick" class="java.lang.String"/>
+	<field name="spotFurl" class="java.lang.String"/>
 	<group name="DAY_NO">
 		<groupExpression><![CDATA[$F{dayNo}]]></groupExpression>
 		<groupHeader>
 			<band height="31">
 				<frame>
-					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="793a19d9-6569-48d7-a095-85695f4a1a10"/>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#FFCCCC" uuid="793a19d9-6569-48d7-a095-85695f4a1a10"/>
 					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" forecolor="#FFFFFF" uuid="208f1fe9-917f-4676-9cab-e4b04fd3b864"/>
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="22" height="23" forecolor="#FFFFFF" uuid="208f1fe9-917f-4676-9cab-e4b04fd3b864"/>
 						<textElement>
-							<font fontName="HY견고딕" isBold="false"/>
+							<font pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{dayNo}]]></textFieldExpression>
 					</textField>
+					<staticText>
+						<reportElement style="Column header" positionType="Float" x="21" y="2" width="64" height="20" forecolor="#FFFFFF" uuid="fc13f770-2664-4453-8d31-8f226997388a"/>
+						<textElement>
+							<font size="16" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+						</textElement>
+						<text><![CDATA[일차]]></text>
+					</staticText>
 				</frame>
 			</band>
 		</groupHeader>
@@ -62,7 +79,7 @@
 				<textField isBlankWhenNull="true">
 					<reportElement positionType="Float" x="0" y="4" width="299" height="20" forecolor="#000000" uuid="9c751310-eeea-4ea5-b72f-dfa5f244ea9d"/>
 					<textElement>
-						<font fontName="HY견고딕" size="16" isBold="false"/>
+						<font size="13" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{cityName}]]></textFieldExpression>
 				</textField>
@@ -74,28 +91,30 @@
 	</background>
 	<title>
 		<band height="132" splitType="Stretch">
-			<image>
-				<reportElement x="2" y="0" width="118" height="132" uuid="002325a4-59d4-40c1-8edc-88313955db57"/>
-				<imageExpression><![CDATA["tree1.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="225" y="103" width="132" height="20" forecolor="#000000" uuid="d4bd5e94-09cc-4c54-bea6-62f2f217d20f"/>
-				<textElement textAlignment="Right">
-					<font fontName="HY견고딕" size="16" isBold="true"/>
+				<reportElement style="Column header" positionType="Float" mode="Transparent" x="289" y="103" width="132" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d4bd5e94-09cc-4c54-bea6-62f2f217d20f"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[작성자 : ]]></text>
+				<text><![CDATA[작성자]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="179" y="22" width="352" height="53" uuid="97b3e613-33b0-4906-9945-6a60ac05c8d3"/>
+				<reportElement x="188" y="57" width="327" height="28" uuid="97b3e613-33b0-4906-9945-6a60ac05c8d3"/>
 				<textElement>
-					<font fontName="HY견고딕" size="30"/>
+					<font size="18" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{BLOG_TITLE}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="2" y="2" width="159" height="55" uuid="b99d99e3-5a0d-414a-bdea-208321b4d8d2"/>
+				<imageExpression><![CDATA["C:\\Users\\emc81\\Downloads\\매\\첵텔로고 (2).jpg"]]></imageExpression>
+			</image>
 			<textField>
-				<reportElement x="383" y="103" width="170" height="20" uuid="42df7c5a-7103-419c-a712-ba152a4ebf81"/>
-				<textElement>
-					<font fontName="HY견고딕" size="16"/>
+				<reportElement mode="Transparent" x="463" y="103" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8692bab2-1292-478f-813e-40c9a9d56a72"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font size="14" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{MEMBER_NICK}]]></textFieldExpression>
 			</textField>
@@ -108,35 +127,35 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="100" splitType="Stretch">
-			<image>
-				<reportElement x="2" y="0" width="56" height="80" uuid="522116a4-7476-4f45-9f31-9d0e64ac411b"/>
-				<imageExpression><![CDATA["tree2.png"]]></imageExpression>
-			</image>
+		<band height="93" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="2" y="90" width="551" height="1" uuid="da4f49ef-2b28-422e-ac85-d5544bd91c3f"/>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="82" width="551" height="1" forecolor="#FFCCCC" uuid="da4f49ef-2b28-422e-ac85-d5544bd91c3f"/>
 			</line>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="58" y="20" width="105" height="20" forecolor="#000000" uuid="a676efd7-80d7-4e29-9aa5-e5151ee6d129"/>
-				<textElement textAlignment="Right">
-					<font fontName="HY견고딕" isBold="false"/>
+				<reportElement style="Column header" positionType="Float" x="68" y="20" width="49" height="20" forecolor="#000000" uuid="a676efd7-80d7-4e29-9aa5-e5151ee6d129"/>
+				<textElement textAlignment="Center">
+					<font pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[장소명]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="215" y="20" width="338" height="20" uuid="ad6a2765-953a-48f6-9de9-6001786b4128"/>
+				<reportElement style="Detail" positionType="Float" x="161" y="20" width="225" height="20" uuid="ad6a2765-953a-48f6-9de9-6001786b4128"/>
 				<textElement>
-					<font fontName="HY견고딕" size="14" isBold="true" pdfFontName="Times-Bold"/>
+					<font size="14" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{spotName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="120" y="53" width="105" height="20" forecolor="#000000" uuid="a31b46e8-f6a7-4fc7-a864-219664ff0040"/>
+				<reportElement style="Column header" positionType="Float" x="175" y="53" width="16" height="20" forecolor="#FFCCCC" backcolor="#FFCCCC" uuid="a31b46e8-f6a7-4fc7-a864-219664ff0040"/>
 				<textElement textAlignment="Right">
-					<font isBold="false"/>
+					<font isBold="false" pdfFontName="fonts/HMFMPYUN.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[▼]]></text>
 			</staticText>
+			<image onErrorType="Blank">
+				<reportElement x="436" y="1" width="118" height="81" uuid="cb20ff6e-c84c-44a4-a8bb-7b7ca1c785a0"/>
+				<imageExpression><![CDATA[$F{spotFurl}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<columnFooter>
@@ -152,7 +171,7 @@
 	<pageFooter>
 		<band height="13" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="142a8354-bba4-48e4-955a-7dc7568dcd0c"/>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#FFCCCC" uuid="142a8354-bba4-48e4-955a-7dc7568dcd0c"/>
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="513" y="0" width="40" height="12" forecolor="#FFFFFF" uuid="e0e24b4d-dcb1-4eec-980c-40c998212654"/>
 					<textElement verticalAlignment="Middle">
@@ -170,7 +189,7 @@
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="ea17db0d-849c-4c6d-9fd9-419921637a5f"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="HY견고딕" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>

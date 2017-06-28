@@ -41,6 +41,7 @@ public class ReportController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("BLOG_TITLE",planvo.getBlogTitle());
 		map.put("MEMBER_NICK",planvo.getMemberNick());
+		map.put("SPOT_FURL",planvo.getSpotFurl());
 		
 		//레포트 소스
 		JasperReport report = 

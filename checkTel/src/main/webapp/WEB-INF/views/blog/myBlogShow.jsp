@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="../sweetalert-master/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
 <style>
 #short {        
     overflow : hidden;
@@ -73,6 +75,7 @@ span {
 <script
 	src="https://api.dabeeo.com/api/?k=ZGI2NWZhODhjYWE5NjQ1Yjc1MzE1NzUzMzk0MjQ0YWM="></script>
 <script>
+
 var like = Number('${plan.hit}');
 var num=0;
 var num1 = 0;
@@ -436,7 +439,7 @@ $(function(){
 			var btn3 ="";
 			var btn4 ="";
 			var img5 ="";
-			img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/images/"+data[i].memberImg+".jpg' class='avatar' style='width: 100px; height: 100px;'></a>";
+			img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/profile_img/"+data[i].memberImg+"' class='avatar' style='width: 100px; height: 100px;'></a>";
 			if(data[i].memberNo=="${user.memberNo}") {
 			 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/>";
 			 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1)+">수정</button><input type='hidden' id='hiddenId1' value='"+data[i].reviewNo+"'/>";
@@ -446,7 +449,6 @@ $(function(){
 								+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p id='updRview'>"
 								+data[i].reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
 
-			/* $("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p>"+data[i].reviewContent+"</p><button class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/></div></div>"); */
 		}
 	})
 	
@@ -460,7 +462,7 @@ $(function(){
 					var btn3 ="";
 					var btn4 ="";
 					var img5 ="";
-					img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/images/"+data.memberImg+".jpg' class='avatar' style='width: 100px; height: 100px;'></a>";
+					img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/profile_img/"+data.memberImg+"' class='avatar' style='width: 100px; height: 100px;'></a>";
 					if(data.memberNo=="${user.memberNo}") {
 					 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
 					 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1++)+">수정</button><input type='hidden' id='hiddenId1' value='"+data.reviewNo+"'/>";
@@ -479,27 +481,23 @@ $(function(){
 		}
 		else{
 			event.preventDefault();
-			alert("로그인 하세여")
+			swal("로그인 하세여")
 		}
 	});
 	
 	// 댓글 삭제
-	/* $("#btnReviewDel").click(function(){ */
 	$(document).on("click","#btnReviewDel",function(event){
 		if('${user}'){
 			if(confirm("댓글 삭제 하시겠습니까?")){
-		event.preventDefault();
-		var param = $(this).parent().children('#hiddenId').val()+"";
-		console.log(param);
-		/* param.slice(0,-1); */
-		$(this).parents(".comment").remove();
-		$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
-			console.log(param);
-			$(this).parents(".comment").remove();
-			/* $(".comment").remove(); */
-			/* console.log($(this).parents(".comment").text()); */
-			});
-		}				
+				event.preventDefault();
+				var param = $(this).parent().children('#hiddenId').val()+"";
+				console.log(param);
+				$(this).parents(".comment").remove();
+				$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
+					console.log(param);
+					$(this).parents(".comment").remove();
+					});
+				}				
 		}
 		else{
 			event.preventDefault();
@@ -511,35 +509,29 @@ $(function(){
 	$(document).on("click","#btnReviewUpd",function(event){
 		if('${user}'){
 			if(confirm("댓글 수정 하시겠습니까?")){					
-		event.preventDefault();
-		var param = $(this).parent().children('#hiddenId1').val()+"";
-		var updtext = $(this).parent().children('#updRview').text();
-		var updtext2 = $(this).siblings('#updRview').text();
-		var updtag = "<textarea style='margin:10px;' aria-required='true' id='Rupd' placeholder='수정할 내용을 입력하세요' rows='5' name='reviewContent' class='form-control required'>"+updtext+"</textarea><button class='btn' style='margin-right:10px; float:right;' id='RUpdbtn'>수정 등록</button>"
-		console.log(param);
-		console.log(updtext);
-		console.log(updtext2);
-		$(this).parents(".comment").children().append(updtag);
+				event.preventDefault();
+				var param = $(this).parent().children('#hiddenId1').val()+"";
+				var updtext = $(this).parent().children('#updRview').text();
+				var updtext2 = $(this).siblings('#updRview').text();
+				var updtag = "<textarea style='margin:10px;' aria-required='true' id='Rupd' placeholder='수정할 내용을 입력하세요' rows='5' name='reviewContent' class='form-control required'>"+updtext+"</textarea><button class='btn' style='margin-right:10px; float:right;' id='RUpdbtn'>수정 등록</button>"
+				console.log(param);
+				console.log(updtext);
+				console.log(updtext2);
+				$(this).parents(".comment").children('div').append(updtag);
+				
+				$(document).on("click","#RUpdbtn", function(event) {			
+					event.preventDefault();
+					var Rupd = $("#Rupd").val();
+					console.log(Rupd);
+					$(this).siblings('#updRview').text(Rupd);				
+					
+					$.getJSON("../review/reviewUpd.do?reviewNo="+param+"&reviewContent="+Rupd, function(data){
+						$("#Rupd").remove();
+						$("#RUpdbtn").remove();
+						});
+				});	
 		
-		$(document).on("click","#RUpdbtn", function(event) {			
-			event.preventDefault();
-			var Rupd = $("#Rupd").val();
-			console.log(Rupd);
-			$(this).siblings('#updRview').text(Rupd);				
-			
-			/* $(this).parent("#updRview") */
-			/* param.slice(0,-1); */
-			/* $(this).parents(".comment").remove(); */
-			$.getJSON("../review/reviewUpd.do?reviewNo="+param+"&reviewContent="+Rupd, function(data){
-				$("#Rupd").remove();
-				$("#RUpdbtn").remove();
-				/* $(".comment").remove(); */
-				/* console.log($(this).parents(".comment").text()); */
-				});
-		});
-		
-		
-		}				
+			}				
 		}
 		else{
 			event.preventDefault();
@@ -566,21 +558,74 @@ $(function(){
 
 	$(function(){
 		$("#pCopy").click(function(e){
-			if(confirm("일정 복사 하시겠습니까?")){
-			}
-			else{
-					e.preventDefault(); 
+			e.preventDefault();
+			swal({
+				  title: "일정 복사 하시겠습니까?",
+				  text: "일정 복사해드림!",
+				  type: "success",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Yes, copy it!",
+				  cancelButtonText: "No, cancel plx!",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+				    $(location).attr('href', '${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}')
+				  } else {
+				    swal("Cancelled", "You not copy the plan :)", "error");
+				    e.preventDefault(); 
 					return;
-			}
+				  }
+				});
 		});
 		
-		$("#pDelete").click(function(e){
-			if(confirm("일정 삭제 하시겠습니까?")){
-			}
-			else{
-					e.preventDefault(); 
+		$("#pUpd").click(function(e){
+			e.preventDefault();
+			swal({
+				  title: "일정 수정 하시겠습니까?",
+				  text: "일정 수정!",
+				  type: "success",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Yes, modify it!",
+				  cancelButtonText: "No, cancel plx!",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+				    $(location).attr('href', '${pageContext.request.contextPath }/blog/blogUpdate.do?planNo=${plan.planNo}')
+				  } else {
+				    swal("Cancelled", "You not modified the plan :)", "error");
+				    e.preventDefault(); 
 					return;
-			}
+				  }
+				});
+		});
+		$("#pDelete").click(function(e){
+			e.preventDefault();
+			swal({
+				  title: "일정 삭제 하시겠습니까?",
+				  text: "일정 삭제!ㅜㅜ",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Yes, delete it!",
+				  cancelButtonText: "No, cancel plx!",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+				    $(location).attr('href', '${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}')
+				  } else {
+				    swal("Cancelled", "You not delete the plan :)", "error");
+				    e.preventDefault(); 
+					return;
+				  }
+				});
 		});
 		$("#pLike").on("click",function(e){	
 			if('${user}'){
@@ -588,7 +633,7 @@ $(function(){
 				like = 0; 
 				console.log(like)
 				e.preventDefault();
-				alert("좋아요 취소")
+				swal("좋아요 취소")
 				$("#eLike").attr("src","../img/empHeart.png");	
 				var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
 				var jsonData = JSON.stringify(fir);
@@ -609,7 +654,7 @@ $(function(){
 				like = like + 1;
 				console.log(like)
 				e.preventDefault();
-				alert("좋아요")
+				swal("좋아요")
 				$("#eLike").attr("src","../img/redHeart.png");
 				var fir = { "planNo": '${plan.planNo}', "memberNo":'${user.memberNo}'};
 				var jsonData = JSON.stringify(fir);
@@ -627,17 +672,9 @@ $(function(){
 				});
 			}
 			
-			/* if($("#eLike").attr("src")=="../img/empHeart.png"){
-				$("#eLike").attr("src","../img/redHeart.png");
-				//$('#pLike:nth-child(1)').text("좋아요 취소");
-			}
-			else{
-				$("#eLike").attr("src","../img/empHeart.png")
-			} */
-			
 		}
 			else{
-				alert("로그인 하세여")
+				swal("로그인 하세요!")
 			}
 		});
 	});
@@ -664,8 +701,8 @@ $(function(){
 	<div class="container">
 		<div class="page-title col-md-8">
 			<br />
-			<h3>${plan.blogTitle}</h3><br>
-			<br />
+			<h3> </h3><br>
+			<br/>
 			<h1>${plan.blogTitle}</h1>
 		</div>
 		<br />
@@ -678,14 +715,14 @@ $(function(){
 			style="text-align: center; background-color: white;">
 			<ul class="nav nav-pills nav-justified">
 			<c:if test="${!empty user}">
-				<li><a href="${pageContext.request.contextPath }/main/mainCopy.do?planNo=${plan.planNo}" id="pCopy">일정 복사</a></li>
+				<li><a href="#" id="pCopy">일정 복사</a></li>
 			</c:if>
 			<c:if test="${user.memberNo eq plan.memberNo}">
-			<li><a href="${pageContext.request.contextPath }/blog/blogUpdate.do?planNo=${plan.planNo}" id="pUpd">일정 수정</a></li>
+			<li><a href="#" id="pUpd">일정 수정</a></li>
 			</c:if>
 				<li><a href="#commentsTop">댓글</a></li>	
 			<c:if test="${user.memberNo eq plan.memberNo}">
-				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
+				<li><a href="#" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
 			</c:if>
 				<li><a href="${pageContext.request.contextPath }/report.do?planNo=${plan.planNo}">다운로드</a></li>
 			<c:if test="${plan.hit eq 0}">
@@ -705,14 +742,6 @@ $(function(){
 	</section>
 	<!-- END: PAGE TITLE -->
 	<!-- CONTENT -->
-
-<!-- 	<div id="dialog1">
-		<div class="fullscreen no-padding">
-			<div id='BeeMap'
-				class="mainFullLayer beemap-container beemap-fade-anim"
-				style="width: 100%; height: 100%; border: 0px;"></div>
-		</div>
-	</div> -->
 	
 	<!-- SECTION -->
 	<section class="content">
@@ -798,7 +827,7 @@ $(function(){
 					<!--화살표 -->
 					<c:if test="${!status.last }">
 					<br>
-						<span class="demoSpan1"></span><button onclick="Navi(${status.index+1})">${status.index+1}</button>
+						<span class="demoSpan1"></span><button onclick="Navi(${status.index+1})">길찾기</button>
 					</c:if>					
 					</div><br>	
 					</c:if>
@@ -839,14 +868,10 @@ $(function(){
 				<div class="heading" id="commentsTop">
 					<h4 class="comments-title">댓글 보기<small class="number"></small></h4>
 				</div>
-			</div>
-
-			<div class="comments" id="comments">
-				
-				
-	
-
-			</div>
+			</div>			
+			
+			<div class="comments" id="comments">   <!-- 댓글들이 들어가는 부분 -->   </div>
+			
 			<div class="comment-form">
 				<div class="heading">
 					<h4>댓글 쓰기</h4>
@@ -858,8 +883,8 @@ $(function(){
 							<div class="form-group" >
 								<label for="name" class="upper">이름</label>
 									<input type="text" aria-required="true" 
-										placeholder="${user.memberNick}" value="${user.memberNick}" class="form-control required">
-								<label for="name" class="upper"></label>
+										placeholder="${user.memberNick}" value="${user.memberNick}" class="form-control required" readonly="readonly">
+								<label for="name" class="upper"></label>									
 									<input type="hidden" aria-required="true" id="name"
 										placeholder="박성익" name="memberNo" value="${user.memberNo}" class="form-control required">									
 							</div>

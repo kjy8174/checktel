@@ -15,12 +15,6 @@ public class ReviewDAOMybatis {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	/*private SqlSession mybatis;
-	
-	public BoardDAOMybatis(){
-		mybatis = SqlSessionFactoryBean.getSqlSessionInsance();
-	}*/
-	
 	public void insertReview(ReviewVO vo) {
         System.out.println("===> Mybatis로 insertReview() 기능 처리");
         mybatis.insert("ReviewDAO.insertReview", vo); //mapping.xml에서 namespace.id 값 vo 를 parameterType에 대입

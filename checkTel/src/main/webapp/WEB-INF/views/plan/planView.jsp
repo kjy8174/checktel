@@ -51,16 +51,17 @@
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    height : 40px;
-    width:250px;
+    height : 60px;
+    width:140px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+    padding-left: 27px;
+    padding-top: 16px;
 }
 
 .button1 {
@@ -392,7 +393,7 @@ $(function() {
 					
 				</ul>
 				<a href=#none onclick=this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';>
-	더보기
+	<h3 style="color: red; font-weight: bold;">더보기</h3>
 	</a><DIV style='display:none'>
 					<ul class="grid grid-5-columns">
 						<li>
@@ -525,7 +526,7 @@ $(function() {
 						<div id="startU" class="startUp" style="float: left; background-image:url('../img/icon_calendar_w.png'); background-repeat:no-repeat; background-color:pink; width: 32px; height: 33px;">
 						</div>
 						<div id="slider" style="width: 400px; height: 30px; margin-left:35px; background: pink;">
-						  <div id="custom-handle" class="ui-slider-handle" style="background: red;"></div>
+						  <div id="custom-handle" class="ui-slider-handle" style="background: white;"></div>
 						</div>	
 						머무실 일정을 선택해 주세요.<br>(최대 7일 일정 선택이 가능합니다.)
 					</div>
@@ -603,20 +604,23 @@ $(function() {
 		
 	</div>
 	<!-- END: WRAPPER -->
-	<form action="../plan/planResult.do" method="post">
-	<input type="text" id="selCity" name="selCity" required>
-	<input type="text" id="selDay" name="selDay" required>
-	<!-- 서울 2 / 1 2 0 1 2 0 0  -->
-	<input type="text" id="selCategory1" name="selCategory1" value="0" required>
-	<input type="hidden" id="selCategory2" name="selCategory2" value="0" required>
-	<input type="hidden" id="selCategory3" name="selCategory3" value="0" required>
-	<input type="hidden" id="selCategory4" name="selCategory4" value="0" required>
-	<input type="hidden" id="selCategory5" name="selCategory5" value="0" required>
-	<input type="hidden" id="selCategory6" name="selCategory6" value="0" required>
-	<input type="hidden" id="selCategory7" name="selCategory7" value="0" required>
-	<button class="button button1" id="planResult">나만의 추천일정 만들기</button>
-	</form>
-
+	<div style="position: fixed; right: 0px; top: 300px;">
+		<form action="../plan/planResult.do" method="post">
+		선택 도시 <input type="text" id="selCity" name="selCity" readonly="readonly" size="11" style="text-align: center;" required>
+		<br>
+		여행 기간  <input type="text" id="selDay" name="selDay" readonly="readonly" size="1"style="text-align: center;" required>
+		<!-- 서울 2 / 1 2 0 1 2 0 0  -->
+		<input type="hidden" id="selCategory1" name="selCategory1" value="0" >
+		<input type="hidden" id="selCategory2" name="selCategory2" value="0" >
+		<input type="hidden" id="selCategory3" name="selCategory3" value="0" >
+		<input type="hidden" id="selCategory4" name="selCategory4" value="0" >
+		<input type="hidden" id="selCategory5" name="selCategory5" value="0" >
+		<input type="hidden" id="selCategory6" name="selCategory6" value="0" >
+		<input type="hidden" id="selCategory7" name="selCategory7" value="0" >
+		<br>
+		<button class="button button1" id="planResult">나만의 추천 <br>일정 만들기</button>
+		</form>
+	</div>
 	<!-- GO TOP BUTTON -->
 	<a class="gototop gototop-button" href="#"><i class="fa fa-chevron-up"></i></a>
 

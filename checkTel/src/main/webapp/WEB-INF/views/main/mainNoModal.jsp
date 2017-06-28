@@ -196,7 +196,8 @@ button .side-btn {
     <link href="../css/ninja-slider.css" rel="stylesheet" type="text/css" />
     <script src="../js/thumbnail-slider.js" type="text/javascript"></script>
     <script src="../js/ninja-slider.js" type="text/javascript"></script>
-
+<script src="../sweetalert-master/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
   <script type='text/javascript'>
   
   $( function() { //검색 자동완성
@@ -649,7 +650,17 @@ $(function() {
 		console.log('${user.memberNick}'+" : "+'${user.memberNo}')
 		if('${user}'){
 			if($("#cal").val()){
-				if(confirm("일정 생성 하시겠습니까?")){
+				swal({
+					  title: "일정 생성 하시겠습니까?",
+					  text: "일정 만듬!",
+					  type: "success",
+					  showCancelButton: true,
+					  confirmButtonColor: "#DD6B55",
+					  confirmButtonText: "Yes, create!",
+					  closeOnConfirm: false
+					},
+					function(isConfirm){
+						if(isConfirm){					
 					var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":'${user.memberNo}',"memberNick":'${user.memberNick}'};
 					//var jsonData = JSON.stringify(planSub);
 					var jsonData = JSON.stringify(fir);
@@ -667,16 +678,15 @@ $(function() {
 						    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 					});
 				}
-				else{
-					return;
-				}
+			});
+				
 		}
 			else{
-				alert("출발일 선택 하세여")
+				swal("출발일 선택 하세여")
 			}
 	}
 		else{
-			alert("로그인 하세여")
+			swal("로그인 하세여")
 		}
 	});
 });
