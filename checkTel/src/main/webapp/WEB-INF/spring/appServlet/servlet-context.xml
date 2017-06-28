@@ -55,6 +55,11 @@
 		<beans:property name="redirectUri"
 			value="http://localhost/checktel/oauth2callback" />
 	</beans:bean>
+	
+	<!-- 파일 업로드 설정 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="1000000"/>
+	</beans:bean>
 
 
     <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
@@ -77,3 +82,21 @@
 
 
 </beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

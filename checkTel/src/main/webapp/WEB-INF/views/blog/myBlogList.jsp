@@ -187,7 +187,9 @@ label {
 			dialog.dialog("open");
 		}); */
 
-		/* 파일첨부시 사진 미리보기  시작*/
+		/*----------------------------------------------
+		파일첨부시 사진 미리보기  시작
+		--------------------------------------------------*/
 		$("#uploadFile").on('change', function() {
 			if (typeof (FileReader) != "undefined") {
 				var imgchange = $("#imgchange");
@@ -398,7 +400,7 @@ label {
 					</a></td>
 					<td>
 						<div>
-							<img src="../img/userface.png">
+						<img src="${pageContext.request.contextPath}/profile_img/${user.memberImg}" style="width: 200px; height: 200px;">
 						</div>
 					</td>
 					<td>
@@ -517,21 +519,20 @@ label {
 				<table>
 					<tr>
 						<td>
-							<form
-								action="${pageContext.request.contextPath}/profileUpdate.do"
+							<form action="${pageContext.request.contextPath}/profileUpdate.do"
 								method="post" enctype="multipart/form-data">
+							<input type="hidden" name="memberNo" value="${user.memberNo}">	
 								<div class="modal-body">
 									<input type="hidden" id="img" name="img"> <img>
 									<hr>
 									<div id="imgchange"></div>
-									<br> <input type="hidden" name="member_id"
-										value="${user.memberNo}"><br> <br> 프로필 사진:
+									<br> <br> <br> 프로필 사진:
 									<input type="file" id="uploadFile" name="uploadFile"
 										alt="이미지선택"><br>
 								</div>
 								<div class="modal-footer">
 									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
-									<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소">
+									<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소" OnClick="javascript:history.back(-1)">
 								    <input type="submit" class="btn btn-success" value="사진등록 및 변경">
 								</div>
 							</form>

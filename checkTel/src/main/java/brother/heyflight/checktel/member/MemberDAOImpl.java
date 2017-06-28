@@ -43,8 +43,10 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public Member memberProfileUpdate(Member vo) {
+	public Member profileUpdate(Member vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }

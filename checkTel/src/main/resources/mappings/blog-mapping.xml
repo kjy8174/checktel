@@ -72,5 +72,17 @@
 		
 	
 	</select>
+	
+	<!-- 프로필 사진 추가 및 변경 -->
+	<update id="profileUpdate" parameterType="member">
+
+		UPDATE MEMBER SET
+		<if test="memberImg != null and memberImg !='' ">
+			MEMBER_IMG= #{memberImg}
+		</if>
+		
+		WHERE MEMBER_NO = #{memberNo}
+
+	</update>
 
 </mapper>

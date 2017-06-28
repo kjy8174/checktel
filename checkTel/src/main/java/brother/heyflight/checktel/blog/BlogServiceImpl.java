@@ -16,6 +16,8 @@ public class BlogServiceImpl implements BlogService {
 
 	@Autowired
 	private BlogMapper blogDAO;
+	
+	
 	//private UserDAOMybatis userDAO;
 	
 	/*public void insertUser(UserVO vo) {
@@ -79,7 +81,7 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void profileUpdate(Member vo) {
 		// TODO Auto-generated method stub
-		
+		blogDAO.profileUpdate(vo);    
 		
 	}
 

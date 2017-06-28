@@ -13,6 +13,7 @@
 		<result property="memberEmail" column="MEMBER_EMAIL" />
 		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="memberCategory" column="MEMBER_CATEGORY" />
+		<result property="memberImg" column="MEMBER_IMG" />
 	</resultMap>
 
 	<select id="getMemberById" resultMap="userResult">

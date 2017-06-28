@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import brother.heyflight.checktel.main.MainService;
 import brother.heyflight.checktel.member.Member;
+import brother.heyflight.checktel.member.MemberService;
 import brother.heyflight.checktel.plan.PlanService;
 import brother.heyflight.checktel.plan.PlanVO;
 
@@ -33,13 +33,21 @@ public class BlogController {
 	
 	@Autowired
 	MainService mainService;
-
+	
+	@Autowired
+	MemberService memberService;
+	
 	// 마이페이지 조회
 	@RequestMapping("/blog/myBlogList.do")
-	public String myBlogList(PlanVO planVO, Model model,HttpSession session) {
+	public String myBlogList(PlanVO planVO, Model model,HttpSession session, HttpServletRequest request) {
 		/** pageing setting */
+				
 		Member user = (Member) session.getAttribute("user");
 		planVO.setMemberNo(Integer.parseInt(user.getMemberNo()));
+		
+		Member member = memberService.getMemberByMemberName(user.getMemberName());  
+		
+		System.out.println("★★★★★"+user);
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
@@ -171,7 +179,7 @@ public class BlogController {
 			
 			blogService.profileUpdate(vo);
 			System.out.println("저장");
-			return "blog/myBlogList";
+			return "redirect:blog/myBlogList.do";
 		}
 			
 

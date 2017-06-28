@@ -22,6 +22,6 @@ public interface BlogMapper {
 	int getBlogListCnt(PlanVO vo);
 	int getmyBlogListCnt(PlanVO vo);
 	//서브 프로필 사진추가
-		public void profileUpdate(PlanVO vo);
+	public void profileUpdate(Member vo);
 
 }

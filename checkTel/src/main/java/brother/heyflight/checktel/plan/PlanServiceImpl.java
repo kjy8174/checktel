@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import brother.heyflight.checktel.member.Member;
+
 
 @Service("planService")
 public class PlanServiceImpl implements PlanService{
@@ -34,5 +36,10 @@ public class PlanServiceImpl implements PlanService{
 	public List<PlanVO> rsPlan(PlanRsVO vo) {
 		// TODO Auto-generated method stub
 		return planDAO.rsPlan(vo);
+	}
+	@Override
+	public void profileUpdate(Member vo) {
+		// TODO Auto-generated method stub
+		
 	}
 }
