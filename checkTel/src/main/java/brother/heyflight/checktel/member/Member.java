@@ -14,6 +14,7 @@ public class Member {
 	private String memberName;
 	private String memberEmail;
 	private String memberPw;
+	private String oldmemberPw;
 	private String memberNick;
 	private String memberBirth;
 	private String memberSex;
@@ -24,6 +25,14 @@ public class Member {
 	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
+	}
+
+	public String getOldmemberPw() {
+		return oldmemberPw;
+	}
+
+	public void setOldmemberPw(String oldmemberPw) {
+		this.oldmemberPw = oldmemberPw;
 	}
 
 	public void setUploadFile(MultipartFile uploadFile) {
@@ -111,10 +120,10 @@ public class Member {
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName
 				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
-				+ ", memberNick=" + memberNick + ", memberBirth=" + memberBirth
-				+ ", memberSex=" + memberSex + ", memberCategory="
-				+ memberCategory + ", memberImg=" + memberImg + ", uploadFile="
-				+ uploadFile + "]";
+				+ ", oldmemberPw=" + oldmemberPw + ", memberNick=" + memberNick
+				+ ", memberBirth=" + memberBirth + ", memberSex=" + memberSex
+				+ ", memberCategory=" + memberCategory + ", memberImg="
+				+ memberImg + ", uploadFile=" + uploadFile + "]";
 	}
 	
 }

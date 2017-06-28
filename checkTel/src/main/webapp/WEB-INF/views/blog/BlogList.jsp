@@ -31,7 +31,7 @@ div.polaroid {
 		rgba(0, 0, 0, 0.19);
 	text-align: center;
 	float: left;
-	margin-left: 70px;
+	margin-left: 100px;
 	margin-bottom: 50px;
 }
 
@@ -139,8 +139,8 @@ label {
 
 						<div class="post-item">
 							<div class="post-image">
-								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
-									alt="" src="${plan.spotFurl}" >
+								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> 
+								<img alt="" src="${plan.spotFurl}" style="max-width:267px; max-height:150px;" >
 								</a>
 							</div>
 							<div class="post-content-details">

@@ -2,6 +2,8 @@ package brother.heyflight.checktel.blog;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import brother.heyflight.checktel.main.MainService;
 import brother.heyflight.checktel.member.Member;
@@ -27,28 +30,30 @@ public class BlogController {
 
 	@Autowired
 	BlogService blogService;
-	
+
 	@Autowired
 	PlanService planService;
-	
+
 	@Autowired
 	MainService mainService;
-	
+
 	@Autowired
 	MemberService memberService;
-	
+
 	// 마이페이지 조회
 	@RequestMapping("/blog/myBlogList.do")
-	public String myBlogList(PlanVO planVO, Model model,HttpSession session, HttpServletRequest request) {
+	public String myBlogList(PlanVO planVO, Model model, HttpSession session,
+			HttpServletRequest request) {
 		/** pageing setting */
-				
+
 		Member user = (Member) session.getAttribute("user");
 		planVO.setMemberNo(Integer.parseInt(user.getMemberNo()));
-		
-		Member member = memberService.getMemberByMemberName(user.getMemberName());  
-		
-		System.out.println("★★★★★"+user);
-		
+
+		Member member = memberService.getMemberByMemberName(user
+				.getMemberName());
+
+		System.out.println("★★★★★" + user);
+
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(planVO.getPageUnit());
@@ -61,10 +66,11 @@ public class BlogController {
 		int totCnt = blogService.getBlogListCnt(planVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
-		System.out.println(planVO.getFirstIndex()+":"+planVO.getLastIndex());
-		
-		model.addAttribute("plan",mainService.getmyBlogL(planVO));
-			
+		System.out
+				.println(planVO.getFirstIndex() + ":" + planVO.getLastIndex());
+
+		model.addAttribute("plan", mainService.getmyBlogL(planVO));
+
 		return "blog/myBlogList";
 	}
 
@@ -83,7 +89,7 @@ public class BlogController {
 	// 목록조회
 	@RequestMapping("/blog/getBlogList.do")
 	public String getBlogList(PlanVO planVO, Model model) {
-				
+
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(planVO.getPageIndex());
@@ -97,56 +103,70 @@ public class BlogController {
 		int totCnt = blogService.getBlogListCnt(planVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
-		System.out.println(planVO.getFirstIndex()+":"+planVO.getLastIndex());
-		
-		model.addAttribute("planList",mainService.getBlogL(planVO));
-		
-		
-				
+		System.out
+				.println(planVO.getFirstIndex() + ":" + planVO.getLastIndex());
+
+		model.addAttribute("planList", mainService.getBlogL(planVO));
+
 		return "blog/BlogList";
 	}
-	
-	/*@RequestMapping("/blog/getBlogList.do")
-	public ModelAndView getBlogList(BlogVO vo, ModelAndView mv) {
-		// List<Map<String, Object>> list=userService.getUserList(vo);
-		List<BlogVO> list = blogService.getBlogListVO(vo);
-		mv.addObject("list", list);
-		mv.setViewName("blog/BlogList");
-		return mv;
-		// model.addAttribute("list", list);
-		// return "user/userList";
-	}*/
+
+	/*
+	 * @RequestMapping("/blog/getBlogList.do") public ModelAndView
+	 * getBlogList(BlogVO vo, ModelAndView mv) { // List<Map<String, Object>>
+	 * list=userService.getUserList(vo); List<BlogVO> list =
+	 * blogService.getBlogListVO(vo); mv.addObject("list", list);
+	 * mv.setViewName("blog/BlogList"); return mv; // model.addAttribute("list",
+	 * list); // return "user/userList"; }
+	 */
 
 	// 수정폼
 	@RequestMapping(value = "/blogUpdate.do")
 	@ResponseBody
-	public Member updateBlog(Member vo,
-			SessionStatus status, HttpSession session) { // command 객체
+	public Member updateBlog(Member vo, SessionStatus status, HttpSession session) { // command 객체
 
+		//유저정보 받아오기
 		Member user = (Member) session.getAttribute("user");
 		vo.setMemberNo(user.getMemberNo());
-	
-		blogService.updateBlog(vo);
-	
+		
+		//password 암호화
+		Member member = new Member(vo.getMemberName(),
+									vo.getOldmemberPw(),
+									vo.getMemberEmail(), 
+									vo.getMemberNick(),
+									vo.getMemberBirth(),
+									vo.getMemberSex() 
+									);
+		//password 비교
+		if (member != null && member.isValidPassword(vo.getOldmemberPw())) {
+			session.setAttribute("user", member);
+			
+			blogService.updateBlog(vo);
+			
+		} else {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+		}
+		
 		status.setComplete(); // 세션에 저장된 VO를 삭제
 		return vo;
+		/*return "redirect:/myBlogList.do";*/
 	}
 
 	// 수정 boardUpdate
 
-/*	@RequestMapping("/blog/.do")// get
-	public String UpdateForm(@ModelAttribute("blog") BlogVO vo, Model model) {
-		System.out.println(vo);
-		// model.addAttribute("board", boardService.getBoard(vo));
-		return "blog/myBlogList";
-	}*/
+	/*
+	 * @RequestMapping("/blog/.do")// get public String
+	 * UpdateForm(@ModelAttribute("blog") BlogVO vo, Model model) {
+	 * System.out.println(vo); // model.addAttribute("board",
+	 * boardService.getBoard(vo)); return "blog/myBlogList"; }
+	 */
 
 	// 삭제 boardDelete sessionstatus 넣어야됨
-	/*@RequestMapping("/blogDelete.do")
-	public String blogDelete(BlogVO vo, Model model) {
-		blogService.updateBlog(vo);
-		return "blog/myBlogList.do";
-	}*/
+	/*
+	 * @RequestMapping("/blogDelete.do") public String blogDelete(BlogVO vo,
+	 * Model model) { blogService.updateBlog(vo); return "blog/myBlogList.do"; }
+	 */
 
 	// 단건조회
 	@RequestMapping("/blog/getBlog.do/{id}")
@@ -158,30 +178,35 @@ public class BlogController {
 		model.addAttribute("user", result);
 		return "blog/getBlog";
 	}
-	
-	// 서브프로필 이미지추가
-		@RequestMapping(value ="/profileUpdate.do", method = RequestMethod.POST)
-		public String profileUpdate(Member vo,
-		// @RequestParam String img,
-				HttpServletRequest request) throws IllegalStateException,
-				IOException {
 
-			long t = System.currentTimeMillis();
-			String randomName = t + ""; // 랜덤 이름 정하기
-			String realPath = request.getSession().getServletContext().getRealPath("/");// 서블릿 내의 realPath
-		
-			MultipartFile file = vo.getUploadFile();
-			if(file!=null && file.getSize()>0) {
-				File saveFile = new File(realPath + "/profile_img/", randomName);
-				file.transferTo(saveFile); // 서버에 파일 저장
-				vo.setMemberImg(randomName); // 파일명 저장 file.getOriginalFilename()
-			}
-			
-			blogService.profileUpdate(vo);
-			System.out.println("저장");
-			return "redirect:blog/myBlogList.do";
+	// 서브프로필 이미지추가
+	@RequestMapping(value = "/profileUpdate.do", method = RequestMethod.POST)
+	public String profileUpdate(Member vo, HttpSession session,
+	// @RequestParam String img,
+			HttpServletRequest request) throws IllegalStateException,
+			IOException {
+
+		long t = System.currentTimeMillis();
+		String randomName = t + ""; // 랜덤 이름 정하기
+		String realPath = request.getSession().getServletContext()
+				.getRealPath("/");// 서블릿 내의 realPath
+
+		MultipartFile file = vo.getUploadFile();
+		if (file != null && file.getSize() > 0) {
+			File saveFile = new File(realPath + "/profile_img/", randomName);
+			file.transferTo(saveFile); // 서버에 파일 저장
+			vo.setMemberImg(randomName); // 파일명 저장 file.getOriginalFilename()
+
+			// 세션의 img 불러오기
+			((Member) session.getAttribute("user")).setMemberImg(randomName);
+			;
 		}
-			
+
+		blogService.profileUpdate(vo);
+
+		System.out.println("저장");
+		return "redirect:blog/myBlogList.do";
+	}
 
 	/*
 	 * //로그인폼

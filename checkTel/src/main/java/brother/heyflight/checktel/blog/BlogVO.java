@@ -12,6 +12,7 @@ public class BlogVO extends DefaultVO {
 	private String memberNick;
 	private MultipartFile uploadFile;
 	
+	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}

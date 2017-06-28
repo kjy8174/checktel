@@ -149,7 +149,6 @@ label {
 			}
 		}
 
-	
 		/*  	/* $("#btnIns").click(function(){   //버튼 주소 */
 		// 파라미터 -> 쿼리문자열 만들기
 		//var params = $("#updForm").serialize(); //폼태그 주소
@@ -183,9 +182,9 @@ label {
 			}
 		});
 
-/* 		$("#create-use").button().on("click", function() {
-			dialog.dialog("open");
-		}); */
+		/* 		$("#create-use").button().on("click", function() {
+		 dialog.dialog("open");
+		 }); */
 
 		/*----------------------------------------------
 		파일첨부시 사진 미리보기  시작
@@ -209,9 +208,9 @@ label {
 		});
 	});
 
-/*----------------------------------
- * 카테고리 보기
- --------------------------------*/
+	/*----------------------------------
+	 * 카테고리 보기
+	 --------------------------------*/
 	$(function() {
 		$("#slider-vertical1").slider({
 			orientation : "vertical",
@@ -236,7 +235,7 @@ label {
 			}
 		});
 		$("#amount2").val($("#slider-vertical2").slider("value"));
-	
+
 		$("#slider-vertical3").slider({
 			orientation : "vertical",
 			range : "min",
@@ -249,7 +248,6 @@ label {
 		});
 		$("#amount3").val($("#slider-vertical3").slider("value"));
 
-		
 		$("#slider-vertical4").slider({
 			orientation : "vertical",
 			range : "min",
@@ -274,7 +272,6 @@ label {
 		});
 		$("#amount5").val($("#slider-vertical5").slider("value"));
 
-		
 		$("#slider-vertical6").slider({
 			orientation : "vertical",
 			range : "min",
@@ -303,13 +300,12 @@ label {
 		$("#imgInp").on('change', function() {
 			readURL(this);
 		});
-		
-		
+
 		/*--------------------
 		   초기화
 		-----------------------*/
-		$("#number").selectmenu().selectmenu("menuWidget").addClass("overflow");  //
-		
+		$("#number").selectmenu().selectmenu("menuWidget").addClass("overflow"); //
+
 		dialog = $("#dialog-form").dialog({
 			autoOpen : false,
 			height : 700,
@@ -324,32 +320,54 @@ label {
 		$("#create-use").button().on("click", function() {
 			dialog.dialog("open");
 		});
-		
+
 	});
-	
+
 	/*--------------------
 	  계정 수정
-	-----------------------*/	
+	-----------------------*/
 	function userUpd() {
 
-		var f1 = document.updForm;
-		var pw1 = document.updForm.pwd_check.value;
-		var pw2 = document.updForm.pwd_confirm.value;
-	
-			if(pw1!=pw2){
-				 document.getElementById('checkPwd').style.color = "red";
-		 		  document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
-			}else {
-				document.getElementById('checkPwd').style.color = "black";
-				 document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
-				}
-		var jsonData = $("#updForm").serialize();//JSON.stringify();
-		console.log(jsonData)
+		var f1 = document.forms["updFrofile"];
+		var nick = f1.member_nick.value;
+		var pw1 = f1.pwd.value;
+		var pw2 = f1.pwd_check.value;
+		var pw3 = f1.pwd_confirm.value;
+		
+		
+		if(!nick){
+			document.getElementById('checkPwd').innerHTML = "Nickname을 입력하지 않으셨습니다";
+			return;
+		
+		}if(!pw1){
+			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
+			return;
+		
+		}if(!pw2){
+			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
+			return;
+		
+		}if(!pw3){
+			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
+			return;
+						
+		}if(pw2 != pw3) {
+			document.getElementById('checkPwd').style.color = "red";
+			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
+			return;
+			
+		} else {
+			document.getElementById('checkPwd').style.color = "black";
+			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다.";
+		}
+		
+		var jsonData = $("#updFrofile").serialize();//JSON.stringify();
+		//console.log(jsonData)
 		$.ajax({
 			url : 'blogUpdate.do',
 			method : "post",
 			dataType : "json",
-			data : updForm,
+			data : jsonData,
 			success : function() {
 				console.log("ajax전송");
 				alert("저장 되었습니다");
@@ -361,7 +379,7 @@ label {
 		});
 
 	}
-	
+
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -373,8 +391,6 @@ label {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-
-
 </script>
 
 </head>
@@ -400,12 +416,14 @@ label {
 					</a></td>
 					<td>
 						<div>
-						<img src="${pageContext.request.contextPath}/profile_img/${user.memberImg}" style="width: 200px; height: 200px;">
+							<img
+								src="${pageContext.request.contextPath}/profile_img/${user.memberImg}"
+								style="width: 200px; height: 200px;">
 						</div>
 					</td>
 					<td>
 						<div>
-							<span style="font-size: 25px; font-weight: bold;">★${user.memberNick}</span>
+							<span style="font-size: 25px; font-weight: bold;">&nbsp; &nbsp;★${user.memberNick}</span>
 							님의 트래블로그 <br> <br> <input type="button" id="create-use"
 								value="프로필 수정">
 						</div>
@@ -416,46 +434,16 @@ label {
 		</div>
 	</div>
 	</section>
-
-	<div class="demo" style="margin-left: 450px;">
-		<form action="#">
-
-			<label for="number">도시별 검색</label> <select name="number" id="number">
-				<option selected="selected" value="전체">전체</option>
-				<option value="서울">서울</option>
-				<option value="제주">제주</option>
-				<option value="도쿄">도쿄</option>
-				<option value="런던">런던</option>
-				<option value="상하이">상하이</option>
-				<option value="파리">파리</option>
-				<option value="방콕">방콕</option>
-				<option value="로스엔젤레스">로스 엔젤레스</option>
-				<option value="홍콩">홍콩</option>
-				<option value="로마">로마</option>
-				<option value="하노이">하노이</option>
-				<option value="부산">부산</option>
-				<option value="바르셀로나">바르셀로나</option>
-				<option value="오사카">오사카</option>
-				<option value="싱가포르">싱가포르</option>
-				<option value="뉴욕">뉴욕</option>
-				<option value="베이징">베이징</option>
-				<option value="푸켓">푸켓</option>
-				<option value="라스베이거스">라스베이거스</option>
-				<option value="세부">세부</option>
-				<option value="교토">교토</option>
-				<option value="마카오">마카오</option>
-				<option value="타이베이">타이베이</option>
-				<option value="시드니">시드니</option>
-				<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
-			</select>
-
-		</form>
-	</div>
 	<!--트래블로그:end HEADER -->
 
+<br>
+<br>
+<br>
+<br>
+
+
 	<!-- CONTENT -->
-	<form name="listForm"
-		action="<%=request.getContextPath()%>/myBlogList.do" method="post">
+	<form name="listForm" action="<%=request.getContextPath()%>/myBlogList.do" method="post">
 		<section class="content"> <input type="hidden"
 			name="pageIndex" /> <c:forEach items="${plan}" var="plan">
 			<div class="polaroid">
@@ -467,7 +455,7 @@ label {
 						<div class="post-item">
 							<div class="post-image">
 								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
-									alt="" src="${plan.spotFurl}">
+									alt="" src="${plan.spotFurl}" style="max-width:267px; max-height:150px;">
 								</a>
 							</div>
 							<div class="post-content-details">
@@ -519,21 +507,23 @@ label {
 				<table>
 					<tr>
 						<td>
-							<form action="${pageContext.request.contextPath}/profileUpdate.do"
+							<form
+								action="${pageContext.request.contextPath}/profileUpdate.do"
 								method="post" enctype="multipart/form-data">
-							<input type="hidden" name="memberNo" value="${user.memberNo}">	
+								<input type="hidden" name="memberNo" value="${user.memberNo}">
 								<div class="modal-body">
 									<input type="hidden" id="img" name="img"> <img>
 									<hr>
 									<div id="imgchange"></div>
-									<br> <br> <br> 프로필 사진:
-									<input type="file" id="uploadFile" name="uploadFile"
-										alt="이미지선택"><br>
+									<br> <br> <br> 프로필 사진: <input type="file"
+										id="uploadFile" name="uploadFile" alt="이미지선택"><br>
 								</div>
 								<div class="modal-footer">
 									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
-									<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소" OnClick="javascript:history.back(-1)">
-								    <input type="submit" class="btn btn-success" value="사진등록 및 변경">
+									<input type="button" class="close btn btn-warning"
+										data-dismiss="modal" value="취소"
+										onClick="window.location.reload()"> <input
+										type="submit" class="btn btn-success" value="사진등록 및 변경">
 								</div>
 							</form>
 						</td>
@@ -608,7 +598,7 @@ label {
 		<!-- 계정수정 탭2 -->
 		<div id="Pari" class="w3-container w3-border city"
 			style="display: none">
-			<form id=updForm>
+			<form name="updFrofile" id="updFrofile">
 				<br>
 				<table style="border-collapse: separate;">
 					<tbody>
@@ -618,8 +608,12 @@ label {
 						</tr>
 						<tr height="50">
 							<td width="110">닉네임</td>
-							<td><input type="text" name="member_nick"
-								value="${user.memberNick}" /></td>
+							<td>
+								<input type="text" name="member_nick" value="${user.memberNick}" />
+							</td>
+						</tr>
+						<tr>
+						<td colspan="3"><hr></td>
 						</tr>
 						<tr height="50">
 							<td width="110">비밀번호변경</td>
@@ -633,7 +627,7 @@ label {
 							<td width="110">새비밀번호</td>
 							<td><input type="password" name="pwd_check"
 								placeholder="After Password" /></td>
-								
+
 						</tr>
 						<tr height="50">
 							<td width="150">새비밀번호 재입력</td>
@@ -641,15 +635,19 @@ label {
 								placeholder="Confirm Password" /></td>
 						</tr>
 						<tr>
-						 <td width="200"><div id="checkPwd">동일한 암호를 입력하세요.</div></td>
+							<td width="200" colspan="3"><div id="checkPwd" style="margin-left:20px;">동일한 암호를 입력하세요.</div></td>
+							<td><br><br></td>
 						</tr>
+					
 						<tr>
-						<td colspan="2">
-							<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
-							<input type="button" class="close btn btn-warning"	data-dismiss="modal" value="취소" OnClick="javascript:history.back(-1)"> 
-							<input type="button" onclick="userUpd()" class="btn btn-success" value="저장">
-						
-						</td></tr>
+							<td colspan="2">
+								<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
+								<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소"
+								onClick="window.location.reload()"> 
+								<input type="button" onclick="userUpd()" class="btn btn-success" value="저장">
+
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</form>
