@@ -421,6 +421,7 @@ function showInfo(mIdx) { //상세 정보 출력
 	
 	 $('#info').show();
 	$('#info').empty();
+	$("#exTab a:last").tab("show");
 	if (city_array[mIdx].Mode!="City"){
 		if (city_array[mIdx].Furl != null){			
 			$('#info')
@@ -439,6 +440,7 @@ function showInfo(mIdx) { //상세 정보 출력
 	$("#close").click(function() {
 		$('#info').empty();
 		$('#info').hide();
+		$("#exTab a:first").tab("show");
 	});
 	$("#addPlan"+a).click(function() {
 		var furl;
@@ -503,6 +505,7 @@ function showInfoImg(mIdx) { //상세 정보 출력
 	
 	$('#info').show();
 	$('#info').empty();
+	$("#exTab a:last").tab("show");
 	if (city_array[mIdx].Mode!="City"){
 		if (city_array[mIdx].Furl != null){
 			$('#info')
@@ -522,6 +525,7 @@ function showInfoImg(mIdx) { //상세 정보 출력
 	$("#close").click(function() {
 		$('#info').empty();
 		$('#info').hide();
+		$("#exTab a:first").tab("show");
 	});
 	$("#addPlan"+a).click(function() {
 		var furl;
@@ -795,7 +799,7 @@ $(function(){
 <body>
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
-<div class="side">	
+<div class="side open" style="right: 0px;">		
 <div id="exTab" class="container" >
 	  <ul class="nav nav-pills" style="top:10px;">
 	    <li class="active"><a href="#list" data-toggle="tab">장소</a></li>
@@ -809,7 +813,7 @@ $(function(){
 		</div>
 	  </div>
 </div>	
-	<button><span class="side-btn">OPEN</span></button>
+	<button><span class="side-btn">CLOSE</span></button>
 </div>
 <div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 60px; left: 0px; background-color:#616265;">
 <div id="plan">

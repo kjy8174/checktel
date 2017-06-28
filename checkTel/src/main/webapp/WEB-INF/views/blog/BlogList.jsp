@@ -38,7 +38,9 @@ div.polaroid {
 fieldset {
 	border: 0;
 }
-
+section{
+	padding-top: 0px;
+}
 label {
 	display: block;
 	margin: 30px 0 0 0;
@@ -63,7 +65,7 @@ label {
 	<div id="travelLogBox" align="center">
 		<section id="page-title"
 			class="page-title-parallax page-title-center text-dark"
-			style="background-image:url(../images/Lighthouse.jpg);">
+			style="background-image:url(../images/Lighthouse.jpg); padding:0px;">
 		<div class="container">
 			<div class="page-title col-md-8">
 				<div style="line-height: 1px">

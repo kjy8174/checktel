@@ -696,7 +696,7 @@ $(function(){
 	<!-- PAGE TITLE -->
 	<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
-		style="background-image:url(../images/blog/1.jpg); padding:0px;">
+		style="background-image:url(../images/blog/1.jpg); padding-top:0px;">
 		<div id="planCreate"></div>
 	<div class="container">
 		<div class="page-title col-md-8">

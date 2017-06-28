@@ -38,7 +38,9 @@
 label, input {
 	display: block;
 }
-
+section{
+	padding-top: 0px;
+}
 input.text {
 	margin-bottom: 12px;
 	width: 95%;
@@ -402,7 +404,7 @@ label {
 	<br>
 	<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
-		style="background-image:url(../images/Desert.jpg);">
+		style="background-image:url(../images/Desert.jpg); padding-top:0px;">
 	<div class="container">
 		<div class="page-title col-md-8">
 			<table>
