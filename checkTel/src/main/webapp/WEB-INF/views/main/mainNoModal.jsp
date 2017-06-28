@@ -104,7 +104,85 @@
  div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
  .ui-dialog .ui-state-error { padding: .3em; }
  .validateTips { border: 1px solid transparent; padding: 0.3em; }
-  
+.title {
+ 	padding:8px;
+ 	padding-right:5px;
+ 	box-shadow:0px 0px 8px 0px rgba(0,0,0,0.5);
+ 	transform:translate(0%, -50%);
+ 	margin-top:18%;
+ 	float:left;
+ 	position:relative;
+ 	background:rgba(255,255,255,0.9);
+ 	border:1px solid #ffffff;}
+
+#floater {
+	float:left;
+	height:50%;
+	margin-bottom:-10px;
+}
+#mid {
+ 	clear:both;
+ 	width:80px;
+	position:relative;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+ }
+ .main-no-img {
+ 	background: url("../img/no_image.png");
+	background-position-x: center;
+    background-position-y: center;
+    background-size: initial;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+    border-radius:50%;
+    border: 1px solid white;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    vertical-align:middle;
+    color: black;
+ }
+ 
+button {
+    outline: none;
+}
+button .side-btn {
+    color: #222;
+    font-weight: bold;
+}
+.side {
+    background-color: #f1f2f6;
+    width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    right: -320px;
+    z-index: 9999;
+}
+.side > .side-content {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #f1f2f6;
+}
+.side button {
+    background-color: #f1f2f6;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 320px;
+    width: 70px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+} 
 </style>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -279,19 +357,19 @@
     	}
     	  city_array[mIdx]=places[i];
     	  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9&&city_array[mIdx].Mode!="City") {
-    		  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>' , className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+    		  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div id="floater"></div><div id="mid">'+city_array[mIdx].Title+'</div>' , className : 'main-no-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title, {offset:[0,-30], className:'my-popup'}).addTo(markerGroup);				
    		  } else if(city_array[mIdx].Furl == null&&city_array[mIdx].Mode!="City") {
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"  style="width:47px; height:47px;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);				
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"  style="width:47px; height:47px;">', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title, {offset:[0,-30], className:'my-popup'}).addTo(markerGroup);				
    		  } 
    		  else if (city_array[mIdx].Furl == null&&city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<div id="floater"></div><div id="mid">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-no-img', iconAnchor : [23,42], iconSize : [80,80]})}).bindPopup(city_array[mIdx].CityName_ko, {offset:[0,-30], className:'my-popup'}).addTo(markerGroup);
           }
 
           else if (city_array[mIdx].Mode=="City"){
-        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].CityName_ko+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko).addTo(markerGroup);
+        	  marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:80px; height:80px; border: 1px solid white; border-radius:50%;">', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].CityName_ko, {offset:[0,-30], className:'my-popup'}).addTo(markerGroup);
           }
    		  else{
-   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border-radius:50%;"><br>'+'<div style="background-color: white; width: auto;">'+city_array[mIdx].Title+'</div>', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title).addTo(markerGroup);
+   			marker = bm.marker([city_array[mIdx].Lat, city_array[mIdx].Lng],{icon: bm.divIcon({html: '<img src="'+city_array[mIdx].Furl+' "  style="width:47px; height:47px; border: 1px solid white; border-radius:50%;">', className : 'main-div-img', iconAnchor : [23,42], iconSize : [47,47]})}).bindPopup(city_array[mIdx].Title, {offset:[0,-30], className:'my-popup'}).addTo(markerGroup);
    		  }
     	           
 		marker.on('click', function(e) { // 마커 클릭시 상세 정보 표시
@@ -650,23 +728,42 @@ function DeleteSmallPlan(id) {
  		}
  	}
 }
-
+//sidebar
+$(function(){
+    var duration = 300;
+ 
+    var $sidebar = $('.side');
+    var $sidebarButton = $sidebar.find('button').on('click', function(){
+        $sidebar.toggleClass('open');
+        if($sidebar.hasClass('open')){
+            $sidebar.stop(true).animate({right: '0px'}, duration, 'easeOutBack');
+            $sidebarButton.find('span').text('CLOSE');
+        }else{
+            $sidebar.stop(true).animate({right: '-320px'}, duration, 'easeInBack');
+            $sidebarButton.find('span').text('OPEN');
+        };
+    });
+});
 </script>
 </head>
 <body>
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
-<div id="tabs" style="position: fixed; width: 302px; top: 60px; right: 0px;">
-  <ul>
-    <li><a href="#list">장소</a></li>
-    <li><a href="#info">상세보기</a></li>
-  </ul>
-		<div id='list'
-			style='padding:0px; position:fixed; overflow: scroll; width: 300px; height: 600px; height: 86%; top: 107px; right: 0px; background-color: white;'>
-			
+<div class="side">	
+<div id="exTab" class="container" >
+	  <ul class="nav nav-pills" style="top:10px;">
+	    <li class="active"><a href="#list" data-toggle="tab">장소</a></li>
+	    <li><a href="#info" data-toggle="tab">상세보기</a></li>    
+	  </ul>
+	  <div class="tab-content clearfix">
+		<div class="tab-pane active" id='list' 
+			style='top:10px; padding:0px; overflow: scroll; width: 300px; height: 650px;'>
 		</div>
-		<div id='info' style='position: fixed; overflow:scroll; width: 300px; height:600px; height: 86%; top: 106px; right: 0px; background-color: white;'>
-	</div>
+		<div class="tab-pane" id='info' style='top:10px; overflow: scroll; width: 300px; height: 650px;'>
+		</div>
+	  </div>
+</div>	
+	<button><span class="side-btn">OPEN</span></button>
 </div>
 <div style="position: fixed; width: 170px; overflow:scroll; height: 90%; top: 60px; left: 0px; background-color:#616265;">
 <div id="plan">

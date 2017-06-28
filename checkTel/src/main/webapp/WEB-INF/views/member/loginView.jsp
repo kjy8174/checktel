@@ -62,9 +62,7 @@
 							<!-- Button -->
 
 							<div class="col-sm-12 controls">
-								<a id="btn-login" href="#" onclick="javascript:do_login()" class="btn btn-primary">Login </a> 
-								<a href="${url}"><img src="<c:url value="/images/naverid_login_button.png" />" height=34 /></a>
-								<a href="${google_url}"><img src="<c:url value="/images/btn_google_signin_dark_normal_web.png" />" height=34 /></a>
+								<a id="btn-login" style="width:100%;" href="#" onclick="javascript:do_login()" class="btn btn-primary">Login </a>
 							</div>
 						</div>
 
