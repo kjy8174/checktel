@@ -198,7 +198,7 @@ LAST_VALUE - 정렬된 값중에서 마지막 값을 반환.
 		<div class="heading heading-center">
 		<div class="col-md" style="margin-top: 100px;">
 				<div class="image-box circle-image small">
-					<img src="../images/man.jpg" alt="">
+					<img src="${pageContext.request.contextPath}/images/${user.memberImg}.jpg" alt="">
 				</div>
 				<div class="image-box-description text-center">
 					<h3>${user.memberNick} 님</h3>

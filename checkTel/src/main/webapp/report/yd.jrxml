@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="yd" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e22348a7-3bba-4083-b1c1-e93c7000ac88">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="BLOG_TITLE" class="java.lang.String"/>
+	<parameter name="MEMBER_NICK" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT   P.PLAN_NO as "planNo"
+           , DAY_VISIT as "dayVisit"
+           , DAY_NO as "dayNo"
+           , SPOT_NAME as "spotName"
+           , CITY_NAME as "cityName"
+	, BLOG_TITLE as "blogTitle"
+	,P.MEMBER_NICK as "memberNick"
+	FROM   DETAIL D, PLAN P
+	WHERE  D.PLAN_NO = P.PLAN_NO
+	ORDER BY DAY_NO ASC, DAY_VISIT]]>
+	</queryString>
+	<field name="planNo" class="java.math.BigDecimal"/>
+	<field name="dayVisit" class="java.math.BigDecimal"/>
+	<field name="dayNo" class="java.math.BigDecimal"/>
+	<field name="spotName" class="java.lang.String"/>
+	<field name="cityName" class="java.lang.String"/>
+	<field name="blogTitle" class="java.lang.String"/>
+	<field name="memberNick" class="java.lang.String"/>
+	<group name="DAY_NO">
+		<groupExpression><![CDATA[$F{dayNo}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="793a19d9-6569-48d7-a095-85695f4a1a10"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" forecolor="#FFFFFF" uuid="208f1fe9-917f-4676-9cab-e4b04fd3b864"/>
+						<textElement>
+							<font fontName="HY견고딕" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{dayNo}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="CITY_NAME">
+		<groupExpression><![CDATA[$F{cityName}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" x="0" y="4" width="299" height="20" forecolor="#000000" uuid="9c751310-eeea-4ea5-b72f-dfa5f244ea9d"/>
+					<textElement>
+						<font fontName="HY견고딕" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cityName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="0" width="118" height="132" uuid="002325a4-59d4-40c1-8edc-88313955db57"/>
+				<imageExpression><![CDATA["tree1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="225" y="103" width="132" height="20" forecolor="#000000" uuid="d4bd5e94-09cc-4c54-bea6-62f2f217d20f"/>
+				<textElement textAlignment="Right">
+					<font fontName="HY견고딕" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[작성자 : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="179" y="22" width="352" height="53" uuid="97b3e613-33b0-4906-9945-6a60ac05c8d3"/>
+				<textElement>
+					<font fontName="HY견고딕" size="30"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BLOG_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="103" width="170" height="20" uuid="42df7c5a-7103-419c-a712-ba152a4ebf81"/>
+				<textElement>
+					<font fontName="HY견고딕" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MEMBER_NICK}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="0" width="56" height="80" uuid="522116a4-7476-4f45-9f31-9d0e64ac411b"/>
+				<imageExpression><![CDATA["tree2.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="90" width="551" height="1" uuid="da4f49ef-2b28-422e-ac85-d5544bd91c3f"/>
+			</line>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="58" y="20" width="105" height="20" forecolor="#000000" uuid="a676efd7-80d7-4e29-9aa5-e5151ee6d129"/>
+				<textElement textAlignment="Right">
+					<font fontName="HY견고딕" isBold="false"/>
+				</textElement>
+				<text><![CDATA[장소명]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="215" y="20" width="338" height="20" uuid="ad6a2765-953a-48f6-9de9-6001786b4128"/>
+				<textElement>
+					<font fontName="HY견고딕" size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spotName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="120" y="53" width="105" height="20" forecolor="#000000" uuid="a31b46e8-f6a7-4fc7-a864-219664ff0040"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[▼]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6bfc4651-0a53-492b-819d-a05ed3001455"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="142a8354-bba4-48e4-955a-7dc7568dcd0c"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="12" forecolor="#FFFFFF" uuid="e0e24b4d-dcb1-4eec-980c-40c998212654"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="12" forecolor="#FFFFFF" uuid="1861440e-6d9f-49ed-926d-e135f1adf63d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="ea17db0d-849c-4c6d-9fd9-419921637a5f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

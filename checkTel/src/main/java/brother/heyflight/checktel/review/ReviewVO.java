@@ -3,6 +3,7 @@ package brother.heyflight.checktel.review;
 import java.sql.Date;
 
 public class ReviewVO {
+	private String memberImg;
 	private int reviewNo;
 	private String reviewContent;
 	private Date reviewDate;
@@ -55,10 +56,17 @@ public class ReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "ReviewVO [reviewNo=" + reviewNo + ", reviewContent="
-				+ reviewContent + ", reviewDate=" + reviewDate + ", planNo="
-				+ planNo + ", memberNo=" + memberNo + ", memberNick="
-				+ memberNick + ", reviewDates=" + reviewDates + "]";
+		return "ReviewVO [memberImg=" + memberImg + ", reviewNo=" + reviewNo
+				+ ", reviewContent=" + reviewContent + ", reviewDate="
+				+ reviewDate + ", planNo=" + planNo + ", memberNo=" + memberNo
+				+ ", memberNick=" + memberNick + ", reviewDates=" + reviewDates
+				+ "]";
+	}
+	public String getMemberImg() {
+		return memberImg;
+	}
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
 	}	
 	
 }

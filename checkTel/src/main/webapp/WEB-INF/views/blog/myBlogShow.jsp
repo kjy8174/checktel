@@ -435,11 +435,14 @@ $(function(){
 		for(i=0; i<data.length; i++){				
 			var btn3 ="";
 			var btn4 ="";
+			var img5 ="";
+			img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/images/"+data[i].memberImg+".jpg' class='avatar' style='width: 100px; height: 100px;'></a>";
 			if(data[i].memberNo=="${user.memberNo}") {
 			 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num)+">삭제</button><input type='hidden' id='hiddenId' value='"+data[i].reviewNo+"'/>";
 			 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1)+">수정</button><input type='hidden' id='hiddenId1' value='"+data[i].reviewNo+"'/>";
+			 
 			}
-			$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+			$("#comments").append("<div class='comment'>"+ img5 +"<div class='media-body'><h4 class='media-heading'>"
 								+data[i].memberNick+"</h4><p class='time'>"+data[i].reviewDates+"</p><p id='updRview'>"
 								+data[i].reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
 
@@ -456,11 +459,14 @@ $(function(){
 				$.getJSON("../review/reviewInsert.do", param,  function(data){				
 					var btn3 ="";
 					var btn4 ="";
+					var img5 ="";
+					img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/images/"+data.memberImg+".jpg' class='avatar' style='width: 100px; height: 100px;'></a>";
 					if(data.memberNo=="${user.memberNo}") {
 					 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
 					 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1++)+">수정</button><input type='hidden' id='hiddenId1' value='"+data.reviewNo+"'/>";
+					 
 					}
-					$("#comments").append("<div class='comment'><div class='media-body'><h4 class='media-heading'>"
+					$("#comments").append("<div class='comment'>"+ img5 +"<div class='media-body'><h4 class='media-heading'>"
 										+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p id='updRview'>"
 										+data.reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
 	
@@ -499,7 +505,7 @@ $(function(){
 			event.preventDefault();
 			return;
 		}			
-	});	
+	});
 
 	// 댓글 수정
 	$(document).on("click","#btnReviewUpd",function(event){
@@ -539,12 +545,9 @@ $(function(){
 			event.preventDefault();
 			return;
 		}			
-	});
-	
-	
-	
-	
+	});	
 });
+
 
 	function Navi(id) { //길찾기
 		var no = id+1;
@@ -684,7 +687,7 @@ $(function(){
 			<c:if test="${user.memberNo eq plan.memberNo}">
 				<li><a href="${pageContext.request.contextPath }/blog/blogDelete.do?planNo=${plan.planNo}" id="pDelete">삭제</a></li><!--자기꺼만 지우기 -->
 			</c:if>
-				<li><a href="#">다운로드</a></li>
+				<li><a href="${pageContext.request.contextPath }/report.do?planNo=${plan.planNo}">다운로드</a></li>
 			<c:if test="${plan.hit eq 0}">
 				<li><a href="#" id="pLike">좋아요 <img id="eLike" src="../img/empHeart.png" style="width:28px; height: 26px;"></a></li>	
 			</c:if>
@@ -714,7 +717,7 @@ $(function(){
 	<!-- SECTION -->
 	<section class="content">
 	
-	<div class="container" style="margin-left: 50px; margin-top: 30px;">
+	<div class="container" style="margin-left: 50px; margin-top: 30px; width: 900px;">
 
 	<div>
 		<!-- Blog post-->
@@ -839,15 +842,8 @@ $(function(){
 			</div>
 
 			<div class="comments" id="comments">
-				<div class="comment">
-					<a href="#" class="pull-left"> <img alt="" src="../images/team/1.jpg" class="avatar"></a>
-					<div class="media-body">
-						<h4 class="media-heading">박성익</h4>
-						<p class="time">2017/06/11 오전 11:51</p>
-						<p>안해</p>
-								
-					</div>
-				</div>
+				
+				
 	
 
 			</div>

@@ -8,7 +8,7 @@
 
 		<!--LOGO-->
 		<div id="logo" style="position: fixed;">
-			<a href="index.html" class="logo"
+			<a href='<c:url value="/main/main.do"/>' class="logo"
 				data-dark-logo="${pageContext.request.contextPath }/images/logo-dark.png">
 				<img src="${pageContext.request.contextPath }/images/첵텔로고 (2).jpg"
 				alt="Polo Logo">

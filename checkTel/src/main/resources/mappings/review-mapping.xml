@@ -12,6 +12,7 @@
 		<result property="reviewDates" column="REVIEW_DATES" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
 		<result property="memberNick" column="MEMBER_NICK" />		
+		<result property="memberImg" column="MEMBER_IMG" />	
 		
 				
 	</resultMap>
@@ -32,7 +33,7 @@
    </insert>
        
    <select id="getReviewList" parameterType="review" resultMap="reviewResult">
-   		SELECT R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK
+   		SELECT R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK, M.MEMBER_IMG
    		FROM REVIEW R, MEMBER M
    		WHERE R.MEMBER_NO=M.MEMBER_NO
    		AND R.PLAN_NO=#{planNo}
@@ -41,7 +42,7 @@
    
    <select id="getReview" resultMap="reviewResult">
    <![CDATA[
-   SELECT	R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK
+   SELECT	R.REVIEW_NO, R.PLAN_NO, M.MEMBER_NO, R.REVIEW_CONTENT, TO_CHAR(R.REVIEW_DATE, 'YYYY"년"MM"월"DD"일" HH24:MI:SS') AS REVIEW_DATES, M.MEMBER_NICK, M.MEMBER_IMG
    FROM REVIEW R, MEMBER M
    WHERE R.MEMBER_NO = M.MEMBER_NO 
    AND R.REVIEW_NO=#{reviewNo}

@@ -126,7 +126,7 @@
         autoOpen: true,
         modal : true,
         width: '1200',
-        height: '800',      
+        height: '600',      
         show: {
           effect: "blind",
           duration: 1000
@@ -731,6 +731,9 @@ function DeleteSmallPlan(id) {
     <div id="dialog1">
     <div id='ninja-slider'>
         <div>
+        	<div>
+            	<h1 style="font-size:30px; text-align:center; color:white; margin-top: -5px;">이미지를 클릭하시면 해당 위치의 지도로 이동합니다</h1>
+            </div>
             <div class="slider-inner">
                 <ul class="mimgm">
                     <li><a class="ns-img" href="${pageContext.request.contextPath}/images/test/1.jpg"></a></li>
@@ -767,107 +770,81 @@ function DeleteSmallPlan(id) {
                     <ul>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/1.jpg"></a>
-                            <span>0</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/2.jpg"></a>
-                            <span>1</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/3.jpg"></a>
-                            <span>2</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/4.jpg"></a>
-                            <span>3</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/5.jpg"></a>
-                            <span>4</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/6.jpg"></a>
-                            <span>5</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/7.jpg"></a>
-                            <span>6</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/8.jpg"></a>
-                            <span>7</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/9.jpg"></a>
-                            <span>8</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/10.jpg"></a>
-                            <span>9</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/11.jpg"></a>
-                            <span>10</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/12.jpg"></a>
-                            <span>11</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/13.jpg"></a>
-                            <span>12</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/14.jpg"></a>
-                            <span>13</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/15.jpg"></a>
-                            <span>14</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/16.jpg"></a>
-                            <span>15</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/17.jpg"></a>
-                            <span>16</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/18.jpg"></a>
-                            <span>17</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/19.jpg"></a>
-                            <span>18</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/20.jpg"></a>
-                            <span>19</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/21.jpg"></a>
-                            <span>20</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/22.jpg"></a>
-                            <span>21</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/23.jpg"></a>
-                            <span>22</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/24.jpg"></a>
-                            <span>23</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/25.jpg"></a>
-                            <span>24</span>
                         </li>
                         <li>
                             <a class="thumb" href="${pageContext.request.contextPath}/images/test/26.jpg"></a>
-                            <span>25</span>
                         </li>                        
                     </ul>
                 </div>
