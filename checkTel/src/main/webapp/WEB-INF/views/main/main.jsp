@@ -182,6 +182,13 @@ button .side-btn {
     margin: 0;
     padding: 0;
     border: none;
+}
+.tab-content{
+/* this is where you would scroll only the content */
+overflow:auto;  
+height: calc(100vh - 95px); /* Replace 42px with the needed height. 100vh means the whole height of the browser's viewport */
+height: -webkit-calc(100vh - 42px);
+height: -moz-calc(100vh - 95px);
 } 
 </style>
   <meta charset="utf-8">
@@ -817,12 +824,12 @@ $(function(){
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
 <div class="side">	
-<div id="exTab" class="container panel" >
+<div id="exTab" class="container panel panel-default" >
 	  <ul class="nav nav-pills" style="top:10px; padding-top:5px;">
 	    <li class="active"><a href="#list" data-toggle="tab">장소</a></li>
 	    <li><a href="#info" data-toggle="tab">상세보기</a></li>    
 	  </ul>
-	  <div class="tab-content clearfix" >
+	  <div class="tab-content" >
 		<div class="tab-pane active" id='list' 
 			style='top:10px; padding:4px 0px 0px 0px; overflow-y: scroll; width: 300px; padding-bottom:4px; height: auto;'>
 		</div>
