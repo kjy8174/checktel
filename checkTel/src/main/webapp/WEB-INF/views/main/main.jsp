@@ -160,7 +160,7 @@ button .side-btn {
     height: 100%;
     position: fixed;
     top: 60px;
-    right: 0px;
+    right: -320px;
     z-index: 9999;
 }
 .side > .side-content {
@@ -812,7 +812,7 @@ $(function(){
  
     var $sidebar = $('.side');
     var $sidebarButton = $sidebar.find('button').on('click', function(){
-        $sidebar.toggleClass('close');
+        $sidebar.toggleClass('open');
         if($sidebar.hasClass('open')){
             $sidebar.stop(true).animate({right: '0px'}, duration, 'easeOutBack');
             $sidebarButton.find('span').text('CLOSE');
@@ -827,7 +827,7 @@ $(function(){
 <body>
 <div id='BeeMap' style='width: 100%; height: 100%; border: 0;'></div>
 
-<div class="side">	
+<div class="side open" style="right: 0px;">	
 <div id="exTab" class="container panel panel-default" >
 	  <ul class="nav nav-pills" style="top:10px; padding-top:5px;">
 	    <li class="active"><a href="#list" data-toggle="tab">장소</a></li>
