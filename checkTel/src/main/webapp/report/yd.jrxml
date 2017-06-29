@@ -21,9 +21,6 @@
 	<parameter name="MEMBER_NICK" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SPOT_FURL" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT   P.PLAN_NO as "planNo"
            , DAY_VISIT as "dayVisit"
@@ -45,7 +42,7 @@
 	<field name="blogTitle" class="java.lang.String"/>
 	<field name="memberNick" class="java.lang.String"/>
 	<field name="spotFurl" class="java.lang.String"/>
-	<group name="DAY_NO">
+	<group name="DAY_NO" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{dayNo}]]></groupExpression>
 		<groupHeader>
 			<band height="31">

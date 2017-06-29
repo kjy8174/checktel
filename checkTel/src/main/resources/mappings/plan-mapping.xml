@@ -108,7 +108,93 @@
 	
 	
 	<select id="rsPlan" resultMap="planRsResult">
-		SELECT 	A.PLAN_NO,
+	SELECT *
+	FROM (
+          	SELECT * 
+          	FROM (
+                    SELECT 	A.PLAN_NO,
+                            A.BLOG_TITLE,
+            				C.SPOT_FURL,
+                            B.BLOG_HIT,
+                            ABS(SELCATEGORY1/CC*10 - #{selCategory1} ) +
+                            ABS(SELCATEGORY2/CC*10 - #{selCategory2} ) +
+                            ABS(SELCATEGORY3/CC*10 - #{selCategory3} ) +
+                            ABS(SELCATEGORY4/CC*10 - #{selCategory4} ) +
+                            ABS(SELCATEGORY5/CC*10 - #{selCategory5} ) +
+                            ABS(SELCATEGORY6/CC*10 - #{selCategory6} ) + 
+                            ABS(SELCATEGORY7/CC*10 - #{selCategory7} ) AS ABS_SUM
+                    FROM (
+                            SELECT  PLAN_NO,
+                            		MAX(CC) AS CC,
+                            		BLOG_TITLE
+                            FROM (
+                            		SELECT  P.PLAN_NO,
+                                            D.CATEGORY_ID,
+                                            COUNT(D.CATEGORY_ID) AS CC,
+                                            P.BLOG_TITLE
+                                    FROM PLAN P, DETAIL D
+                                    WHERE P.PLAN_NO = D.PLAN_NO	
+                                    GROUP BY P.PLAN_NO, D.CATEGORY_ID, P.BLOG_TITLE
+                                 )
+                            GROUP BY PLAN_NO, BLOG_TITLE
+                            ORDER BY PLAN_NO
+                         ) A, (  
+<!--                       		SELECT *
+		              			FROM (	 -->	              			
+		                                 SELECT  P.PLAN_NO,
+		                                         P.BLOG_HIT,
+		                                         P.BLOG_TITLE,
+		                                         SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) SELCATEGORY1,
+		                                         SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) SELCATEGORY2,
+		                                         SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) SELCATEGORY3,
+		                                         SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) SELCATEGORY4,
+		                                         SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) SELCATEGORY5,
+		                                         SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) SELCATEGORY6,
+		                                         SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) SELCATEGORY7
+		                                 FROM PLAN P, DETAIL D
+		                                 WHERE P.PLAN_NO=D.PLAN_NO
+		                                 AND D.CITY_NAME= #{selCity}
+		                                 AND P.PLAN_PERIOD= #{selDay}
+		                                 GROUP BY P.PLAN_NO, P.BLOG_HIT, P.BLOG_TITLE                                 
+<!--	                                 HAVING 	SUM(CASE WHEN CATEGORY_ID=1 THEN 1 ELSE 0 END ) = #{selCategory1}
+				                         AND	 	SUM(CASE WHEN CATEGORY_ID=2 THEN 1 ELSE 0 END ) = #{selCategory2}
+				                         AND 		SUM(CASE WHEN CATEGORY_ID=3 THEN 1 ELSE 0 END ) = #{selCategory3}
+				                         AND 		SUM(CASE WHEN CATEGORY_ID=4 THEN 1 ELSE 0 END ) = #{selCategory4}
+				                         AND	 	SUM(CASE WHEN CATEGORY_ID=5 THEN 1 ELSE 0 END ) = #{selCategory5}
+				                         AND 		SUM(CASE WHEN CATEGORY_ID=6 THEN 1 ELSE 0 END ) = #{selCategory6}
+				                         AND 		SUM(CASE WHEN CATEGORY_ID=7 THEN 1 ELSE 0 END ) = #{selCategory7}
+				                         ORDER BY P.BLOG_HIT DESC, P.PLAN_NO ASC
+				                     )
+				                WHERE ROWNUM BETWEEN 1 AND 4 -->		  
+                              ) B, (                
+                                      SELECT  P.PLAN_NO,
+                                              D.SPOT_FURL
+                                      FROM (	
+                                      		  SELECT PLAN_NO,
+                                                     SPOT_FURL,
+                                                     DAY_VISIT
+                                              FROM DETAIL V
+                                              WHERE DAY_NO = 1
+                                              AND DAY_VISIT = (
+                                              					SELECT MIN(DAY_VISIT)
+                                                                FROM DETAIL
+                                                                WHERE PLAN_NO = V.PLAN_NO
+                                                                AND DAY_NO= 1
+                                                              )
+                                            ) D, PLAN P
+                                      WHERE D.PLAN_NO = P.PLAN_NO                
+                                      ORDER BY 1, P.BLOG_HIT DESC
+                                   ) C
+                    WHERE A.PLAN_NO = B.PLAN_NO
+                    AND B.PLAN_NO = C.PLAN_NO                        
+                 )
+            ORDER BY ABS_SUM, BLOG_HIT DESC
+     	 )
+    WHERE ROWNUM BETWEEN 1 AND 4	
+	
+	
+	
+<!-- 		SELECT 	A.PLAN_NO,
 	          	A.BLOG_TITLE,
 	          	C.SPOT_FURL,
 	          	B.BLOG_HIT,
@@ -180,7 +266,7 @@
 		                  ORDER BY 1, P.BLOG_HIT DESC
 		                ) C
 		WHERE A.PLAN_NO = B.PLAN_NO
-		AND B.PLAN_NO = C.PLAN_NO
+		AND B.PLAN_NO = C.PLAN_NO -->
 	
 	
 	

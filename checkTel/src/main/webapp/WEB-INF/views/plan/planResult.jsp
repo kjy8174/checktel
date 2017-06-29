@@ -106,8 +106,8 @@ ex)명소 2곳, 음식점 1곳, 나머지0일 경우     max=2    명소= 2/2*10
 </script>
 <body>
 <div class="container">
-		<div class="heading heading-center">
-		<div class="col-md" style="margin-top: 100px;">
+		<div class="heading heading-center" style="height: 500px;">
+		<div class="col-md">
 				<div class="image-box circle-image small">
 					<img src="${pageContext.request.contextPath}/profile_img/${user.memberImg}" style="width: 110px; height: 110px;" alt="">
 				</div>
@@ -122,11 +122,11 @@ ex)명소 2곳, 음식점 1곳, 나머지0일 경우     max=2    명소= 2/2*10
 			<c:forEach var="prsList2" items="${prsList2}">	
 			<div class="col-md-3">			
 				<div class="image-box">
-					<img src="${prsList2.spotFurl}" alt="">
+					<img src="${prsList2.spotFurl}" style="height: 250px;"alt="">
 				</div>
 				<div class="image-box-description ">
-					<h4>${prsList2.blogTitle}<small>(${prsList1.selCity})</small></h4>
-					<p class="subtitle">${prsList1.selDay-1}박 ${prsList1.selDay}일</p>
+					<h4>${prsList2.blogTitle}<small style="display: none;">(${prsList1.selCity})</small></h4>
+					<p style="display: none;" class="subtitle" id="dayy">${prsList1.selDay-1}박 ${prsList1.selDay}일</p>
 					<hr class="line">
 					<div class="social-icons social-icons-border m-t-10">
 						<a href="../blog/myBlogShow.do?planNo=${prsList2.planNo}" class="myButton">일정 상세보기</a>						
@@ -135,7 +135,7 @@ ex)명소 2곳, 음식점 1곳, 나머지0일 경우     max=2    명소= 2/2*10
 			</div>
 			</c:forEach>
 			
-			<hr>
+			
 		</div>
 		<a href="" class="myButton" style="font-size:15px; padding:10px 15px;" onclick="goBack()">처음부터 새로 만들기</a>
 	</div>

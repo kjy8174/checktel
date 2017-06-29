@@ -63,6 +63,10 @@ public class MainServiceImpl implements MainService{
 			mainDAO.insertMain(mainVO);
 		}
 		mainDAO.updPeriod(listVO.getPlanNo());
+		BlogVO blogVO = new BlogVO();
+		blogVO.setBlogTitle(listVO.getBlogTitle());
+		blogVO.setPlanNo(listVO.getPlanNo());
+		mainDAO.updTitle(blogVO);
 	}	
 	//
     public PlanVO getPlan(PlanVO planVO) {  	

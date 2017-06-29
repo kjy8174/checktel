@@ -21,6 +21,7 @@
 
 section{
 	padding-top: 0px;
+	padding-bottom: 0px;
 }
 .shadow{
     background-color: white;
@@ -452,32 +453,48 @@ $(function(){
 		}
 	})
 	
+	// 댓글 등록
 	$("#btnReviewIns").click(function(event){
-		// 댓글 등록
 		if('${user}'){
-			if(confirm("댓글 등록 하시겠습니까?")){
-				event.preventDefault();
-				var param = $("#frmReview").serialize();
-				$.getJSON("../review/reviewInsert.do", param,  function(data){				
-					var btn3 ="";
-					var btn4 ="";
-					var img5 ="";
-					img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/profile_img/"+data.memberImg+"' class='avatar' style='width: 100px; height: 100px;'></a>";
-					if(data.memberNo=="${user.memberNo}") {
-					 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
-					 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1++)+">수정</button><input type='hidden' id='hiddenId1' value='"+data.reviewNo+"'/>";
-					 
+			event.preventDefault();
+			swal({
+				  title: "댓글을 등록하시겠습니까?",
+				  text: "",
+				  type: "success",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "등록!",
+				  cancelButtonText: "취소!",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+						event.preventDefault();
+						var param = $("#frmReview").serialize();
+						
+						$.getJSON("../review/reviewInsert.do", param,  function(data){				
+							var btn3 ="";
+							var btn4 ="";
+							var img5 ="";
+							img5="<a class='pull-left'><img src='${pageContext.request.contextPath}/profile_img/"+data.memberImg+"' class='avatar' style='width: 100px; height: 100px;'></a>";
+							if(data.memberNo=="${user.memberNo}") {
+							 btn3="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewDel'"+(num++)+"'>삭제</button><input type='hidden' id='hiddenId' value='"+data.reviewNo+"'/>";
+							 btn4="<button style='margin-right:10px; float:right;' class='btn' id='btnReviewUpd'"+(num1++)+">수정</button><input type='hidden' id='hiddenId1' value='"+data.reviewNo+"'/>";
+							 
+							}
+							$("#comments").append("<div class='comment'>"+ img5 +"<div class='media-body'><h4 class='media-heading'>"
+												+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p id='updRview'>"
+												+data.reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
+			
+						});
+						swal("댓글 작성", "완료", "success");
+					} else {
+						swal("댓글 작성", "취소", "error");
+						event.preventDefault();
+						return;
 					}
-					$("#comments").append("<div class='comment'>"+ img5 +"<div class='media-body'><h4 class='media-heading'>"
-										+data.memberNick+"</h4><p class='time'>"+data.reviewDates+"</p><p id='updRview'>"
-										+data.reviewContent+"</p>" + btn4 + btn3 +"</div></div>");
-	
-				});
-			}
-			else{
-				event.preventDefault();
-				return;
-			}
+				});				
 		}
 		else{
 			event.preventDefault();
@@ -486,58 +503,85 @@ $(function(){
 	});
 	
 	// 댓글 삭제
-	$(document).on("click","#btnReviewDel",function(event){
-		if('${user}'){
-			if(confirm("댓글 삭제 하시겠습니까?")){
-				event.preventDefault();
-				var param = $(this).parent().children('#hiddenId').val()+"";
-				console.log(param);
-				$(this).parents(".comment").remove();
-				$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){
-					console.log(param);
-					$(this).parents(".comment").remove();
-					});
-				}				
-		}
-		else{
-			event.preventDefault();
-			return;
-		}			
+	$(document).on("click","#btnReviewDel",function(event){	
+		var param = $(this).parent().children('#hiddenId').val()+"";
+		var dd = $(this).parents(".comment");
+		console.log(param);		
+		swal({
+			title: "댓글을 삭제하시겠습니까?",
+			  text: "",
+			  type: "success",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "삭제!",
+			  cancelButtonText: "취소!",
+			  closeOnConfirm: false,
+			  closeOnCancel: false
+			},
+			function(isConfirm){				
+				if('${user}'){
+			  if (isConfirm) {
+				  event.preventDefault(); 
+					$.getJSON("../review/reviewDel.do?reviewNo="+param, function(data){	
+						dd.remove();
+						});
+			  } 
+			  swal("댓글 삭제", "완료", "success");
+				} else {
+				  swal("댓글 삭제", "취소", "error");
+			    e.preventDefault(); 
+				return;
+			  }
+			});
 	});
 
 	// 댓글 수정
 	$(document).on("click","#btnReviewUpd",function(event){
-		if('${user}'){
-			if(confirm("댓글 수정 하시겠습니까?")){					
-				event.preventDefault();
-				var param = $(this).parent().children('#hiddenId1').val()+"";
-				var updtext = $(this).parent().children('#updRview').text();
-				var updtext2 = $(this).siblings('#updRview').text();
-				var updtag = "<textarea style='margin:10px;' aria-required='true' id='Rupd' placeholder='수정할 내용을 입력하세요' rows='5' name='reviewContent' class='form-control required'>"+updtext+"</textarea><button class='btn' style='margin-right:10px; float:right;' id='RUpdbtn'>수정 등록</button>"
-				console.log(param);
-				console.log(updtext);
-				console.log(updtext2);
-				$(this).parents(".comment").children('div').append(updtag);
-				
-				$(document).on("click","#RUpdbtn", function(event) {			
-					event.preventDefault();
-					var Rupd = $("#Rupd").val();
-					console.log(Rupd);
-					$(this).siblings('#updRview').text(Rupd);				
-					
-					$.getJSON("../review/reviewUpd.do?reviewNo="+param+"&reviewContent="+Rupd, function(data){
-						$("#Rupd").remove();
-						$("#RUpdbtn").remove();
-						});
-				});	
+		var param = $(this).parent().children('#hiddenId1').val()+"";
+		var updtext = $(this).parent().children('#updRview').text();
+		var updtext2 = $(this).siblings('#updRview').text();
+		var updtag = "<textarea style='margin:10px;' aria-required='true' id='Rupd' placeholder='수정할 내용을 입력하세요' rows='5' name='reviewContent' class='form-control required'>"+updtext+"</textarea><button class='btn' style='margin-right:10px; float:right;' id='RUpdbtn'>수정 등록</button>"
+		console.log(param);
+		console.log(updtext);
+		console.log(updtext2);
+		var appp = $(this).parents(".comment").children('div');
 		
-			}				
-		}
-		else{
-			event.preventDefault();
-			return;
-		}			
-	});	
+		swal({
+			  title: "댓글 수정 하시겠습니까?",
+			  text: "",
+			  type: "success",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "수정",
+			  cancelButtonText: "취소",
+			  closeOnConfirm: false,
+			  closeOnCancel: false
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+				  event.preventDefault();
+					
+					appp.append(updtag);
+					$(document).on("click","#RUpdbtn", function(event) {			
+						event.preventDefault();
+						var Rupd = $("#Rupd").val();
+						console.log(Rupd);
+						$(this).siblings('#updRview').text(Rupd);
+						
+						$.getJSON("../review/reviewUpd.do?reviewNo="+param+"&reviewContent="+Rupd, function(data){
+							$("#Rupd").remove();
+							$("#RUpdbtn").remove();
+							});
+					});
+					swal("내용을 수정해주세요");
+			  } else {				
+			    swal("댓글 수정", "취소", "error");
+			    e.preventDefault(); 
+				return;
+			  }
+			});
+	});
+	
 });
 
 
@@ -696,7 +740,7 @@ $(function(){
 	<!-- PAGE TITLE -->
 	<section id="page-title"
 		class="page-title-parallax page-title-center text-dark"
-		style="background-image:url(../images/blog/1.jpg); padding-top:0px;">
+		style="background-image:url(../images/blog/1.jpg);padding-top: 0px;	padding-bottom: 0px">
 		<div id="planCreate"></div>
 	<div class="container">
 		<div class="page-title col-md-8">
@@ -866,7 +910,7 @@ $(function(){
 			<!-- Comments-->
 			<div class="comments" style="clear: both; ">
 				<div class="heading" id="commentsTop">
-					<h4 class="comments-title">댓글 보기<small class="number"></small></h4>
+					<h4 class="comments-title">댓글<small class="number"></small></h4>
 				</div>
 			</div>			
 			

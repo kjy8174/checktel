@@ -80,4 +80,9 @@ public class MainDAOMybatis {
         mybatis.update("PlanDAO.hitUpd", hitVO);
 		
 	}
+
+	public void updTitle(BlogVO blogVO) {
+		System.out.println("===> Mybatis로 updTitle() 기능 처리");
+		mybatis.update("MainDAO.updTitle", blogVO);		
+	}
 }

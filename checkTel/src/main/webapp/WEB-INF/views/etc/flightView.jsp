@@ -201,7 +201,7 @@
 </div>
 <!-- END: WRAPPER -->
 
-
+<div id="fly">
 <script type="text/javascript"
 	src="//cdn0.agoda.net/images/sherpa/js/sherpa_init1_02.min.js"></script>
 <script type="text/javascript">
@@ -217,4 +217,4 @@
 	stg.OverideConf = false;
 	new AgdSherpa(stg, document).initialize();
 </script>
-
+</div>

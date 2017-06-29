@@ -208,6 +208,7 @@ button .side-btn {
 	      source: availableTags
 	    }); */
   });
+  var firstCityName;
   var pre_idx = 0;	//비교 인덱스
   var idx = 1;		//인덱스
   var flightPath = [];
@@ -451,13 +452,19 @@ function showInfo(mIdx) { //상세 정보 출력
 			furl=city_array[mIdx].Furl;
 		}
 		if(city_array[mIdx].CategoryIdx>7){
-			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(cut)}; //json으로 배열 만듬
 		}
 		else{
-			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(cut)}; //json으로 배열 만듬
 		}
 		
 		planSub.push(plan);
+		
+		for(var i=0;i<planSub.length;i++){
+	        if(planSub[i].dayNo==1){
+	        	firstCityName = planSub[i].cityName;
+	        }
+        }
 		
 		  flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
 		  map.removeLayer(flightPath[cut-1]);
@@ -472,19 +479,19 @@ function showInfo(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
+			$('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" src="../img/icon_delete_n.png" style="float:right">'+ '<div id="'+city_array[mIdx].Idx+'" class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }else if(city_array[mIdx].Furl == null) {
- 			$('#smallImg'+(div+1))
+ 			$('#smallImg'+(cut))
  			.append(
  					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
- 			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
+ 			$('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
  					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  			} 
  		  else{
- 			$('#smallImg'+(div+1))
+ 			$('#smallImg'+(cut))
  			.append(
  					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
- 			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
+ 			$('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
  					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
  		  }
 		
@@ -536,13 +543,19 @@ function showInfoImg(mIdx) { //상세 정보 출력
 			furl=city_array[mIdx].Furl;
 		}
 		if(city_array[mIdx].CategoryIdx>7){
-			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(div+1)}; //json으로 배열 만듬
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":6,"dayNo":(cut)}; //json으로 배열 만듬
 		}
 		else{
-			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(div+1)}; //json으로 배열 만듬
+			var plan = {"spotNo":city_array[mIdx].Idx,"spotName":city_array[mIdx].Title,"spotFurl":furl,"lat":city_array[mIdx].Lat,"lng":city_array[mIdx].Lng,"cityName":city_array[mIdx].CityName_ko,"dayVisit":(dayNo++),"categoryId":city_array[mIdx].CategoryIdx,"dayNo":(cut)}; //json으로 배열 만듬
 		}
 		
 		planSub.push(plan);
+		
+		for(var i=0;i<planSub.length;i++){
+	        if(planSub[i].dayNo==1){
+	        	firstCityName = planSub[i].cityName;
+	        }
+        }
 		flightPlanCoordinates[cut-1].push({lat: city_array[mIdx].Lat, lng: city_array[mIdx].Lng , dayNum:dayNo}); //경로 그리기
 		map.removeLayer(flightPath[cut-1]);  
 		flightPath[cut-1] = bm.polyline(flightPlanCoordinates[cut-1],{
@@ -556,20 +569,20 @@ function showInfoImg(mIdx) { //상세 정보 출력
 		$('#smallLat').val(city_array[mIdx].Lat);
 		$('#smallLng').val(city_array[mIdx].Lng);
 		  if(city_array[mIdx].Furl == null && city_array[mIdx].CategoryIdx >9) {
-			  $('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
+			  $('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="${pageContext.request.contextPath }/images/icon_delete_n.png" style="float:right">'+
 	 					'<div class="short">'+ city_array[mIdx].Title+'</div></div><br>');
    		  } else if(city_array[mIdx].Furl == null) {
-   			$('#smallImg'+(div+1))
+   			$('#smallImg'+(cut))
    			.append(
    					'<img id="'+dayNo+'" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png" style="max-width: 45px; max-height: 45px; margin-right:3px;">');		
-   			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
+   			$('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
    					'<img style="width: 45px; height: 45px;" src="../img/icon_category_'+city_array[mIdx].CategoryIdx+'.png"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    			} 
    		  else{
-   			$('#smallImg'+(div+1))
+   			$('#smallImg'+(cut))
    			.append(
    					'<img id="'+dayNo+'" src=' + city_array[mIdx].Furl + ' style="max-width: 45px; max-height: 45px; margin-right:3px;">');
-   			$('#detailPlan'+(div+1)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
+   			$('#detailPlan'+(cut)).append('<div class="shadow" id="'+city_array[mIdx].Idx+'">'+
    					'<img style="width: 45px; height: 45px;" src="'+ city_array[mIdx].Furl +'"><img class="delete" onclick="DeletePlan(this);DeleteSmallPlan('+dayNo+');" src="../img/icon_delete_n.png" style="float:right"><div class="short">'+ city_array[mIdx].Title+'</div></div>');
    		  }
 		$("#"+city_array[mIdx].Idx).click(function() {
@@ -579,7 +592,8 @@ function showInfoImg(mIdx) { //상세 정보 출력
 }
 
 function addDay(){ //일정 늘리기
-	$("#plan").append('<div id="allPlan'+(++a)+'" class="allPlan" style="border:solid #22becc 2px; background-color:white;">'+
+	cut=++a;
+	$("#plan").append('<div id="allPlan'+(a)+'" class="allPlan" style="border:solid #22becc 2px; background-color:white;">'+
 	'<b>DAY'+(a)+'</b><img class="delete" src="../img/icon_delete_n.png" style="float:right"><br>'+
 	'<div id="cal'+(a)+
 	'"></div>'+
@@ -696,6 +710,13 @@ $(function() {
 	$("#planSave").click(function() {
 		if('${user}'){
 			if($("#cal").val()){
+				for(var i=0;i<a;i++){
+					console.log("planSub[i]"+planSub[i]);
+					if((typeof planSub[i] == "undefined")){
+						swal("비어있는 일정을 추가 하셈");
+					return;
+					}
+				}
 					swal({
 						  title: "일정 생성 하시겠습니까?",
 						  text: "일정 만듬!",
@@ -708,7 +729,7 @@ $(function() {
 						function(isConfirm){
 							if(isConfirm){
 				
-				var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
+				var fir = {"planPeriod":a,"planStart":$("#cal").val(),"planEnd":3,"detail":planSub,"blogTitle":"${user.memberNick}님의 "+(a-1)+"박"+a+"일 여행("+firstCityName+")","blogHit":0,"memberNo":Number('${user.memberNo}'),"memberNick":'${user.memberNick}'};
 				//var jsonData = JSON.stringify(planSub);
 				var jsonData = JSON.stringify(fir);
 				$.ajax({
@@ -825,6 +846,7 @@ $(function(){
 <script>
 document.getElementById("fLat").value = '${planList.lat}';
 document.getElementById("fLng").value = '${planList.lng}';
+firstCityName = '${planList.cityName}'
 </script>
 </c:if>
 <script>
@@ -870,7 +892,7 @@ dayNo = '${planList.dayVisit+1}';
 
 		<c:if test= "${planList.dayNo eq decr}">
 			<img id="${planList.dayVisit }" src="${planList.spotFurl}" style="max-width: 45px; max-height: 45px; margin-right:3px;">
-		</c:if>
+		</c:if>		
 		</c:forEach>
 			</div>
 		</div>

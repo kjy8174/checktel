@@ -528,7 +528,7 @@ $(function() {
 						<div id="slider" style="width: 400px; height: 30px; margin-left:35px; background: pink;">
 						  <div id="custom-handle" class="ui-slider-handle" style="background: white;"></div>
 						</div>	
-						머무실 일정을 선택해 주세요.<br>(최대 7일 일정 선택이 가능합니다.)
+						<span>머무실 일정을 선택해 주세요.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(최대 7일 일정 선택이 가능합니다.)</span>
 					</div>
 				</div>
 			</div>

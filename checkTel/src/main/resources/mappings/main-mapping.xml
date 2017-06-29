@@ -64,6 +64,13 @@
 	WHERE PLAN_NO = #{plan_no}
    </update>
    
+   <update id="updTitle" parameterType="main">
+   	UPDATE PLAN SET
+	BLOG_TITLE = #{blogTitle}
+	WHERE PLAN_NO = #{planNo}
+   </update>
+   
+   
    	<select id="getPlanList" resultMap="mainResult">
 	SELECT   P.PLAN_NO
            , SPOT_NO
