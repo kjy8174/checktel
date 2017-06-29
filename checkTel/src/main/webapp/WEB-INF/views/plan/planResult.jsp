@@ -5,6 +5,37 @@
 <html>
 <head>
 <style>
+
+.imgteaser .desc{ /*ĸ�� �ؽ�Ʈ*/
+	font-weight:bold;
+	display: block;
+	font-size: 18px;
+	font-family:dotum;
+	letter-spacing:-1px;
+	line-height:140%;
+	padding: 10px 0;
+	background: #111;
+	filter:alpha(opacity=75);/*�ͽ��� ������ ����*/
+	opacity:.75;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /*--�ͽ�8�� ������ ����--*/
+	color: #fff;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 10px;
+	margin: 0;
+	width: 262.500px; /*�̹��� ������� -20�� ��*/
+	border-top: 1px solid #999;
+}
+.imgteaser .desc strong {  /*ĸ�� ���� �ؽ�Ʈ*/
+	color:#00FFFF;
+	display: block;
+	margin-bottom: 5px;
+	font-size:18px;
+	font-family:dotum;
+	font-weight:bold;
+}
+
 .myButton {
 	-moz-box-shadow: 5px 15px 5px -10px #276873;
 	-webkit-box-shadow: 5px 15px 5px -10px #276873;
@@ -121,16 +152,16 @@ ex)명소 2곳, 음식점 1곳, 나머지0일 경우     max=2    명소= 2/2*10
 		<div class="row">
 			<c:forEach var="prsList2" items="${prsList2}">	
 			<div class="col-md-3">			
-				<div class="image-box">
-					<img src="${prsList2.spotFurl}" style="height: 250px;"alt="">
+				<div class="image-box imgteaser">
+					<a href="../blog/myBlogShow.do?planNo=${prsList2.planNo}"><img src="${prsList2.spotFurl}" style="height: 250px;"alt="">
+					<span class="desc">${prsList2.blogTitle}<small style="display: none;">(${prsList1.selCity})</small></span></a>
 				</div>
 				<div class="image-box-description ">
-					<h4>${prsList2.blogTitle}<small style="display: none;">(${prsList1.selCity})</small></h4>
 					<p style="display: none;" class="subtitle" id="dayy">${prsList1.selDay-1}박 ${prsList1.selDay}일</p>
 					<hr class="line">
-					<div class="social-icons social-icons-border m-t-10">
+					<%-- <div class="social-icons social-icons-border m-t-10">
 						<a href="../blog/myBlogShow.do?planNo=${prsList2.planNo}" class="myButton">일정 상세보기</a>						
-					</div>
+					</div> --%>
 				</div>
 			</div>
 			</c:forEach>
