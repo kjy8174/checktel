@@ -65,11 +65,12 @@ label {
 	<div id="travelLogBox" align="center">
 		<section id="page-title"
 			class="page-title-parallax page-title-center text-dark"
-			style="background-image:url(../images/Lighthouse.jpg); padding:0px;">
+			style="background-image:url(../images/Lighthouse.jpg); padding:0px; height:200px;">
 		<div class="container">
 			<div class="page-title col-md-8">
+				<br><br><br>
 				<div style="line-height: 1px">
-
+							
 					<h1 class="travelTitle" style="line-height: 20px">
 						<span align="center" style="font-size: 14px;">트래블로그</span><br>
 						<img src="../img/title_travelog.png">
@@ -126,6 +127,7 @@ label {
 			</fieldset>
 		</form>
 	</div>
+	<br><br>
 
 	<form name="listForm"
 		action="<%=request.getContextPath()%>/getBlogList.do" method="post">
@@ -146,15 +148,14 @@ label {
 								</a>
 							</div>
 							<div class="post-content-details">
-								<div class="post-title">
-
-									<h3>
-										<a href="#">${plan.memberNick}님의 4박5일 여행</a>
-									</h3>
-
+								<div class="post-title" style="font-size:20px; font-weight:bold;">
+									
+										<a href="#">${plan.blogTitle}</a>
+									<br><br>
 								</div>
+								
 								<div class="post-info">
-									<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
+									<span class="post-autor" style="font-size:20px;">여행 도시: <a href="#">${plan.cityName}</a></span>
 								</div>
 							</div>
 

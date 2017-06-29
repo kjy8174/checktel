@@ -374,6 +374,7 @@ label {
 				if(data.result=="success"){
 					
 					alert("저장 되었습니다");
+					location.href="../main/main.do";
 				}else{
 					alert(data.errorMessage);
 				}
@@ -413,6 +414,7 @@ label {
 		style="background-image:url(../images/Desert.jpg); padding-top:0px;">
 	<div class="container">
 		<div class="page-title col-md-8">
+		<br><br>
 			<table>
 				<tr>
 					<td><a
@@ -467,13 +469,13 @@ label {
 								</a>
 							</div>
 							<div class="post-content-details">
-								<div class="post-title">
-									<h3>
-										<a href="#">${user.memberNick}님의 4박5일 여행</a>
-									</h3>
+								<div class="post-title" style="font-size:20px; font-weight:bold;">
+									<a href="#">${plan.blogTitle}</a>
+									<br>
+									<br>
 								</div>
 								<div class="post-info">
-									<span class="post-autor">여행 도시: <a href="#">${plan.cityName}</a></span>
+									<span class="post-autor" style="font-size:20px;">여행 도시: <a href="#">${plan.cityName}</a></span>
 								</div>
 							</div>
 
@@ -520,7 +522,8 @@ label {
 								method="post" enctype="multipart/form-data">
 								<input type="hidden" name="memberNo" value="${user.memberNo}">
 								<div class="modal-body">
-									<input type="hidden" id="img" name="img"> <img>
+									<input type="hidden" id="img" name="img" > 
+								
 									<hr>
 									<div id="imgchange"></div>
 									<br> <br> <br> 프로필 사진: <input type="file"
@@ -530,8 +533,8 @@ label {
 									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
 									<input type="button" class="close btn btn-warning"
 										data-dismiss="modal" value="취소"
-										onClick="window.location.reload()"> <input
-										type="submit" class="btn btn-success" value="사진등록 및 변경">
+										onClick="window.location.reload()"> 
+										<input type="submit" class="btn btn-success" value="사진등록 및 변경">
 								</div>
 							</form>
 						</td>
@@ -644,17 +647,18 @@ label {
 								placeholder="Confirm Password" /></td>
 						</tr>
 						<tr>
-							<td width="200" colspan="3"><div id="checkPwd" style="margin-left:20px;">동일한 암호를 입력하세요.</div></td>
+							<td width="200" colspan="3"><div id="checkPwd" style="margin-left:20px;"></div></td>
 							<td><br><br></td>
 						</tr>
 					
 						<tr>
 							<td colspan="2">
+							<div class="modal-footer">
 								<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
 								<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소"
 								onClick="window.location.reload()"> 
 								<input type="button" onclick="userUpd()" class="btn btn-success" value="저장">
-
+</div>
 							</td>
 						</tr>
 					</tbody>

@@ -149,6 +149,7 @@ public class BlogController {
 		
 		status.setComplete(); // 세션에 저장된 VO를 삭제
 		return paramMap;
+
 		/*return "redirect:/myBlogList.do";*/
 	}
 
