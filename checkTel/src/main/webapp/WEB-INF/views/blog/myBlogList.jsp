@@ -38,9 +38,11 @@
 label, input {
 	display: block;
 }
-section{
+
+section {
 	padding-top: 0px;
 }
+
 input.text {
 	margin-bottom: 12px;
 	width: 95%;
@@ -335,34 +337,37 @@ label {
 		var pw1 = f1.oldmemberPw.value;
 		var pw2 = f1.memberPw.value;
 		var pw3 = f1.pwd_confirm.value;
-		
-		
-		if(!nick){
+
+		if (!nick) {
 			document.getElementById('checkPwd').innerHTML = "Nickname을 입력하지 않으셨습니다";
 			return;
-		
-		}if(!pw1){
+
+		}
+		if (!pw1) {
 			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
 			return;
-		
-		}if(!pw2){
+
+		}
+		if (!pw2) {
 			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
 			return;
-		
-		}if(!pw3){
+
+		}
+		if (!pw3) {
 			document.getElementById('checkPwd').innerHTML = "암호를 입력하지 않으셨습니다";
 			return;
-						
-		}if(pw2 != pw3) {
+
+		}
+		if (pw2 != pw3) {
 			document.getElementById('checkPwd').style.color = "red";
 			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
 			return;
-			
+
 		} else {
 			document.getElementById('checkPwd').style.color = "black";
 			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다.";
 		}
-		
+
 		var jsonData = $("#updFrofile").serialize();//JSON.stringify();
 		//console.log(jsonData)
 		$.ajax({
@@ -371,15 +376,15 @@ label {
 			dataType : "json",
 			data : jsonData,
 			success : function(data) {
-				if(data.result=="success"){
-					
+				if (data.result == "success") {
+
 					alert("저장 되었습니다");
-					location.href="../main/main.do";
-				}else{
+					location.href = "../main/main.do";
+				} else {
 					alert(data.errorMessage);
 				}
 				console.log("ajax전송");
-				
+
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
@@ -414,7 +419,6 @@ label {
 		style="background-image:url(../images/Desert.jpg); padding-top:0px;">
 	<div class="container">
 		<div class="page-title col-md-8">
-		<br><br>
 			<table>
 				<tr>
 					<td><a
@@ -424,18 +428,19 @@ label {
 									style="font-size: 50px; font-weight: bold; color: #d9dadf;"><</span>
 							</div>
 					</a></td>
-					<td>
-						<div>
+					<td><br>
+					<br>
+						<div class="image-box circle-image small"
+							style="width: 200px; height: 200px;">
 							<img
 								src="${pageContext.request.contextPath}/profile_img/${user.memberImg}"
-								style="width: 200px; height: 200px;">
-						</div>
-					</td>
+								style="width: 200px; height: 200px;" alt="">
+						</div></td>
 					<td>
 						<div>
-							<span style="font-size: 25px; font-weight: bold;">&nbsp; &nbsp;★${user.memberNick}</span>
-							님의 트래블로그 <br> <br> <input type="button" id="create-use"
-								value="프로필 수정">
+							<span style="font-size: 25px; font-weight: bold;">&nbsp;
+								&nbsp;★${user.memberNick}</span> 님의 트래블로그 <br> <br> <input
+								type="button" id="create-use" value="프로필 수정">
 						</div>
 					</td>
 				</tr>
@@ -446,14 +451,15 @@ label {
 	</section>
 	<!--트래블로그:end HEADER -->
 
-<br>
-<br>
-<br>
-<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
 
 	<!-- CONTENT -->
-	<form name="listForm" action="<%=request.getContextPath()%>/myBlogList.do" method="post">
+	<form name="listForm"
+		action="<%=request.getContextPath()%>/myBlogList.do" method="post">
 		<section class="content"> <input type="hidden"
 			name="pageIndex" /> <c:forEach items="${plan}" var="plan">
 			<div class="polaroid">
@@ -465,17 +471,19 @@ label {
 						<div class="post-item">
 							<div class="post-image">
 								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> <img
-									alt="" src="${plan.spotFurl}" style="max-width:267px; max-height:150px;">
+									alt="" src="${plan.spotFurl}"
+									style="max-width: 267px; max-height: 150px;">
 								</a>
 							</div>
 							<div class="post-content-details">
-								<div class="post-title" style="font-size:20px; font-weight:bold;">
-									<a href="#">${plan.blogTitle}</a>
-									<br>
-									<br>
+								<div class="post-title"
+									style="font-size: 20px; font-weight: bold;">
+									<a href="#">${plan.blogTitle}</a> <br> <br>
 								</div>
 								<div class="post-info">
-									<span class="post-autor" style="font-size:20px;">여행 도시: <a href="#">${plan.cityName}</a></span>
+									<span class="post-autor" style="font-size: 20px;">여행 도시:
+										<a href="#">${plan.cityName}</a>
+									</span>
 								</div>
 							</div>
 
@@ -522,10 +530,11 @@ label {
 								method="post" enctype="multipart/form-data">
 								<input type="hidden" name="memberNo" value="${user.memberNo}">
 								<div class="modal-body">
-									<input type="hidden" id="img" name="img" > 
-								
-									<hr>
-									<div id="imgchange"></div>
+
+									<div id="imgchange">
+										<img
+											src="${pageContext.request.contextPath}/profile_img/${user.memberImg}">
+									</div>
 									<br> <br> <br> 프로필 사진: <input type="file"
 										id="uploadFile" name="uploadFile" alt="이미지선택"><br>
 								</div>
@@ -533,14 +542,14 @@ label {
 									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
 									<input type="button" class="close btn btn-warning"
 										data-dismiss="modal" value="취소"
-										onClick="window.location.reload()"> 
-										<input type="submit" class="btn btn-success" value="사진등록 및 변경">
+										onClick="window.location.reload()"> <input
+										type="submit" class="btn btn-success" value="사진등록 및 변경">
 								</div>
 							</form>
 						</td>
 						<td>
-							<div>이름 : ${user.memberName}</div>
-							<div>닉네임 : ${user.memberNick}</div>
+							<div style="font-size: 15px;">이름 : ${user.memberName}</div>
+							<div style="font-size: 15px;">닉네임 : ${user.memberNick}</div>
 						</td>
 					</tr>
 				</table>
@@ -577,28 +586,43 @@ label {
 							<div id="slider-vertical7"
 								style="height: 200px; float: left; margin-right: 50px"></div>
 						</div>
-						<div style="clear: both;">
-							<label for="amount1">기타:</label> <input type="text" id="amount1"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount3">문화:</label> <input type="text" id="amount3"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount4">역사:</label> <input type="text" id="amount4"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount5">자연:</label> <input type="text" id="amount5"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount6">이벤트:</label> <input type="text" id="amount6"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
-							<label for="amount7">음식점:</label> <input type="text" id="amount7"
-								readonly
-								style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+						<div style="clear: both; ">
+
+							<div style="float: left; margin-right:15px; margin-left:15px;">
+								<label for="amount1">기타:</label> <input type="text" id="amount1"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px; margin-left:15px;">
+								<label for="amount2">쇼핑:</label> <input type="text" id="amount2"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px; margin-left:10px;">
+								<label for="amount3">문화:</label> <input type="text" id="amount3"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px; margin-left:15px;">
+								<label for="amount4">역사:</label> <input type="text" id="amount4"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px;">
+								<label for="amount5">자연:</label> <input type="text" id="amount5"
+									readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px;">
+								<label for="amount6">이벤트:</label> <input type="text"
+									id="amount6" readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
+							<div style="float: left; margin-right:15px;">
+								<label for="amount7">음식점:</label> <input type="text"
+									id="amount7" readonly
+									style="border: 0; color: #f6931f; font-weight: bold; width: 14px;">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -610,8 +634,8 @@ label {
 		<div id="Pari" class="w3-container w3-border city"
 			style="display: none">
 			<form name="updFrofile" id="updFrofile">
-			
- 				<br>
+
+				<br>
 				<table style="border-collapse: separate;">
 					<tbody>
 						<tr height="50">
@@ -620,12 +644,11 @@ label {
 						</tr>
 						<tr height="50">
 							<td width="110">닉네임</td>
-							<td>
-								<input type="text" name="memberNick" value="${user.memberNick}" />
-							</td>
+							<td><input type="text" name="memberNick"
+								value="${user.memberNick}" /></td>
 						</tr>
 						<tr>
-						<td colspan="3"><hr></td>
+							<td colspan="3"><hr></td>
 						</tr>
 						<tr height="50">
 							<td width="110">비밀번호변경</td>
@@ -647,18 +670,22 @@ label {
 								placeholder="Confirm Password" /></td>
 						</tr>
 						<tr>
-							<td width="200" colspan="3"><div id="checkPwd" style="margin-left:20px;"></div></td>
-							<td><br><br></td>
+							<td width="200" colspan="3"><div id="checkPwd"
+									style="margin-left: 20px;"></div></td>
+							<td><br>
+							<br></td>
 						</tr>
-					
+
 						<tr>
 							<td colspan="2">
-							<div class="modal-footer">
-								<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
-								<input type="button" class="close btn btn-warning" data-dismiss="modal" value="취소"
-								onClick="window.location.reload()"> 
-								<input type="button" onclick="userUpd()" class="btn btn-success" value="저장">
-</div>
+								<div class="modal-footer">
+									<!-- <input type="button" class="btn btn-default btn-simple" data-dismiss="modal" value="취소"> -->
+									<input type="button" class="close btn btn-warning"
+										data-dismiss="modal" value="취소"
+										onClick="window.location.reload()"> <input
+										type="button" onclick="userUpd()" class="btn btn-success"
+										value="저장">
+								</div>
 							</td>
 						</tr>
 					</tbody>

@@ -168,6 +168,14 @@ public class BlogController {
 	 * Model model) { blogService.updateBlog(vo); return "blog/myBlogList.do"; }
 	 */
 
+	//city셀렉트 조회
+	/*@RequestMapping(value = "/citySelect.do")
+	public String citySelect(PlanVO vo){
+		
+	}*/
+	
+	
+	
 	// 단건조회
 	@RequestMapping("/blog/getBlog.do/{id}")
 	public String getBlogList(// UserVO vo,

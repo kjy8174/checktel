@@ -84,6 +84,12 @@ public class BlogServiceImpl implements BlogService {
 		blogDAO.userProfileUpdate(vo);
 		
 	}
+/*	@Override
+	public void citySelect(PlanVO vo) {
+		// TODO Auto-generated method stub
+		blogDAO.citySelect(vo);
+	}*/
+
 
 	
 }

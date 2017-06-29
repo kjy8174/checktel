@@ -14,6 +14,7 @@ import brother.heyflight.checktel.plan.PlanVO;
 @MapperScan
 public interface BlogMapper {
 	/*public void insertUser(UserVO vo);*/
+	//프로필 개인정보 변경
 	public void userProfileUpdate(Member vo);
 	public void deleteBlog(BlogVO vo);
 	public BlogVO getBlog(BlogVO vo);
@@ -23,5 +24,6 @@ public interface BlogMapper {
 	int getmyBlogListCnt(PlanVO vo);
 	//서브 프로필 사진추가
 	public void profileUpdate(Member vo);
+	/*public void citySelect(PlanVO vo);*/
 
 }

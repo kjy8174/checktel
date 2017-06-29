@@ -24,4 +24,6 @@ public interface BlogService {
 	int getmyBlogListCnt(PlanVO vo);
 	//서브 프로필 사진 추가 
 	public void profileUpdate(Member vo);
+	//도시 셀렉트
+	/*public void citySelect(PlanVO vo);*/
 }
