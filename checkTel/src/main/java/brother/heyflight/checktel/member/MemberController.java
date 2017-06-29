@@ -1,10 +1,12 @@
 package brother.heyflight.checktel.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -266,5 +268,21 @@ public class MemberController {
 		session.invalidate();
 		return new ModelAndView("redirect:/main/main.do");
 	}
-
+	
+	@RequestMapping(value="checkNick.do", method=RequestMethod.POST)
+	public void checkNick(String memberNick, HttpServletRequest request,Model model, HttpServletResponse response,HttpSession session){
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if(memberService.getMemberByMemberNick(memberNick) == null) {
+				out.println("true");
+			} else {
+				out.println("false");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

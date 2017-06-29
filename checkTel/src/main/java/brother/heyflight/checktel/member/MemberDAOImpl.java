@@ -48,5 +48,15 @@ public class MemberDAOImpl implements MemberDAO{
 		return null;
 	}
 
-	
+	@Override
+	public Member getMemberByMemberNick(String memberNick) {
+		// TODO Auto-generated method stub
+		return (Member)baseDAO.selectOne("MemberDAO.getMemberByMemberNick", memberNick);
+	}
+
+	@Override
+	public Member getMemberByMemberEmail(String memberEmail) {
+		// TODO Auto-generated method stub
+		return (Member)baseDAO.selectOne("MemberDAO.getMemberByMemberEmail", memberEmail);
+	}	
 }

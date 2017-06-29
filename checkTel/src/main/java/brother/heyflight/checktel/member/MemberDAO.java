@@ -9,6 +9,7 @@ public interface MemberDAO {
 	Member insertMember(Member member);
 	public SnsMember insertMember(NaverUser naverUser, String memberName);
 	public Member profileUpdate(Member vo);
-	
+	public Member getMemberByMemberNick(String memberNick);
+	public Member getMemberByMemberEmail(String memberEmail);	
 
 }

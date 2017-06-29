@@ -141,4 +141,16 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return memberName;
 	}
+
+	@Override
+	public Member getMemberByMemberNick(String memberNick) {
+		// TODO Auto-generated method stub
+		return memberDAO.getMemberByMemberNick(memberNick);
+	}
+
+	@Override
+	public Member getmemberByMemberEmail(String memberEmail) {
+		// TODO Auto-generated method stub
+		return memberDAO.getMemberByMemberEmail(memberEmail);
+	}
 }

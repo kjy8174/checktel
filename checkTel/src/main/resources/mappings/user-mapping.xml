@@ -15,7 +15,21 @@
 		<result property="memberCategory" column="MEMBER_CATEGORY" />
 		<result property="memberImg" column="MEMBER_IMG" />
 	</resultMap>
+	<select id="getMemberByMemberNick" resultMap="userResult">
+		<![CDATA[
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_NICK = #{memberNick}
+		]]>
+	</select>
 
+	<select id="getMemberByMemberEmail" resultMap="userResult">
+		<![CDATA[
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		]]>
+	</select>
 	<select id="getMemberById" resultMap="userResult">
 		<![CDATA[
 		SELECT *

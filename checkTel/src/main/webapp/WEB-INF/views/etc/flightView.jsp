@@ -5,7 +5,7 @@
 <script src="https://widgets.skyscanner.net/widget-server/js/loader.js"
 	async></script>
 
-<div data-skyscanner-widget="SearchWidget" data-origin-geo-lookup="true"
+<div style="width:60%; margin:auto;" data-skyscanner-widget="SearchWidget" data-origin-geo-lookup="true"
 	data-locale="ko-kr"></div>
 <!-- WRAPPER -->
 <div class="wrapper">

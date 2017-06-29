@@ -115,6 +115,21 @@ label {
 	max-width: 250px;
 	max-height: 250px;
 }
+.validation-error {
+float: none; 
+margin:1px;
+color: #C14D4B;
+padding-left: 5px; 
+vertical-align: bottom;
+font-size: 8px;
+}
+.validation-valid {
+margin:1px;
+color: #439343;
+padding-left: 5px; 
+vertical-align: bottom;
+font-size: 8px;
+}
 </style>
 
 <script>
@@ -711,6 +726,30 @@ label {
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " w3-red";
 		}
+		$(function(){
+			$("#updFrofile").validate({
+				ignore:"",
+				rules:{
+					memberNick: {
+						required:true,
+						remote:{
+							type:"post",
+							url: "${pageContext.request.contextPath}/checkNick.do"
+						}
+					}
+				},
+				messages: {
+					memberNick: {
+						required: "변경할 닉네임을 적어주세요!",
+						remote: "중복되는 닉네임이 존재합니다!!"	
+					}
+				},
+				onsubmit: false,
+				errorClass :"validation-error",
+				validClass : "validation-valid"
+			});
+			
+		});
 	</script>
 	<!-- 모달 end -->
 	<!-- GO TOP BUTTON -->
