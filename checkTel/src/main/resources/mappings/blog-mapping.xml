@@ -11,7 +11,7 @@
         ]]>
 	</insert> -->
 
-	<update id="updateBlog">
+	<update id="userProfileUpdate">
         <![CDATA[
         UPDATE member SET
             member_nick = #{memberNick}, 

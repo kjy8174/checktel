@@ -24,6 +24,7 @@ import brother.heyflight.checktel.member.Member;
 import brother.heyflight.checktel.member.MemberService;
 import brother.heyflight.checktel.plan.PlanService;
 import brother.heyflight.checktel.plan.PlanVO;
+import brother.heyflight.checktel.utils.SecureUtils;
 
 @Controller
 public class BlogController {
@@ -121,35 +122,33 @@ public class BlogController {
 	 */
 
 	// 수정폼
-	@RequestMapping(value = "/blogUpdate.do")
+	@RequestMapping(value = "/userProfileUpdate.do")
 	@ResponseBody
-	public Member updateBlog(Member vo, SessionStatus status, HttpSession session) { // command 객체
+	public Map updateBlog(Member vo, SessionStatus status, HttpSession session) { // command 객체
 
 		//유저정보 받아오기
 		Member user = (Member) session.getAttribute("user");
+		vo.setMemberName(user.getMemberName());
 		vo.setMemberNo(user.getMemberNo());
-		
-		//password 암호화
-		Member member = new Member(vo.getMemberName(),
-									vo.getOldmemberPw(),
-									vo.getMemberEmail(), 
-									vo.getMemberNick(),
-									vo.getMemberBirth(),
-									vo.getMemberSex() 
-									);
+		Member member = memberService.getMemberByMemberName(vo.getMemberName());
+				
 		//password 비교
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (member != null && member.isValidPassword(vo.getOldmemberPw())) {
+			System.out.println("1번"+vo);
+			vo.setMemberPw( SecureUtils.getPasswordHash(vo.getMemberPw(), vo.getMemberName()));
+			blogService.userProfileUpdate(vo);
 			session.setAttribute("user", member);
-			
-			blogService.updateBlog(vo);
-			
+			paramMap.put("result", "success");
+		
 		} else {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+			 System.out.println("2번"+vo);
+			paramMap.put("result", "fail");
+			paramMap.put("errorMessage", "기존 비밀번호가 올바르지 않습니다.");
 		}
 		
 		status.setComplete(); // 세션에 저장된 VO를 삭제
-		return vo;
+		return paramMap;
 		/*return "redirect:/myBlogList.do";*/
 	}
 

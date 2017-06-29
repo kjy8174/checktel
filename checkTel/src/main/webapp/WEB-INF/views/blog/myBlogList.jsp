@@ -331,9 +331,9 @@ label {
 	function userUpd() {
 
 		var f1 = document.forms["updFrofile"];
-		var nick = f1.member_nick.value;
-		var pw1 = f1.pwd.value;
-		var pw2 = f1.pwd_check.value;
+		var nick = f1.memberNick.value;
+		var pw1 = f1.oldmemberPw.value;
+		var pw2 = f1.memberPw.value;
 		var pw3 = f1.pwd_confirm.value;
 		
 		
@@ -366,13 +366,19 @@ label {
 		var jsonData = $("#updFrofile").serialize();//JSON.stringify();
 		//console.log(jsonData)
 		$.ajax({
-			url : 'blogUpdate.do',
+			url : '../userProfileUpdate.do',
 			method : "post",
 			dataType : "json",
 			data : jsonData,
-			success : function() {
+			success : function(data) {
+				if(data.result=="success"){
+					
+					alert("저장 되었습니다");
+				}else{
+					alert(data.errorMessage);
+				}
 				console.log("ajax전송");
-				alert("저장 되었습니다");
+				
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
@@ -601,7 +607,8 @@ label {
 		<div id="Pari" class="w3-container w3-border city"
 			style="display: none">
 			<form name="updFrofile" id="updFrofile">
-				<br>
+			
+ 				<br>
 				<table style="border-collapse: separate;">
 					<tbody>
 						<tr height="50">
@@ -611,7 +618,7 @@ label {
 						<tr height="50">
 							<td width="110">닉네임</td>
 							<td>
-								<input type="text" name="member_nick" value="${user.memberNick}" />
+								<input type="text" name="memberNick" value="${user.memberNick}" />
 							</td>
 						</tr>
 						<tr>
@@ -622,12 +629,12 @@ label {
 						</tr>
 						<tr height="50">
 							<td width="110">기존비밀번호</td>
-							<td><input type="password" name="pwd"
+							<td><input type="password" name="oldmemberPw"
 								placeholder="Before Password" /></td>
 						</tr>
 						<tr height="50">
 							<td width="110">새비밀번호</td>
-							<td><input type="password" name="pwd_check"
+							<td><input type="password" name="memberPw"
 								placeholder="After Password" /></td>
 
 						</tr>

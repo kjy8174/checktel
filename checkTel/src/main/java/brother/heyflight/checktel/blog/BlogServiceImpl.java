@@ -71,17 +71,17 @@ public class BlogServiceImpl implements BlogService {
 		// TODO Auto-generated method stub
 		return blogDAO.getmyBlogListCnt(vo);
 	}
-	
-	@Override
-	public void updateBlog(Member vo) {
-		// TODO Auto-generated method stub
-		blogDAO.updateBlog(vo);
 		
-	}
 	@Override
 	public void profileUpdate(Member vo) {
 		// TODO Auto-generated method stub
 		blogDAO.profileUpdate(vo);    
+		
+	}
+	@Override
+	public void userProfileUpdate(Member vo) {
+		// TODO Auto-generated method stub
+		blogDAO.userProfileUpdate(vo);
 		
 	}
 
