@@ -61,11 +61,11 @@
 				</nav>
 				<!-- login button -->
 				<c:if test="${empty user}">
-					<a href='<c:url value="/login" />' class="right btn btn-default" title="로그인" id="login" style="margin: -61px 60px 0px 0px;" alt="로그인"><i class="fa fa-user"></i></a>
+					<a href='<c:url value="/login" />' class="right btn btn-default" title="로그인" id="login" style="margin: -61px -20px 0px 0px;" alt="로그인"><i class="fa fa-user"></i></a>
 				</c:if>
 				<c:if test="${!empty user}">
-					<a href='<c:url value="/logout" />' class="right btn btn-default" title="로그아웃" id="logout" style="margin: -61px 60px 0px 0px;" alt="로그아웃"><i class="fa fa-user-times"></i> ${user.memberNick}님 </a>
-					<a class="right" style="margin: -61px 170px 0px 0px;" href='<c:url value="/blog/myBlogList.do" />'>
+					<a href='<c:url value="/logout" />' class="right btn btn-default" title="로그아웃" id="logout" style="margin: -61px -20px 0px 0px;" alt="로그아웃"><i class="fa fa-user-times"></i> ${user.memberNick}님 </a>
+					<a class="right" style="margin: -61px 100px 0px 0px;" href='<c:url value="/blog/myBlogList.do" />'>
 						<img id="profile" src="${pageContext.request.contextPath}/profile_img/${user.memberImg}" style="border:1px solid grey; border-radius:50%; width:47px;height:47px;" title="내 프로필로 이동" alt="">
 					</a>
 				</c:if>
