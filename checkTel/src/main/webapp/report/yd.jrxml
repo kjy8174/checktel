@@ -105,7 +105,7 @@
 			</textField>
 			<image>
 				<reportElement x="2" y="2" width="159" height="55" uuid="b99d99e3-5a0d-414a-bdea-208321b4d8d2"/>
-				<imageExpression><![CDATA["C:\\Users\\emc81\\Downloads\\매\\첵텔로고 (2).jpg"]]></imageExpression>
+				<imageExpression><![CDATA["pdfLogo.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement mode="Transparent" x="463" y="103" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8692bab2-1292-478f-813e-40c9a9d56a72"/>

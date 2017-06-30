@@ -909,14 +909,14 @@ $(function(){
 
 			<!-- Comments-->
 			<div class="comments" style="clear: both; ">
-				<div class="heading" id="commentsTop">
+				<div class="heading">
 					<h4 class="comments-title">댓글<small class="number"></small></h4>
 				</div>
 			</div>			
 			
 			<div class="comments" id="comments">   <!-- 댓글들이 들어가는 부분 -->   </div>
 			
-			<div class="comment-form">
+			<div class="comment-form" id="commentsTop">
 				<div class="heading">
 					<h4>댓글 쓰기</h4>
 				</div>
