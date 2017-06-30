@@ -10,9 +10,18 @@ public class BlogVO extends DefaultVO {
 	private int blogHit;
 	private int memberNo;
 	private String memberNick;
+	private String cityName;
 	private MultipartFile uploadFile;
 	
 	
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
@@ -66,7 +75,7 @@ public class BlogVO extends DefaultVO {
 		return "BlogVO [planNo=" + planNo + ", blogTitle=" + blogTitle
 				+ ", blogContent=" + blogContent + ", blogHit=" + blogHit
 				+ ", memberNo=" + memberNo + ", memberNick=" + memberNick
-				+ ", uploadFile=" + uploadFile + "]";
+				+ ", cityName=" + cityName + ", uploadFile=" + uploadFile + "]";
 	}
 	
 }

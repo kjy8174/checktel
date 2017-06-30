@@ -145,14 +145,14 @@ label {
 						<div class="post-item">
 							<div class="post-image">
 								<a href="../blog/myBlogShow.do?planNo=${plan.planNo}"> 
-								<img alt="" src="${plan.spotFurl}" style="max-width:267px; max-height:150px;" >
+								<img alt="" src="${plan.spotFurl}" style="width:267px; height:150px;" >
 								</a>
 							</div>
 							<div class="post-content-details">
 								<div class="post-title" style="font-size:20px; font-weight:bold;">
 									
-										<a href="#">${plan.blogTitle}</a>
-									<br><br>
+										<p style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${plan.blogTitle}</p>
+									
 								</div>
 								
 								<div class="post-info">

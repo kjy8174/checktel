@@ -48,10 +48,9 @@
 		<result property="blogHit" column="blog_hit"/>
 		<result property="memberNo" column="member_no"/>
 		<result property="memberNick" column="member_nick"/>
-	 
-		 
-		
+		<result property="cityName" column="city_name"/> 
 	</resultMap>
+	
 	<select id="getBlogListVO" resultMap="blogMap">
 		SELECT plan_no, blog_title,blog_content, blog_hit, member_no, member_nick
 		FROM plan
@@ -60,8 +59,12 @@
 	
 	 <select id="getBlogListCnt" resultType="int" >
 		SELECT COUNT(*)
-		FROM PLAN
-		WHERE MEMBER_NO = #{memberNo}
+		FROM PLAN P, DETAIL D
+		WHERE D.PLAN_NO= P.PLAN_NO 
+		 AND MEMBER_NO = #{memberNo}
+		<if test="cityName != null and cityName !=''">
+			AND D.CITY_NAME LIKE '%' || #{cityName} || '%'
+		</if>
 	
 	</select> 
 	
@@ -69,6 +72,7 @@
 		SELECT COUNT(*)
 		FROM PLAN
 		WHERE MEMBER_NO = #{memberNo}
+		
 		
 	
 	</select>

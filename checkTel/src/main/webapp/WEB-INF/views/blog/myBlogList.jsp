@@ -493,7 +493,7 @@ font-size: 8px;
 							<div class="post-content-details">
 								<div class="post-title"
 									style="font-size: 20px; font-weight: bold;">
-									<a href="#">${plan.blogTitle}</a> <br> <br>
+									<p style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${plan.blogTitle}</p>
 								</div>
 								<div class="post-info">
 									<span class="post-autor" style="font-size: 20px;">여행 도시:

@@ -27,13 +27,13 @@
 
 		<!--TOP SEARCH -->
 		<div id="top-search">
-			<a id="top-search-trigger"> <i class="fa fa-search"></i><i
+<!-- 			<a id="top-search-trigger"> <i class="fa fa-search"></i><i
 				class="fa fa-close"></i></a>
 			<form action="search-results-page.html" method="get"
 				data-toggle="validator">
 				<input type="text" name="q" id="q" class="form-control" value=""
 					placeholder="도시 이름을 검색해 주세요! &quot;Enter&quot;" required>
-			</form>
+			</form> -->
 		</div>
 		<!-- END:TOP SEARCH -->
 
