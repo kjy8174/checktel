@@ -518,8 +518,8 @@ $(function() {
 					<div class="col-md-6">
 						<div class="heading heading text-left">
 							<h2>STEP2<br>여행일정</h2>
-							<span class="lead">여행일정이 정해지셨다면?<br>2박3일, 3박4일?! 여행일정이 정해지셨다면 출발날짜와 여행일정을 선택하시면, 일정에
-		맞는 일정을 만들어 드립니다.</span>
+							<span class="lead">여행일정이 정해지셨다면?<br>2박3일, 3박4일?! 여행일정이 정해지셨다면 머무실 기간을 <br>선택하시면, 기간에
+		맞는 일정을 추천해드립니다.</span>
 						</div>
 					</div><br><br><br><br>
 					<div class="col-md-5">
@@ -528,7 +528,7 @@ $(function() {
 						<div id="slider" style="width: 400px; height: 30px; margin-left:35px; background: pink;">
 						  <div id="custom-handle" class="ui-slider-handle" style="background: white;"></div>
 						</div>	
-						<span>머무실 일정을 선택해 주세요.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(최대 7일 일정 선택이 가능합니다.)</span>
+						<span>머무실 기간을 선택해 주세요.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(최대 7일 기간 선택이 가능합니다.)</span>
 					</div>
 				</div>
 			</div>
@@ -542,7 +542,7 @@ $(function() {
 			<div class="container">
 				<div class="heading text-left">
 					<h2>STEP3<br>개인 여행 성향</h2>
-					<span class="lead">여행성향에 꼭 맞는 여행일정만들기를 위한 필수단계!!<br>나의 여행성향과 비교하며 추천받을 여행의 성향을 조정 할
+					<span class="lead">여행성향에 꼭 맞는 여행일정만들기를 위한 필수단계!!<br>추천받을 여행의 성향을 조정 할
 			수 있어요~!!</span>
 				</div>
 
@@ -608,7 +608,7 @@ $(function() {
 		<form action="../plan/planResult.do" method="post">
 		선택 도시 <input type="text" id="selCity" name="selCity" readonly="readonly" size="11" style="text-align: center;" required>
 		<br>
-		여행 기간  <input type="text" id="selDay" name="selDay" readonly="readonly" size="1"style="text-align: center;" required>
+		선택 기간  <input type="text" id="selDay" name="selDay" readonly="readonly" size="1"style="text-align: center;" required>
 		<!-- 서울 2 / 1 2 0 1 2 0 0  -->
 		<input type="hidden" id="selCategory1" name="selCategory1" value="0" >
 		<input type="hidden" id="selCategory2" name="selCategory2" value="0" >
