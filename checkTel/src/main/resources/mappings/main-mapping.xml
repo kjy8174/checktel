@@ -25,6 +25,11 @@
 		
 		
 	</resultMap>
+	
+	<!-- <resultMap id="titleResult" type="main"> type에는 클래스 명 
+		<id property="planNo" column="PLAN_NO" />
+		<result property="blogTitle" column="blog_title" />
+	</resultMap> -->
    
    <insert id="insertMain" parameterType="main">
       <selectKey keyProperty="no" resultType="int" order="BEFORE">
@@ -63,6 +68,12 @@
 	PLAN_PERIOD = (SELECT MAX(DAY_NO) FROM DETAIL WHERE PLAN_NO = #{plan_no})
 	WHERE PLAN_NO = #{plan_no}
    </update>
+   
+   <update id="updTitle" parameterType="main">
+    	UPDATE PLAN SET
+ 	BLOG_TITLE = #{blogTitle}
+ 	WHERE PLAN_NO = #{planNo}
+    </update>
    
    	<select id="getPlanList" resultMap="mainResult">
 	SELECT   P.PLAN_NO
