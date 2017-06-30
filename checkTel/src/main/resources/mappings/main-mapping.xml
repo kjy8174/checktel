@@ -161,18 +161,34 @@ MERGE INTO detail
 		SELECT P.PLAN_NO
 		, P.BLOG_TITLE
 		, p.MEMBER_NICK
-		, D.SPOT_FURL
-		, D.CITY_NAME
+		, C.SPOT_FURL
+		, C.CITY_NAME
 		, PLAN_START
 		, TO_CHAR(PLAN_START,'YYYY"년"MM"월"DD"일"') AS PLAN_STARTS
-		, (SELECT COUNT(HIT_NO) FROM HIT WHERE PLAN_NO = D.PLAN_NO) AS HITCOUNT
-		FROM PLAN P, MEMBER M, DETAIL D
+		, (SELECT COUNT(HIT_NO) FROM HIT WHERE PLAN_NO = C.PLAN_NO) AS HITCOUNT
+		FROM PLAN P, MEMBER M, (                
+                                      SELECT  P.PLAN_NO, D.CITY_NAME,
+                                              D.SPOT_FURL
+                                      FROM (	
+                                      		  SELECT PLAN_NO, CITY_NAME,
+                                                     SPOT_FURL,
+                                                     DAY_VISIT
+                                              FROM DETAIL V
+                                              WHERE DAY_NO = 1
+                                              AND DAY_VISIT = (
+                                              					SELECT MIN(DAY_VISIT)
+                                                                FROM DETAIL
+                                                                WHERE PLAN_NO = V.PLAN_NO
+                                                                AND DAY_NO= 1
+                                                              )
+                                            ) D, PLAN P
+                                      WHERE D.PLAN_NO = P.PLAN_NO                
+                                  
+                                   ) C
 		WHERE
 		M.MEMBER_NO = P.MEMBER_NO
-		AND D.PLAN_NO= P.PLAN_NO
-		AND D.DAY_NO=1
-		AND D.DAY_VISIT=1
-	
+		AND C.PLAN_NO= P.PLAN_NO
+  	
 		<if test="cityName != null and cityName !=''">
 			AND CITY_NAME LIKE '%' || #{cityName} || '%'
 		</if>

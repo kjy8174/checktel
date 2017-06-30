@@ -97,7 +97,7 @@ label {
 		<form action="../blog/getBlogList.do">
 			<fieldset>
 				 <select name="cityName" id="number">
-					<option selected="selected" value="">전체</option>
+					<option value="">전체</option>
 					<option value="서울">서울</option>
 					<option value="제주">제주</option>
 					<option value="도쿄">도쿄</option>
@@ -116,10 +116,11 @@ label {
 					<option value="뉴욕">뉴욕</option>
 					<option value="베이징">베이징</option>
 					<option value="푸켓">푸켓</option>
-					<option value="라스베이거스">라스베이거스</option>
+					<option value="라스 베이거스">라스베이거스</option>
 					<option value="세부">세부</option>
 					<option value="교토">교토</option>
 					<option value="마카오">마카오</option>
+					<option value="마닐라">마닐라</option>
 					<option value="타이베이">타이베이</option>
 					<option value="시드니">시드니</option>
 					<option value="쿠알라룸푸르">쿠알라 룸푸르</option>

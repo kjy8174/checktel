@@ -64,7 +64,7 @@ public class BlogController {
 		planVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		planVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
-		int totCnt = blogService.getBlogListCnt(planVO);
+		int totCnt = blogService.getmyBlogListCnt(planVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 		System.out
