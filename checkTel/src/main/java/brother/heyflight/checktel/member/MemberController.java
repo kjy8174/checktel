@@ -141,7 +141,7 @@ public class MemberController {
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		String nickName = request.getParameter("nickname");
+		String nickName = request.getParameter("memberNick");
 		String birth = request.getParameter("birth");
 		String sex = request.getParameter("sex");
 
@@ -206,7 +206,7 @@ public class MemberController {
 			Member newMember = memberService.createNewMemberByMember(member);
 			memberService.initSession(session);
 			memberService.setMemberSession(session, newMember);
-			return new ModelAndView("redirect:/main/main.do");
+			return new ModelAndView("redirect:/login");
 
 		} else {
 			captchaKey = captchaService.getCaptchaKey();
@@ -270,12 +270,44 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="checkNick.do", method=RequestMethod.POST)
-	public void checkNick(String memberNick, HttpServletRequest request,Model model, HttpServletResponse response,HttpSession session){
-		
+	public void checkNick(HttpServletRequest request,Model model, HttpServletResponse response,HttpSession session){
+		String memberNick = request.getParameter("memberNick");
 		PrintWriter out;
 		try {
 			out = response.getWriter();
 			if(memberService.getMemberByMemberNick(memberNick) == null) {
+				out.println("true");
+			} else {
+				out.println("false");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="checkId.do", method=RequestMethod.POST)
+	public void checkId(HttpServletRequest request,Model model, HttpServletResponse response,HttpSession session){
+		String userName = request.getParameter("username");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if(memberService.getMemberByMemberName(userName) == null) {
+				out.println("true");
+			} else {
+				out.println("false");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="checkEmail.do", method=RequestMethod.POST)
+	public void checkEmail(HttpServletRequest request,Model model, HttpServletResponse response,HttpSession session){
+		String email = request.getParameter("email");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if(memberService.getMemberByMemberEmail(email) == null) {
 				out.println("true");
 			} else {
 				out.println("false");

@@ -79,7 +79,7 @@
             <exclude-mapping path="/main/mainUpd.do"/>     
             <exclude-mapping path="/review/review.do"/>  
             <exclude-mapping path="/join.do"/>
-            <exclude-mapping path="/join.done.do"/>  
+            <exclude-mapping path="/join/done.do"/>  
             <exclude-mapping path="/join/confirm"/>                       
 		    <beans:bean class="brother.heyflight.checktel.utils.AuthenticInterceptor" />
         </interceptor>

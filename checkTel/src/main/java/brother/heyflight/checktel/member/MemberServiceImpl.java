@@ -149,7 +149,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member getmemberByMemberEmail(String memberEmail) {
+	public Member getMemberByMemberEmail(String memberEmail) {
 		// TODO Auto-generated method stub
 		return memberDAO.getMemberByMemberEmail(memberEmail);
 	}

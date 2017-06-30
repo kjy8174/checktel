@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>NaverLoginTest</title>
+<title>Check_Tel Register!</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/login.css">
 
@@ -64,7 +64,7 @@
 
 
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="Nickname">자동가입방지문자</label>
+							<label class="col-md-3 control-label" for="Nickname">자동가입방지</label>
 							<div class="col-md-9">
 								<input type="text" placeholder="이미지에 보이는 글자를 입력하세요." name="captchaInput" class="form-control">
 							</div>
@@ -79,7 +79,7 @@
 						
 						<div style="border-top: 1px solid #999; padding-top: 20px"
 							class="form-group">
-							<label class="col-md-3 control-label" for="Username">Username</label>
+							<label class="col-md-3 control-label" for="Username">ID</label>
 							<div class="col-md-9" style="padding-top:7px;">
 							<p>${user.memberName}</p>
 							</div>
@@ -112,8 +112,6 @@
 
 						</div>
 						<div class="form-group">
-							-----${user.memberSex}----${user.memberSex == 2 }----
-							----${user.memberSex == '2' }----
 							<label class="col-md-3 control-label" for="Gender">Gender</label>
 							<div class="col-md-9" style="padding-top:7px;">
 								<c:if test="${user.memberSex == 1 }">

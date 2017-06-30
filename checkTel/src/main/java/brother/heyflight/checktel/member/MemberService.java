@@ -36,5 +36,5 @@ public interface MemberService {
 	
 	public Member getMemberByMemberNick(String memberNick);
 	
-	public Member getmemberByMemberEmail(String memberEmail);	
+	public Member getMemberByMemberEmail(String memberEmail);	
 }

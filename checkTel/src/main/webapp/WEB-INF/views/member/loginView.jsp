@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>NaverLoginTest</title>
+<title>Check_Tel Login!</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/login.css">
 
@@ -34,7 +34,7 @@
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
 								type="text" class="form-control" name="username" value=""
-								placeholder="username or email">
+								placeholder="ID">
 						</div>
 
 						<div style="margin-bottom: 25px" class="input-group">

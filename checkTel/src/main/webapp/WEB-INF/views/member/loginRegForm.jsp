@@ -7,10 +7,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>NaverLoginTest</title>
+<title>Check_Tel Register!</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/login.css">
-
+<script src="vendor/jquery/jquery-1.11.2.min.js"></script>
+<script src="vendor/plugins-compressed.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.validation-error {
+float: none; 
+margin:1px;
+color: #C14D4B;
+padding-left: 5px; 
+vertical-align: bottom;
+font-size: 8px;
+}
+.validation-valid {
+margin:1px;
+color: #439343;
+padding-left: 5px; 
+vertical-align: bottom;
+font-size: 8px;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -67,7 +86,7 @@
 								<h4 class="h_sub">제 2 조 용어의 정의</h4>
 								<h5 class="h_subsub">2.1. 이 약관에서 사용하는 용어의 정의는 다음과 같습니다.</h5>
 								<ul class="list_type5 gap">
-									<li><em>2.1.1.</em> <span>"이용자" 라 함은 네이버 "회원"으로서 본
+									<li><em>2.1.1.</em> <span>"이용자" 라 함은 Check_Tel "회원"으로서 본
 											약관에 따라 "회사"와 이용계약을 체결하고 "회사"가 제공하는 "서비스"를 이용하는 자를 말합니다.</span></li>
 									<li><em>2.1.2.</em> <span>"웹페이지" 라 함은 "회사"가 "서비스"를
 											제공하고 있는 웹페이지를 말합니다.</span></li>
@@ -80,7 +99,7 @@
 								<h3 class="panel-title">개인정보 수집 및 이용에 대한 안내</h3>
 							</div>
 							<div class="panel-body">
-								<p class="p_desc">정보통신망법 규정에 따라 네이버에 회원가입 신청하시는 분께 수집하는
+								<p class="p_desc">정보통신망법 규정에 따라 Check_Tel에 회원가입 신청하시는 분께 수집하는
 									개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간을 안내 드리오니 자세히 읽은 후
 									동의하여 주시기 바랍니다.</p>
 								<h4 class="h_sub">수집하는 개인정보</h4>
@@ -126,10 +145,10 @@
 
 
 						<div class="form-group">
-							<label for="username" class="col-md-3 control-label">Username</label>
+							<label for="username" class="col-md-3 control-label">ID</label>
 							<div class="col-md-9">
 								<input type="text" class="form-control" name="username"
-									placeholder="User Name">
+									placeholder="ID">
 							</div>
 						</div>
 
@@ -150,15 +169,15 @@
 						<div class="form-group">
 							<label for="nickname" class="col-md-3 control-label">Nickname</label>
 							<div class="col-md-9">
-								<input type="text" class="form-control" name="nickname"
+								<input type="text" class="form-control" name="memberNick"
 									placeholder="Nickname">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="birth" class="col-md-3 control-label">Birth</label>
 							<div class="col-md-9">
-								<input type="text" class="form-control" name="birth"
-									placeholder="YYYY/MM/DD 형태로 입력해주세요!">
+								<input id="birth" type="text" class="form-control" name="birth"
+									placeholder="YYYY/MM/DD형태로 생일을 입력하세요!">
 							</div>
 						</div>
 						<div class="form-group">
@@ -203,8 +222,69 @@
 		</div>
 	</div>
 
-	<script src="${pageContext.request.contextPath }/vendor/jquery/jquery-1.11.2.min.js"/></script>
-	<script src="${pageContext.request.contextPath }/vendor/bootstrap/js/bootstrap.min.js"/></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/login.js" /></script>
+	<script>
+	$(function(){
+		$("#joinForm").validate({
+			ignore:"",
+			rules:{
+				username:{
+					required:true,
+					remote:{
+						type:"post",
+						url: "${pageContext.request.contextPath}/checkId.do"
+					}
+				},
+				nickname: {
+					required:true,
+					remote:{
+						type:"post",
+						url: "${pageContext.request.contextPath}/checkNick.do"
+					}
+				},
+				email: {
+					required:true,
+					email: true,
+					remote: {
+						type: "post",
+						url: "${pageContext.request.contextPath}/checkEmail.do"
+					}
+				},
+				password:{
+					required: true,
+					minlength: 6
+				},
+				birth:{
+					required:true
+				}
+			},
+			messages: {
+				username: {
+					required: "ID 빼먹었다!",
+					remote: "중복되는 ID가 존재합니다!!"	
+				},
+				nickname: {
+					required: "닉네임 빼먹었다!",
+					remote: "중복되는 닉네임이 존재합니다!!"	
+				},
+				email: {
+					required: "Email 빼먹었다!",
+					email: "이메일 형식에 맞춰서 입력해주세요",
+					remote: "중복되는 Email 입니다."
+				},
+				password: {
+					required: "비밀번호 빼먹었다!",
+					minlength: "비밀번호는 6자 이상 입력해주세요!"
+				},
+				birth:{
+					required: "생일 빼먹었다!"
+				}
+			},
+			onsubmit: false,
+			errorClass :"validation-error",
+			validClass : "validation-valid"
+		});
+	});
+	</script>
 </body>
 </html>
