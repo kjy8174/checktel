@@ -94,10 +94,10 @@ label {
 	<!--트래블로그:end HEADER -->
 	<!-- CONTENT -->
 	<div class="demo">
-		<form action="#">
+		<form action="../blog/getBlogList.do">
 			<fieldset>
-				<label for="number">도시별 검색</label> <select name="number" id="number">
-					<option selected="selected" value="전체">전체</option>
+				 <select name="cityName" id="number">
+					<option selected="selected" value="">전체</option>
 					<option value="서울">서울</option>
 					<option value="제주">제주</option>
 					<option value="도쿄">도쿄</option>
@@ -124,6 +124,7 @@ label {
 					<option value="시드니">시드니</option>
 					<option value="쿠알라룸푸르">쿠알라 룸푸르</option>
 				</select>
+				<input type="submit" value="검색">
 			</fieldset>
 		</form>
 	</div>

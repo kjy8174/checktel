@@ -89,7 +89,7 @@ public class BlogController {
 
 	// 목록조회
 	@RequestMapping("/blog/getBlogList.do")
-	public String getBlogList(PlanVO planVO, Model model) {
+	public String getBlogList(PlanVO planVO, Model model,  HttpSession session) {
 
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -108,7 +108,11 @@ public class BlogController {
 				.println(planVO.getFirstIndex() + ":" + planVO.getLastIndex());
 
 		model.addAttribute("planList", mainService.getBlogL(planVO));
-
+		
+/*		//CITY셀렉트 가져오기
+		PlanVO plan = (PlanVO)session.getAttribute("plan");
+		planVO.setCityName(plan.getCityName());
+*/
 		return "blog/BlogList";
 	}
 

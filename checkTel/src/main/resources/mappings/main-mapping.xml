@@ -64,13 +64,6 @@
 	WHERE PLAN_NO = #{plan_no}
    </update>
    
-   <update id="updTitle" parameterType="main">
-   	UPDATE PLAN SET
-	BLOG_TITLE = #{blogTitle}
-	WHERE PLAN_NO = #{planNo}
-   </update>
-   
-   
    	<select id="getPlanList" resultMap="mainResult">
 	SELECT   P.PLAN_NO
            , SPOT_NO
@@ -165,10 +158,14 @@ MERGE INTO detail
 		FROM PLAN P, MEMBER M, DETAIL D
 		WHERE
 		M.MEMBER_NO = P.MEMBER_NO
-		AND D.PLAN_NO
-		= P.PLAN_NO
+		AND D.PLAN_NO= P.PLAN_NO
 		AND D.DAY_NO=1
 		AND D.DAY_VISIT=1
+	
+		<if test="cityName != null and cityName !=''">
+			AND CITY_NAME LIKE '%' || #{cityName} || '%'
+		</if>
+		
 		ORDER BY PLAN_NO DESC 
 		
 		<![CDATA[					
